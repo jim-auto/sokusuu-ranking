@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/ryohe/workspace/influencer_tweet_collector/**)",
+      "Bash(git push:*)",
+      "Bash(python:*)",
+      "Bash(grep:*)",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\ryohe\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-ryohe-workspace-jim-auto-ws-sokusuu-ranking\\\\53c6e9a9-a30c-4b52-8d6b-a848ca8b894a\\\\tasks\\\\b7y94c4pt.output' -Tail 20 -Encoding UTF8 2>$null\")",
+      "Bash(tasklist:*)",
+      "Bash(gh api:*)",
+      "Bash(taskkill:*)",
+      "Bash(ls:*)",
+      "Bash(git checkout:*)",
+      "Bash(PYTHONUNBUFFERED=1 python -X utf8 -c \":*)",
+      "Bash(python -X utf8 -c \":*)"
+    ]
+  }
+}
