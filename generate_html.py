@@ -184,6 +184,49 @@ def generate_html(records: list[dict]) -> str:
     </div>
 """
 
+    # 月間ランキング
+    monthly_file = "data/monthly_ranking.json"
+    if os.path.exists(monthly_file):
+        with open(monthly_file, "r", encoding="utf-8") as f:
+            monthly_data = json.load(f)
+        monthly_rows = ""
+        for i, r in enumerate(monthly_data, 1):
+            medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            avatar_url = r.get("profile_image_url", "")
+            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            monthly_rows += f"""
+            <tr>
+                <td class="rank">{medal}{i}</td>
+                <td class="user-cell">
+                    {av_html}
+                    <div class="user-info">
+                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
+                    </div>
+                </td>
+                <td class="display-name">{r.get('display_name', '')}</td>
+                <td class="sokusuu">{r['monthly_best']:,}</td>
+                <td style="color:#888">{r.get('sokusuu', 0):,}</td>
+            </tr>"""
+
+        tab_buttons += f'        <div class="tab" onclick="switchTab(\'monthly\')">月間記録 ({len(monthly_data)})</div>\n'
+        tab_contents += f"""
+    <div id="tab-monthly" class="tab-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>アカウント</th>
+                    <th>表示名</th>
+                    <th>月間最多</th>
+                    <th>累計即数</th>
+                </tr>
+            </thead>
+            <tbody>{monthly_rows}
+            </tbody>
+        </table>
+    </div>
+"""
+
     # 年間ランキング
     yearly_file = "data/yearly_ranking.json"
     if os.path.exists(yearly_file):
