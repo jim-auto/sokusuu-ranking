@@ -85,6 +85,8 @@ def extract_sokusuu(text: str) -> Optional[int]:
     # 年号・日付を除去して誤検出を防ぐ
     cleaned = re.sub(r'(20[12]\d)\s*[年./]', 'YEAR_', text)
     cleaned = re.sub(r'20[12]\d/\d{1,2}/\d{1,2}', 'DATE_', cleaned)
+    # 絵文字をスペースに置換（数字の連結を防ぐ）
+    cleaned = re.sub(r'[\U00010000-\U0010ffff]', ' ', cleaned)
     values = []
     for pattern in SOKUSUU_PATTERNS:
         matches = pattern.findall(cleaned)
