@@ -120,9 +120,13 @@ def extract_sokusuu(text: str) -> Optional[int]:
     if not text:
         return None
 
+    # 年号・日付を除去して誤検出を防ぐ
+    cleaned = re.sub(r'(20[12]\d)\s*[年./]', 'YEAR_', text)
+    cleaned = re.sub(r'20[12]\d/\d{1,2}/\d{1,2}', 'DATE_', cleaned)
+
     values = []
     for pattern in SOKUSUU_PATTERNS:
-        matches = pattern.findall(text)
+        matches = pattern.findall(cleaned)
         values.extend(int(m) for m in matches)
 
     if not values:
@@ -625,7 +629,7 @@ chrome.webRequest.onAuthRequired.addListener(
                 self.driver.execute_script("window.stop();")
             except Exception:
                 pass
-        random_sleep(4, 6)
+        random_sleep(1, 2)
 
         # ページが読み込まれるまで待機
         try:
@@ -670,9 +674,9 @@ chrome.webRequest.onAuthRequired.addListener(
                 stall_count = 0
             last_count = len(collected)
 
-            # スクロール（大きめに + 待機長め）
+            # スクロール
             self.driver.execute_script("window.scrollBy(0, 1200);")
-            random_sleep(2.0, 4.0)
+            random_sleep(1.0, 2.0)
 
         print(f"  [INFO] @{username}/{page_type}: {len(collected)} アカウント発見")
         return list(collected)
@@ -863,13 +867,13 @@ def discover_accounts(browser: TwitterBrowser, seed_accounts: list[str], depth: 
             following = browser.get_following_list(username)
             new_following = set(following) - discovered
             discovered.update(following)
-            random_sleep(2, 4)
+            random_sleep(1, 2)
 
             # フォロワー一覧
             followers = browser.get_followers_list(username)
             new_followers = set(followers) - discovered
             discovered.update(followers)
-            random_sleep(2, 4)
+            random_sleep(1, 2)
 
             # 新規発見のうちナンパ系っぽいアカウントを次ホップの対象にする
             for uname in new_following | new_followers:
