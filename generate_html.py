@@ -184,6 +184,52 @@ def generate_html(records: list[dict]) -> str:
     </div>
 """
 
+    # 年間ランキング
+    yearly_file = "data/yearly_ranking.json"
+    if os.path.exists(yearly_file):
+        with open(yearly_file, "r", encoding="utf-8") as f:
+            yearly = json.load(f)
+        yearly_rows = ""
+        for i, r in enumerate(yearly, 1):
+            medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            avatar_url = r.get("profile_image_url", "")
+            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            monthly = f'<span style="color:#888;font-size:0.85em">（月{r["monthly_best"]}即）</span>' if r.get("monthly_best") else ""
+            yearly_rows += f"""
+            <tr>
+                <td class="rank">{medal}{i}</td>
+                <td class="user-cell">
+                    {av_html}
+                    <div class="user-info">
+                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
+                    </div>
+                </td>
+                <td class="display-name">{r.get('display_name', '')}</td>
+                <td class="sokusuu">{r['yearly_best']:,}</td>
+                <td>{monthly}</td>
+                <td style="color:#888">{r.get('sokusuu', 0):,}</td>
+            </tr>"""
+
+        tab_buttons += f'        <div class="tab" onclick="switchTab(\'yearly\')">年間記録 ({len(yearly)})</div>\n'
+        tab_contents += f"""
+    <div id="tab-yearly" class="tab-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>アカウント</th>
+                    <th>表示名</th>
+                    <th>年間最多</th>
+                    <th>月間</th>
+                    <th>累計即数</th>
+                </tr>
+            </thead>
+            <tbody>{yearly_rows}
+            </tbody>
+        </table>
+    </div>
+"""
+
     # 統計
     max_sokusuu = records[0]['sokusuu'] if records else 0
     avg_sokusuu = sum(r['sokusuu'] for r in records) // len(records) if records else 0
