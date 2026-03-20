@@ -446,7 +446,7 @@ def generate_html(records: list[dict]) -> str:
     <div class="stats">
         <div class="stat-card">
             <div class="number">{len(records)}</div>
-            <div class="label">ランクイン数</div>
+            <div class="label">集計数</div>
         </div>
         <div class="stat-card">
             <div class="number">{max_sokusuu:,}</div>
