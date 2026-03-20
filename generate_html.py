@@ -90,7 +90,7 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
                     </div>
                 </td>
                 <td class="display-name">{r['display_name']}</td>
-                <td class="sokusuu">{r['sokusuu']:,}</td>
+                <td class="sokusuu">{r['sokusuu']:,}{"+" if r.get("approximate") else ""}</td>
                 <td>{source_badge}</td>
                 {cat_html}
                 <td class="followers">{followers_str}</td>
