@@ -194,6 +194,8 @@ def generate_html(records: list[dict]) -> str:
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
             avatar_url = r.get("profile_image_url", "")
             av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            achieved_m = r.get("achieved_date")
+            date_str = f'<span style="color:#888">{achieved_m}</span>' if achieved_m else '<span style="color:#444">-</span>'
             monthly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
@@ -205,7 +207,7 @@ def generate_html(records: list[dict]) -> str:
                 </td>
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{r['monthly_best']:,}</td>
-                <td style="color:#888">{r.get('sokusuu', 0):,}</td>
+                <td>{date_str}</td>
             </tr>"""
 
         tab_buttons += f'        <div class="tab" onclick="switchTab(\'monthly\')">月間記録 ({len(monthly_data)})</div>\n'
@@ -218,7 +220,7 @@ def generate_html(records: list[dict]) -> str:
                     <th>アカウント</th>
                     <th>表示名</th>
                     <th>月間最多</th>
-                    <th>累計即数</th>
+                    <th>達成時期</th>
                 </tr>
             </thead>
             <tbody>{monthly_rows}
@@ -237,6 +239,8 @@ def generate_html(records: list[dict]) -> str:
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
             avatar_url = r.get("profile_image_url", "")
             av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            achieved = r.get("achieved_year")
+            year_str = f'<span style="color:#888">{achieved}年</span>' if achieved else '<span style="color:#444">-</span>'
             yearly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
@@ -248,6 +252,7 @@ def generate_html(records: list[dict]) -> str:
                 </td>
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{r['yearly_best']:,}</td>
+                <td>{year_str}</td>
             </tr>"""
 
         tab_buttons += f'        <div class="tab" onclick="switchTab(\'yearly\')">年間記録 ({len(yearly)})</div>\n'
@@ -260,6 +265,7 @@ def generate_html(records: list[dict]) -> str:
                     <th>アカウント</th>
                     <th>表示名</th>
                     <th>年間最多</th>
+                    <th>達成年</th>
                 </tr>
             </thead>
             <tbody>{yearly_rows}
