@@ -458,6 +458,11 @@ def generate_html(records: list[dict]) -> str:
         </div>
     </div>
 
+    <div style="text-align:center;margin-bottom:20px">
+        <input type="text" id="searchBox" placeholder="ユーザー名で検索..." oninput="filterRows()"
+            style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em;width:300px;outline:none;">
+    </div>
+
     <div class="tabs">
 {tab_buttons}    </div>
 
@@ -481,6 +486,17 @@ def generate_html(records: list[dict]) -> str:
             document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tab).classList.add('active');
             event.target.classList.add('active');
+            document.getElementById('searchBox').value = '';
+            filterRows();
+        }}
+        function filterRows() {{
+            const q = document.getElementById('searchBox').value.toLowerCase();
+            const active = document.querySelector('.tab-content.active');
+            if (!active) return;
+            active.querySelectorAll('tbody tr').forEach(tr => {{
+                const text = tr.textContent.toLowerCase();
+                tr.style.display = text.includes(q) ? '' : 'none';
+            }});
         }}
     </script>
 </body>
