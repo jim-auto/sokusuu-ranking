@@ -206,7 +206,7 @@ def generate_html(records: list[dict]) -> str:
                     </div>
                 </td>
                 <td class="display-name">{r.get('display_name', '')}</td>
-                <td class="sokusuu">{r['monthly_best']:,}</td>
+                <td class="sokusuu">{r['monthly_best']:,}{"+" if r.get("approximate") else ""}</td>
                 <td>{date_str}</td>
             </tr>"""
 
@@ -477,7 +477,7 @@ def generate_html(records: list[dict]) -> str:
 
     <div class="footer">
         <p>Data collected from X (Twitter) profiles and pinned tweets</p>
-        <p>Built with Python + Selenium</p>
+        <p>Built with Python</p>
     </div>
 
     <script>
