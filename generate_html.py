@@ -312,15 +312,17 @@ def generate_html(records: list[dict]) -> str:
         </div>"""
 
     # カテゴリ別分布
+    cat_colors = {"street": "#60a5fa", "club": "#c084fc", "online": "#2dd4bf"}
     cat_dist = ""
     for cat, cat_label in [("street", "ストリート"), ("club", "クラブ"), ("online", "オンライン")]:
         cat_count = len([r for r in records if cat in (r.get("categories") or "")])
         cat_pct = (cat_count / len(records) * 100) if records else 0
+        color = cat_colors[cat]
         cat_dist += f"""
         <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
             <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">{cat_label}</div>
             <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
-                <div style="width:{cat_pct:.0f}%;background:{{"street":"#60a5fa","club":"#c084fc","online":"#2dd4bf"}}[cat];height:100%;border-radius:4px;min-width:2px"></div>
+                <div style="width:{cat_pct:.0f}%;background:{color};height:100%;border-radius:4px;min-width:2px"></div>
             </div>
             <div style="width:80px;color:#e0e0e0;font-size:0.9em">{cat_count}件 ({cat_pct:.0f}%)</div>
         </div>"""
