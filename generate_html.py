@@ -277,6 +277,9 @@ def generate_html(records: list[dict]) -> str:
     # 統計
     max_sokusuu = records[0]['sokusuu'] if records else 0
     avg_sokusuu = sum(r['sokusuu'] for r in records) // len(records) if records else 0
+    sorted_vals = sorted(r['sokusuu'] for r in records)
+    n = len(sorted_vals)
+    median_sokusuu = (sorted_vals[n//2-1] + sorted_vals[n//2]) // 2 if n % 2 == 0 else sorted_vals[n//2] if n else 0
 
     html = f"""<!DOCTYPE html>
 <html lang="ja">
@@ -455,6 +458,10 @@ def generate_html(records: list[dict]) -> str:
         <div class="stat-card">
             <div class="number">{avg_sokusuu:,}</div>
             <div class="label">平均即数</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{median_sokusuu:,}</div>
+            <div class="label">中央値</div>
         </div>
     </div>
 
