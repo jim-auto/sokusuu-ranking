@@ -161,7 +161,7 @@
 </head>
 <body>
     <h1>即数ランキング</h1>
-    <p class="subtitle">最終更新: 2026-03-21 17:33</p>
+    <p class="subtitle">最終更新: 2026-03-21 17:51</p>
 
     <div class="stats">
         <div class="stat-card">
@@ -195,6 +195,7 @@
         <div class="tab" onclick="switchTab('followers')">フォロワー数</div>
         <div class="tab" onclick="switchTab('monthly')">月間記録 (46)</div>
         <div class="tab" onclick="switchTab('yearly')">年間記録 (22)</div>
+        <div class="tab" onclick="switchTab('dist')">分布</div>
     </div>
 
 
@@ -13405,6 +13406,94 @@
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <div id="tab-dist" class="tab-content">
+        <div style="background:#1a1a1a;border-radius:12px;padding:20px;margin-bottom:20px">
+            <h3 style="color:#fff;margin-bottom:15px">即数分布</h3>
+            
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">1000+</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:26%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">15件</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">500-999</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:90%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">52件</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">300-499</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:88%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">51件</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">200-299</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:72%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">42件</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">100-199</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:100%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">58件</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">50-99</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:64%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">37件</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">10-49</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:84%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">49件</div>
+        </div>
+        </div>
+        <div style="background:#1a1a1a;border-radius:12px;padding:20px">
+            <h3 style="color:#fff;margin-bottom:15px">カテゴリ分布</h3>
+            
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">ストリート</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:45%;background:{"street":"#60a5fa","club":"#c084fc","online":"#2dd4bf"}[cat];height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:80px;color:#e0e0e0;font-size:0.9em">138件 (45%)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">クラブ</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:12%;background:{"street":"#60a5fa","club":"#c084fc","online":"#2dd4bf"}[cat];height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:80px;color:#e0e0e0;font-size:0.9em">38件 (12%)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">オンライン</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:31%;background:{"street":"#60a5fa","club":"#c084fc","online":"#2dd4bf"}[cat];height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:80px;color:#e0e0e0;font-size:0.9em">95件 (31%)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">未分類</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:38%;background:#666;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:80px;color:#e0e0e0;font-size:0.9em">117件 (38%)</div>
+        </div>
+        </div>
     </div>
 
 

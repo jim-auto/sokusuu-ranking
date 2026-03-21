@@ -281,6 +281,75 @@ def generate_html(records: list[dict]) -> str:
     n = len(sorted_vals)
     median_sokusuu = (sorted_vals[n//2-1] + sorted_vals[n//2]) // 2 if n % 2 == 0 else sorted_vals[n//2] if n else 0
 
+    # 分布タブ
+    ranges = [
+        (1000, float('inf'), '1000+'),
+        (500, 999, '500-999'),
+        (300, 499, '300-499'),
+        (200, 299, '200-299'),
+        (100, 199, '100-199'),
+        (50, 99, '50-99'),
+        (10, 49, '10-49'),
+    ]
+    max_count = 0
+    dist_data = []
+    for lo, hi, label in ranges:
+        count = sum(1 for r in records if lo <= r['sokusuu'] <= hi)
+        dist_data.append((label, count))
+        if count > max_count:
+            max_count = count
+
+    dist_bars = ""
+    for label, count in dist_data:
+        pct = (count / max_count * 100) if max_count else 0
+        dist_bars += f"""
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:80px;text-align:right;color:#aaa;font-size:0.9em">{label}</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:{pct:.0f}%;background:#ff6b6b;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:50px;color:#e0e0e0;font-weight:bold;font-size:0.9em">{count}件</div>
+        </div>"""
+
+    # カテゴリ別分布
+    cat_dist = ""
+    for cat, cat_label in [("street", "ストリート"), ("club", "クラブ"), ("online", "オンライン")]:
+        cat_count = len([r for r in records if cat in (r.get("categories") or "")])
+        cat_pct = (cat_count / len(records) * 100) if records else 0
+        cat_dist += f"""
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">{cat_label}</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:{cat_pct:.0f}%;background:{{"street":"#60a5fa","club":"#c084fc","online":"#2dd4bf"}}[cat];height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:80px;color:#e0e0e0;font-size:0.9em">{cat_count}件 ({cat_pct:.0f}%)</div>
+        </div>"""
+    uncategorized = len([r for r in records if not r.get("categories")])
+    if uncategorized:
+        uncat_pct = (uncategorized / len(records) * 100) if records else 0
+        cat_dist += f"""
+        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
+            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">未分類</div>
+            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
+                <div style="width:{uncat_pct:.0f}%;background:#666;height:100%;border-radius:4px;min-width:2px"></div>
+            </div>
+            <div style="width:80px;color:#e0e0e0;font-size:0.9em">{uncategorized}件 ({uncat_pct:.0f}%)</div>
+        </div>"""
+
+    tab_buttons += '        <div class="tab" onclick="switchTab(\'dist\')">分布</div>\n'
+    tab_contents += f"""
+    <div id="tab-dist" class="tab-content">
+        <div style="background:#1a1a1a;border-radius:12px;padding:20px;margin-bottom:20px">
+            <h3 style="color:#fff;margin-bottom:15px">即数分布</h3>
+            {dist_bars}
+        </div>
+        <div style="background:#1a1a1a;border-radius:12px;padding:20px">
+            <h3 style="color:#fff;margin-bottom:15px">カテゴリ分布</h3>
+            {cat_dist}
+        </div>
+    </div>
+"""
+
     html = f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
