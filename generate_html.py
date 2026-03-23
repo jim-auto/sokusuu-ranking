@@ -90,7 +90,7 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
                     </div>
                 </td>
                 <td class="display-name">{r['display_name']}</td>
-                <td class="sokusuu">{r['sokusuu']:,}{"+" if r.get("approximate") else ""}</td>
+                <td class="sokusuu">{r['sokusuu']:,}{"+" if r.get("approximate") else ""}{' <a href="' + r['evidence_url'] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get('evidence_url') else ''}</td>
                 <td>{source_badge}</td>
                 {cat_html}
                 <td class="followers">{followers_str}</td>
@@ -206,7 +206,7 @@ def generate_html(records: list[dict]) -> str:
                     </div>
                 </td>
                 <td class="display-name">{r.get('display_name', '')}</td>
-                <td class="sokusuu">{r['monthly_best']:,}{"+" if r.get("approximate") else ""}</td>
+                <td class="sokusuu">{r['monthly_best']:,}{"+" if r.get("approximate") else ""}{' <a href="' + r['evidence_url'] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get('evidence_url') else ''}</td>
                 <td>{date_str}</td>
             </tr>"""
 
