@@ -274,12 +274,15 @@ def generate_html(records: list[dict]) -> str:
     </div>
 """
 
-    # 月別ランキング（2026年2月等）
+    # 月別ランキング（1つのタブ内でセレクトボックス切り替え）
     import glob
     monthly_files = sorted(glob.glob("data/monthly_20*.json"), reverse=True)
+    monthly_divs = ""
+    monthly_options = ""
+    first_month_id = ""
+
     for mf in monthly_files:
-        # ファイル名からyear, monthを取得
-        basename = os.path.basename(mf)  # monthly_2026_02.json
+        basename = os.path.basename(mf)
         parts = basename.replace("monthly_", "").replace(".json", "").split("_")
         if len(parts) != 2:
             continue
@@ -290,41 +293,41 @@ def generate_html(records: list[dict]) -> str:
         if not m_data:
             continue
 
+        month_id = "m" + str(m_year) + str(m_month).zfill(2)
+        is_first = not first_month_id
+        if is_first:
+            first_month_id = month_id
+
         m_rows = ""
         for i, r in enumerate(m_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
             avatar_url = r.get("profile_image_url", "")
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
-            evidence = f' <a href="{r["tweet_url"]}" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get("tweet_url") else ""
-            m_rows += f"""
-            <tr>
-                <td class="rank">{medal}{i}</td>
-                <td class="user-cell">
-                    {av_html}
-                    <div class="user-info">
-                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
-                    </div>
-                </td>
-                <td class="display-name">{r.get('display_name', '')}</td>
-                <td class="sokusuu">{r['monthly_count']}{evidence}</td>
-            </tr>"""
+            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            evidence = ""
+            if r.get("tweet_url"):
+                evidence = ' <a href="' + r["tweet_url"] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>'
+            m_rows += '<tr>'
+            m_rows += '<td class="rank">' + medal + str(i) + '</td>'
+            m_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
+            m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
+            m_rows += '<td class="sokusuu">' + str(r['monthly_count']) + evidence + '</td>'
+            m_rows += '</tr>'
 
-        tab_id = f"m{m_year}{m_month:02d}"
-        tab_buttons += f'        <div class="tab" onclick="switchTab(\'{tab_id}\')">{m_year}年{m_month}月(集計中) ({len(m_data)})</div>\n'
-        tab_contents += f"""
-    <div id="tab-{tab_id}" class="tab-content">
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>アカウント</th>
-                    <th>表示名</th>
-                    <th>即数</th>
-                </tr>
-            </thead>
-            <tbody>{m_rows}
-            </tbody>
-        </table>
+        display = "block" if is_first else "none"
+        monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
+        selected = " selected" if is_first else ""
+        monthly_options += '<option value="' + month_id + '"' + selected + '>' + str(m_year) + '年' + str(m_month) + '月 (' + str(len(m_data)) + '件・集計中)</option>'
+
+    if monthly_divs:
+        tab_buttons += '        <div class="tab" onclick="switchTab(\'monthlyselect\')">月別</div>\n'
+        tab_contents += """
+    <div id="tab-monthlyselect" class="tab-content">
+        <div style="text-align:center;margin-bottom:15px">
+            <select id="monthlySelect" onchange="switchMonthly()" style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em">
+                """ + monthly_options + """
+            </select>
+        </div>
+        """ + monthly_divs + """
     </div>
 """
 
@@ -620,6 +623,13 @@ def generate_html(records: list[dict]) -> str:
             event.target.classList.add('active');
             document.getElementById('searchBox').value = '';
             filterRows();
+        }}
+        function switchMonthly() {{
+            const sel = document.getElementById('monthlySelect');
+            const val = sel.value;
+            document.querySelectorAll('[id^="monthly-m"]').forEach(el => el.style.display = 'none');
+            const target = document.getElementById('monthly-' + val);
+            if (target) target.style.display = 'block';
         }}
         function filterRows() {{
             const q = document.getElementById('searchBox').value.toLowerCase();
