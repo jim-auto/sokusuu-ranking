@@ -210,7 +210,7 @@ def generate_html(records: list[dict]) -> str:
                 <td>{date_str}</td>
             </tr>"""
 
-        tab_buttons += f'        <div class="tab" onclick="switchTab(\'monthly\')">月間記録(開発中) ({len(monthly_data)})</div>\n'
+        tab_buttons += f'        <div class="tab" onclick="switchTab(\'monthly\')">月間記録 ({len(monthly_data)})</div>\n'
         tab_contents += f"""
     <div id="tab-monthly" class="tab-content">
         <table>
@@ -269,6 +269,60 @@ def generate_html(records: list[dict]) -> str:
                 </tr>
             </thead>
             <tbody>{yearly_rows}
+            </tbody>
+        </table>
+    </div>
+"""
+
+    # 月別ランキング（2026年2月等）
+    import glob
+    monthly_files = sorted(glob.glob("data/monthly_20*.json"), reverse=True)
+    for mf in monthly_files:
+        # ファイル名からyear, monthを取得
+        basename = os.path.basename(mf)  # monthly_2026_02.json
+        parts = basename.replace("monthly_", "").replace(".json", "").split("_")
+        if len(parts) != 2:
+            continue
+        m_year, m_month = int(parts[0]), int(parts[1])
+
+        with open(mf, "r", encoding="utf-8") as f:
+            m_data = json.load(f)
+        if not m_data:
+            continue
+
+        m_rows = ""
+        for i, r in enumerate(m_data, 1):
+            medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            avatar_url = r.get("profile_image_url", "")
+            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            evidence = f' <a href="{r["tweet_url"]}" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get("tweet_url") else ""
+            m_rows += f"""
+            <tr>
+                <td class="rank">{medal}{i}</td>
+                <td class="user-cell">
+                    {av_html}
+                    <div class="user-info">
+                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
+                    </div>
+                </td>
+                <td class="display-name">{r.get('display_name', '')}</td>
+                <td class="sokusuu">{r['monthly_count']}{evidence}</td>
+            </tr>"""
+
+        tab_id = f"m{m_year}{m_month:02d}"
+        tab_buttons += f'        <div class="tab" onclick="switchTab(\'{tab_id}\')">{m_year}年{m_month}月(集計中) ({len(m_data)})</div>\n'
+        tab_contents += f"""
+    <div id="tab-{tab_id}" class="tab-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>アカウント</th>
+                    <th>表示名</th>
+                    <th>即数</th>
+                </tr>
+            </thead>
+            <tbody>{m_rows}
             </tbody>
         </table>
     </div>
