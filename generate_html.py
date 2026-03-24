@@ -210,7 +210,7 @@ def generate_html(records: list[dict]) -> str:
                 <td>{date_str}</td>
             </tr>"""
 
-        tab_buttons += f'        <div class="tab" onclick="switchTab(\'monthly\')">月間記録 ({len(monthly_data)})</div>\n'
+        tab_buttons += f'        <div class="tab" onclick="switchTab(\'monthly\')">月間記録(開発中) ({len(monthly_data)})</div>\n'
         tab_contents += f"""
     <div id="tab-monthly" class="tab-content">
         <table>
