@@ -311,10 +311,19 @@ def generate_html(records: list[dict]) -> str:
             m_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
             m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             m_rows += '<td class="sokusuu">' + str(r['monthly_count']) + evidence + '</td>'
+            cats = r.get('categories', '')
+            cat_badges = ''
+            if cats:
+                for c in cats.split(', '):
+                    label = CATEGORY_LABELS.get(c, c)
+                    cat_badges += '<span class="badge badge-cat-' + c + '">' + label + '</span> '
+            else:
+                cat_badges = '<span class="badge badge-cat-none">未分類</span>'
+            m_rows += '<td>' + cat_badges + '</td>'
             m_rows += '</tr>'
 
         display = "block" if is_first else "none"
-        monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
+        monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
         selected = " selected" if is_first else ""
         monthly_options += '<option value="' + month_id + '"' + selected + '>' + str(m_year) + '年' + str(m_month) + '月 (' + str(len(m_data)) + '件・集計中)</option>'
 
