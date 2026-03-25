@@ -274,8 +274,73 @@ def generate_html(records: list[dict]) -> str:
     </div>
 """
 
-    # 月別ランキング（1つのタブ内でセレクトボックス切り替え）
     import glob
+
+    yearly_files = sorted(glob.glob("data/yearly_20*.json"), reverse=True)
+    yearly_divs = ""
+    yearly_options = ""
+    first_year_id = ""
+
+    for yf in yearly_files:
+        basename = os.path.basename(yf)
+        try:
+            y_year = int(basename.replace("yearly_", "").replace(".json", ""))
+        except ValueError:
+            continue
+
+        with open(yf, "r", encoding="utf-8") as f:
+            y_data = json.load(f)
+        if not y_data:
+            continue
+
+        year_id = "y" + str(y_year)
+        is_first = not first_year_id
+        if is_first:
+            first_year_id = year_id
+
+        y_rows = ""
+        for i, r in enumerate(y_data, 1):
+            medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            avatar_url = r.get("profile_image_url", "")
+            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            evidence = ""
+            if r.get("tweet_url"):
+                evidence = ' <a href="' + r["tweet_url"] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>'
+            y_rows += '<tr>'
+            y_rows += '<td class="rank">' + medal + str(i) + '</td>'
+            y_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
+            y_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
+            y_rows += '<td class="sokusuu">' + str(r['yearly_count']) + evidence + '</td>'
+            cats = r.get('categories', '')
+            cat_badges = ''
+            if cats:
+                for c in cats.split(', '):
+                    label = CATEGORY_LABELS.get(c, c)
+                    cat_badges += '<span class="badge badge-cat-' + c + '">' + label + '</span> '
+            else:
+                cat_badges = '<span class="badge badge-cat-none">未分類</span>'
+            y_rows += '<td>' + cat_badges + '</td>'
+            y_rows += '</tr>'
+
+        display = "block" if is_first else "none"
+        yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
+        selected = " selected" if is_first else ""
+        yearly_options += '<option value="' + year_id + '"' + selected + '>' + str(y_year) + '年 (' + str(len(y_data)) + '件・集計中)</option>'
+
+    if yearly_divs:
+        tab_buttons += '        <div class="tab" onclick="switchTab(\'yearlyselect\')">年別</div>\n'
+        tab_contents += """
+    <div id="tab-yearlyselect" class="tab-content">
+        <div style="text-align:center;margin-bottom:15px">
+            <select id="yearlySelect" onchange="switchYearly()" style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em">
+                """ + yearly_options + """
+            </select>
+        </div>
+        """ + yearly_divs + """
+    </div>
+"""
+
+    # 月別ランキング（1つのタブ内でセレクトボックス切り替え）
     monthly_files = sorted(glob.glob("data/monthly_20*.json"), reverse=True)
     monthly_divs = ""
     monthly_options = ""
@@ -638,6 +703,13 @@ def generate_html(records: list[dict]) -> str:
             const val = sel.value;
             document.querySelectorAll('[id^="monthly-m"]').forEach(el => el.style.display = 'none');
             const target = document.getElementById('monthly-' + val);
+            if (target) target.style.display = 'block';
+        }}
+        function switchYearly() {{
+            const sel = document.getElementById('yearlySelect');
+            const val = sel.value;
+            document.querySelectorAll('[id^="yearly-y"]').forEach(el => el.style.display = 'none');
+            const target = document.getElementById('yearly-' + val);
             if (target) target.style.display = 'block';
         }}
         function filterRows() {{
