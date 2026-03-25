@@ -258,15 +258,36 @@ class TwitterGraphQL:
                                 .get("instructions", []))
                 for inst in instructions:
                     for entry in inst.get("entries", []):
-                        result = (entry.get("content", {})
-                                  .get("itemContent", {})
-                                  .get("tweet_results", {})
-                                  .get("result", {}))
-                        if result:
-                            legacy = result.get("legacy", {})
-                            ft = legacy.get("full_text", "")
-                            if ft:
-                                return ft
+                        stack = [entry.get("content", {})]
+                        while stack:
+                            node = stack.pop()
+                            if not isinstance(node, dict):
+                                continue
+
+                            result = (node.get("itemContent", {})
+                                      .get("tweet_results", {})
+                                      .get("result", {}))
+                            if result.get("__typename") == "TweetWithVisibilityResults":
+                                result = result.get("tweet", {})
+                            inner = result.get("result")
+                            if isinstance(inner, dict):
+                                result = inner
+                                if result.get("__typename") == "TweetWithVisibilityResults":
+                                    result = result.get("tweet", {})
+
+                            if isinstance(result, dict):
+                                legacy = result.get("legacy", {})
+                                current_id = legacy.get("id_str") or result.get("rest_id")
+                                if current_id == tweet_id:
+                                    ft = legacy.get("full_text", "")
+                                    if ft:
+                                        return ft
+
+                            for value in node.values():
+                                if isinstance(value, dict):
+                                    stack.append(value)
+                                elif isinstance(value, list):
+                                    stack.extend(item for item in value if isinstance(item, dict))
                 return None
             except requests.exceptions.RequestException:
                 if attempt < 1:
