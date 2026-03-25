@@ -212,7 +212,12 @@ def extract_screen_name(result):
     inner = user.get("result")
     if isinstance(inner, dict):
         user = inner
-    legacy = user.get("legacy", {}) if isinstance(user, dict) else {}
+    if not isinstance(user, dict):
+        return ""
+    core = user.get("core", {})
+    if isinstance(core, dict) and core.get("screen_name"):
+        return core["screen_name"]
+    legacy = user.get("legacy", {})
     return legacy.get("screen_name", "")
 
 
@@ -318,6 +323,28 @@ def get_user_tweets(sessions, session_idx, user_id, count=40, max_pages=4):
         cursor = next_cursor
 
     return all_tweets
+
+
+def extract_user_tweets_from_body(body):
+    instructions = (
+        body.get("data", {})
+        .get("user", {})
+        .get("result", {})
+        .get("timeline_v2", {})
+        .get("timeline", {})
+        .get("instructions", [])
+    )
+
+    captured = []
+    seen_ids = set()
+    for inst in instructions:
+        tweets, _ = parse_tweet_items(inst.get("entries", []))
+        for tweet in tweets:
+            if tweet["id"] in seen_ids:
+                continue
+            seen_ids.add(tweet["id"])
+            captured.append(tweet)
+    return captured
 
 
 def clean_tweet_text(text):
@@ -464,6 +491,7 @@ def extract_yearly_profile_count(text, year):
         rf"(?:(?:{year}|{short_year})年)\s*(?:→|:|：|は|=)?\s*(\d+)(?:\(\+\d+\))?\s*即",
         rf"(?:(?:{year}|{short_year})年).{{0,10}}?(\d+)(?:\(\+\d+\))?\s*即",
         rf"(?:(?:{year}|{short_year})年)\s*(\d+)(?=[/|,、 ])",
+        rf"(?<!\d)(?:{year}|{short_year})\s*[:：]\s*(\d+)(?:\(\+\d+\))?(?=\s*即|[/|,、 ])",
     ]
     exclude_pattern = re.compile(
         rf"(?:\d{{1,2}}月|\d{{1,2}}日|FY|年度|上半期|下半期|目標|予定|目指す|"
@@ -696,10 +724,124 @@ async def search_query_tweets(context, query, scrolls=3):
     return captured
 
 
+async def browse_user_tweets(context, username, scrolls=4):
+    """Playwright のユーザーページで UserTweets を拾う。"""
+    captured = []
+    seen_ids = set()
+    response_seen = asyncio.Event()
+
+    async def capture(response):
+        if "UserTweets" not in response.url:
+            return
+        try:
+            body = await response.json()
+        except Exception:
+            return
+
+        for tweet in extract_user_tweets_from_body(body):
+            if tweet["id"] in seen_ids:
+                continue
+            seen_ids.add(tweet["id"])
+            captured.append(tweet)
+        response_seen.set()
+
+    async def block_lightweight(route):
+        if route.request.resource_type in {"image", "media", "font"}:
+            await route.abort()
+        else:
+            await route.continue_()
+
+    page = await context.new_page()
+    await page.route("**/*", block_lightweight)
+    page.on("response", capture)
+    try:
+        await page.goto(
+            f"https://x.com/{username}",
+            wait_until="domcontentloaded",
+            timeout=15000,
+        )
+        for _ in range(scrolls):
+            try:
+                await asyncio.wait_for(response_seen.wait(), timeout=4)
+                response_seen.clear()
+            except asyncio.TimeoutError:
+                pass
+            await page.mouse.wheel(0, 2400)
+            await page.wait_for_timeout(900)
+    except Exception:
+        await page.wait_for_timeout(1500)
+    finally:
+        try:
+            await page.close()
+        except Exception:
+            pass
+
+    return captured
+
+
 async def search_user_period(context, username, mode, year, month=None):
     query = build_search_query(username, mode, year, month)
     captured = await search_query_tweets(context, query, scrolls=3)
     return pick_best_hit(captured, username, mode, year, month)
+
+
+async def browse_user_period(context, username, mode, year, month=None):
+    captured = await browse_user_tweets(context, username, scrolls=4)
+    return pick_best_hit(captured, username, mode, year, month, strict=True)
+
+
+def build_batch_search_query(usernames, mode, year, month=None):
+    start_date, end_date = build_reporting_window(mode, year, month)
+    until_date = end_date + timedelta(days=1)
+    from_clause = " OR ".join(f"(from:{username})" for username in usernames)
+    if mode == "yearly":
+        short_year = str(year)[2:]
+        keywords = (
+            f'("{year}年" OR "{short_year}年" OR 今年 OR 本年 OR 年間 '
+            "OR 総括 OR 戦績 OR まとめ OR 振り返り OR 即 OR get)"
+        )
+    else:
+        keywords = (
+            f'("{month}月" OR 月間 OR 今月 OR 総括 OR 戦績 OR まとめ '
+            "OR 振り返り OR 即 OR get)"
+        )
+    return (
+        f"({from_clause}) {keywords} "
+        f"since:{start_date.isoformat()} until:{until_date.isoformat()}"
+    )
+
+
+async def search_user_batch_period(context, usernames, mode, year, month=None, scrolls=5):
+    query = build_batch_search_query(usernames, mode, year, month)
+    captured = await search_query_tweets(context, query, scrolls=scrolls)
+    return pick_best_hits_by_user(captured, usernames, mode, year, month, strict=True)
+
+
+async def search_target_batches(
+    context,
+    usernames,
+    mode,
+    year,
+    month=None,
+    batch_size=15,
+    scrolls=6,
+):
+    best_hits = {}
+    for index in range(0, len(usernames), batch_size):
+        batch = usernames[index : index + batch_size]
+        hits = await search_user_batch_period(
+            context,
+            batch,
+            mode,
+            year,
+            month,
+            scrolls=scrolls,
+        )
+        for username, hit in hits.items():
+            current = best_hits.get(username)
+            if current is None or hit["count"] > current["count"]:
+                best_hits[username] = hit
+    return best_hits
 
 
 async def search_global_period(context, usernames, mode, year, month=None):
@@ -992,6 +1134,17 @@ async def main_async():
                 args.year,
                 args.month,
             )
+            batch_hits = await search_target_batches(
+                context,
+                [account["username"] for account in targets],
+                args.mode,
+                args.year,
+                args.month,
+            )
+            for username, hit in batch_hits.items():
+                current = prefetched_hits.get(username)
+                if current is None or hit["count"] > current["count"]:
+                    prefetched_hits[username] = hit
             value_key = "yearly_count" if args.mode == "yearly" else "monthly_count"
             for username, hit in prefetched_hits.items():
                 base = accounts_map.get(username, {})
@@ -1009,7 +1162,7 @@ async def main_async():
                 }
             results = list(results_map.values())
             if prefetched_hits:
-                print(f"広域Searchヒット: {len(prefetched_hits)}件")
+                print(f"事前Searchヒット: {len(prefetched_hits)}件")
 
         for index, account in enumerate(targets, 1):
             username = account["username"]
@@ -1044,6 +1197,13 @@ async def main_async():
                     )
                     if hit:
                         match_source = "timeline"
+
+            if not hit:
+                hit = await browse_user_period(
+                    context, username, args.mode, args.year, args.month
+                )
+                if hit:
+                    match_source = "timeline_browser"
 
             if not hit and args.search_fallback:
                 hit = await search_user_period(
