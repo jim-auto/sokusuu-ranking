@@ -14,6 +14,7 @@ import json
 import os
 import re
 import time
+import unicodedata
 from datetime import datetime, timedelta
 
 import requests
@@ -510,10 +511,89 @@ def extract_yearly_profile_count(text, year):
     return None
 
 
+def extract_yearly_profile_month_series_count(text, year):
+    """プロフィール内の月別内訳から対象年の年間即数を合算する。"""
+    cleaned = clean_tweet_text(text)
+    if not cleaned:
+        return None
+
+    normalized = unicodedata.normalize("NFKC", cleaned)
+    short_year = str(year)[2:]
+    next_year = year + 1
+    next_short_year = f"{next_year % 100:02d}"
+    start_tokens = [str(year), f"{short_year}年"]
+    end_tokens = [str(next_year), f"{next_short_year}年"]
+    best = None
+
+    def extract_month_pairs(segment):
+        pairs = {}
+        i = 0
+        while i < len(segment) - 1:
+            if not segment[i].isdigit():
+                i += 1
+                continue
+            j = i
+            while j < len(segment) and segment[j].isdigit():
+                j += 1
+            if j >= len(segment) or segment[j] != "月":
+                i = j
+                continue
+
+            k = j + 1
+            while k < len(segment) and segment[k] in " :：/.-~〜":
+                k += 1
+            n = k
+            while n < len(segment) and segment[n].isdigit():
+                n += 1
+            if n == k:
+                i = j
+                continue
+
+            month = int(segment[i:j])
+            value = int(segment[k:n])
+            if 1 <= month <= 12:
+                pairs[month] = value
+            i = j
+        return pairs
+
+    for token in start_tokens:
+        search_from = 0
+        while True:
+            start = normalized.find(token, search_from)
+            if start == -1:
+                break
+            if start > 0 and normalized[start - 1].isdigit():
+                search_from = start + len(token)
+                continue
+
+            end = len(normalized)
+            next_indexes = [
+                normalized.find(next_token, start + len(token))
+                for next_token in end_tokens
+            ]
+            next_indexes = [idx for idx in next_indexes if idx != -1]
+            if next_indexes:
+                end = min(next_indexes)
+
+            segment = normalized[start:end]
+            pairs = extract_month_pairs(segment)
+            if len(pairs) >= 5:
+                total = sum(pairs.values())
+                score = (len(pairs), total)
+                if 0 < total <= 2000 and (best is None or score > best[0]):
+                    best = (score, total)
+
+            search_from = start + len(token)
+
+    return best[1] if best else None
+
+
 def find_yearly_profile_hit(account, year):
     for source in ("bio", "location", "display_name"):
         text = account.get(source, "")
         count = extract_yearly_profile_count(text, year)
+        if not count:
+            count = extract_yearly_profile_month_series_count(text, year)
         if not count:
             continue
         return {
