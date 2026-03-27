@@ -81,6 +81,11 @@ TWEET_FEATURES = json.dumps(
 OUTPUT_JSON = "data/sokusuu_accounts.json"
 MONTHLY_RANKING_JSON = "data/monthly_ranking.json"
 YEARLY_RANKING_JSON = "data/yearly_ranking.json"
+USER_ID_CACHE_JSON = "data/.user_id_cache.json"
+RATE_LIMIT_GRACE_SECONDS = 2
+MAX_API_AUTO_WAIT_SECONDS = 20
+
+_USER_ID_CACHE = None
 
 
 def load_json(path, default):
@@ -93,6 +98,19 @@ def load_json(path, default):
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_user_id_cache():
+    global _USER_ID_CACHE
+    if _USER_ID_CACHE is None:
+        _USER_ID_CACHE = load_json(USER_ID_CACHE_JSON, {})
+    return _USER_ID_CACHE
+
+
+def save_user_id_cache(cache):
+    global _USER_ID_CACHE
+    _USER_ID_CACHE = cache
+    save_json(USER_ID_CACHE_JSON, cache)
 
 
 def create_sessions():
@@ -120,39 +138,89 @@ def create_sessions():
                     "x-twitter-auth-type": "OAuth2Session",
                 }
             )
-            sessions.append(session)
+            sessions.append(
+                {
+                    "name": os.path.basename(cookie_file),
+                    "session": session,
+                    "available_at": 0.0,
+                }
+            )
         except Exception:
             continue
     return sessions
 
 
-def api_get(sessions, session_idx, url, params):
+def api_get(sessions, session_idx, url, params, max_auto_wait_seconds=None):
     """レート制限を回避しながら API を叩く。"""
     if not sessions:
         return None
+    if max_auto_wait_seconds is None:
+        max_auto_wait_seconds = MAX_API_AUTO_WAIT_SECONDS
 
-    for _ in range(max(len(sessions) * 3, 1)):
-        session = sessions[session_idx[0] % len(sessions)]
+    for _ in range(max(len(sessions) * 4, 1)):
+        now = time.time()
+        selected_idx = None
+        earliest_available = None
+
+        for offset in range(len(sessions)):
+            idx = (session_idx[0] + offset) % len(sessions)
+            available_at = sessions[idx].get("available_at", 0.0)
+            if earliest_available is None or available_at < earliest_available:
+                earliest_available = available_at
+            if available_at <= now:
+                selected_idx = idx
+                break
+
+        if selected_idx is None:
+            wait = max(int((earliest_available or now) - now) + 1, 1)
+            if wait <= max_auto_wait_seconds:
+                time.sleep(wait)
+                continue
+            print(
+                f"  [ALL RATE LIMITED] {wait}秒待機想定 -> "
+                "APIを諦めてSearchへフォールバック"
+            )
+            return None
+
+        session_idx[0] = selected_idx
+        session_state = sessions[selected_idx]
+        session = session_state["session"]
         try:
             resp = session.get(url, params=params, timeout=15)
             if resp.status_code == 429:
-                session_idx[0] += 1
-                if session_idx[0] % len(sessions) == 0:
-                    reset = resp.headers.get("x-rate-limit-reset")
-                    wait = max(int(reset) - int(time.time()), 5) if reset else 60
-                    print(
-                        f"  [ALL RATE LIMITED] {wait}秒待機想定 -> "
-                        "APIを諦めてSearchへフォールバック"
-                    )
-                    return None
+                reset = resp.headers.get("x-rate-limit-reset")
+                wait_until = (
+                    int(reset) + RATE_LIMIT_GRACE_SECONDS if reset else now + 60
+                )
+                session_state["available_at"] = max(
+                    session_state.get("available_at", 0.0), wait_until
+                )
+                session_idx[0] = (selected_idx + 1) % len(sessions)
                 continue
+
+            remaining = resp.headers.get("x-rate-limit-remaining")
+            reset = resp.headers.get("x-rate-limit-reset")
+            if remaining is not None and reset is not None and remaining == "0":
+                session_state["available_at"] = max(
+                    session_state.get("available_at", 0.0),
+                    int(reset) + RATE_LIMIT_GRACE_SECONDS,
+                )
+            else:
+                session_state["available_at"] = 0.0
             return resp
         except (requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError):
-            time.sleep(3)
+            session_state["available_at"] = time.time() + 3
+            session_idx[0] = (selected_idx + 1) % len(sessions)
     return None
 
 
 def get_user_id(sessions, session_idx, screen_name):
+    cache = load_user_id_cache()
+    cache_key = screen_name.lower()
+    cached = cache.get(cache_key)
+    if cached:
+        return cached
+
     resp = api_get(
         sessions,
         session_idx,
@@ -167,7 +235,11 @@ def get_user_id(sessions, session_idx, screen_name):
     if not resp or resp.status_code != 200:
         return None
     user = resp.json().get("data", {}).get("user", {}).get("result", {})
-    return user.get("rest_id")
+    rest_id = user.get("rest_id")
+    if rest_id:
+        cache[cache_key] = rest_id
+        save_user_id_cache(cache)
+    return rest_id
 
 
 def unwrap_tweet_result(result):
@@ -444,6 +516,9 @@ def extract_yearly_count(text, year, strict=False):
     short_year = str(year)[2:]
     year_tokens = "|".join(re.escape(token) for token in (f"{year}年", f"{short_year}年"))
     has_explicit_year = bool(re.search(rf"(?:{year_tokens})", cleaned, re.IGNORECASE))
+    has_year_month_phrase = bool(
+        re.search(rf"(?:{year_tokens})\s*(?:1[0-2]|[1-9])月", cleaned, re.IGNORECASE)
+    )
     has_report_keyword = bool(
         re.search(r"(?:年間|年最多|年最高|結果|実績|戦績|総括|振り返り|着地|まとめ)", cleaned)
     )
@@ -457,12 +532,62 @@ def extract_yearly_count(text, year, strict=False):
 
     if re.search(r"累計|通算|total|トータル", cleaned, re.IGNORECASE):
         return None
+    if has_year_month_phrase and not has_strong_report_keyword:
+        return None
     if strict and not has_explicit_year and not has_strong_report_keyword:
         return None
     if strict and not has_explicit_year and has_promo_keyword:
         return None
     if strict and has_goal_keyword:
         return None
+    if strict and re.search(r"(?:予感|見込み|予定|なりそう)", cleaned):
+        return None
+
+    month_count_matches = list(
+        re.finditer(
+            r"(1[0-2]|[1-9])月\s*[=:：]?\s*(\d+)\s*(?:即|get|g\b)",
+            cleaned,
+            re.IGNORECASE,
+        )
+    )
+    if len(month_count_matches) >= 3:
+        month_values = {}
+        for match in month_count_matches:
+            month_values[int(match.group(1))] = int(match.group(2))
+
+        non_month_counts = []
+        for match in re.finditer(
+            r"(?:(?:計|合計|総計|トータル|total)\s*)?(\d+)\s*(?:即|get|g\b)",
+            cleaned,
+            re.IGNORECASE,
+        ):
+            value = int(match.group(1))
+            if not 0 < value <= 2000:
+                continue
+            before = cleaned[max(0, match.start() - 6) : match.start()]
+            if re.search(r"(?:1[0-2]|[1-9])月\s*$", before):
+                continue
+            non_month_counts.append(match)
+
+        last_month_end = month_count_matches[-1].end()
+        first_month_start = month_count_matches[0].start()
+        total_keyword_pattern = re.compile(
+            r"(?:計|合計|総計|トータル|total)", re.IGNORECASE
+        )
+
+        for match in non_month_counts:
+            if match.start() >= last_month_end and total_keyword_pattern.search(match.group(0)):
+                return int(match.group(1))
+        for match in non_month_counts:
+            if match.start() >= last_month_end:
+                return int(match.group(1))
+        for match in non_month_counts:
+            if match.start() < first_month_start and total_keyword_pattern.search(match.group(0)):
+                return int(match.group(1))
+        if len(month_values) >= 10:
+            summed = sum(month_values.values())
+            if 0 < summed <= 2000:
+                return summed
 
     patterns = [
         rf"(?:{year_tokens})\s*(?:の)?\s*(?:結果|実績|戦績|総括|振り返り|着地|まとめ)?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
@@ -471,13 +596,21 @@ def extract_yearly_count(text, year, strict=False):
         r"(?:今年|本年)\s*(?:は|の結果|の実績|の総括|の振り返り|の着地|のまとめ)?\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
     ]
 
+    year_month_pattern = re.compile(
+        rf"(?:{year_tokens})\s*(?:1[0-2]|[1-9])月", re.IGNORECASE
+    )
+    annual_context_pattern = re.compile(
+        r"(?:年間|年最多|年最高|今年|本年|総括|振り返り|着地|まとめ)"
+    )
+
     for pattern in patterns:
-        match = re.search(pattern, cleaned, re.IGNORECASE)
-        if not match:
-            continue
-        value = int(match.group(1))
-        if 0 < value <= 2000:
-            return value
+        for match in re.finditer(pattern, cleaned, re.IGNORECASE):
+            window = cleaned[max(0, match.start() - 16) : min(len(cleaned), match.end() + 16)]
+            if year_month_pattern.search(window) and not annual_context_pattern.search(window):
+                continue
+            value = int(match.group(1))
+            if 0 < value <= 2000:
+                return value
     return None
 
 
@@ -488,10 +621,12 @@ def extract_yearly_profile_count(text, year):
         return None
 
     short_year = str(year)[2:]
+    count_unit = r"(?:即|get|g\b)"
+    count_suffix = rf"(?:\([^)]{{0,30}}\))?\s*{count_unit}"
     patterns = [
-        rf"(?:(?:{year}|{short_year})年)\s*(?:→|:|：|は|=)?\s*(\d+)(?:\(\+\d+\))?\s*即",
-        rf"(?:(?:{year}|{short_year})年).{{0,10}}?(\d+)(?:\(\+\d+\))?\s*即",
-        rf"(?:(?:{year}|{short_year})年)\s*(\d+)(?=[/|,、 ])",
+        rf"(?:(?:{year}|{short_year})年)\s*(?:→|:|：|は|=)?\s*(\d+)(?:\(\+\d+\))?\s*{count_suffix}",
+        rf"(?:(?:{year}|{short_year})年).{{0,14}}?(\d+)(?:\(\+\d+\))?\s*{count_suffix}",
+        rf"(?:(?:{year}|{short_year})年)\s*(\d+)(?=\s*(?:\([^)]{{0,30}}\))?\s*(?:即|get|g\b)|[/|,、 ])",
         rf"(?<!\d)(?:{year}|{short_year})\s*[:：]\s*(\d+)(?:\(\+\d+\))?(?=\s*即|[/|,、 ])",
     ]
     exclude_pattern = re.compile(
@@ -521,8 +656,22 @@ def extract_yearly_profile_month_series_count(text, year):
     short_year = str(year)[2:]
     next_year = year + 1
     next_short_year = f"{next_year % 100:02d}"
-    start_tokens = [str(year), f"{short_year}年"]
-    end_tokens = [str(next_year), f"{next_short_year}年"]
+    start_tokens = [
+        str(year),
+        f"{short_year}年",
+        f"{year}.",
+        f"{year}/",
+        f"{short_year}.",
+        f"{short_year}/",
+    ]
+    end_tokens = [
+        str(next_year),
+        f"{next_short_year}年",
+        f"{next_year}.",
+        f"{next_year}/",
+        f"{next_short_year}.",
+        f"{next_short_year}/",
+    ]
     best = None
 
     def extract_month_pairs(segment):
@@ -554,6 +703,12 @@ def extract_yearly_profile_month_series_count(text, year):
             if 1 <= month <= 12:
                 pairs[month] = value
             i = j
+
+        for match in re.finditer(r"/(1[0-2]|[1-9])\s+(\d{1,3})(?=(?:/(?:1[0-2]|[1-9])\s+\d{1,3})|[^0-9]|$)", segment):
+            month = int(match.group(1))
+            value = int(match.group(2))
+            if 1 <= month <= 12:
+                pairs[month] = value
         return pairs
 
     for token in start_tokens:
@@ -586,6 +741,134 @@ def extract_yearly_profile_month_series_count(text, year):
             search_from = start + len(token)
 
     return best[1] if best else None
+
+
+def extract_monthly_profile_count(text, year, month):
+    """プロフィール内の対象年月の月次内訳から月間即数を抽出する。"""
+    cleaned = clean_tweet_text(text)
+    if not cleaned:
+        return None
+
+    normalized = unicodedata.normalize("NFKC", cleaned)
+    short_year = str(year)[2:]
+    next_year = year + 1
+    next_short_year = f"{next_year % 100:02d}"
+    start_tokens = [
+        str(year),
+        f"{short_year}年",
+        f"{year}.",
+        f"{year}/",
+        f"{short_year}.",
+        f"{short_year}/",
+    ]
+    end_tokens = [
+        str(next_year),
+        f"{next_short_year}年",
+        f"{next_year}.",
+        f"{next_year}/",
+        f"{next_short_year}.",
+        f"{next_short_year}/",
+    ]
+
+    def extract_month_pairs(segment):
+        pairs = {}
+        i = 0
+        while i < len(segment) - 1:
+            if not segment[i].isdigit():
+                i += 1
+                continue
+            j = i
+            while j < len(segment) and segment[j].isdigit():
+                j += 1
+            if j >= len(segment) or segment[j] != "月":
+                i = j
+                continue
+
+            k = j + 1
+            while k < len(segment) and segment[k] in " :：/.-~〜":
+                k += 1
+            n = k
+            while n < len(segment) and segment[n].isdigit():
+                n += 1
+            if n == k:
+                i = j
+                continue
+
+            parsed_month = int(segment[i:j])
+            value = int(segment[k:n])
+            if 1 <= parsed_month <= 12:
+                pairs[parsed_month] = value
+            i = j
+
+        for match in re.finditer(
+            r"/(1[0-2]|[1-9])\s+(\d{1,3})(?=(?:/(?:1[0-2]|[1-9])\s+\d{1,3})|[^0-9]|$)",
+            segment,
+        ):
+            parsed_month = int(match.group(1))
+            value = int(match.group(2))
+            if 1 <= parsed_month <= 12:
+                pairs[parsed_month] = value
+        return pairs
+
+    best = None
+    for token in start_tokens:
+        search_from = 0
+        while True:
+            start = normalized.find(token, search_from)
+            if start == -1:
+                break
+            if start > 0 and normalized[start - 1].isdigit():
+                search_from = start + len(token)
+                continue
+
+            end = len(normalized)
+            next_indexes = [
+                normalized.find(next_token, start + len(token))
+                for next_token in end_tokens
+            ]
+            next_indexes = [idx for idx in next_indexes if idx != -1]
+            if next_indexes:
+                end = min(next_indexes)
+
+            segment = normalized[start:end]
+            pairs = extract_month_pairs(segment)
+            value = pairs.get(month)
+            if value is not None and len(pairs) >= 2 and 0 < value <= 500:
+                score = (len(pairs), value)
+                if best is None or score > best[0]:
+                    best = (score, value)
+
+            search_from = start + len(token)
+
+    if best:
+        return best[1]
+
+    month_pattern = re.compile(
+        rf"(?:(?:{year}|{short_year})年).{{0,24}}?{month}月\s*[:：]?\s*(\d+)\s*(?:即|get|g\b)",
+        re.IGNORECASE,
+    )
+    match = month_pattern.search(normalized)
+    if match:
+        value = int(match.group(1))
+        if 0 < value <= 500:
+            return value
+    return None
+
+
+def find_monthly_profile_hit(account, year, month):
+    for source in ("bio", "location", "display_name"):
+        text = account.get(source, "")
+        count = extract_monthly_profile_count(text, year, month)
+        if not count:
+            continue
+        return {
+            "count": count,
+            "url": f"https://x.com/{account['username']}",
+            "text": clean_tweet_text(text)[:240],
+            "created_at": "",
+            "source_field": source,
+        }
+    return None
 
 
 def find_yearly_profile_hit(account, year):
@@ -1144,6 +1427,11 @@ async def main_async():
         help="広い検索クエリで対象ユーザーの月報/年報を先にまとめて拾う",
     )
     parser.add_argument(
+        "--prefetch-only",
+        action="store_true",
+        help="広域/バッチ検索だけ先に回し、個別タイムライン走査を省略する",
+    )
+    parser.add_argument(
         "--checkpoint-every",
         type=int,
         default=1,
@@ -1193,6 +1481,8 @@ async def main_async():
             f"再開: {len(processed_usernames)}件処理済み / "
             f"{len(results)}件ヒット済み"
         )
+    if args.prefetch_only:
+        print("個別タイムライン走査: スキップ (--prefetch-only)")
     print()
 
     cookies = load_playwright_cookies()
@@ -1258,6 +1548,73 @@ async def main_async():
                         },
                     )
                 continue
+            if args.prefetch_only:
+                if args.mode == "yearly":
+                    hit = find_yearly_profile_hit(account, args.year)
+                    if hit:
+                        result = {
+                            "username": username,
+                            "display_name": account.get("display_name", ""),
+                            "yearly_count": hit["count"],
+                            "tweet_url": hit["url"],
+                            "tweet_text": hit["text"],
+                            "tweet_created_at": hit.get("created_at", ""),
+                            "followers_count": account.get("followers_count", 0),
+                            "categories": account.get("categories", ""),
+                            "profile_image_url": account.get("profile_image_url", ""),
+                            "match_source": f"profile_{hit['source_field']}",
+                        }
+                        existing = results_map.get(username)
+                        if (
+                            not existing
+                            or result["yearly_count"] > existing["yearly_count"]
+                        ):
+                            results_map[username] = result
+                            results = list(results_map.values())
+                        print(
+                            f"  [HIT:profile_{hit['source_field']}] @{username}: "
+                            f"{hit['count']}即 -> {hit['url']}"
+                        )
+                else:
+                    hit = find_monthly_profile_hit(account, args.year, args.month)
+                    if hit:
+                        result = {
+                            "username": username,
+                            "display_name": account.get("display_name", ""),
+                            "monthly_count": hit["count"],
+                            "tweet_url": hit["url"],
+                            "tweet_text": hit["text"],
+                            "tweet_created_at": hit.get("created_at", ""),
+                            "followers_count": account.get("followers_count", 0),
+                            "categories": account.get("categories", ""),
+                            "profile_image_url": account.get("profile_image_url", ""),
+                            "match_source": f"profile_{hit['source_field']}",
+                        }
+                        existing = results_map.get(username)
+                        if (
+                            not existing
+                            or result["monthly_count"] > existing["monthly_count"]
+                        ):
+                            results_map[username] = result
+                            results = list(results_map.values())
+                        print(
+                            f"  [HIT:profile_{hit['source_field']}] @{username}: "
+                            f"{hit['count']}即 -> {hit['url']}"
+                        )
+
+                processed_usernames.add(username)
+                if args.checkpoint_every > 0 and index % args.checkpoint_every == 0:
+                    save_json(
+                        state_file,
+                        {
+                            "processed_usernames": sorted(processed_usernames),
+                            "results": results,
+                        },
+                    )
+
+                if index % 20 == 0:
+                    print(f"  [{index}/{len(targets)}] {len(results)}件ヒット")
+                continue
             hit = None
             match_source = "search"
 
@@ -1294,6 +1651,10 @@ async def main_async():
 
             if not hit and args.mode == "yearly":
                 hit = find_yearly_profile_hit(account, args.year)
+                if hit:
+                    match_source = f"profile_{hit['source_field']}"
+            if not hit and args.mode == "monthly":
+                hit = find_monthly_profile_hit(account, args.year, args.month)
                 if hit:
                     match_source = f"profile_{hit['source_field']}"
 
