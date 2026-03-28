@@ -19,6 +19,7 @@ from datetime import datetime
 INPUT_JSON = "data/sokusuu_accounts.json"
 OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
+SHOW_PERIOD_TABS = False
 
 CATEGORY_LABELS = {
     "all": "総合",
@@ -105,6 +106,13 @@ def generate_html(records: list[dict]) -> str:
     # カテゴリ別テーブルを生成
     tab_buttons = ""
     tab_contents = ""
+    period_notice_html = ""
+    if not SHOW_PERIOD_TABS:
+        period_notice_html = """
+    <div class="period-note">
+        月別・年別ランキングは精査中のため一時退避しています。
+    </div>
+"""
 
     categories = ["all", "street", "club", "online"]
     for idx, cat in enumerate(categories):
@@ -186,7 +194,7 @@ def generate_html(records: list[dict]) -> str:
 
     # 月間ランキング
     monthly_file = "data/monthly_ranking.json"
-    if os.path.exists(monthly_file):
+    if SHOW_PERIOD_TABS and os.path.exists(monthly_file):
         with open(monthly_file, "r", encoding="utf-8") as f:
             monthly_data = json.load(f)
         monthly_rows = ""
@@ -231,7 +239,7 @@ def generate_html(records: list[dict]) -> str:
 
     # 年間ランキング
     yearly_file = "data/yearly_ranking.json"
-    if os.path.exists(yearly_file):
+    if SHOW_PERIOD_TABS and os.path.exists(yearly_file):
         with open(yearly_file, "r", encoding="utf-8") as f:
             yearly = json.load(f)
         yearly_rows = ""
@@ -276,7 +284,11 @@ def generate_html(records: list[dict]) -> str:
 
     import glob
 
-    yearly_files = sorted(glob.glob("data/yearly_20*.json"), reverse=True)
+    yearly_files = (
+        sorted(glob.glob("data/yearly_20*.json"), reverse=True)
+        if SHOW_PERIOD_TABS
+        else []
+    )
     yearly_divs = ""
     yearly_options = ""
     first_year_id = ""
@@ -341,7 +353,11 @@ def generate_html(records: list[dict]) -> str:
 """
 
     # 月別ランキング（1つのタブ内でセレクトボックス切り替え）
-    monthly_files = sorted(glob.glob("data/monthly_20*.json"), reverse=True)
+    monthly_files = (
+        sorted(glob.glob("data/monthly_20*.json"), reverse=True)
+        if SHOW_PERIOD_TABS
+        else []
+    )
     monthly_divs = ""
     monthly_options = ""
     first_month_id = ""
@@ -534,6 +550,17 @@ def generate_html(records: list[dict]) -> str:
             color: #888;
             margin-top: 5px;
         }}
+        .period-note {{
+            max-width: 680px;
+            margin: 0 auto 20px;
+            padding: 12px 16px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            background: #1a1a1a;
+            color: #aaa;
+            text-align: center;
+            font-size: 0.9em;
+        }}
         .tabs {{
             display: flex;
             gap: 8px;
@@ -671,6 +698,8 @@ def generate_html(records: list[dict]) -> str:
         <input type="text" id="searchBox" placeholder="ユーザー名で検索..." oninput="filterRows()"
             style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em;width:300px;outline:none;">
     </div>
+
+{period_notice_html}
 
     <div class="tabs">
 {tab_buttons}    </div>
