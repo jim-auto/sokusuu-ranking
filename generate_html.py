@@ -21,6 +21,15 @@ OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
 SHOW_PERIOD_TABS = False
 
+# Public ranking should not double-count obvious sub/alt accounts that
+# represent the same person and total.
+DUPLICATE_ACCOUNT_CANONICALS = {
+    "emuchi_pua": "puro_nanpa",
+    "sub_chilll": "pua_chilll",
+    "gureran_m3": "gureran_m",
+    "inpsub": "ryepua",
+}
+
 CATEGORY_LABELS = {
     "all": "総合",
     "street": "ストリート",
@@ -36,6 +45,64 @@ def load_data(filepath: str) -> list[dict]:
         return []
     with open(filepath, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def split_csv(value: str) -> list[str]:
+    if not value:
+        return []
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def join_unique_csv(*values: str, exclude: set[str] | None = None) -> str:
+    exclude = exclude or set()
+    merged: list[str] = []
+    for value in values:
+        for item in split_csv(value):
+            if item in exclude or item in merged:
+                continue
+            merged.append(item)
+    return ", ".join(merged)
+
+
+def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
+    merged_records = [dict(r) for r in records]
+    by_username = {r["username"]: r for r in merged_records}
+    hidden_usernames: set[str] = set()
+
+    for duplicate_username, canonical_username in DUPLICATE_ACCOUNT_CANONICALS.items():
+        duplicate = by_username.get(duplicate_username)
+        canonical = by_username.get(canonical_username)
+        if not duplicate or not canonical:
+            continue
+
+        canonical["sokusuu"] = max(canonical.get("sokusuu", 0), duplicate.get("sokusuu", 0))
+        canonical["categories"] = join_unique_csv(
+            canonical.get("categories", ""),
+            duplicate.get("categories", ""),
+        )
+        canonical["alt_accounts"] = join_unique_csv(
+            canonical.get("alt_accounts", ""),
+            duplicate_username,
+            duplicate.get("alt_accounts", ""),
+            exclude={canonical_username},
+        )
+        if not canonical.get("bio"):
+            canonical["bio"] = duplicate.get("bio", "")
+        if not canonical.get("location"):
+            canonical["location"] = duplicate.get("location", "")
+        if not canonical.get("profile_image_url"):
+            canonical["profile_image_url"] = duplicate.get("profile_image_url", "")
+        if not canonical.get("evidence_url"):
+            canonical["evidence_url"] = duplicate.get("evidence_url", "")
+        canonical["approximate"] = canonical.get("approximate") or duplicate.get("approximate")
+        hidden_usernames.add(duplicate_username)
+
+    visible_records = [r for r in merged_records if r["username"] not in hidden_usernames]
+    return sorted(
+        visible_records,
+        key=lambda r: (r.get("sokusuu", 0), r.get("followers_count", 0)),
+        reverse=True,
+    )
 
 
 def filter_by_category(records: list[dict], category: str) -> list[dict]:
@@ -760,6 +827,7 @@ def main():
     records = load_data(INPUT_JSON)
     if not records:
         return
+    records = collapse_duplicate_accounts(records)
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     html = generate_html(records)
