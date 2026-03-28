@@ -173,14 +173,6 @@ def generate_html(records: list[dict]) -> str:
     # カテゴリ別テーブルを生成
     tab_buttons = ""
     tab_contents = ""
-    period_notice_html = ""
-    if not SHOW_PERIOD_TABS:
-        period_notice_html = """
-    <div class="period-note">
-        月別・年別ランキングは精査中のため一時退避しています。
-    </div>
-"""
-
     categories = ["all", "street", "club", "online"]
     for idx, cat in enumerate(categories):
         label = CATEGORY_LABELS[cat]
@@ -617,17 +609,6 @@ def generate_html(records: list[dict]) -> str:
             color: #888;
             margin-top: 5px;
         }}
-        .period-note {{
-            max-width: 680px;
-            margin: 0 auto 20px;
-            padding: 12px 16px;
-            border: 1px solid #333;
-            border-radius: 10px;
-            background: #1a1a1a;
-            color: #aaa;
-            text-align: center;
-            font-size: 0.9em;
-        }}
         .tabs {{
             display: flex;
             gap: 8px;
@@ -765,8 +746,6 @@ def generate_html(records: list[dict]) -> str:
         <input type="text" id="searchBox" placeholder="ユーザー名で検索..." oninput="filterRows()"
             style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em;width:300px;outline:none;">
     </div>
-
-{period_notice_html}
 
     <div class="tabs">
 {tab_buttons}    </div>
