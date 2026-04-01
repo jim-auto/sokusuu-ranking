@@ -244,7 +244,7 @@ chrome.webRequest.onAuthRequired.addListener(
         cookie_path = Path(COOKIE_FILE)
         if not cookie_path.exists():
             # influencer_tweet_collector のCookieをフォールバックとして使う
-            fallback = Path(r"C:\Users\USERNAME\workspace\influencer_tweet_collector\data\.twitter_cookies.json")
+            fallback = Path.home() / "workspace" / "influencer_tweet_collector" / "data" / ".twitter_cookies.json"
             if fallback.exists():
                 cookie_path = fallback
                 print("[INFO] influencer_tweet_collector のCookieを流用します")
@@ -937,14 +937,14 @@ def worker_collect(worker_id: int, credentials: dict, accounts: list[str],
         # 各ワーカーは自分専用のCookieのみ使う（同じCookieの共有はセッション競合を起こす）
         cookie_candidates = [
             Path(worker_cookie),
-            Path(r"C:\Users\USERNAME\workspace\influencer_tweet_collector\data"
-                 f"/.twitter_cookies_worker{worker_id}.json"),
+            Path.home() / "workspace" / "influencer_tweet_collector" / "data"
+                 / f".twitter_cookies_worker{worker_id}.json",
         ]
         # Worker-1だけメインCookieをフォールバック
         if worker_id == 1:
             cookie_candidates.append(Path(COOKIE_FILE))
             cookie_candidates.append(
-                Path(r"C:\Users\USERNAME\workspace\influencer_tweet_collector\data\.twitter_cookies.json")
+                Path.home() / "workspace" / "influencer_tweet_collector" / "data" / ".twitter_cookies.json"
             )
 
         logged_in = False
