@@ -16,10 +16,17 @@ import os
 from datetime import datetime
 
 
+def env_flag(name: str, default: bool = True) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() not in {"0", "false", "no", "off"}
+
+
 INPUT_JSON = "data/sokusuu_accounts.json"
 OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
-SHOW_PERIOD_TABS = False
+SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
