@@ -27,6 +27,7 @@ INPUT_JSON = "data/sokusuu_accounts.json"
 OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
 SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
+SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -352,7 +353,7 @@ def generate_html(records: list[dict]) -> str:
 
     yearly_files = (
         sorted(glob.glob("data/yearly_20*.json"), reverse=True)
-        if SHOW_PERIOD_TABS
+        if SHOW_PERIOD_TABS and SHOW_PERIOD_DETAIL_TABS
         else []
     )
     yearly_divs = ""
@@ -421,7 +422,7 @@ def generate_html(records: list[dict]) -> str:
     # 月別ランキング（1つのタブ内でセレクトボックス切り替え）
     monthly_files = (
         sorted(glob.glob("data/monthly_20*.json"), reverse=True)
-        if SHOW_PERIOD_TABS
+        if SHOW_PERIOD_TABS and SHOW_PERIOD_DETAIL_TABS
         else []
     )
     monthly_divs = ""
