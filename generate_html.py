@@ -28,6 +28,8 @@ OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
 SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
 SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
+DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
+DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -44,6 +46,25 @@ CATEGORY_LABELS = {
     "club": "クラブ",
     "online": "オンライン",
 }
+
+
+def active_class(tab_id: str) -> str:
+    return " active" if tab_id == DEFAULT_TAB else ""
+
+
+def normalize_month_id(value: str) -> str:
+    value = value.strip().lower().replace("-", "_")
+    if not value:
+        return ""
+    if value.startswith("m") and len(value) == 7 and value[1:].isdigit():
+        return value
+    compact = value.replace("_", "")
+    if len(compact) == 6 and compact.isdigit():
+        return "m" + compact
+    parts = value.split("_")
+    if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():
+        return "m" + parts[0] + parts[1].zfill(2)
+    return ""
 
 
 def load_data(filepath: str) -> list[dict]:
@@ -70,6 +91,55 @@ def join_unique_csv(*values: str, exclude: set[str] | None = None) -> str:
                 continue
             merged.append(item)
     return ", ".join(merged)
+
+
+def get_period_evidence_url(record: dict) -> str:
+    for field in ("evidence_url", "tweet_url"):
+        url = record.get(field, "")
+        if url and "/status/" in url:
+            return url
+    return ""
+
+
+def is_profile_derived_record(record: dict) -> bool:
+    if record.get("source_type") == "profile_derived":
+        return True
+    match_source = record.get("match_source", "")
+    if isinstance(match_source, str) and match_source.startswith("profile_"):
+        return True
+    return bool(record.get("needs_review"))
+
+
+def get_profile_source_label(record: dict) -> str:
+    source_field = record.get("profile_source_field", "")
+    return {
+        "bio": "bio",
+        "location": "location",
+        "display_name": "display_name",
+    }.get(source_field, "profile")
+
+
+def build_period_value_html(record: dict, count_key: str) -> str:
+    evidence_html = ""
+    evidence_url = get_period_evidence_url(record)
+    if evidence_url:
+        evidence_html = (
+            ' <a href="'
+            + evidence_url
+            + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>'
+        )
+
+    review_html = ""
+    if is_profile_derived_record(record):
+        source_label = get_profile_source_label(record)
+        review_html = (
+            ' <span class="badge badge-review" title="プロフィール由来の推定値'
+            + f" ({source_label})"
+            + '。公開前に要確認">要確認</span>'
+        )
+
+    approximate_suffix = "+" if record.get("approximate") else ""
+    return f"{record[count_key]:,}{approximate_suffix}{evidence_html}{review_html}"
 
 
 def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
@@ -185,7 +255,7 @@ def generate_html(records: list[dict]) -> str:
     for idx, cat in enumerate(categories):
         label = CATEGORY_LABELS[cat]
         filtered = filter_by_category(records, cat)
-        active = " active" if idx == 0 else ""
+        active = active_class(cat)
         count = len(filtered)
 
         tab_buttons += f'        <div class="tab{active}" onclick="switchTab(\'{cat}\')">{label} ({count})</div>\n'
@@ -240,9 +310,10 @@ def generate_html(records: list[dict]) -> str:
                 <td class="sokusuu">{r['sokusuu']:,}</td>
             </tr>"""
 
-    tab_buttons += '        <div class="tab" onclick="switchTab(\'followers\')">フォロワー数</div>\n'
+    followers_active = active_class("followers")
+    tab_buttons += f'        <div class="tab{followers_active}" onclick="switchTab(\'followers\')">フォロワー数</div>\n'
     tab_contents += f"""
-    <div id="tab-followers" class="tab-content">
+    <div id="tab-followers" class="tab-content{followers_active}">
         <table>
             <thead>
                 <tr>
@@ -281,13 +352,14 @@ def generate_html(records: list[dict]) -> str:
                     </div>
                 </td>
                 <td class="display-name">{r.get('display_name', '')}</td>
-                <td class="sokusuu">{r['monthly_best']:,}{"+" if r.get("approximate") else ""}{' <a href="' + r['evidence_url'] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get('evidence_url') else ''}</td>
+                <td class="sokusuu">{build_period_value_html(r, 'monthly_best')}</td>
                 <td>{date_str}</td>
             </tr>"""
 
-        tab_buttons += f'        <div class="tab" onclick="switchTab(\'monthly\')">月間記録 ({len(monthly_data)})</div>\n'
+        monthly_active = active_class("monthly")
+        tab_buttons += f'        <div class="tab{monthly_active}" onclick="switchTab(\'monthly\')">月間記録 ({len(monthly_data)})</div>\n'
         tab_contents += f"""
-    <div id="tab-monthly" class="tab-content">
+    <div id="tab-monthly" class="tab-content{monthly_active}">
         <table>
             <thead>
                 <tr>
@@ -326,13 +398,14 @@ def generate_html(records: list[dict]) -> str:
                     </div>
                 </td>
                 <td class="display-name">{r.get('display_name', '')}</td>
-                <td class="sokusuu">{r['yearly_best']:,}</td>
+                <td class="sokusuu">{build_period_value_html(r, 'yearly_best')}</td>
                 <td>{year_str}</td>
             </tr>"""
 
-        tab_buttons += f'        <div class="tab" onclick="switchTab(\'yearly\')">年間記録 ({len(yearly)})</div>\n'
+        yearly_active = active_class("yearly")
+        tab_buttons += f'        <div class="tab{yearly_active}" onclick="switchTab(\'yearly\')">年間記録 ({len(yearly)})</div>\n'
         tab_contents += f"""
-    <div id="tab-yearly" class="tab-content">
+    <div id="tab-yearly" class="tab-content{yearly_active}">
         <table>
             <thead>
                 <tr>
@@ -382,14 +455,11 @@ def generate_html(records: list[dict]) -> str:
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
             avatar_url = r.get("profile_image_url", "")
             av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
-            evidence = ""
-            if r.get("tweet_url"):
-                evidence = ' <a href="' + r["tweet_url"] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>'
             y_rows += '<tr>'
             y_rows += '<td class="rank">' + medal + str(i) + '</td>'
             y_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
             y_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
-            y_rows += '<td class="sokusuu">' + str(r['yearly_count']) + evidence + '</td>'
+            y_rows += '<td class="sokusuu">' + build_period_value_html(r, "yearly_count") + '</td>'
             cats = r.get('categories', '')
             cat_badges = ''
             if cats:
@@ -407,9 +477,10 @@ def generate_html(records: list[dict]) -> str:
         yearly_options += '<option value="' + year_id + '"' + selected + '>' + str(y_year) + '年 (' + str(len(y_data)) + '件・集計中)</option>'
 
     if yearly_divs:
-        tab_buttons += '        <div class="tab" onclick="switchTab(\'yearlyselect\')">年別</div>\n'
+        yearlyselect_active = active_class("yearlyselect")
+        tab_buttons += f'        <div class="tab{yearlyselect_active}" onclick="switchTab(\'yearlyselect\')">年別</div>\n'
         tab_contents += """
-    <div id="tab-yearlyselect" class="tab-content">
+    <div id="tab-yearlyselect" class="tab-content""" + yearlyselect_active + """">
         <div style="text-align:center;margin-bottom:15px">
             <select id="yearlySelect" onchange="switchYearly()" style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em">
                 """ + yearly_options + """
@@ -428,6 +499,7 @@ def generate_html(records: list[dict]) -> str:
     monthly_divs = ""
     monthly_options = ""
     first_month_id = ""
+    default_month_id = normalize_month_id(DEFAULT_MONTH)
 
     for mf in monthly_files:
         basename = os.path.basename(mf)
@@ -445,20 +517,18 @@ def generate_html(records: list[dict]) -> str:
         is_first = not first_month_id
         if is_first:
             first_month_id = month_id
+        is_default_month = month_id == default_month_id if default_month_id else is_first
 
         m_rows = ""
         for i, r in enumerate(m_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
             avatar_url = r.get("profile_image_url", "")
             av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
-            evidence = ""
-            if r.get("tweet_url"):
-                evidence = ' <a href="' + r["tweet_url"] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>'
             m_rows += '<tr>'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
             m_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
             m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
-            m_rows += '<td class="sokusuu">' + str(r['monthly_count']) + evidence + '</td>'
+            m_rows += '<td class="sokusuu">' + build_period_value_html(r, "monthly_count") + '</td>'
             cats = r.get('categories', '')
             cat_badges = ''
             if cats:
@@ -470,15 +540,16 @@ def generate_html(records: list[dict]) -> str:
             m_rows += '<td>' + cat_badges + '</td>'
             m_rows += '</tr>'
 
-        display = "block" if is_first else "none"
+        display = "block" if is_default_month else "none"
         monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
-        selected = " selected" if is_first else ""
+        selected = " selected" if is_default_month else ""
         monthly_options += '<option value="' + month_id + '"' + selected + '>' + str(m_year) + '年' + str(m_month) + '月 (' + str(len(m_data)) + '件・集計中)</option>'
 
     if monthly_divs:
-        tab_buttons += '        <div class="tab" onclick="switchTab(\'monthlyselect\')">月別</div>\n'
+        monthlyselect_active = active_class("monthlyselect")
+        tab_buttons += f'        <div class="tab{monthlyselect_active}" onclick="switchTab(\'monthlyselect\')">月別</div>\n'
         tab_contents += """
-    <div id="tab-monthlyselect" class="tab-content">
+    <div id="tab-monthlyselect" class="tab-content""" + monthlyselect_active + """">
         <div style="text-align:center;margin-bottom:15px">
             <select id="monthlySelect" onchange="switchMonthly()" style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em">
                 """ + monthly_options + """
@@ -552,9 +623,10 @@ def generate_html(records: list[dict]) -> str:
             <div style="width:80px;color:#e0e0e0;font-size:0.9em">{uncategorized}件 ({uncat_pct:.0f}%)</div>
         </div>"""
 
-    tab_buttons += '        <div class="tab" onclick="switchTab(\'dist\')">分布</div>\n'
+    dist_active = active_class("dist")
+    tab_buttons += f'        <div class="tab{dist_active}" onclick="switchTab(\'dist\')">分布</div>\n'
     tab_contents += f"""
-    <div id="tab-dist" class="tab-content">
+    <div id="tab-dist" class="tab-content{dist_active}">
         <div style="background:#1a1a1a;border-radius:12px;padding:20px;margin-bottom:20px">
             <h3 style="color:#fff;margin-bottom:15px">即数分布</h3>
             {dist_bars}
@@ -691,6 +763,7 @@ def generate_html(records: list[dict]) -> str:
         }}
         .badge-profile {{ background: #1a3a2a; color: #4ade80; }}
         .badge-pinned {{ background: #3a2a1a; color: #fbbf24; }}
+        .badge-review {{ background: #3a1f1f; color: #fca5a5; }}
         .badge-cat-street {{ background: #1a2a3a; color: #60a5fa; }}
         .badge-cat-club {{ background: #2a1a3a; color: #c084fc; }}
         .badge-cat-online {{ background: #1a3a3a; color: #2dd4bf; }}
@@ -777,7 +850,8 @@ def generate_html(records: list[dict]) -> str:
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tab).classList.add('active');
-            event.target.classList.add('active');
+            const clicked = (typeof event !== 'undefined' && event.target) ? event.target : null;
+            if (clicked) clicked.classList.add('active');
             document.getElementById('searchBox').value = '';
             filterRows();
         }}

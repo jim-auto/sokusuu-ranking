@@ -84,6 +84,26 @@ YEARLY_RANKING_JSON = "data/yearly_ranking.json"
 USER_ID_CACHE_JSON = "data/.user_id_cache.json"
 RATE_LIMIT_GRACE_SECONDS = 2
 MAX_API_AUTO_WAIT_SECONDS = 20
+PLAYWRIGHT_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/131.0.0.0 Safari/537.36"
+)
+PLAYWRIGHT_STEALTH_SCRIPT = """
+(() => {
+  const defineGetter = (target, key, getter) => {
+    try {
+      Object.defineProperty(target, key, { get: getter, configurable: true });
+    } catch (_) {}
+  };
+  defineGetter(Navigator.prototype, "webdriver", () => undefined);
+  defineGetter(Navigator.prototype, "languages", () => ["ja-JP", "ja", "en-US", "en"]);
+  defineGetter(Navigator.prototype, "plugins", () => [1, 2, 3, 4, 5]);
+  defineGetter(Navigator.prototype, "platform", () => "Win32");
+  window.chrome = window.chrome || {};
+  window.chrome.runtime = window.chrome.runtime || {};
+})();
+"""
 
 _USER_ID_CACHE = None
 
@@ -98,6 +118,192 @@ def load_json(path, default):
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_usernames_file(path):
+    usernames = []
+    seen = set()
+    with open(path, "r", encoding="utf-8") as f:
+        for raw_line in f:
+            line = raw_line.split("#", 1)[0].strip()
+            if not line:
+                continue
+            username = line.lstrip("@").strip()
+            if not username:
+                continue
+            key = username.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            usernames.append(username)
+    return usernames
+
+
+def get_evidence_url(row):
+    if not row:
+        return ""
+    for field in ("evidence_url", "tweet_url"):
+        url = row.get(field, "")
+        if url and "/status/" in url:
+            return url
+    return ""
+
+
+def is_profile_match_source(match_source):
+    return bool(match_source) and match_source.startswith("profile_")
+
+
+def infer_profile_source_field(match_source):
+    return match_source[len("profile_") :] if is_profile_match_source(match_source) else ""
+
+
+def classify_period_source(row):
+    if not row:
+        return "tweet_evidence"
+    source_type = row.get("source_type", "")
+    if source_type in {"tweet_evidence", "profile_derived"}:
+        return source_type
+    if is_profile_match_source(row.get("match_source", "")) or row.get("needs_review"):
+        return "profile_derived"
+
+    evidence_url = get_evidence_url(row)
+    username = row.get("username", "")
+    profile_url = f"https://x.com/{username}" if username else ""
+    for field in ("source_url", "tweet_url"):
+        url = row.get(field, "")
+        if url and not evidence_url and profile_url and url == profile_url:
+            return "profile_derived"
+    return "tweet_evidence"
+
+
+def normalize_period_row(row):
+    normalized = dict(row or {})
+    username = normalized.get("username", "")
+    source_type = classify_period_source(normalized)
+    normalized["source_type"] = source_type
+
+    evidence_url = get_evidence_url(normalized)
+    source_url = normalized.get("source_url", "")
+    tweet_url = normalized.get("tweet_url", "")
+
+    if source_type == "profile_derived":
+        normalized["needs_review"] = True
+        if not normalized.get("profile_source_field"):
+            inferred_field = infer_profile_source_field(normalized.get("match_source", ""))
+            if inferred_field:
+                normalized["profile_source_field"] = inferred_field
+        if not source_url:
+            if tweet_url and "/status/" not in tweet_url:
+                normalized["source_url"] = tweet_url
+            elif username:
+                normalized["source_url"] = f"https://x.com/{username}"
+        normalized["tweet_url"] = ""
+        normalized.pop("evidence_url", None)
+    else:
+        normalized["needs_review"] = bool(normalized.get("needs_review", False))
+        if evidence_url:
+            normalized["tweet_url"] = evidence_url
+            normalized["evidence_url"] = evidence_url
+            if not source_url:
+                normalized["source_url"] = evidence_url
+        else:
+            normalized["tweet_url"] = ""
+            normalized.pop("evidence_url", None)
+        if not normalized["needs_review"]:
+            normalized.pop("profile_source_field", None)
+
+    return normalized
+
+
+def get_match_source_priority(match_source):
+    if not match_source:
+        return 2
+    if match_source in {"timeline", "timeline_browser"}:
+        return 3
+    if match_source in {"search", "global_search"}:
+        return 2
+    if match_source.startswith("profile_"):
+        return 0
+    return 1
+
+
+def build_result_score(row, count_key):
+    return (
+        row.get(count_key, 0),
+        1 if get_evidence_url(row) else 0,
+        0
+        if classify_period_source(row) == "profile_derived"
+        else get_match_source_priority(row.get("match_source", "")),
+    )
+
+
+def build_period_result(account, hit, value_key, match_source):
+    source_url = hit.get("url", "")
+    evidence_url = source_url if source_url and "/status/" in source_url else ""
+    is_profile_source = is_profile_match_source(match_source)
+    if is_profile_source:
+        evidence_url = ""
+
+    account_row = dict(account or {})
+    account_row.setdefault("username", hit.get("username", ""))
+
+    return normalize_period_row(
+        {
+        "username": account_row.get("username", ""),
+        "display_name": account_row.get("display_name", ""),
+        value_key: hit["count"],
+        "tweet_url": evidence_url,
+        "source_url": source_url,
+        "evidence_url": evidence_url,
+        "tweet_text": hit.get("text", ""),
+        "tweet_created_at": hit.get("created_at", ""),
+        "followers_count": account_row.get("followers_count", 0),
+        "categories": account_row.get("categories", ""),
+        "profile_image_url": account_row.get("profile_image_url", ""),
+        "match_source": match_source,
+        "profile_source_field": hit.get("source_field", "") if is_profile_source else "",
+        "needs_review": is_profile_source,
+        }
+    )
+
+
+def should_replace_result(existing, candidate, count_key):
+    if not existing:
+        return True
+    return build_result_score(candidate, count_key) > build_result_score(
+        existing, count_key
+    )
+
+
+def restore_prefetched_hits(results, value_key):
+    hits = {}
+    for row in results:
+        if row.get("match_source") != "global_search":
+            continue
+        count = row.get(value_key)
+        username = row.get("username")
+        if not count or not username:
+            continue
+        hits[username] = {
+            "username": username,
+            "count": count,
+            "url": row.get("source_url")
+            or get_evidence_url(row)
+            or f"https://x.com/{username}",
+            "text": row.get("tweet_text", ""),
+            "created_at": row.get("tweet_created_at", ""),
+        }
+    return hits
+
+
+def save_collect_state(path, processed_usernames, results, prefetch_state=None):
+    state = {
+        "processed_usernames": sorted(processed_usernames),
+        "results": results,
+    }
+    if prefetch_state is not None:
+        state["prefetch_state"] = prefetch_state
+    save_json(path, state)
 
 
 def load_user_id_cache():
@@ -294,6 +500,22 @@ def extract_screen_name(result):
     return legacy.get("screen_name", "")
 
 
+def extract_display_name(result):
+    user = result.get("core", {}).get("user_results", {}).get("result", {})
+    if user.get("__typename") == "UserUnavailable":
+        return ""
+    inner = user.get("result")
+    if isinstance(inner, dict):
+        user = inner
+    if not isinstance(user, dict):
+        return ""
+    core = user.get("core", {})
+    if isinstance(core, dict) and core.get("name"):
+        return core["name"]
+    legacy = user.get("legacy", {})
+    return legacy.get("name", "")
+
+
 def parse_tweet_items(entries):
     tweets = []
     bottom_cursor = None
@@ -310,6 +532,7 @@ def parse_tweet_items(entries):
         text = extract_full_text(result)
         created_at = legacy.get("created_at", "")
         username = extract_screen_name(result)
+        display_name = extract_display_name(result)
         if text and tweet_id:
             tweets.append(
                 {
@@ -317,6 +540,7 @@ def parse_tweet_items(entries):
                     "text": text,
                     "created_at": created_at,
                     "username": username,
+                    "display_name": display_name,
                 }
             )
 
@@ -450,27 +674,65 @@ def extract_monthly_count(text, year, month, strict=False):
     month_tokens = "|".join(re.escape(name) for name in month_names.get(month, []))
     has_explicit_month = bool(re.search(rf"(?:{month_tokens})", cleaned, re.IGNORECASE))
     has_report_keyword = bool(
-        re.search(r"(?:実績|結果|戦績|総括|振り返り|着地|出撃|報告|まとめ|締め)", cleaned)
+        re.search(
+            r"(?:実績|結果|戦績|総括|統括|振り返り|振返り|着地|出撃|報告|まとめ|締め)",
+            cleaned,
+        )
     )
     has_generic_month = bool(re.search(r"(?:月間|今月)", cleaned))
     has_promo_keyword = bool(
         re.search(r"(?:tips?|TIPS|運用術|攻略|ノウハウ|講習|コンサル|教材|方法)", cleaned)
     )
     has_goal_keyword = bool(
-        re.search(r"(?:目標|あと\d+\s*即|したい|したみい|予定|目指す)", cleaned)
+        re.search(r"(?:目標|あと\d+\s*即|したい|したみい|予定|目指す|いくぞ|死守)", cleaned)
     )
     has_third_person_cue = bool(
-        re.search(r"(?:っぽい|らしい|大先輩|他人|友達|助けていただ|助けてもら)", cleaned)
+        re.search(
+            r"(?:っぽい|らしい|大先輩|他人|友達|助けていただ|助けてもら|"
+            r"成果を出した|生み出した|この方)",
+            cleaned,
+        )
     )
+    has_failed_goal_cue = bool(
+        re.search(r"(?:達成できなかった|達成できず|いけそう|参考記録)", cleaned)
+    )
+    next_month = 1 if month == 12 else month + 1
+    has_cross_month_range = bool(
+        re.search(rf"{month}\s*/\s*\d+\s*[〜~\-ー]\s*{next_month}\s*/\s*\d+", cleaned)
+    )
+    if strict and not has_explicit_month and re.search(rf"{next_month}月", cleaned):
+        return None
 
     if strict and not has_explicit_month and not has_report_keyword:
         return None
     if strict and not has_explicit_month and (has_promo_keyword or has_third_person_cue):
         return None
+    if strict and has_third_person_cue and has_promo_keyword:
+        return None
     if strict and has_goal_keyword and not has_report_keyword:
+        return None
+    if strict and has_failed_goal_cue:
+        return None
+    if strict and has_cross_month_range:
+        return None
+    if strict and re.search(r"(?:ランキング|rank)", cleaned, re.IGNORECASE) and re.search(
+        r"(?:さん|この方|1位|2位|3位)", cleaned
+    ):
         return None
 
     if re.search(r"累計|通算|total|トータル", cleaned, re.IGNORECASE):
+        return None
+    if re.search(r"(?:月間データ|回転数|BIG|REG|HANABI|スロット|パチスロ)", cleaned, re.IGNORECASE):
+        return None
+    if re.search(
+        r"(?:即現金|買取|お支払い|予約後|キャンセル不可|お問い合わせ|DMください)",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    if strict and not has_report_keyword and re.search(
+        r"(?:#PR|来店|調査隊|ちゅんげー|パチンコ|PACHINKO)", cleaned, re.IGNORECASE
+    ):
         return None
 
     if not (has_report_keyword or has_generic_month):
@@ -482,24 +744,145 @@ def extract_monthly_count(text, year, month, strict=False):
         if any(re.search(pattern, cleaned) for pattern in exclude_patterns):
             return None
 
+    count_unit = r"(?:即|get|g\b|そ\b)"
+    has_multi_month_series = len(re.findall(r"\d{1,2}\s*月(?!間)", cleaned)) >= 2
+    component_sum = None
+
+    if strict and has_report_keyword and not has_multi_month_series:
+        component_values = []
+        component_spans = []
+        component_patterns = [
+            r"(?:スト|ネト|アポ|弾丸|準即|準|ブメ|パス|リア|箱|クラブ|wiz|with|m|gt)\s*[/:：]?\s*(\d+)\s*"
+            + count_unit,
+            r"(?:弾丸|準即|準|ブメ|パス)\s*"
+            + count_unit
+            + r"\s*(\d+)",
+            r"(\d+)\s*(?:弾丸|準即|準|ブメ|パス)\s*" + count_unit,
+        ]
+        for pattern in component_patterns:
+            for match in re.finditer(pattern, cleaned, re.IGNORECASE):
+                match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
+                if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+                    continue
+                span = match.span()
+                if any(not (span[1] <= start or span[0] >= end) for start, end in component_spans):
+                    continue
+                context = cleaned[max(0, match.start() - 12) : min(len(cleaned), match.end() + 12)]
+                if re.search(r"(?:目標|残\d+\s*(?:即|そ|get|g\b)|チャレ)", context):
+                    continue
+                value = int(match.group(1))
+                if 0 < value <= 100:
+                    component_values.append(value)
+                    component_spans.append(span)
+        if len(component_values) >= 2:
+            summed = sum(component_values)
+            if 0 < summed <= 100:
+                component_sum = summed
+
+    strong_patterns = []
+    if has_report_keyword:
+        explicit_total_patterns = [
+            r"(?:結果|実績)\s*[】\]）」)]?\s*[=:：／/|・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
+            + count_unit,
+            r"(?:計|合計)\s*(\d+)\s*" + count_unit,
+            r"(?:計|合計)\s*(\d+)\s*(?:弾丸|準|準即|ブメ|パス)\s*" + count_unit,
+        ]
+        for pattern in explicit_total_patterns:
+            match = re.search(pattern, cleaned, re.IGNORECASE)
+            if not match:
+                continue
+            value = int(match.group(1))
+            if 0 < value <= 500:
+                return value
+
+        strong_patterns.extend(
+            [
+                rf"(?:{month_tokens})\s*[)）:：/／・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
+                + count_unit,
+                r"(?:総括|統括|まとめ|振り返り|振返り|報告|締め)\s*[】\]）」)]?\s*[=:：／/|・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
+                + count_unit,
+                rf"(?:{month_tokens}).{{0,40}}?(?:総括|統括|まとめ|振り返り|振返り|報告|締め).{{0,40}}?(\d+)\s*"
+                + count_unit,
+            ]
+        )
+
+    for pattern in strong_patterns:
+        match = re.search(pattern, cleaned, re.IGNORECASE)
+        if not match:
+            continue
+        match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
+        if strict and re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+            continue
+        value = int(match.group(1))
+        if 0 < value <= 500:
+            if component_sum is not None:
+                return max(value, component_sum)
+            return value
+
+    if component_sum is not None:
+        return component_sum
+
+    if strict and has_report_keyword and not has_multi_month_series and component_sum is None:
+        component_values = []
+        component_spans = []
+        component_patterns = [
+            r"(?:スト|ネト|アポ|弾丸|準即|準|ブメ|パス|リア|箱|クラブ|wiz|with|m|gt)\s*[/:：]?\s*(\d+)\s*"
+            + count_unit,
+            r"(?:弾丸|準即|準|ブメ|パス)\s*"
+            + count_unit
+            + r"\s*(\d+)",
+            r"(\d+)\s*(?:弾丸|準即|準|ブメ|パス)\s*" + count_unit,
+        ]
+        for pattern in component_patterns:
+            for match in re.finditer(pattern, cleaned, re.IGNORECASE):
+                match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
+                if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+                    continue
+                span = match.span()
+                if any(not (span[1] <= start or span[0] >= end) for start, end in component_spans):
+                    continue
+                context = cleaned[max(0, match.start() - 12) : min(len(cleaned), match.end() + 12)]
+                if re.search(r"(?:目標|残\d+\s*(?:即|そ|get|g\b)|チャレ)", context):
+                    continue
+                value = int(match.group(1))
+                if 0 < value <= 100:
+                    component_values.append(value)
+                    component_spans.append(span)
+        if len(component_values) >= 2:
+            summed = sum(component_values)
+            if 0 < summed <= 100:
+                return summed
+
     patterns = [
-        rf"(?:{month_tokens})\s*[はの=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b|そ\b)",
-        rf"(?:{month_tokens})\s*(?:結果|実績|戦績|総括|報告|着地|振り返り|まとめ|締め)\s*[】\]）」)]?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b|そ\b)",
-        rf"[【\[]\s*(?:{month_tokens})\s*(?:結果|実績|戦績|総括|報告|着地|振り返り|まとめ|締め)?\s*[】\]]\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b|そ\b)",
-        rf"(?:{month_tokens}).{{0,24}}?(?:計|合計|結果|実績|戦績|総括|報告|着地|振り返り|まとめ|締め)?\s*(\d+)\s*(?:即|get|g\b|そ\b)",
+        rf"(?:{month_tokens})\s*(?:結果|実績|戦績|総括|統括|報告|着地|振り返り|振返り|まとめ|締め)\s*[】\]）」)]?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*{count_unit}",
+        rf"[【\[]\s*(?:{month_tokens})\s*(?:結果|実績|戦績|総括|統括|報告|着地|振り返り|振返り|まとめ|締め)?\s*[】\]]\s*(?:計|合計)?\s*(\d+)\s*{count_unit}",
+        rf"(?:{month_tokens})\s*[はの=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*{count_unit}",
+        rf"(?:{month_tokens}).{{0,24}}?(?:計|合計|結果|実績|戦績|総括|統括|報告|着地|振り返り|振返り|まとめ|締め)?\s*(\d+)\s*{count_unit}",
     ]
 
     if has_report_keyword:
         patterns.append(
-            r"(?:今月|月間)\s*(?:は|の結果|の実績|の総括|の報告|の振り返り|のまとめ|の着地)?\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b|そ\b)"
+            r"(?:今月|月間)\s*(?:は|の結果|の実績|の総括|の統括|の報告|の振り返り|の振返り|のまとめ|の着地)?\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*"
+            + count_unit
         )
     if has_explicit_month or has_report_keyword:
         patterns.append(r"(\d+)\s*即\s*(?:でした|です|達成|着地)")
-        patterns.append(r"(?:計|合計)\s*(\d+)\s*即")
 
     for pattern in patterns:
         match = re.search(pattern, cleaned, re.IGNORECASE)
         if not match:
+            continue
+        match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
+        if strict and re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+            continue
+        context = cleaned[max(0, match.start() - 18) : min(len(cleaned), match.end() + 18)]
+        if strict and re.search(
+            r"(?:目標|予定|目指|したい|いくぞ|までには?|死守|達成できなかった|"
+            r"達成できず|いけそう|参考記録|チャレ|残\d+\s*(?:即|そ|get|g\b))",
+            context,
+        ) and not re.search(r"(?:結果|実績)", context):
+            continue
+        if strict and re.search(r"(?:講習|コンサル|教材|固定ツイート|興味ある方)", context):
             continue
         value = int(match.group(1))
         if 0 < value <= 500:
@@ -940,7 +1323,7 @@ def build_search_query(username, mode, year, month=None):
     )
 
 
-def build_global_search_queries(mode, year, month=None):
+def build_global_search_query_groups(mode, year, month=None):
     start_date, end_date = build_reporting_window(mode, year, month)
     until_date = end_date + timedelta(days=1)
 
@@ -951,8 +1334,16 @@ def build_global_search_queries(mode, year, month=None):
             f'("{year}年" OR "{short_year}年" OR 今年 OR 本年 OR 年間)'
         )
         return [
-            base + " (総括 OR 結果 OR 実績 OR 戦績 OR 振り返り OR 着地 OR まとめ)",
-            base + " (即 OR get)",
+            [
+                base + " (総括 OR 結果 OR 実績 OR 戦績 OR 振り返り OR 着地 OR まとめ)",
+                base + " (総括 OR 結果 OR 実績 OR まとめ)",
+                base + " (結果 OR 実績)",
+            ],
+            [
+                base + " (即 OR get)",
+                f'since:{start_date.isoformat()} until:{until_date.isoformat()} "{year}年" 即',
+                f'since:{start_date.isoformat()} until:{until_date.isoformat()} 今年 即',
+            ],
         ]
 
     base = (
@@ -960,9 +1351,22 @@ def build_global_search_queries(mode, year, month=None):
         f'("{month}月" OR "{month} 月" OR 月間 OR 今月)'
     )
     return [
-        base + " (総括 OR 結果 OR 実績 OR 戦績 OR 振り返り OR 着地 OR 報告 OR まとめ)",
-        base + " (即 OR get OR そ)",
+        [
+            base + " (総括 OR 結果 OR 実績 OR 戦績 OR 振り返り OR 着地 OR 報告 OR まとめ)",
+            base + " (総括 OR 結果 OR 実績 OR 報告)",
+            base + " (結果 OR 実績)",
+        ],
+        [
+            base + " (即 OR get OR そ)",
+            f'since:{start_date.isoformat()} until:{until_date.isoformat()} "{month}月" 即',
+            f'since:{start_date.isoformat()} until:{until_date.isoformat()} 月間 即',
+            f'since:{start_date.isoformat()} until:{until_date.isoformat()} 今月 即',
+        ],
     ]
+
+
+def build_global_search_queries(mode, year, month=None):
+    return [group[0] for group in build_global_search_query_groups(mode, year, month)]
 
 
 def pick_best_hit(tweets, username, mode, year, month=None, strict=False):
@@ -1026,19 +1430,31 @@ def pick_best_hits_by_user(tweets, usernames, mode, year, month=None, strict=Fal
     return best_hits
 
 
-async def search_query_tweets(context, query, scrolls=3):
+def merge_best_hit_maps(best_hits, new_hits):
+    merged = dict(best_hits or {})
+    for username, hit in (new_hits or {}).items():
+        current = merged.get(username)
+        if current is None or hit["count"] > current["count"]:
+            merged[username] = hit
+    return merged
+
+
+async def search_query_tweets(context, query, scrolls=3, return_meta=False):
     """Playwright の検索画面で SearchTimeline を拾う。"""
     captured = []
     seen_ids = set()
     response_seen = asyncio.Event()
+    response_count = 0
 
     async def capture(response):
+        nonlocal response_count
         if "SearchTimeline" not in response.url:
             return
         try:
             body = await response.json()
         except Exception:
             return
+        response_count += 1
 
         instructions = (
             body.get("data", {})
@@ -1084,22 +1500,27 @@ async def search_query_tweets(context, query, scrolls=3):
         except Exception:
             pass
 
+    if return_meta:
+        return captured, {"saw_response": response_count > 0, "response_count": response_count}
     return captured
 
 
-async def browse_user_tweets(context, username, scrolls=4):
+async def browse_user_tweets(context, username, scrolls=4, return_meta=False):
     """Playwright のユーザーページで UserTweets を拾う。"""
     captured = []
     seen_ids = set()
     response_seen = asyncio.Event()
+    response_count = 0
 
     async def capture(response):
+        nonlocal response_count
         if "UserTweets" not in response.url:
             return
         try:
             body = await response.json()
         except Exception:
             return
+        response_count += 1
 
         for tweet in extract_user_tweets_from_body(body):
             if tweet["id"] in seen_ids:
@@ -1139,17 +1560,91 @@ async def browse_user_tweets(context, username, scrolls=4):
         except Exception:
             pass
 
+    if return_meta:
+        return captured, {"saw_response": response_count > 0, "response_count": response_count}
     return captured
 
 
-async def search_user_period(context, username, mode, year, month=None):
+async def search_query_tweets_with_rotation(
+    playwright_contexts, context_idx, query, scrolls=3, return_meta=False
+):
+    last_captured = []
+    last_meta = {"saw_response": False, "response_count": 0, "contexts_tried": []}
+    contexts_tried = []
+    for _ in range(max(len(playwright_contexts), 1)):
+        selected = get_next_playwright_context(playwright_contexts, context_idx)
+        contexts_tried.append(selected["name"])
+        captured, meta = await search_query_tweets(
+            selected["context"],
+            query,
+            scrolls=scrolls,
+            return_meta=True,
+        )
+        last_captured = captured
+        last_meta = {
+            **meta,
+            "context_name": selected["name"],
+            "contexts_tried": list(contexts_tried),
+        }
+        if meta["saw_response"]:
+            if return_meta:
+                return captured, last_meta
+            return captured
+    if return_meta:
+        return last_captured, last_meta
+    return last_captured
+
+
+async def browse_user_tweets_with_rotation(
+    playwright_contexts, context_idx, username, scrolls=4, return_meta=False
+):
+    last_captured = []
+    last_meta = {"saw_response": False, "response_count": 0, "contexts_tried": []}
+    contexts_tried = []
+    for _ in range(max(len(playwright_contexts), 1)):
+        selected = get_next_playwright_context(playwright_contexts, context_idx)
+        contexts_tried.append(selected["name"])
+        captured, meta = await browse_user_tweets(
+            selected["context"],
+            username,
+            scrolls=scrolls,
+            return_meta=True,
+        )
+        last_captured = captured
+        last_meta = {
+            **meta,
+            "context_name": selected["name"],
+            "contexts_tried": list(contexts_tried),
+        }
+        if meta["saw_response"]:
+            if return_meta:
+                return captured, last_meta
+            return captured
+    if return_meta:
+        return last_captured, last_meta
+    return last_captured
+
+
+async def search_user_period(playwright_contexts, context_idx, username, mode, year, month=None):
     query = build_search_query(username, mode, year, month)
-    captured = await search_query_tweets(context, query, scrolls=3)
+    captured = await search_query_tweets_with_rotation(
+        playwright_contexts,
+        context_idx,
+        query,
+        scrolls=3,
+    )
     return pick_best_hit(captured, username, mode, year, month)
 
 
-async def browse_user_period(context, username, mode, year, month=None):
-    captured = await browse_user_tweets(context, username, scrolls=4)
+async def browse_user_period(
+    playwright_contexts, context_idx, username, mode, year, month=None
+):
+    captured = await browse_user_tweets_with_rotation(
+        playwright_contexts,
+        context_idx,
+        username,
+        scrolls=4,
+    )
     return pick_best_hit(captured, username, mode, year, month, strict=True)
 
 
@@ -1174,51 +1669,192 @@ def build_batch_search_query(usernames, mode, year, month=None):
     )
 
 
-async def search_user_batch_period(context, usernames, mode, year, month=None, scrolls=5):
+async def search_user_batch_period(
+    playwright_contexts,
+    context_idx,
+    usernames,
+    mode,
+    year,
+    month=None,
+    scrolls=5,
+    return_meta=False,
+):
     query = build_batch_search_query(usernames, mode, year, month)
-    captured = await search_query_tweets(context, query, scrolls=scrolls)
-    return pick_best_hits_by_user(captured, usernames, mode, year, month, strict=True)
+    captured, meta = await search_query_tweets_with_rotation(
+        playwright_contexts,
+        context_idx,
+        query,
+        scrolls=scrolls,
+        return_meta=True,
+    )
+    hits = pick_best_hits_by_user(captured, usernames, mode, year, month, strict=True)
+    result_meta = {
+        "response_seen": meta["saw_response"],
+        "search_mode": "direct" if meta["saw_response"] else "no_response",
+        "contexts_tried": meta.get("contexts_tried", []),
+        "response_count": meta.get("response_count", 0),
+        "target_count": len(usernames),
+    }
+    if meta["saw_response"] or len(usernames) <= 1:
+        if return_meta:
+            return hits, result_meta
+        return hits
+
+    split_index = len(usernames) // 2
+    left_usernames = usernames[:split_index]
+    right_usernames = usernames[split_index:]
+    split_hits = {}
+    split_response_seen = False
+
+    for subset in (left_usernames, right_usernames):
+        if not subset:
+            continue
+        subset_hits, subset_meta = await search_user_batch_period(
+            playwright_contexts,
+            context_idx,
+            subset,
+            mode,
+            year,
+            month,
+            scrolls=scrolls,
+            return_meta=True,
+        )
+        split_hits = merge_best_hit_maps(split_hits, subset_hits)
+        split_response_seen = split_response_seen or subset_meta.get("response_seen", False)
+
+    result_meta["response_seen"] = split_response_seen
+    result_meta["search_mode"] = f"split:{len(left_usernames)}+{len(right_usernames)}"
+    if return_meta:
+        return split_hits, result_meta
+    return split_hits
+
+
+async def search_global_query_group(
+    playwright_contexts, context_idx, query_group, scrolls=5
+):
+    last_captured = []
+    last_meta = {
+        "response_seen": False,
+        "search_mode": "no_response",
+        "variant_index": len(query_group),
+        "variant_count": len(query_group),
+    }
+    for variant_index, query in enumerate(query_group, start=1):
+        captured, meta = await search_query_tweets_with_rotation(
+            playwright_contexts,
+            context_idx,
+            query,
+            scrolls=scrolls,
+            return_meta=True,
+        )
+        last_captured = captured
+        last_meta = {
+            "response_seen": meta["saw_response"],
+            "search_mode": (
+                "direct"
+                if meta["saw_response"] and variant_index == 1
+                else f"variant:{variant_index}/{len(query_group)}"
+                if meta["saw_response"]
+                else "no_response"
+            ),
+            "variant_index": variant_index,
+            "variant_count": len(query_group),
+            "contexts_tried": meta.get("contexts_tried", []),
+            "response_count": meta.get("response_count", 0),
+        }
+        if meta["saw_response"]:
+            return captured, last_meta
+    return last_captured, last_meta
 
 
 async def search_target_batches(
-    context,
+    playwright_contexts,
+    context_idx,
     usernames,
     mode,
     year,
     month=None,
     batch_size=15,
     scrolls=6,
+    best_hits=None,
+    start_index=0,
+    progress_callback=None,
 ):
-    best_hits = {}
-    for index in range(0, len(usernames), batch_size):
+    best_hits = dict(best_hits or {})
+    total_batches = (len(usernames) + batch_size - 1) // batch_size if usernames else 0
+    start_batch_number = (start_index // batch_size) + 1 if usernames else 0
+    for batch_number, index in enumerate(
+        range(start_index, len(usernames), batch_size),
+        start=start_batch_number,
+    ):
         batch = usernames[index : index + batch_size]
-        hits = await search_user_batch_period(
-            context,
+        hits, search_meta = await search_user_batch_period(
+            playwright_contexts,
+            context_idx,
             batch,
             mode,
             year,
             month,
             scrolls=scrolls,
+            return_meta=True,
         )
-        for username, hit in hits.items():
-            current = best_hits.get(username)
-            if current is None or hit["count"] > current["count"]:
-                best_hits[username] = hit
+        best_hits = merge_best_hit_maps(best_hits, hits)
+        if progress_callback:
+            progress_callback(
+                best_hits,
+                {
+                    "phase": "batch",
+                    "batch_number": batch_number,
+                    "total_batches": total_batches,
+                    "next_index": min(index + batch_size, len(usernames)),
+                    "total_targets": len(usernames),
+                    "batch_hits": len(hits),
+                    "response_seen": search_meta.get("response_seen", False),
+                    "search_mode": search_meta.get("search_mode", "direct"),
+                },
+            )
     return best_hits
 
 
-async def search_global_period(context, usernames, mode, year, month=None):
-    captured = []
-    seen_ids = set()
+async def search_global_period(
+    playwright_contexts,
+    context_idx,
+    usernames,
+    mode,
+    year,
+    month=None,
+    best_hits=None,
+    start_query_index=0,
+    progress_callback=None,
+):
+    query_groups = build_global_search_query_groups(mode, year, month)
+    best_hits = dict(best_hits or {})
 
-    for query in build_global_search_queries(mode, year, month):
-        for tweet in await search_query_tweets(context, query, scrolls=5):
-            if tweet["id"] in seen_ids:
-                continue
-            seen_ids.add(tweet["id"])
-            captured.append(tweet)
+    for query_index in range(start_query_index, len(query_groups)):
+        captured, search_meta = await search_global_query_group(
+            playwright_contexts,
+            context_idx,
+            query_groups[query_index],
+            scrolls=5,
+        )
+        query_hits = pick_best_hits_by_user(
+            captured, usernames, mode, year, month, strict=True
+        )
+        best_hits = merge_best_hit_maps(best_hits, query_hits)
+        if progress_callback:
+            progress_callback(
+                best_hits,
+                {
+                    "phase": "global",
+                    "query_index": query_index + 1,
+                    "total_queries": len(query_groups),
+                    "query_hits": len(query_hits),
+                    "response_seen": search_meta.get("response_seen", False),
+                    "search_mode": search_meta.get("search_mode", "direct"),
+                },
+            )
 
-    return pick_best_hits_by_user(captured, usernames, mode, year, month, strict=True)
+    return best_hits
 
 
 def build_output_file(mode, year, month=None):
@@ -1236,25 +1872,15 @@ def build_state_file(mode, year, month=None):
 def merge_period_results(existing_rows, new_rows, count_key):
     merged = {}
 
-    def row_score(row):
-        if "match_source" not in row:
-            source_score = 2
-        elif row.get("match_source") == "search":
-            source_score = 1
-        else:
-            source_score = 0
-        return (
-            row.get(count_key, 0),
-            source_score,
-            1 if row.get("tweet_url") else 0,
-        )
-
     for row in existing_rows + new_rows:
+        row = normalize_period_row(row)
         username = row.get("username")
         if not username:
             continue
         current = merged.get(username)
-        if current is None or row_score(row) > row_score(current):
+        if current is None or build_result_score(row, count_key) > build_result_score(
+            current, count_key
+        ):
             merged[username] = dict(row)
         else:
             for field in (
@@ -1262,17 +1888,23 @@ def merge_period_results(existing_rows, new_rows, count_key):
                 "followers_count",
                 "categories",
                 "profile_image_url",
+                "source_url",
+                "match_source",
+                "source_type",
+                "profile_source_field",
             ):
                 if not merged[username].get(field) and row.get(field):
                     merged[username][field] = row[field]
+            if not merged[username].get("needs_review") and row.get("needs_review"):
+                merged[username]["needs_review"] = True
             current_url = merged[username].get("tweet_url")
             new_url = row.get("tweet_url")
             if not current_url and new_url:
-                for field in ("tweet_url", "tweet_text", "tweet_created_at"):
+                for field in ("tweet_url", "evidence_url", "tweet_text", "tweet_created_at"):
                     if row.get(field):
                         merged[username][field] = row[field]
             elif current_url and new_url and current_url == new_url:
-                for field in ("tweet_text", "tweet_created_at"):
+                for field in ("tweet_text", "tweet_created_at", "source_url"):
                     if not merged[username].get(field) and row.get(field):
                         merged[username][field] = row[field]
 
@@ -1280,7 +1912,8 @@ def merge_period_results(existing_rows, new_rows, count_key):
 
 
 def build_record_row(base, existing, result, mode, year, month=None):
-    row = dict(existing or {})
+    row = normalize_period_row(existing or {})
+    result = normalize_period_row(result)
     row["username"] = result["username"]
     row["display_name"] = (
         result.get("display_name")
@@ -1311,12 +1944,23 @@ def build_record_row(base, existing, result, mode, year, month=None):
         row["monthly_best"] = result["monthly_count"]
         row["achieved_date"] = f"{year}-{month:02d}"
 
-    if result.get("tweet_url"):
-        row["evidence_url"] = result["tweet_url"]
-    elif row.get("evidence_url"):
-        row["evidence_url"] = row["evidence_url"]
+    row["match_source"] = result.get("match_source", row.get("match_source", ""))
+    row["source_type"] = result.get("source_type", row.get("source_type", "tweet_evidence"))
+    row["source_url"] = result.get("source_url", row.get("source_url", ""))
+    row["needs_review"] = bool(result.get("needs_review", False))
+    profile_source_field = result.get("profile_source_field", "")
+    if profile_source_field:
+        row["profile_source_field"] = profile_source_field
+    else:
+        row.pop("profile_source_field", None)
 
-    return row
+    evidence_url = get_evidence_url(result) or get_evidence_url(row)
+    if evidence_url:
+        row["evidence_url"] = evidence_url
+    else:
+        row.pop("evidence_url", None)
+
+    return normalize_period_row(row)
 
 
 def update_record_rankings(accounts, results, mode, year, month=None):
@@ -1340,7 +1984,7 @@ def update_record_rankings(accounts, results, mode, year, month=None):
             new_value == current_value
             and (
                 not existing.get(date_field)
-                or (result.get("tweet_url") and not existing.get("evidence_url"))
+                or (get_evidence_url(result) and not get_evidence_url(existing))
             )
         )
         if not should_replace and not should_fill:
@@ -1375,13 +2019,15 @@ def validate_args(args):
         raise SystemExit("--mode yearly では --month は不要です")
     if args.month and not 1 <= args.month <= 12:
         raise SystemExit("--month は 1-12 を指定してください")
+    if args.usernames_file and not os.path.exists(args.usernames_file):
+        raise SystemExit(f"--usernames-file が見つかりません: {args.usernames_file}")
+    if args.batch_size <= 0:
+        raise SystemExit("--batch-size は 1 以上を指定してください")
+    if args.batch_scrolls <= 0:
+        raise SystemExit("--batch-scrolls は 1 以上を指定してください")
 
 
-def load_playwright_cookies():
-    if not os.path.exists(PRIMARY_COOKIE_FILE):
-        raise FileNotFoundError(f"{PRIMARY_COOKIE_FILE} が見つかりません")
-
-    raw = load_json(PRIMARY_COOKIE_FILE, [])
+def build_playwright_cookies(raw):
     cookies = []
     for cookie in raw:
         item = {
@@ -1398,6 +2044,81 @@ def load_playwright_cookies():
     return cookies
 
 
+def load_playwright_cookie_sets():
+    cookie_sets = []
+    for cookie_file in COOKIE_FILES:
+        if not os.path.exists(cookie_file):
+            continue
+        try:
+            raw = load_json(cookie_file, [])
+            cookies = build_playwright_cookies(raw)
+            if not cookies:
+                continue
+            cookie_sets.append(
+                {
+                    "name": os.path.basename(cookie_file),
+                    "cookies": cookies,
+                }
+            )
+        except Exception:
+            continue
+    if not cookie_sets:
+        raise FileNotFoundError(
+            "Playwright 用 Cookie が見つかりません: " + ", ".join(COOKIE_FILES)
+        )
+    return cookie_sets
+
+
+async def create_playwright_browser(playwright, headless=True):
+    return await playwright.chromium.launch(
+        headless=headless,
+        args=[
+            "--disable-blink-features=AutomationControlled",
+            "--lang=ja-JP",
+        ],
+    )
+
+
+async def create_playwright_context(browser, cookies):
+    context = await browser.new_context(
+        user_agent=PLAYWRIGHT_USER_AGENT,
+        viewport={"width": 1280, "height": 720},
+        locale="ja-JP",
+        timezone_id="Asia/Tokyo",
+        color_scheme="light",
+        device_scale_factor=1,
+        has_touch=False,
+        extra_http_headers={
+            "accept-language": "ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7",
+        },
+    )
+    await context.add_init_script(PLAYWRIGHT_STEALTH_SCRIPT)
+    await context.add_cookies(cookies)
+    return context
+
+
+async def create_playwright_contexts(playwright, cookie_sets, headless=True):
+    browser = await create_playwright_browser(playwright, headless=headless)
+    contexts = []
+    for cookie_set in cookie_sets:
+        context = await create_playwright_context(browser, cookie_set["cookies"])
+        contexts.append(
+            {
+                "name": cookie_set["name"],
+                "context": context,
+            }
+        )
+    return browser, contexts
+
+
+def get_next_playwright_context(playwright_contexts, context_idx):
+    if not playwright_contexts:
+        raise ValueError("Playwright context がありません")
+    selected_idx = context_idx[0] % len(playwright_contexts)
+    context_idx[0] = (selected_idx + 1) % len(playwright_contexts)
+    return playwright_contexts[selected_idx]
+
+
 async def main_async():
     from playwright.async_api import async_playwright
 
@@ -1406,6 +2127,10 @@ async def main_async():
     parser.add_argument("--year", type=int, required=True)
     parser.add_argument("--month", type=int)
     parser.add_argument("--limit", type=int, default=0, help="チェック件数（0=全件）")
+    parser.add_argument(
+        "--usernames-file",
+        help="対象 username 一覧ファイル（1行1件、@付き可、#コメント可）",
+    )
     parser.add_argument(
         "--skip-ranking-update",
         action="store_true",
@@ -1437,6 +2162,23 @@ async def main_async():
         default=1,
         help="何件ごとにチェックポイント保存するか（既定: 1）",
     )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=15,
+        help="batch Search 1回あたりの対象ユーザー数（既定: 15）",
+    )
+    parser.add_argument(
+        "--batch-scrolls",
+        type=int,
+        default=6,
+        help="batch Search 1回あたりのスクロール回数（既定: 6）",
+    )
+    parser.add_argument(
+        "--headful",
+        action="store_true",
+        help="Playwright をブラウザ表示ありで起動する（Search が headless で弱い時用）",
+    )
     args = parser.parse_args()
     validate_args(args)
 
@@ -1444,12 +2186,40 @@ async def main_async():
     accounts_map = {row["username"]: row for row in accounts}
     output_file = build_output_file(args.mode, args.year, args.month)
     state_file = build_state_file(args.mode, args.year, args.month)
-    targets = accounts if args.limit == 0 else accounts[: args.limit]
+    if args.usernames_file:
+        requested_usernames = load_usernames_file(args.usernames_file)
+        if not requested_usernames:
+            raise SystemExit("--usernames-file に対象ユーザーがありません")
+        accounts_by_lower = {row["username"].lower(): row for row in accounts}
+        missing_usernames = []
+        targets = []
+        for username in requested_usernames:
+            account = accounts_by_lower.get(username.lower())
+            if not account:
+                missing_usernames.append(username)
+                continue
+            targets.append(account)
+        if not targets:
+            raise SystemExit(
+                "--usernames-file のユーザーが data/sokusuu_accounts.json にありません"
+            )
+    else:
+        missing_usernames = []
+        targets = list(accounts)
+    if args.limit > 0:
+        targets = targets[: args.limit]
     sessions = create_sessions()
+    playwright_cookie_sets = load_playwright_cookie_sets()
     session_idx = [0]
     processed_usernames = set()
     results = []
     results_map = {}
+    value_key = "yearly_count" if args.mode == "yearly" else "monthly_count"
+    prefetch_state = {
+        "complete": False,
+        "global_query_index": 0,
+        "batch_offset": 0,
+    }
 
     if args.resume and os.path.exists(state_file):
         state = load_json(state_file, {"processed_usernames": [], "results": []})
@@ -1457,11 +2227,18 @@ async def main_async():
         results = state.get("results", [])
         results_map = {row["username"]: row for row in results}
         results = list(results_map.values())
+        saved_prefetch_state = state.get("prefetch_state", {})
+        prefetch_state["complete"] = bool(saved_prefetch_state.get("complete", False))
+        prefetch_state["global_query_index"] = int(
+            saved_prefetch_state.get("global_query_index", 0)
+        )
+        prefetch_state["batch_offset"] = int(saved_prefetch_state.get("batch_offset", 0))
         targets = [
             account
             for account in targets
             if account["username"] not in processed_usernames
         ]
+    prefetched_hits = restore_prefetched_hits(results, value_key)
 
     label = (
         f"{args.year}年 年間即数ランキング収集"
@@ -1472,10 +2249,15 @@ async def main_async():
     print(label)
     print("=" * 60)
     print(f"チェック対象: {len(targets)}アカウント")
+    if args.usernames_file:
+        print(f"対象リスト: {args.usernames_file}")
+        if missing_usernames:
+            print(f"対象外（未登録 username）: {len(missing_usernames)}件")
     if sessions:
         print(f"APIフォールバック: {len(sessions)} Cookie 利用可")
     else:
         print("APIフォールバック: 利用不可（Cookieなし）")
+    print(f"Playwright Browser: {len(playwright_cookie_sets)} Cookie 利用可")
     if args.resume and processed_usernames:
         print(
             f"再開: {len(processed_usernames)}件処理済み / "
@@ -1483,54 +2265,125 @@ async def main_async():
         )
     if args.prefetch_only:
         print("個別タイムライン走査: スキップ (--prefetch-only)")
+    if args.global_search:
+        print(
+            f"batch Search 設定: batch_size={args.batch_size}, "
+            f"batch_scrolls={args.batch_scrolls}"
+        )
     print()
 
-    cookies = load_playwright_cookies()
-
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            viewport={"width": 1280, "height": 720},
+        browser, playwright_contexts = await create_playwright_contexts(
+            p,
+            playwright_cookie_sets,
+            headless=not args.headful,
         )
-        await context.add_cookies(cookies)
+        playwright_context_idx = [0]
 
-        prefetched_hits = {}
-        if args.global_search:
-            prefetched_hits = await search_global_period(
-                context,
-                [account["username"] for account in targets],
-                args.mode,
-                args.year,
-                args.month,
-            )
-            batch_hits = await search_target_batches(
-                context,
-                [account["username"] for account in targets],
-                args.mode,
-                args.year,
-                args.month,
-            )
-            for username, hit in batch_hits.items():
-                current = prefetched_hits.get(username)
-                if current is None or hit["count"] > current["count"]:
-                    prefetched_hits[username] = hit
-            value_key = "yearly_count" if args.mode == "yearly" else "monthly_count"
+        def upsert_result(candidate):
+            nonlocal results
+            username = candidate["username"]
+            if should_replace_result(results_map.get(username), candidate, value_key):
+                results_map[username] = candidate
+                results = list(results_map.values())
+                return True
+            return False
+
+        def refresh_prefetched_results():
+            nonlocal results
             for username, hit in prefetched_hits.items():
-                base = accounts_map.get(username, {})
-                results_map[username] = {
-                    "username": username,
-                    "display_name": base.get("display_name", ""),
-                    value_key: hit["count"],
-                    "tweet_url": hit["url"],
-                    "tweet_text": hit["text"],
-                    "tweet_created_at": hit.get("created_at", ""),
-                    "followers_count": base.get("followers_count", 0),
-                    "categories": base.get("categories", ""),
-                    "profile_image_url": base.get("profile_image_url", ""),
-                    "match_source": "global_search",
-                }
+                account = dict(accounts_map.get(username, {}))
+                account.setdefault("username", username)
+                candidate = build_period_result(account, hit, value_key, "global_search")
+                if should_replace_result(results_map.get(username), candidate, value_key):
+                    results_map[username] = candidate
             results = list(results_map.values())
+
+        def save_state():
+            save_collect_state(
+                state_file,
+                processed_usernames,
+                results,
+                prefetch_state if args.global_search else None,
+            )
+
+        if args.global_search:
+            prefetch_usernames = [account["username"] for account in targets]
+
+            def on_prefetch_progress(best_hits, progress):
+                prefetched_hits.clear()
+                prefetched_hits.update(best_hits)
+                refresh_prefetched_results()
+                search_mode_suffix = ""
+                if progress.get("search_mode") and progress["search_mode"] != "direct":
+                    search_mode_suffix = f" mode={progress['search_mode']}"
+                if progress["phase"] == "global":
+                    prefetch_state["global_query_index"] = progress["query_index"]
+                    print(
+                        f"  [PREFETCH:global {progress['query_index']}/"
+                        f"{progress['total_queries']}] "
+                        f"query_hits={progress['query_hits']} total_hits={len(prefetched_hits)}"
+                        f"{search_mode_suffix}"
+                    )
+                else:
+                    prefetch_state["batch_offset"] = progress["next_index"]
+                    print(
+                        f"  [PREFETCH:batch {progress['batch_number']}/"
+                        f"{progress['total_batches']}] "
+                        f"batch_hits={progress['batch_hits']} "
+                        f"targets={progress['next_index']}/{progress['total_targets']} "
+                        f"total_hits={len(prefetched_hits)}"
+                        f"{search_mode_suffix}"
+                    )
+                if args.checkpoint_every > 0:
+                    save_state()
+
+            if prefetch_state["complete"]:
+                print(f"事前Search再利用: {len(prefetched_hits)}件")
+            else:
+                total_global_queries = len(
+                    build_global_search_query_groups(args.mode, args.year, args.month)
+                )
+                if 0 < prefetch_state["global_query_index"] < total_global_queries:
+                    print(
+                        "事前Search再開: global query "
+                        f"{prefetch_state['global_query_index'] + 1} から"
+                    )
+                prefetched_hits = await search_global_period(
+                    playwright_contexts,
+                    playwright_context_idx,
+                    prefetch_usernames,
+                    args.mode,
+                    args.year,
+                    args.month,
+                    best_hits=prefetched_hits,
+                    start_query_index=prefetch_state["global_query_index"],
+                    progress_callback=on_prefetch_progress,
+                )
+                prefetch_state["global_query_index"] = total_global_queries
+                if 0 < prefetch_state["batch_offset"] < len(prefetch_usernames):
+                    print(
+                        "事前Search再開: batch "
+                        f"{(prefetch_state['batch_offset'] // args.batch_size) + 1} から"
+                    )
+                prefetched_hits = await search_target_batches(
+                    playwright_contexts,
+                    playwright_context_idx,
+                    prefetch_usernames,
+                    args.mode,
+                    args.year,
+                    args.month,
+                    batch_size=args.batch_size,
+                    scrolls=args.batch_scrolls,
+                    best_hits=prefetched_hits,
+                    start_index=prefetch_state["batch_offset"],
+                    progress_callback=on_prefetch_progress,
+                )
+                prefetch_state["batch_offset"] = len(prefetch_usernames)
+                prefetch_state["complete"] = True
+                refresh_prefetched_results()
+                if args.checkpoint_every > 0:
+                    save_state()
             if prefetched_hits:
                 print(f"事前Searchヒット: {len(prefetched_hits)}件")
 
@@ -1540,37 +2393,19 @@ async def main_async():
             if prefetched:
                 processed_usernames.add(username)
                 if args.checkpoint_every > 0 and index % args.checkpoint_every == 0:
-                    save_json(
-                        state_file,
-                        {
-                            "processed_usernames": sorted(processed_usernames),
-                            "results": results,
-                        },
-                    )
+                    save_state()
                 continue
             if args.prefetch_only:
                 if args.mode == "yearly":
                     hit = find_yearly_profile_hit(account, args.year)
                     if hit:
-                        result = {
-                            "username": username,
-                            "display_name": account.get("display_name", ""),
-                            "yearly_count": hit["count"],
-                            "tweet_url": hit["url"],
-                            "tweet_text": hit["text"],
-                            "tweet_created_at": hit.get("created_at", ""),
-                            "followers_count": account.get("followers_count", 0),
-                            "categories": account.get("categories", ""),
-                            "profile_image_url": account.get("profile_image_url", ""),
-                            "match_source": f"profile_{hit['source_field']}",
-                        }
-                        existing = results_map.get(username)
-                        if (
-                            not existing
-                            or result["yearly_count"] > existing["yearly_count"]
-                        ):
-                            results_map[username] = result
-                            results = list(results_map.values())
+                        result = build_period_result(
+                            account,
+                            hit,
+                            value_key,
+                            f"profile_{hit['source_field']}",
+                        )
+                        upsert_result(result)
                         print(
                             f"  [HIT:profile_{hit['source_field']}] @{username}: "
                             f"{hit['count']}即 -> {hit['url']}"
@@ -1578,25 +2413,13 @@ async def main_async():
                 else:
                     hit = find_monthly_profile_hit(account, args.year, args.month)
                     if hit:
-                        result = {
-                            "username": username,
-                            "display_name": account.get("display_name", ""),
-                            "monthly_count": hit["count"],
-                            "tweet_url": hit["url"],
-                            "tweet_text": hit["text"],
-                            "tweet_created_at": hit.get("created_at", ""),
-                            "followers_count": account.get("followers_count", 0),
-                            "categories": account.get("categories", ""),
-                            "profile_image_url": account.get("profile_image_url", ""),
-                            "match_source": f"profile_{hit['source_field']}",
-                        }
-                        existing = results_map.get(username)
-                        if (
-                            not existing
-                            or result["monthly_count"] > existing["monthly_count"]
-                        ):
-                            results_map[username] = result
-                            results = list(results_map.values())
+                        result = build_period_result(
+                            account,
+                            hit,
+                            value_key,
+                            f"profile_{hit['source_field']}",
+                        )
+                        upsert_result(result)
                         print(
                             f"  [HIT:profile_{hit['source_field']}] @{username}: "
                             f"{hit['count']}即 -> {hit['url']}"
@@ -1604,13 +2427,7 @@ async def main_async():
 
                 processed_usernames.add(username)
                 if args.checkpoint_every > 0 and index % args.checkpoint_every == 0:
-                    save_json(
-                        state_file,
-                        {
-                            "processed_usernames": sorted(processed_usernames),
-                            "results": results,
-                        },
-                    )
+                    save_state()
 
                 if index % 20 == 0:
                     print(f"  [{index}/{len(targets)}] {len(results)}件ヒット")
@@ -1637,14 +2454,24 @@ async def main_async():
 
             if not hit:
                 hit = await browse_user_period(
-                    context, username, args.mode, args.year, args.month
+                    playwright_contexts,
+                    playwright_context_idx,
+                    username,
+                    args.mode,
+                    args.year,
+                    args.month,
                 )
                 if hit:
                     match_source = "timeline_browser"
 
             if not hit and args.search_fallback:
                 hit = await search_user_period(
-                    context, username, args.mode, args.year, args.month
+                    playwright_contexts,
+                    playwright_context_idx,
+                    username,
+                    args.mode,
+                    args.year,
+                    args.month,
                 )
                 if hit:
                     match_source = "search"
@@ -1659,23 +2486,8 @@ async def main_async():
                     match_source = f"profile_{hit['source_field']}"
 
             if hit:
-                value_key = "yearly_count" if args.mode == "yearly" else "monthly_count"
-                result = {
-                    "username": username,
-                    "display_name": account.get("display_name", ""),
-                    value_key: hit["count"],
-                    "tweet_url": hit["url"],
-                    "tweet_text": hit["text"],
-                    "tweet_created_at": hit.get("created_at", ""),
-                    "followers_count": account.get("followers_count", 0),
-                    "categories": account.get("categories", ""),
-                    "profile_image_url": account.get("profile_image_url", ""),
-                    "match_source": match_source,
-                }
-                existing = results_map.get(username)
-                if not existing or result[value_key] > existing[value_key]:
-                    results_map[username] = result
-                    results = list(results_map.values())
+                result = build_period_result(account, hit, value_key, match_source)
+                upsert_result(result)
                 print(
                     f"  [HIT:{match_source}] @{username}: "
                     f"{hit['count']}即 -> {hit['url']}"
@@ -1683,13 +2495,7 @@ async def main_async():
 
             processed_usernames.add(username)
             if args.checkpoint_every > 0 and index % args.checkpoint_every == 0:
-                save_json(
-                    state_file,
-                    {
-                        "processed_usernames": sorted(processed_usernames),
-                        "results": results,
-                    },
-                )
+                save_state()
 
             if index % 20 == 0:
                 print(f"  [{index}/{len(targets)}] {len(results)}件ヒット")

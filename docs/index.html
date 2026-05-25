@@ -123,6 +123,7 @@
         }
         .badge-profile { background: #1a3a2a; color: #4ade80; }
         .badge-pinned { background: #3a2a1a; color: #fbbf24; }
+        .badge-review { background: #3a1f1f; color: #fca5a5; }
         .badge-cat-street { background: #1a2a3a; color: #60a5fa; }
         .badge-cat-club { background: #2a1a3a; color: #c084fc; }
         .badge-cat-online { background: #1a3a3a; color: #2dd4bf; }
@@ -161,7 +162,7 @@
 </head>
 <body>
     <h1>即数ランキング</h1>
-    <p class="subtitle">最終更新: 2026-04-11 07:54</p>
+    <p class="subtitle">最終更新: 2026-05-25 19:20</p>
 
     <div class="stats">
         <div class="stat-card">
@@ -188,18 +189,20 @@
     </div>
 
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('all')">総合 (380)</div>
+        <div class="tab" onclick="switchTab('all')">総合 (380)</div>
         <div class="tab" onclick="switchTab('street')">ストリート (179)</div>
         <div class="tab" onclick="switchTab('club')">クラブ (50)</div>
         <div class="tab" onclick="switchTab('online')">オンライン (125)</div>
         <div class="tab" onclick="switchTab('followers')">フォロワー数</div>
-        <div class="tab" onclick="switchTab('monthly')">月間記録 (79)</div>
+        <div class="tab" onclick="switchTab('monthly')">月間記録 (57)</div>
         <div class="tab" onclick="switchTab('yearly')">年間記録 (53)</div>
+        <div class="tab" onclick="switchTab('yearlyselect')">年別</div>
+        <div class="tab active" onclick="switchTab('monthlyselect')">月別</div>
         <div class="tab" onclick="switchTab('dist')">分布</div>
     </div>
 
 
-    <div id="tab-all" class="tab-content active">
+    <div id="tab-all" class="tab-content">
         <table>
             <thead>
                 <tr>
@@ -15872,257 +15875,29 @@
             <tr>
                 <td class="rank">🥇 1</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2014652597572141060/b6BjvY9v_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/minorun_ceo" target="_blank" rel="noopener">@minorun_ceo</a>
-                    </div>
-                </td>
-                <td class="display-name">ミノル@女性脳</td>
-                <td class="sokusuu">70</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">🥈 2</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1912058962192572416/wuDIuMjW_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/enukun_pua" target="_blank" rel="noopener">@enukun_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">えぬ</td>
-                <td class="sokusuu">70 <a href="https://x.com/enukun_pua/status/1932735461128351748" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">🥉 3</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/850972955966267392/Wt2__aB2_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/nanpasei" target="_blank" rel="noopener">@nanpasei</a>
-                    </div>
-                </td>
-                <td class="display-name">ヤリっくま@味噌代表</td>
-                <td class="sokusuu">64</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">4</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1604466395194220544/DCLZ5jGC_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/panda_manco2" target="_blank" rel="noopener">@panda_manco2</a>
-                    </div>
-                </td>
-                <td class="display-name">ちんぽこまるTinderキープTips発売中</td>
-                <td class="sokusuu">61</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">5</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1488104964962484224/3oDZfSA5_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/kocha_20205" target="_blank" rel="noopener">@kocha_20205</a>
-                    </div>
-                </td>
-                <td class="display-name">こちゃ@ネクステ講師/路上の優しい災害</td>
-                <td class="sokusuu">60</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">6</td>
-                <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1646086113612926977/6Jayw7hP_400x400.jpg" alt="">
                     <div class="user-info">
                         <a href="https://twitter.com/nakayamasoku" target="_blank" rel="noopener">@nakayamasoku</a>
                     </div>
                 </td>
-                <td class="display-name">中山@tips更新中（ジジネト）</td>
-                <td class="sokusuu">60</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">中山@マチアプの天才</td>
+                <td class="sokusuu">48 <a href="https://x.com/nakayamasoku/status/1917615601482359210" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">7</td>
+                <td class="rank">🥈 2</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1517639831756881920/SgSrnFRy_400x400.jpg" alt="">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1426278295444754438/CtwPpFQa_400x400.jpg" alt="">
                     <div class="user-info">
-                        <a href="https://twitter.com/gokurakuin69" target="_blank" rel="noopener">@gokurakuin69</a>
+                        <a href="https://twitter.com/tora_maru005" target="_blank" rel="noopener">@tora_maru005</a>
                     </div>
                 </td>
-                <td class="display-name">トノス</td>
-                <td class="sokusuu">55</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">とらまる@ナンパ</td>
+                <td class="sokusuu">39 <a href="https://x.com/tora_maru005/status/2039520788169318887" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2026-03</span></td>
             </tr>
             <tr>
-                <td class="rank">8</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1826573501752389632/TOPo7EwU_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/greed_pua" target="_blank" rel="noopener">@greed_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">強欲</td>
-                <td class="sokusuu">54</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">9</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1769757999508447232/oHAGryI-_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/kent_o_o" target="_blank" rel="noopener">@kent_o_o</a>
-                    </div>
-                </td>
-                <td class="display-name">健人</td>
-                <td class="sokusuu">53</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">10</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1703267319139733504/0oACf1Qi_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/mendako_pua" target="_blank" rel="noopener">@mendako_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">めんだこ</td>
-                <td class="sokusuu">50</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">11</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1577981651874811904/wOMlJeYS_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/azuma_gouyin" target="_blank" rel="noopener">@azuma_gouyin</a>
-                    </div>
-                </td>
-                <td class="display-name">あずま</td>
-                <td class="sokusuu">50</td>
-                <td><span style="color:#888">2023.6</span></td>
-            </tr>
-            <tr>
-                <td class="rank">12</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1792103360608505856/AWr87xcs_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/Quoll_sub" target="_blank" rel="noopener">@Quoll_sub</a>
-                    </div>
-                </td>
-                <td class="display-name">くろろ</td>
-                <td class="sokusuu">50</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">13</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1985818430692548608/FcUhSwRC_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/magic_kaito7" target="_blank" rel="noopener">@magic_kaito7</a>
-                    </div>
-                </td>
-                <td class="display-name">まじっく快斗味噌の天才</td>
-                <td class="sokusuu">47</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">14</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1812974660272988170/mu0WKPuL_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/rockpua_sub" target="_blank" rel="noopener">@rockpua_sub</a>
-                    </div>
-                </td>
-                <td class="display-name">リー</td>
-                <td class="sokusuu">47</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">15</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1914337469153280001/zKqnycFv_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/bangedaisuki" target="_blank" rel="noopener">@bangedaisuki</a>
-                    </div>
-                </td>
-                <td class="display-name">よぶんが@コナンに負けた男</td>
-                <td class="sokusuu">42</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">16</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1283894780728971265/N57W6w9l_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/sandorafc" target="_blank" rel="noopener">@sandorafc</a>
-                    </div>
-                </td>
-                <td class="display-name">ジン@裏垢侍</td>
-                <td class="sokusuu">39</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">17</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1807268243826196480/bM7rOVmt_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/gintoki_street" target="_blank" rel="noopener">@gintoki_street</a>
-                    </div>
-                </td>
-                <td class="display-name">ゴラッソ田村麻呂◎ストナン長期募集中</td>
-                <td class="sokusuu">37</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">18</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1459495695715794945/0UUlGI_S_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/nami__pua" target="_blank" rel="noopener">@nami__pua</a>
-                    </div>
-                </td>
-                <td class="display-name">なみへい脱非モテ</td>
-                <td class="sokusuu">37</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">19</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1651132445763465221/m7Ex46Zj_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/masaki0266" target="_blank" rel="noopener">@masaki0266</a>
-                    </div>
-                </td>
-                <td class="display-name">マサキ</td>
-                <td class="sokusuu">36</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">20</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1980797629761048576/4B0OQ01g_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/afRdYt8p5C75089" target="_blank" rel="noopener">@afRdYt8p5C75089</a>
-                    </div>
-                </td>
-                <td class="display-name">ヨシムラ</td>
-                <td class="sokusuu">35</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">21</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1922877670322278400/blE1jQZg_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/momonga_tinder" target="_blank" rel="noopener">@momonga_tinder</a>
-                    </div>
-                </td>
-                <td class="display-name">ももんが【CoCome完全攻略Tips発売中🥥】</td>
-                <td class="sokusuu">34</td>
-                <td><span style="color:#888">2025.12</span></td>
-            </tr>
-            <tr>
-                <td class="rank">22</td>
+                <td class="rank">🥉 3</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1995738542673387520/nkxctDQc_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16130,179 +15905,35 @@
                     </div>
                 </td>
                 <td class="display-name">痛風。</td>
-                <td class="sokusuu">34</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="sokusuu">28 <a href="https://x.com/403_in/status/1917950043874894322" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">23</td>
+                <td class="rank">4</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1957055774888488960/MxIPaNs__400x400.jpg" alt="">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2011059229202006017/L7fD6hcu_400x400.jpg" alt="">
                     <div class="user-info">
-                        <a href="https://twitter.com/yaseibyebye" target="_blank" rel="noopener">@yaseibyebye</a>
+                        <a href="https://twitter.com/zegen_a" target="_blank" rel="noopener">@zegen_a</a>
                     </div>
                 </td>
-                <td class="display-name">キム即ジン🇰🇷@🥧一門</td>
-                <td class="sokusuu">34</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">こはく🐙</td>
+                <td class="sokusuu">24 <a href="https://x.com/zegen_a/status/1917841727949529410" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">24</td>
+                <td class="rank">5</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1583280122693836800/o97OlRc2_400x400.jpg" alt="">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1851861093104361472/PuxM2yva_400x400.jpg" alt="">
                     <div class="user-info">
-                        <a href="https://twitter.com/uvgKWCdZOuwd2gi" target="_blank" rel="noopener">@uvgKWCdZOuwd2gi</a>
+                        <a href="https://twitter.com/mic_pua" target="_blank" rel="noopener">@mic_pua</a>
                     </div>
                 </td>
-                <td class="display-name">みらい</td>
-                <td class="sokusuu">33</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">『トーク刺しのまいく🎤』</td>
+                <td class="sokusuu">23 <a href="https://x.com/mic_pua/status/1917928111242621140" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">25</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1792646644300754944/yY2to0x3_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/kaiser_pua" target="_blank" rel="noopener">@kaiser_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">KAISER</td>
-                <td class="sokusuu">31</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">26</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1828551396469465088/_yp5BfLd_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/HyndP2qxWq4n3Xb" target="_blank" rel="noopener">@HyndP2qxWq4n3Xb</a>
-                    </div>
-                </td>
-                <td class="display-name">スーパービックボーイ</td>
-                <td class="sokusuu">31</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">27</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1720171410650546176/GSbFpBFD_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/pua_chilll" target="_blank" rel="noopener">@pua_chilll</a>
-                    </div>
-                </td>
-                <td class="display-name">あつ代表</td>
-                <td class="sokusuu">30+</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">28</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1937889049529692160/qWP-fIEg_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/ststst_pua" target="_blank" rel="noopener">@ststst_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">アシリパ🦵|究極のクラナン攻略メソッド100部突破販売中</td>
-                <td class="sokusuu">30</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">29</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1953699503380606979/rwCCJsM2_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/konamon_nampa" target="_blank" rel="noopener">@konamon_nampa</a>
-                    </div>
-                </td>
-                <td class="display-name">こなモン@アツスト副代表</td>
-                <td class="sokusuu">30</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">30</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1992982085586628608/NDL-9tr-_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/core_IKBst" target="_blank" rel="noopener">@core_IKBst</a>
-                    </div>
-                </td>
-                <td class="display-name">こあ星@スト攻略</td>
-                <td class="sokusuu">30</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">31</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1953165380970795008/Xq6sqHF4_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/bird_pua" target="_blank" rel="noopener">@bird_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">鳥太郎PUA@アンチAI</td>
-                <td class="sokusuu">26</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">32</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1776996559126974464/37pmH1du_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/yuuki_pua" target="_blank" rel="noopener">@yuuki_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">結城@MBH</td>
-                <td class="sokusuu">26</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">33</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2024879187077820416/e6hy5b8E_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/recoa_nanpa" target="_blank" rel="noopener">@recoa_nanpa</a>
-                    </div>
-                </td>
-                <td class="display-name">レコア@MBH</td>
-                <td class="sokusuu">24</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">34</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1642376487788773378/KK8qxoBX_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/ak1street" target="_blank" rel="noopener">@ak1street</a>
-                    </div>
-                </td>
-                <td class="display-name">アキカン</td>
-                <td class="sokusuu">23</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">35</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1716688627710017536/RloGOZbr_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/tyopa_pua" target="_blank" rel="noopener">@tyopa_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">ちょぱ@火の国/アル中一門</td>
-                <td class="sokusuu">22</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">36</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1949801207817781248/lnHmbSJm_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/kuroiwa_45" target="_blank" rel="noopener">@kuroiwa_45</a>
-                    </div>
-                </td>
-                <td class="display-name">黒岩</td>
-                <td class="sokusuu">21 <a href="https://x.com/tomu_riddle/status/1929824142309970372" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">37</td>
+                <td class="rank">6</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1139431020103495681/_dU1I0BL_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16314,55 +15945,31 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">38</td>
+                <td class="rank">7</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1679309198138683392/Kpwij0_T_400x400.jpg" alt="">
+                    <div class="avatar avatar-placeholder"></div>
                     <div class="user-info">
-                        <a href="https://twitter.com/wing__nampa" target="_blank" rel="noopener">@wing__nampa</a>
+                        <a href="https://twitter.com/futaro_pua" target="_blank" rel="noopener">@futaro_pua</a>
                     </div>
                 </td>
-                <td class="display-name">wing師範｜アツストサロン代表</td>
-                <td class="sokusuu">20</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">風太郎@あだちファミリー</td>
+                <td class="sokusuu">20 <a href="https://x.com/futaro_pua/status/1917841108517941297" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">39</td>
+                <td class="rank">8</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1793553952518402048/Y78sEHAI_400x400.jpg" alt="">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1571353696805736448/JCEYEbev_400x400.jpg" alt="">
                     <div class="user-info">
-                        <a href="https://twitter.com/spcooksan" target="_blank" rel="noopener">@spcooksan</a>
+                        <a href="https://twitter.com/sub_chilll" target="_blank" rel="noopener">@sub_chilll</a>
                     </div>
                 </td>
-                <td class="display-name">料理長@三月味噌</td>
-                <td class="sokusuu">20</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">あつ太郎の本音bot</td>
+                <td class="sokusuu">20 <a href="https://x.com/sub_chilll/status/1918350867574784246" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">40</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1729430394586734592/YGqnLTF6_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/ururunpua" target="_blank" rel="noopener">@ururunpua</a>
-                    </div>
-                </td>
-                <td class="display-name">うるるん</td>
-                <td class="sokusuu">20</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">41</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1927796684224147456/nkDPiq0v_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/PUAINOKI" target="_blank" rel="noopener">@PUAINOKI</a>
-                    </div>
-                </td>
-                <td class="display-name">フランク</td>
-                <td class="sokusuu">19 <a href="https://x.com/PUAINOKI/status/2028299880339574968" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">42</td>
+                <td class="rank">9</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1924431937629749248/bl_A6GXb_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16374,31 +15981,31 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">43</td>
+                <td class="rank">10</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1678805589391192069/J6gpPaHP_400x400.jpg" alt="">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1927796684224147456/nkDPiq0v_400x400.jpg" alt="">
                     <div class="user-info">
-                        <a href="https://twitter.com/atannon_nampa" target="_blank" rel="noopener">@atannon_nampa</a>
+                        <a href="https://twitter.com/PUAINOKI" target="_blank" rel="noopener">@PUAINOKI</a>
                     </div>
                 </td>
-                <td class="display-name">あたんのん@ナンパ講師</td>
-                <td class="sokusuu">18</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">フランク</td>
+                <td class="sokusuu">19 <a href="https://x.com/PUAINOKI/status/2028299880339574968" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">44</td>
+                <td class="rank">11</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1807332050367889409/YUFAZyoT_400x400.jpg" alt="">
+                    <div class="avatar avatar-placeholder"></div>
                     <div class="user-info">
-                        <a href="https://twitter.com/tinpachi3_B" target="_blank" rel="noopener">@tinpachi3_B</a>
+                        <a href="https://twitter.com/7qf0856987" target="_blank" rel="noopener">@7qf0856987</a>
                     </div>
                 </td>
-                <td class="display-name">3年B組　ちん八先 生@ネクステ</td>
-                <td class="sokusuu">18</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">グラタン</td>
+                <td class="sokusuu">18 <a href="https://x.com/7qf0856987/status/1917867806571532716" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">45</td>
+                <td class="rank">12</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1999627792292675585/ySQDDKlC_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16410,163 +16017,235 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">46</td>
+                <td class="rank">13</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1851861093104361472/PuxM2yva_400x400.jpg" alt="">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1771915548370305024/AUV8_v0U_400x400.jpg" alt="">
                     <div class="user-info">
-                        <a href="https://twitter.com/mic_pua" target="_blank" rel="noopener">@mic_pua</a>
+                        <a href="https://twitter.com/training_pua" target="_blank" rel="noopener">@training_pua</a>
                     </div>
                 </td>
-                <td class="display-name">『トーク刺しのまいく🎤』</td>
-                <td class="sokusuu">15 <a href="https://x.com/mic_pua/status/2028037366959739333" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
+                <td class="display-name">トレニー</td>
+                <td class="sokusuu">18 <a href="https://x.com/training_pua/status/1917634102821544242" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">47</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1882445183507447808/veZRK47X_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/nampa_poke" target="_blank" rel="noopener">@nampa_poke</a>
-                    </div>
-                </td>
-                <td class="display-name">ゆうき</td>
-                <td class="sokusuu">15</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">48</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2014190169398874112/Jc-P00hU_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/ziyuunotsubasa1" target="_blank" rel="noopener">@ziyuunotsubasa1</a>
-                    </div>
-                </td>
-                <td class="display-name">つばさ@東京ストナン会</td>
-                <td class="sokusuu">15</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">49</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1814981011975151616/KfSMnUzQ_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/KiriStomach" target="_blank" rel="noopener">@KiriStomach</a>
-                    </div>
-                </td>
-                <td class="display-name">キリー</td>
-                <td class="sokusuu">15</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">50</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1666689066916810752/0vanmQTa_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/tokumei_pua_" target="_blank" rel="noopener">@tokumei_pua_</a>
-                    </div>
-                </td>
-                <td class="display-name">とくめい🤡</td>
-                <td class="sokusuu">15</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">51</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2031745056164782081/CsU9LPuA_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/kukuru_nanpa" target="_blank" rel="noopener">@kukuru_nanpa</a>
-                    </div>
-                </td>
-                <td class="display-name">くくる</td>
-                <td class="sokusuu">15 <a href="https://x.com/kukuru_nanpa/status/2024709774731071813" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">52</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1842000018343133184/n6edmTGW_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/urokodaki_pua" target="_blank" rel="noopener">@urokodaki_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">UDK</td>
-                <td class="sokusuu">14</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">53</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1914536970518454274/gYLcdwka_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/cx_lm5" target="_blank" rel="noopener">@cx_lm5</a>
-                    </div>
-                </td>
-                <td class="display-name">CRUBD 💎 / セクシーコマンドー部</td>
-                <td class="sokusuu">13 <a href="https://x.com/cx_lm5/status/2027947831307403661" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">54</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1942997962818514944/IaLSrlMn_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/outlook_sabo_4" target="_blank" rel="noopener">@outlook_sabo_4</a>
-                    </div>
-                </td>
-                <td class="display-name">さぼ団長@クラナンサロン運営中【SSB】</td>
-                <td class="sokusuu">12 <a href="https://x.com/outlook_sabo_4/status/2027980319694197212" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">55</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1835257195006713856/NFMm4Mqc_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/tomu_riddle" target="_blank" rel="noopener">@tomu_riddle</a>
-                    </div>
-                </td>
-                <td class="display-name">とむりどる@マッチングアプリ世界一位🌍</td>
-                <td class="sokusuu">12 <a href="https://x.com/tomu_riddle/status/2028135483193295205" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">56</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1766509683488202752/QArWMiHT_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/shin9suke" target="_blank" rel="noopener">@shin9suke</a>
-                    </div>
-                </td>
-                <td class="display-name">しんすけ@侍長期(受講済)×おぢのほおぷ</td>
-                <td class="sokusuu">12</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">57</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/920674203430301696/cGmqU5kL_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/nigt_8830" target="_blank" rel="noopener">@nigt_8830</a>
-                    </div>
-                </td>
-                <td class="display-name">えりんぎ@マッチングアプリ撮影📷ネクステ講師</td>
-                <td class="sokusuu">11</td>
-                <td><span style="color:#444">-</span></td>
-            </tr>
-            <tr>
-                <td class="rank">58</td>
+                <td class="rank">14</td>
                 <td class="user-cell">
                     <div class="avatar avatar-placeholder"></div>
                     <div class="user-info">
-                        <a href="https://twitter.com/makoto_kurasuta" target="_blank" rel="noopener">@makoto_kurasuta</a>
+                        <a href="https://twitter.com/itumo2525013" target="_blank" rel="noopener">@itumo2525013</a>
                     </div>
                 </td>
-                <td class="display-name">makoto_kurasuta</td>
-                <td class="sokusuu">10+</td>
-                <td><span style="color:#444">-</span></td>
+                <td class="display-name">いも🍠低身長40代おぢの逆転ログ</td>
+                <td class="sokusuu">17 <a href="https://x.com/itumo2525013/status/1918151965219144051" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             <tr>
-                <td class="rank">59</td>
+                <td class="rank">15</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/atari100pua" target="_blank" rel="noopener">@atari100pua</a>
+                    </div>
+                </td>
+                <td class="display-name">あたる</td>
+                <td class="sokusuu">16 <a href="https://x.com/atari100pua/status/1917596275442348130" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">16</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1953699503380606979/rwCCJsM2_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/konamon_nampa" target="_blank" rel="noopener">@konamon_nampa</a>
+                    </div>
+                </td>
+                <td class="display-name">こなモン@△▽監督</td>
+                <td class="sokusuu">16 <a href="https://x.com/konamon_nampa/status/1917541429192319042" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">17</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/enukun_pua" target="_blank" rel="noopener">@enukun_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">えぬ@かーず一門</td>
+                <td class="sokusuu">14 <a href="https://x.com/enukun_pua/status/1917052692381487222" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">18</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/isagi_uraaka" target="_blank" rel="noopener">@isagi_uraaka</a>
+                    </div>
+                </td>
+                <td class="display-name">いさぎ</td>
+                <td class="sokusuu">14 <a href="https://x.com/isagi_uraaka/status/1917576722364653795" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">19</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1601584300583182341/oMPYDMIB_400x400.png" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/tsuyumushi777" target="_blank" rel="noopener">@tsuyumushi777</a>
+                    </div>
+                </td>
+                <td class="display-name">蟹虫｜MBH@ｹﾂﾏ:2ﾎﾞ/ﾁｴﾘ:3ﾎﾞ</td>
+                <td class="sokusuu">14 <a href="https://x.com/tsuyumushi777/status/1917606065384087807" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">20</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/dick_duck_swing" target="_blank" rel="noopener">@dick_duck_swing</a>
+                    </div>
+                </td>
+                <td class="display-name">狩るー@淘汰男🙏</td>
+                <td class="sokusuu">13 <a href="https://x.com/dick_duck_swing/status/1917643652006044168" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">21</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2017937864160653312/4Dz67any_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/fake_nagase" target="_blank" rel="noopener">@fake_nagase</a>
+                    </div>
+                </td>
+                <td class="display-name">面長瀬智也👺@5/22〜24🐙遠征</td>
+                <td class="sokusuu">12 <a href="https://x.com/fake_nagase/status/1917865742684614931" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">22</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/haraheri_sunobo" target="_blank" rel="noopener">@haraheri_sunobo</a>
+                    </div>
+                </td>
+                <td class="display-name">にん</td>
+                <td class="sokusuu">12 <a href="https://x.com/haraheri_sunobo/status/1917620055636074723" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">23</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1980502183800942592/fZ8nskgr_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/hiro_re_1919" target="_blank" rel="noopener">@hiro_re_1919</a>
+                    </div>
+                </td>
+                <td class="display-name">ひろ@Rising 明太子</td>
+                <td class="sokusuu">12 <a href="https://x.com/hiro_re_1919/status/1917784521958908235" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">24</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/riokun_pua" target="_blank" rel="noopener">@riokun_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">りおくん</td>
+                <td class="sokusuu">12 <a href="https://x.com/riokun_pua/status/1917541739243729383" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">25</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1852680775591985152/RAAvwWKe_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/yohaku_x" target="_blank" rel="noopener">@yohaku_x</a>
+                    </div>
+                </td>
+                <td class="display-name">余白マリオ</td>
+                <td class="sokusuu">12 <a href="https://x.com/yohaku_x/status/1918581908642119701" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">26</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1678805589391192069/J6gpPaHP_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/atannon_nampa" target="_blank" rel="noopener">@atannon_nampa</a>
+                    </div>
+                </td>
+                <td class="display-name">あたんのん@大阪ストサロン代表</td>
+                <td class="sokusuu">10 <a href="https://x.com/atannon_nampa/status/1917879494435852663" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">27</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1962445840645242880/2immPLc3_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/daigakusei_pua" target="_blank" rel="noopener">@daigakusei_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">きの山@MBH</td>
+                <td class="sokusuu">10 <a href="https://x.com/daigakusei_pua/status/1917772172757721453" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">28</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1622941095436095489/2S_80YIb_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/motebody_pua" target="_blank" rel="noopener">@motebody_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">エース@体刺し一門関東代表</td>
+                <td class="sokusuu">10 <a href="https://x.com/motebody_pua/status/1917561038305911041" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">29</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2029916545980538880/AHLu7G4L_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/ak1_pua" target="_blank" rel="noopener">@ak1_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">あぴ@5月5/6即</td>
+                <td class="sokusuu">9 <a href="https://x.com/ak1_pua/status/1917524227311427697" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">30</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/Cu0y3YCFhLtY9Y9" target="_blank" rel="noopener">@Cu0y3YCFhLtY9Y9</a>
+                    </div>
+                </td>
+                <td class="display-name">アルフィー@シン・アルフィー軍団</td>
+                <td class="sokusuu">8 <a href="https://x.com/Cu0y3YCFhLtY9Y9/status/1919298602288984215" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">31</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1807268243826196480/bM7rOVmt_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/gintoki_street" target="_blank" rel="noopener">@gintoki_street</a>
+                    </div>
+                </td>
+                <td class="display-name">ゴラッソ田村麻呂🤖</td>
+                <td class="sokusuu">8 <a href="https://x.com/gintoki_street/status/1917588971040956423" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">32</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1933154659637899264/t7M4K_aX_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16578,7 +16257,7 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">60</td>
+                <td class="rank">33</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1814667978056871936/LXcf-lDf_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16590,7 +16269,7 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">61</td>
+                <td class="rank">34</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1790016171334660096/9cW-Smfw_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16602,7 +16281,91 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">62</td>
+                <td class="rank">35</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/roku6in_palis" target="_blank" rel="noopener">@roku6in_palis</a>
+                    </div>
+                </td>
+                <td class="display-name">ろくすっぽ仏@🍪一門</td>
+                <td class="sokusuu">8 <a href="https://x.com/roku6in_palis/status/1917543696377209082" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">36</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1766509683488202752/QArWMiHT_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/shin9suke" target="_blank" rel="noopener">@shin9suke</a>
+                    </div>
+                </td>
+                <td class="display-name">しんすけ@侍長期(受講済)×wing中期(受講済）</td>
+                <td class="sokusuu">8 <a href="https://x.com/shin9suke/status/1917712093308150182" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">37</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/shizuki_iminait" target="_blank" rel="noopener">@shizuki_iminait</a>
+                    </div>
+                </td>
+                <td class="display-name">紫月</td>
+                <td class="sokusuu">8 <a href="https://x.com/shizuki_iminait/status/1917470393281175949" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">38</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1940938727897092096/pZwZnYSY_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/entpxxxxxx" target="_blank" rel="noopener">@entpxxxxxx</a>
+                    </div>
+                </td>
+                <td class="display-name">もらく→</td>
+                <td class="sokusuu">7 <a href="https://x.com/entpxxxxxx/status/2038921485180699084" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2026-03</span></td>
+            </tr>
+            <tr>
+                <td class="rank">39</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/JKJD92" target="_blank" rel="noopener">@JKJD92</a>
+                    </div>
+                </td>
+                <td class="display-name">おたまじゃくし@おちんぽ侍長期</td>
+                <td class="sokusuu">7 <a href="https://x.com/JKJD92/status/1918157103245758944" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">40</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/K_suto_nan" target="_blank" rel="noopener">@K_suto_nan</a>
+                    </div>
+                </td>
+                <td class="display-name">K@Mの王</td>
+                <td class="sokusuu">7 <a href="https://x.com/K_suto_nan/status/1918312004965798046" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">41</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1957266522814271488/HK9v5HSj_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/Nano486273" target="_blank" rel="noopener">@Nano486273</a>
+                    </div>
+                </td>
+                <td class="display-name">なの@雄華軍団</td>
+                <td class="sokusuu">7 <a href="https://x.com/Nano486273/status/2038992271606169767" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2026-03</span></td>
+            </tr>
+            <tr>
+                <td class="rank">42</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1867044125016727552/wCs7rAPW_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16614,7 +16377,55 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">63</td>
+                <td class="rank">43</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/raina_pussy" target="_blank" rel="noopener">@raina_pussy</a>
+                    </div>
+                </td>
+                <td class="display-name">RAINA@いわし長期2期生</td>
+                <td class="sokusuu">7 <a href="https://x.com/raina_pussy/status/1917738962778742927" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">44</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/sae71110" target="_blank" rel="noopener">@sae71110</a>
+                    </div>
+                </td>
+                <td class="display-name">さえ</td>
+                <td class="sokusuu">7 <a href="https://x.com/sae71110/status/1917672324368851295" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">45</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2007996715690082304/fdLmGvrg_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/sugi_ichiban" target="_blank" rel="noopener">@sugi_ichiban</a>
+                    </div>
+                </td>
+                <td class="display-name">杉山先生@一番星プロジェクト</td>
+                <td class="sokusuu">7 <a href="https://x.com/sugi_ichiban/status/1917581511446126763" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">46</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1908749122242551808/T1nYhxfr_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/yarimokutoma2" target="_blank" rel="noopener">@yarimokutoma2</a>
+                    </div>
+                </td>
+                <td class="display-name">とま🧊@尿道弱者</td>
+                <td class="sokusuu">7 <a href="https://x.com/yarimokutoma2/status/1917900847130058939" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">47</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/2034866269581975557/btsCja9a_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16626,7 +16437,103 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">64</td>
+                <td class="rank">48</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/Bm5My" target="_blank" rel="noopener">@Bm5My</a>
+                    </div>
+                </td>
+                <td class="display-name">もくも</td>
+                <td class="sokusuu">6 <a href="https://x.com/Bm5My/status/1920343560806936924" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">49</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/chikyukun_pua" target="_blank" rel="noopener">@chikyukun_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">地球くん</td>
+                <td class="sokusuu">6 <a href="https://x.com/chikyukun_pua/status/1917858234091856326" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">50</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1826573501752389632/TOPo7EwU_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/greed_pua" target="_blank" rel="noopener">@greed_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">強欲</td>
+                <td class="sokusuu">6 <a href="https://x.com/greed_pua/status/1917558136573157872" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">51</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2005445796607733761/-38iJMCx_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/makoto_kurasuta" target="_blank" rel="noopener">@makoto_kurasuta</a>
+                    </div>
+                </td>
+                <td class="display-name">伊藤誠@今月20即目標</td>
+                <td class="sokusuu">6 <a href="https://x.com/makoto_kurasuta/status/2031050315865469233" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2026-02</span></td>
+            </tr>
+            <tr>
+                <td class="rank">52</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1918566617035968512/zO1oPwNl_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/matagi_pua" target="_blank" rel="noopener">@matagi_pua</a>
+                    </div>
+                </td>
+                <td class="display-name">故マタギ@東北田舎ちん棒</td>
+                <td class="sokusuu">6 <a href="https://x.com/matagi_pua/status/1918365315354005571" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">53</td>
+                <td class="user-cell">
+                    <div class="avatar avatar-placeholder"></div>
+                    <div class="user-info">
+                        <a href="https://twitter.com/suto_komari" target="_blank" rel="noopener">@suto_komari</a>
+                    </div>
+                </td>
+                <td class="display-name">こまり</td>
+                <td class="sokusuu">6 <a href="https://x.com/suto_komari/status/1919594301706899565" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">54</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1762861031259512832/dWYy4uxa_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/taka_DTnmp" target="_blank" rel="noopener">@taka_DTnmp</a>
+                    </div>
+                </td>
+                <td class="display-name">たかはる@MBH(スト休止中)</td>
+                <td class="sokusuu">6 <a href="https://x.com/taka_DTnmp/status/1917706893822460216" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">55</td>
+                <td class="user-cell">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2025237418480377856/HguhahFd_400x400.jpg" alt="">
+                    <div class="user-info">
+                        <a href="https://twitter.com/untamedknight" target="_blank" rel="noopener">@untamedknight</a>
+                    </div>
+                </td>
+                <td class="display-name">チー・牛太@牛太塾</td>
+                <td class="sokusuu">6 <a href="https://x.com/untamedknight/status/1917632989607125116" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
+            </tr>
+            <tr>
+                <td class="rank">56</td>
                 <td class="user-cell">
                     <img class="avatar" src="https://pbs.twimg.com/profile_images/1768866825218174977/4Pf_CrBs_400x400.jpg" alt="">
                     <div class="user-info">
@@ -16638,184 +16545,16 @@
                 <td><span style="color:#888">2026-02</span></td>
             </tr>
             <tr>
-                <td class="rank">65</td>
+                <td class="rank">57</td>
                 <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1618974838663823361/Pn7SdAfS_400x400.jpg" alt="">
+                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1887099699964063744/sbQ-czmq_400x400.jpg" alt="">
                     <div class="user-info">
-                        <a href="https://twitter.com/namenayone" target="_blank" rel="noopener">@namenayone</a>
+                        <a href="https://twitter.com/yszk1624" target="_blank" rel="noopener">@yszk1624</a>
                     </div>
                 </td>
-                <td class="display-name">ナメクニ</td>
-                <td class="sokusuu">5 <a href="https://x.com/namenayone/status/2029395182777712695" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">66</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1957266522814271488/HK9v5HSj_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/Nano486273" target="_blank" rel="noopener">@Nano486273</a>
-                    </div>
-                </td>
-                <td class="display-name">なの@雄華軍団</td>
-                <td class="sokusuu">5 <a href="https://x.com/Nano486273/status/2028081329523581201" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">67</td>
-                <td class="user-cell">
-                    <div class="avatar avatar-placeholder"></div>
-                    <div class="user-info">
-                        <a href="https://twitter.com/1jEvvc" target="_blank" rel="noopener">@1jEvvc</a>
-                    </div>
-                </td>
-                <td class="display-name">???????????@???????????????????????</td>
-                <td class="sokusuu">5 <a href="https://x.com/1jEvvc" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">68</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1979078255224266752/rE12EdIK_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/yolu_pua" target="_blank" rel="noopener">@yolu_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">ヨル</td>
-                <td class="sokusuu">4 <a href="https://x.com/yolu_pua/status/2027890652454015182" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">69</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1610375663554564096/RMUqviyU_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/hirohirorenai" target="_blank" rel="noopener">@hirohirorenai</a>
-                    </div>
-                </td>
-                <td class="display-name">ひろ@MBH 底辺ジジイ一門</td>
-                <td class="sokusuu">4 <a href="https://x.com/hirohirorenai" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">70</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2007489649183490048/1q87lU-P_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/riku_pua0801" target="_blank" rel="noopener">@riku_pua0801</a>
-                    </div>
-                </td>
-                <td class="display-name">リク@ナノ講習</td>
-                <td class="sokusuu">4 <a href="https://x.com/riku_pua0801/status/2028014875667271691" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">71</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1983199219105312775/Y2PWRozR_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/RobertPowerJ" target="_blank" rel="noopener">@RobertPowerJ</a>
-                    </div>
-                </td>
-                <td class="display-name">ロバート＠中性童貞メンチカMBH</td>
-                <td class="sokusuu">4 <a href="https://x.com/RobertPowerJ" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">72</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1960115168190586880/4znaoTAV_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/salmon_nnp" target="_blank" rel="noopener">@salmon_nnp</a>
-                    </div>
-                </td>
-                <td class="display-name">サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長</td>
-                <td class="sokusuu">3 <a href="https://x.com/salmon_nnp/status/2028389365953781768" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">73</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1601584300583182341/oMPYDMIB_400x400.png" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/tsuyumushi777" target="_blank" rel="noopener">@tsuyumushi777</a>
-                    </div>
-                </td>
-                <td class="display-name">蟹虫｜MBH@33ボズ貯金</td>
-                <td class="sokusuu">3 <a href="https://x.com/tsuyumushi777/status/2028312652636950620" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">74</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1965790716606754816/7FbTOc_R_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/Jlc3Z4" target="_blank" rel="noopener">@Jlc3Z4</a>
-                    </div>
-                </td>
-                <td class="display-name">L</td>
-                <td class="sokusuu">3 <a href="https://x.com/Jlc3Z4/status/2028123772793078099" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">75</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/1969064570439528448/wYe4sd50_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/rei_app_pua" target="_blank" rel="noopener">@rei_app_pua</a>
-                    </div>
-                </td>
-                <td class="display-name">黎@🦉事変/kk廻遊</td>
-                <td class="sokusuu">3 <a href="https://x.com/rei_app_pua/status/2027921065788510502" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">76</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2022320552850161664/D0pTzjev_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/badasai_kush" target="_blank" rel="noopener">@badasai_kush</a>
-                    </div>
-                </td>
-                <td class="display-name">バダサイ</td>
-                <td class="sokusuu">2 <a href="https://x.com/badasai_kush/status/2023050385687023674" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">77</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2029802891847024640/e_cQBAwh_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/taruchan100" target="_blank" rel="noopener">@taruchan100</a>
-                    </div>
-                </td>
-                <td class="display-name">たる</td>
-                <td class="sokusuu">1 <a href="https://x.com/taruchan100/status/2032261557808480295" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">78</td>
-                <td class="user-cell">
-                    <img class="avatar" src="https://pbs.twimg.com/profile_images/2021834708183920642/tw7nODgQ_400x400.jpg" alt="">
-                    <div class="user-info">
-                        <a href="https://twitter.com/yupisnono" target="_blank" rel="noopener">@yupisnono</a>
-                    </div>
-                </td>
-                <td class="display-name">ゆぴ(白ちゃま)@のんちゃま一門</td>
-                <td class="sokusuu">1 <a href="https://x.com/yupisnono/status/2027987827364126887" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
-            </tr>
-            <tr>
-                <td class="rank">79</td>
-                <td class="user-cell">
-                    <div class="avatar avatar-placeholder"></div>
-                    <div class="user-info">
-                        <a href="https://twitter.com/ManaBuHirokawa7" target="_blank" rel="noopener">@ManaBuHirokawa7</a>
-                    </div>
-                </td>
-                <td class="display-name">????????</td>
-                <td class="sokusuu">1 <a href="https://x.com/ManaBuHirokawa7" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
-                <td><span style="color:#888">2026-02</span></td>
+                <td class="display-name">ちゃの@MBH</td>
+                <td class="sokusuu">6 <a href="https://x.com/yszk1624/status/1917591673749790827" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
+                <td><span style="color:#888">2025-04</span></td>
             </tr>
             </tbody>
         </table>
@@ -16962,7 +16701,7 @@
                     </div>
                 </td>
                 <td class="display-name">健人</td>
-                <td class="sokusuu">200</td>
+                <td class="sokusuu">200 <a href="https://x.com/kent_o_o/status/2006335442157978046" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17010,7 +16749,7 @@
                     </div>
                 </td>
                 <td class="display-name">?????@????????tips??</td>
-                <td class="sokusuu">165</td>
+                <td class="sokusuu">165 <a href="https://x.com/Tinder_god_2/status/2006299241443192933" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17046,7 +16785,7 @@
                     </div>
                 </td>
                 <td class="display-name">ヨル</td>
-                <td class="sokusuu">147</td>
+                <td class="sokusuu">147 <a href="https://x.com/yolu_pua/status/2006357042496475140" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17058,7 +16797,7 @@
                     </div>
                 </td>
                 <td class="display-name">ぴーす</td>
-                <td class="sokusuu">146</td>
+                <td class="sokusuu">146 <a href="https://x.com/missavfan/status/2006020355257733505" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17082,7 +16821,7 @@
                     </div>
                 </td>
                 <td class="display-name">ももんが【CoCome完全攻略Tips発売中🥥】</td>
-                <td class="sokusuu">138</td>
+                <td class="sokusuu">138 <a href="https://x.com/momonga_tinder/status/2006678290074054924" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17130,7 +16869,7 @@
                     </div>
                 </td>
                 <td class="display-name">CRUBD 💎 / セクシーコマンドー部</td>
-                <td class="sokusuu">125</td>
+                <td class="sokusuu">125 <a href="https://x.com/cx_lm5/status/2006701365058523545" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17166,7 +16905,7 @@
                     </div>
                 </td>
                 <td class="display-name">bokumacky</td>
-                <td class="sokusuu">100</td>
+                <td class="sokusuu">100+</td>
                 <td><span style="color:#444">-</span></td>
             </tr>
             <tr>
@@ -17202,7 +16941,7 @@
                     </div>
                 </td>
                 <td class="display-name">あたんのん@ナンパ講師</td>
-                <td class="sokusuu">74</td>
+                <td class="sokusuu">74 <a href="https://x.com/atannon_nampa/status/2006343156204437768" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17214,7 +16953,7 @@
                     </div>
                 </td>
                 <td class="display-name">ポン@🦁路上の王</td>
-                <td class="sokusuu">61</td>
+                <td class="sokusuu">61 <a href="https://x.com/ponponpon142/status/2006307900587917368" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17250,7 +16989,7 @@
                     </div>
                 </td>
                 <td class="display-name">みどり</td>
-                <td class="sokusuu">39</td>
+                <td class="sokusuu">39 <a href="https://x.com/midori_nanpa/status/2005481324061343907" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17310,7 +17049,7 @@
                     </div>
                 </td>
                 <td class="display-name">低身長ナンパ師ゆってぃ|Rising</td>
-                <td class="sokusuu">36</td>
+                <td class="sokusuu">36 <a href="https://x.com/yutty_pua/status/2002385032326021592" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17382,7 +17121,7 @@
                     </div>
                 </td>
                 <td class="display-name">ぴぴLV55@ゆってぃ長期の伝説）アラフィフ入り40代の星(ゆってぃさん命名)2期組</td>
-                <td class="sokusuu">13</td>
+                <td class="sokusuu">13 <a href="https://x.com/pipiwa1221571/status/2007003752608444535" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17454,7 +17193,7 @@
                     </div>
                 </td>
                 <td class="display-name">バダサイ</td>
-                <td class="sokusuu">3</td>
+                <td class="sokusuu">3 <a href="https://x.com/badasai_kush/status/2006363323584184753" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td>
                 <td><span style="color:#888">2025年</span></td>
             </tr>
             <tr>
@@ -17471,6 +17210,24 @@
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <div id="tab-yearlyselect" class="tab-content">
+        <div style="text-align:center;margin-bottom:15px">
+            <select id="yearlySelect" onchange="switchYearly()" style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em">
+                <option value="y2025" selected>2025年 (35件・集計中)</option>
+            </select>
+        </div>
+        <div id="yearly-y2025" style="display:block"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody><tr><td class="rank">🥇 1</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1646086113612926977/6Jayw7hP_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/nakayamasoku" target="_blank" rel="noopener">@nakayamasoku</a></div></td><td class="display-name">中山@tips更新中（ジジネト）</td><td class="sokusuu">501 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">🥈 2</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1927796684224147456/nkDPiq0v_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/PUAINOKI" target="_blank" rel="noopener">@PUAINOKI</a></div></td><td class="display-name">フランク</td><td class="sokusuu">239 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">🥉 3</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1769757999508447232/oHAGryI-_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/kent_o_o" target="_blank" rel="noopener">@kent_o_o</a></div></td><td class="display-name">健人</td><td class="sokusuu">200 <a href="https://x.com/kent_o_o/status/2006335442157978046" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">4</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1854418977587646464/hYBf19Pp_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/Tinder_god_2" target="_blank" rel="noopener">@Tinder_god_2</a></div></td><td class="display-name">フェイタン@ペアーズ完全攻略tips発売</td><td class="sokusuu">165 <a href="https://x.com/Tinder_god_2/status/2006299241443192933" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">5</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1139431020103495681/_dU1I0BL_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/socool55555" target="_blank" rel="noopener">@socool55555</a></div></td><td class="display-name">味噌どガス</td><td class="sokusuu">154 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">6</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1979078255224266752/rE12EdIK_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yolu_pua" target="_blank" rel="noopener">@yolu_pua</a></div></td><td class="display-name">ヨル</td><td class="sokusuu">147 <a href="https://x.com/yolu_pua/status/2006357042496475140" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">7</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2025037366021554177/pST6Odyf_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/missavfan" target="_blank" rel="noopener">@missavfan</a></div></td><td class="display-name">ぴーす</td><td class="sokusuu">146 <a href="https://x.com/missavfan/status/2006020355257733505" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">8</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1922877670322278400/blE1jQZg_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/momonga_tinder" target="_blank" rel="noopener">@momonga_tinder</a></div></td><td class="display-name">ももんが【CoCome完全攻略Tips発売中🥥】</td><td class="sokusuu">138 <a href="https://x.com/momonga_tinder/status/2006678290074054924" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">9</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2029802891847024640/e_cQBAwh_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/taruchan100" target="_blank" rel="noopener">@taruchan100</a></div></td><td class="display-name">たる</td><td class="sokusuu">128 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">10</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1914536970518454274/gYLcdwka_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/cx_lm5" target="_blank" rel="noopener">@cx_lm5</a></div></td><td class="display-name">CRUBD 💎 / セクシーコマンドー部</td><td class="sokusuu">125 <a href="https://x.com/cx_lm5/status/2006701365058523545" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">11</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/dick_duck_swing" target="_blank" rel="noopener">@dick_duck_swing</a></div></td><td class="display-name">狩るー@淘汰男🙏</td><td class="sokusuu">95 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">12</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1618974838663823361/Pn7SdAfS_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/namenayone" target="_blank" rel="noopener">@namenayone</a></div></td><td class="display-name">ナメクニ</td><td class="sokusuu">82 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">13</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1678805589391192069/J6gpPaHP_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/atannon_nampa" target="_blank" rel="noopener">@atannon_nampa</a></div></td><td class="display-name">あたんのん@ナンパ講師</td><td class="sokusuu">74 <a href="https://x.com/atannon_nampa/status/2006343156204437768" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">14</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1638703083059564544/E99zvKPB_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/ponponpon142" target="_blank" rel="noopener">@ponponpon142</a></div></td><td class="display-name">ポン@🦁路上の王</td><td class="sokusuu">61 <a href="https://x.com/ponponpon142/status/2006307900587917368" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">15</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1983199219105312775/Y2PWRozR_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/RobertPowerJ" target="_blank" rel="noopener">@RobertPowerJ</a></div></td><td class="display-name">ロバート＠中性童貞メンチカMBH</td><td class="sokusuu">45 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">16</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1957776739800907776/ggj29Qiv_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/midori_nanpa" target="_blank" rel="noopener">@midori_nanpa</a></div></td><td class="display-name">みどり</td><td class="sokusuu">39 <a href="https://x.com/midori_nanpa/status/2005481324061343907" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">17</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1610375663554564096/RMUqviyU_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/hirohirorenai" target="_blank" rel="noopener">@hirohirorenai</a></div></td><td class="display-name">ひろ@MBH 底辺ジジイ一門</td><td class="sokusuu">37 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">18</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/1jEvvc" target="_blank" rel="noopener">@1jEvvc</a></div></td><td class="display-name">ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会</td><td class="sokusuu">37 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">19</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/megane_pua" target="_blank" rel="noopener">@megane_pua</a></div></td><td class="display-name">ねこ(かたまり)</td><td class="sokusuu">37 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">20</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1962513134843047936/mb4aSyHK_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yutty_pua" target="_blank" rel="noopener">@yutty_pua</a></div></td><td class="display-name">低身長ナンパ師ゆってぃ|Rising</td><td class="sokusuu">36 <a href="https://x.com/yutty_pua/status/2002385032326021592" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">21</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1887099699964063744/sbQ-czmq_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yszk1624" target="_blank" rel="noopener">@yszk1624</a></div></td><td class="display-name">ちゃの@MBH</td><td class="sokusuu">36 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">22</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/bYiNieJVI17Hk2M" target="_blank" rel="noopener">@bYiNieJVI17Hk2M</a></div></td><td class="display-name">いだち＠弄び人</td><td class="sokusuu">33 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">23</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1862836986941231105/_dKBnA56_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/around60g" target="_blank" rel="noopener">@around60g</a></div></td><td class="display-name">吉田衰作 ＠還暦超えスト＆ネトナン師</td><td class="sokusuu">28 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">24</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1829293468558266368/KNwA--15_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/allen_pua_" target="_blank" rel="noopener">@allen_pua_</a></div></td><td class="display-name">あれん</td><td class="sokusuu">24 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">25</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1489362398297595904/1bKddnNH_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/street_Fami" target="_blank" rel="noopener">@street_Fami</a></div></td><td class="display-name">ファミチキ🍗弾丸即マシン</td><td class="sokusuu">22 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">26</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1401896098113880064/KRWxw8JK_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yutayuta_pua" target="_blank" rel="noopener">@yutayuta_pua</a></div></td><td class="display-name">ユウタ@体刺し一門</td><td class="sokusuu">21 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">27</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1901198086606880768/CxkaX_YY_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/ak166121" target="_blank" rel="noopener">@ak166121</a></div></td><td class="display-name">とき</td><td class="sokusuu">20 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">28</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1807769389518987264/bS3yX4GS_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/pipiwa1221571" target="_blank" rel="noopener">@pipiwa1221571</a></div></td><td class="display-name">ぴぴLV55@ゆってぃ長期の伝説）アラフィフ入り40代の星(ゆってぃさん命名)2期組</td><td class="sokusuu">13 <a href="https://x.com/pipiwa1221571/status/2007003752608444535" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">29</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/satoshi5991" target="_blank" rel="noopener">@satoshi5991</a></div></td><td class="display-name">サトシ（むし）</td><td class="sokusuu">13 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">30</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1960115168190586880/4znaoTAV_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/salmon_nnp" target="_blank" rel="noopener">@salmon_nnp</a></div></td><td class="display-name">サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長</td><td class="sokusuu">11 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">31</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/gofugofu5252" target="_blank" rel="noopener">@gofugofu5252</a></div></td><td class="display-name">ゼリー@アツスト×wing長期</td><td class="sokusuu">11 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">32</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1983825628156907520/NkXWkJMh_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/komanyan28" target="_blank" rel="noopener">@komanyan28</a></div></td><td class="display-name">K0MA@ｹﾝﾁﾝの意思を継ぐもの</td><td class="sokusuu">10 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">33</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1852680775591985152/RAAvwWKe_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yohaku_x" target="_blank" rel="noopener">@yohaku_x</a></div></td><td class="display-name">余白マリオ</td><td class="sokusuu">7 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">34</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2022320552850161664/D0pTzjev_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/badasai_kush" target="_blank" rel="noopener">@badasai_kush</a></div></td><td class="display-name">バダサイ</td><td class="sokusuu">3 <a href="https://x.com/badasai_kush/status/2006363323584184753" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">35</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/karon121_pua" target="_blank" rel="noopener">@karon121_pua</a></div></td><td class="display-name">カロン@RiseUpLab</td><td class="sokusuu">1 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr></tbody></table></div>
+    </div>
+
+    <div id="tab-monthlyselect" class="tab-content active">
+        <div style="text-align:center;margin-bottom:15px">
+            <select id="monthlySelect" onchange="switchMonthly()" style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em">
+                <option value="m202603">2026年3月 (18件・集計中)</option><option value="m202602">2026年2月 (34件・集計中)</option><option value="m202504" selected>2025年4月 (46件・集計中)</option>
+            </select>
+        </div>
+        <div id="monthly-m202603" style="display:none"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody><tr><td class="rank">🥇 1</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1426278295444754438/CtwPpFQa_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/tora_maru005" target="_blank" rel="noopener">@tora_maru005</a></div></td><td class="display-name">とらまる@ナンパ</td><td class="sokusuu">39 <a href="https://x.com/tora_maru005/status/2039520788169318887" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-club">クラブ</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">🥈 2</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1927796684224147456/nkDPiq0v_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/PUAINOKI" target="_blank" rel="noopener">@PUAINOKI</a></div></td><td class="display-name">フランク</td><td class="sokusuu">15 <a href="https://x.com/PUAINOKI/status/2043633776484655526" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">🥉 3</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1762861031259512832/dWYy4uxa_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/taka_DTnmp" target="_blank" rel="noopener">@taka_DTnmp</a></div></td><td class="display-name">たかはる@MBH</td><td class="sokusuu">10 <a href="https://x.com/taka_DTnmp/status/2038864156254941485" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">4</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1914536970518454274/gYLcdwka_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/cx_lm5" target="_blank" rel="noopener">@cx_lm5</a></div></td><td class="display-name">CRUBD 💎 / セクシーコマンドー部</td><td class="sokusuu">8 <a href="https://x.com/cx_lm5/status/2038993251160780895" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">5</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1678805589391192069/J6gpPaHP_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/atannon_nampa" target="_blank" rel="noopener">@atannon_nampa</a></div></td><td class="display-name">あたんのん@ナンパ講師</td><td class="sokusuu">7 <a href="https://x.com/atannon_nampa/status/2039188199369781496" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">6</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2004858882112536576/10hQP7wZ_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/ao_nampa" target="_blank" rel="noopener">@ao_nampa</a></div></td><td class="display-name">あお</td><td class="sokusuu">7 <a href="https://x.com/ao_nampa/status/2039361725007618336" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">7</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1957266522814271488/HK9v5HSj_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/Nano486273" target="_blank" rel="noopener">@Nano486273</a></div></td><td class="display-name">なの@雄華軍団</td><td class="sokusuu">7 <a href="https://x.com/Nano486273/status/2038992271606169767" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">8</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1940938727897092096/pZwZnYSY_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/entpxxxxxx" target="_blank" rel="noopener">@entpxxxxxx</a></div></td><td class="display-name">もらく→</td><td class="sokusuu">7 <a href="https://x.com/entpxxxxxx/status/2038921485180699084" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">9</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1821683490108358656/Ijc-HDMW_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/chiroru_pua" target="_blank" rel="noopener">@chiroru_pua</a></div></td><td class="display-name">チロル@帝都の雌猫</td><td class="sokusuu">6 <a href="https://x.com/chiroru_pua/status/2038998601322692608" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">10</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/1jEvvc" target="_blank" rel="noopener">@1jEvvc</a></div></td><td class="display-name">ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会</td><td class="sokusuu">6 <span class="badge badge-review" title="プロフィール由来の推定値 (bio)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">11</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1601584300583182341/oMPYDMIB_400x400.png" alt=""><div class="user-info"><a href="https://twitter.com/tsuyumushi777" target="_blank" rel="noopener">@tsuyumushi777</a></div></td><td class="display-name">蟹虫｜MBH@33ボズ貯金</td><td class="sokusuu">4 <a href="https://x.com/tsuyumushi777/status/2039316017919455295" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">12</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2027910872665096192/yU9nc4Vv_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/KgNoYou1" target="_blank" rel="noopener">@KgNoYou1</a></div></td><td class="display-name">aki</td><td class="sokusuu">4 <a href="https://x.com/KgNoYou1/status/2039010460213842179" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">13</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2025800451707502593/mxa66Hgn_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/pua_yossy" target="_blank" rel="noopener">@pua_yossy</a></div></td><td class="display-name">アラフィフのヨッシー｜ネオナンパ理論講師</td><td class="sokusuu">3 <a href="https://x.com/pua_yossy/status/2038981792137679122" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">14</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1901198086606880768/CxkaX_YY_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/ak166121" target="_blank" rel="noopener">@ak166121</a></div></td><td class="display-name">とき</td><td class="sokusuu">3 <a href="https://x.com/ak166121/status/2038979835142472040" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">15</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/ManaBuHirokawa7" target="_blank" rel="noopener">@ManaBuHirokawa7</a></div></td><td class="display-name">【二代目】広川学</td><td class="sokusuu">2 <span class="badge badge-review" title="プロフィール由来の推定値 (bio)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">16</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1851861093104361472/PuxM2yva_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/mic_pua" target="_blank" rel="noopener">@mic_pua</a></div></td><td class="display-name">『トーク刺しのまいく🎤』</td><td class="sokusuu">1 <a href="https://x.com/mic_pua/status/2039186941820989692" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">17</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1983199219105312775/Y2PWRozR_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/RobertPowerJ" target="_blank" rel="noopener">@RobertPowerJ</a></div></td><td class="display-name">ロバート＠中性童貞メンチカMBH</td><td class="sokusuu">1 <span class="badge badge-review" title="プロフィール由来の推定値 (bio)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">18</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2022320552850161664/D0pTzjev_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/badasai_kush" target="_blank" rel="noopener">@badasai_kush</a></div></td><td class="display-name">バダサイ</td><td class="sokusuu">1 <a href="https://x.com/badasai_kush/status/2042119741519884599" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr></tbody></table></div><div id="monthly-m202602" style="display:none"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody><tr><td class="rank">🥇 1</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1646086113612926977/6Jayw7hP_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/nakayamasoku" target="_blank" rel="noopener">@nakayamasoku</a></div></td><td class="display-name">中山@tips更新中（ジジネト）</td><td class="sokusuu">42 <a href="https://x.com/nakayamasoku/status/2028627708725588288" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">🥈 2</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1139431020103495681/_dU1I0BL_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/socool55555" target="_blank" rel="noopener">@socool55555</a></div></td><td class="display-name">味噌どガス</td><td class="sokusuu">21 <a href="https://x.com/socool55555/status/2028600869202350159" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">🥉 3</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1927796684224147456/nkDPiq0v_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/PUAINOKI" target="_blank" rel="noopener">@PUAINOKI</a></div></td><td class="display-name">フランク</td><td class="sokusuu">19 <a href="https://x.com/PUAINOKI/status/2028299880339574968" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">4</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1924431937629749248/bl_A6GXb_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/okarun_pua" target="_blank" rel="noopener">@okarun_pua</a></div></td><td class="display-name">おかるん@りお講習</td><td class="sokusuu">19 <a href="https://x.com/okarun_pua/status/2027955878612410806" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">5</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1999627792292675585/ySQDDKlC_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/nsan_pua" target="_blank" rel="noopener">@nsan_pua</a></div></td><td class="display-name">なつ。</td><td class="sokusuu">18 <a href="https://x.com/nsan_pua/status/2032821703697641636" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">6</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1851861093104361472/PuxM2yva_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/mic_pua" target="_blank" rel="noopener">@mic_pua</a></div></td><td class="display-name">『トーク刺しのまいく🎤』</td><td class="sokusuu">15 <a href="https://x.com/mic_pua/status/2028037366959739333" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">7</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2031745056164782081/CsU9LPuA_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/kukuru_nanpa" target="_blank" rel="noopener">@kukuru_nanpa</a></div></td><td class="display-name">くくる</td><td class="sokusuu">15 <a href="https://x.com/kukuru_nanpa/status/2024709774731071813" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">8</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1914536970518454274/gYLcdwka_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/cx_lm5" target="_blank" rel="noopener">@cx_lm5</a></div></td><td class="display-name">CRUBD 💎 / セクシーコマンドー部</td><td class="sokusuu">13 <a href="https://x.com/cx_lm5/status/2027947831307403661" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">9</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1942997962818514944/IaLSrlMn_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/outlook_sabo_4" target="_blank" rel="noopener">@outlook_sabo_4</a></div></td><td class="display-name">さぼ団長@クラナンサロン運営中【SSB】</td><td class="sokusuu">12 <a href="https://x.com/outlook_sabo_4/status/2027980319694197212" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">10</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1835257195006713856/NFMm4Mqc_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/tomu_riddle" target="_blank" rel="noopener">@tomu_riddle</a></div></td><td class="display-name">とむりどる@マッチングアプリ世界一位🌍</td><td class="sokusuu">12 <a href="https://x.com/tomu_riddle/status/2028135483193295205" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">11</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1933154659637899264/t7M4K_aX_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/omamco_pua2" target="_blank" rel="noopener">@omamco_pua2</a></div></td><td class="display-name">える</td><td class="sokusuu">8 <a href="https://x.com/omamco_pua2/status/2027971008553193664" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">12</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1814667978056871936/LXcf-lDf_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/Razor_pua" target="_blank" rel="noopener">@Razor_pua</a></div></td><td class="display-name">非モテのレイザー</td><td class="sokusuu">8 <a href="https://x.com/Razor_pua/status/2028019198241477001" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">13</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1790016171334660096/9cW-Smfw_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/River_p823" target="_blank" rel="noopener">@River_p823</a></div></td><td class="display-name">フェニックス@セクシーコマンドー部</td><td class="sokusuu">8 <a href="https://x.com/River_p823/status/2030190761107673554" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">14</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1867044125016727552/wCs7rAPW_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/PokopokoChin1" target="_blank" rel="noopener">@PokopokoChin1</a></div></td><td class="display-name">ポコ@アンチエイジング美容ガチ勢</td><td class="sokusuu">7 <a href="https://x.com/PokopokoChin1/status/2030574402489000116" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">15</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2034866269581975557/btsCja9a_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/anshin_pua" target="_blank" rel="noopener">@anshin_pua</a></div></td><td class="display-name">あんしん🎀ナンパ師</td><td class="sokusuu">6 <a href="https://x.com/anshin_pua/status/2027730351574110355" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">16</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1768866825218174977/4Pf_CrBs_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/weekly_nanpa" target="_blank" rel="noopener">@weekly_nanpa</a></div></td><td class="display-name">週刊プロナンパ日誌</td><td class="sokusuu">6 <a href="https://x.com/weekly_nanpa/status/2027554886179836078" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">17</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2005445796607733761/-38iJMCx_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/makoto_kurasuta" target="_blank" rel="noopener">@makoto_kurasuta</a></div></td><td class="display-name">伊藤誠@今月20即目標</td><td class="sokusuu">6 <a href="https://x.com/makoto_kurasuta/status/2031050315865469233" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">18</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1618974838663823361/Pn7SdAfS_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/namenayone" target="_blank" rel="noopener">@namenayone</a></div></td><td class="display-name">ナメクニ</td><td class="sokusuu">5 <a href="https://x.com/namenayone/status/2029395182777712695" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">19</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1957266522814271488/HK9v5HSj_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/Nano486273" target="_blank" rel="noopener">@Nano486273</a></div></td><td class="display-name">なの@雄華軍団</td><td class="sokusuu">5 <a href="https://x.com/Nano486273/status/2028081329523581201" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">20</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/1jEvvc" target="_blank" rel="noopener">@1jEvvc</a></div></td><td class="display-name">ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会</td><td class="sokusuu">5 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">21</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1953165380970795008/Xq6sqHF4_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/bird_pua" target="_blank" rel="noopener">@bird_pua</a></div></td><td class="display-name">鳥太郎PUA@アンチAI</td><td class="sokusuu">4 <a href="https://x.com/bird_pua/status/2027936657971024223" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-club">クラブ</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">22</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1979078255224266752/rE12EdIK_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yolu_pua" target="_blank" rel="noopener">@yolu_pua</a></div></td><td class="display-name">ヨル</td><td class="sokusuu">4 <a href="https://x.com/yolu_pua/status/2027890652454015182" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">23</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1610375663554564096/RMUqviyU_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/hirohirorenai" target="_blank" rel="noopener">@hirohirorenai</a></div></td><td class="display-name">ひろ@MBH 底辺ジジイ一門</td><td class="sokusuu">4 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">24</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2007489649183490048/1q87lU-P_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/riku_pua0801" target="_blank" rel="noopener">@riku_pua0801</a></div></td><td class="display-name">リク@ナノ講習</td><td class="sokusuu">4 <a href="https://x.com/riku_pua0801/status/2028014875667271691" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">25</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1983199219105312775/Y2PWRozR_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/RobertPowerJ" target="_blank" rel="noopener">@RobertPowerJ</a></div></td><td class="display-name">ロバート＠中性童貞メンチカMBH</td><td class="sokusuu">4 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">26</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1283894780728971265/N57W6w9l_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/sandorafc" target="_blank" rel="noopener">@sandorafc</a></div></td><td class="display-name">ジン@裏垢侍</td><td class="sokusuu">3 <a href="https://x.com/sandorafc/status/2029849459438539173" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">27</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1960115168190586880/4znaoTAV_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/salmon_nnp" target="_blank" rel="noopener">@salmon_nnp</a></div></td><td class="display-name">サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長</td><td class="sokusuu">3 <a href="https://x.com/salmon_nnp/status/2028389365953781768" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">28</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1601584300583182341/oMPYDMIB_400x400.png" alt=""><div class="user-info"><a href="https://twitter.com/tsuyumushi777" target="_blank" rel="noopener">@tsuyumushi777</a></div></td><td class="display-name">蟹虫｜MBH@33ボズ貯金</td><td class="sokusuu">3 <a href="https://x.com/tsuyumushi777/status/2028312652636950620" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">29</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1965790716606754816/7FbTOc_R_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/Jlc3Z4" target="_blank" rel="noopener">@Jlc3Z4</a></div></td><td class="display-name">L</td><td class="sokusuu">3 <a href="https://x.com/Jlc3Z4/status/2028123772793078099" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">30</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1969064570439528448/wYe4sd50_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/rei_app_pua" target="_blank" rel="noopener">@rei_app_pua</a></div></td><td class="display-name">黎@🦉事変/kk廻遊</td><td class="sokusuu">3 <a href="https://x.com/rei_app_pua/status/2027921065788510502" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">31</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2022320552850161664/D0pTzjev_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/badasai_kush" target="_blank" rel="noopener">@badasai_kush</a></div></td><td class="display-name">バダサイ</td><td class="sokusuu">2 <a href="https://x.com/badasai_kush/status/2023050385687023674" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">32</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2029802891847024640/e_cQBAwh_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/taruchan100" target="_blank" rel="noopener">@taruchan100</a></div></td><td class="display-name">たる</td><td class="sokusuu">1 <a href="https://x.com/taruchan100/status/2032261557808480295" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">33</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2021834708183920642/tw7nODgQ_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yupisnono" target="_blank" rel="noopener">@yupisnono</a></div></td><td class="display-name">ゆぴ(白ちゃま)@のんちゃま一門</td><td class="sokusuu">1 <a href="https://x.com/yupisnono/status/2027987827364126887" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">34</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/ManaBuHirokawa7" target="_blank" rel="noopener">@ManaBuHirokawa7</a></div></td><td class="display-name">【二代目】広川学</td><td class="sokusuu">1 <span class="badge badge-review" title="プロフィール由来の推定値 (profile)。公開前に要確認">要確認</span></td><td><span class="badge badge-cat-none">未分類</span></td></tr></tbody></table></div><div id="monthly-m202504" style="display:block"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody><tr><td class="rank">🥇 1</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1646086113612926977/6Jayw7hP_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/nakayamasoku" target="_blank" rel="noopener">@nakayamasoku</a></div></td><td class="display-name">中山@マチアプの天才</td><td class="sokusuu">48 <a href="https://x.com/nakayamasoku/status/1917615601482359210" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">🥈 2</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1995738542673387520/nkxctDQc_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/403_in" target="_blank" rel="noopener">@403_in</a></div></td><td class="display-name">痛風。</td><td class="sokusuu">28 <a href="https://x.com/403_in/status/1917950043874894322" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">🥉 3</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2011059229202006017/L7fD6hcu_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/zegen_a" target="_blank" rel="noopener">@zegen_a</a></div></td><td class="display-name">こはく🐙</td><td class="sokusuu">24 <a href="https://x.com/zegen_a/status/1917841727949529410" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">4</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1851861093104361472/PuxM2yva_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/mic_pua" target="_blank" rel="noopener">@mic_pua</a></div></td><td class="display-name">『トーク刺しのまいく🎤』</td><td class="sokusuu">23 <a href="https://x.com/mic_pua/status/1917928111242621140" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">5</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/futaro_pua" target="_blank" rel="noopener">@futaro_pua</a></div></td><td class="display-name">風太郎@あだちファミリー</td><td class="sokusuu">20 <a href="https://x.com/futaro_pua/status/1917841108517941297" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">6</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1571353696805736448/JCEYEbev_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/sub_chilll" target="_blank" rel="noopener">@sub_chilll</a></div></td><td class="display-name">あつ太郎の本音bot</td><td class="sokusuu">20 <a href="https://x.com/sub_chilll/status/1918350867574784246" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">7</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/7qf0856987" target="_blank" rel="noopener">@7qf0856987</a></div></td><td class="display-name">グラタン</td><td class="sokusuu">18 <a href="https://x.com/7qf0856987/status/1917867806571532716" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">8</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1771915548370305024/AUV8_v0U_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/training_pua" target="_blank" rel="noopener">@training_pua</a></div></td><td class="display-name">トレニー</td><td class="sokusuu">18 <a href="https://x.com/training_pua/status/1917634102821544242" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">9</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/itumo2525013" target="_blank" rel="noopener">@itumo2525013</a></div></td><td class="display-name">いも🍠低身長40代おぢの逆転ログ</td><td class="sokusuu">17 <a href="https://x.com/itumo2525013/status/1918151965219144051" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">10</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1927796684224147456/nkDPiq0v_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/PUAINOKI" target="_blank" rel="noopener">@PUAINOKI</a></div></td><td class="display-name">フランク</td><td class="sokusuu">17 <a href="https://x.com/PUAINOKI/status/1917551761507901607" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">11</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/atari100pua" target="_blank" rel="noopener">@atari100pua</a></div></td><td class="display-name">あたる</td><td class="sokusuu">16 <a href="https://x.com/atari100pua/status/1917596275442348130" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">12</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1953699503380606979/rwCCJsM2_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/konamon_nampa" target="_blank" rel="noopener">@konamon_nampa</a></div></td><td class="display-name">こなモン@△▽監督</td><td class="sokusuu">16 <a href="https://x.com/konamon_nampa/status/1917541429192319042" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">13</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/enukun_pua" target="_blank" rel="noopener">@enukun_pua</a></div></td><td class="display-name">えぬ@かーず一門</td><td class="sokusuu">14 <a href="https://x.com/enukun_pua/status/1917052692381487222" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">14</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/isagi_uraaka" target="_blank" rel="noopener">@isagi_uraaka</a></div></td><td class="display-name">いさぎ</td><td class="sokusuu">14 <a href="https://x.com/isagi_uraaka/status/1917576722364653795" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">15</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1601584300583182341/oMPYDMIB_400x400.png" alt=""><div class="user-info"><a href="https://twitter.com/tsuyumushi777" target="_blank" rel="noopener">@tsuyumushi777</a></div></td><td class="display-name">蟹虫｜MBH@ｹﾂﾏ:2ﾎﾞ/ﾁｴﾘ:3ﾎﾞ</td><td class="sokusuu">14 <a href="https://x.com/tsuyumushi777/status/1917606065384087807" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">16</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/dick_duck_swing" target="_blank" rel="noopener">@dick_duck_swing</a></div></td><td class="display-name">狩るー@淘汰男🙏</td><td class="sokusuu">13 <a href="https://x.com/dick_duck_swing/status/1917643652006044168" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">17</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2017937864160653312/4Dz67any_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/fake_nagase" target="_blank" rel="noopener">@fake_nagase</a></div></td><td class="display-name">面長瀬智也👺@5/22〜24🐙遠征</td><td class="sokusuu">12 <a href="https://x.com/fake_nagase/status/1917865742684614931" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">18</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/haraheri_sunobo" target="_blank" rel="noopener">@haraheri_sunobo</a></div></td><td class="display-name">にん</td><td class="sokusuu">12 <a href="https://x.com/haraheri_sunobo/status/1917620055636074723" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">19</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1980502183800942592/fZ8nskgr_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/hiro_re_1919" target="_blank" rel="noopener">@hiro_re_1919</a></div></td><td class="display-name">ひろ@Rising 明太子</td><td class="sokusuu">12 <a href="https://x.com/hiro_re_1919/status/1917784521958908235" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">20</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/riokun_pua" target="_blank" rel="noopener">@riokun_pua</a></div></td><td class="display-name">りおくん</td><td class="sokusuu">12 <a href="https://x.com/riokun_pua/status/1917541739243729383" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">21</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1852680775591985152/RAAvwWKe_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yohaku_x" target="_blank" rel="noopener">@yohaku_x</a></div></td><td class="display-name">余白マリオ</td><td class="sokusuu">12 <a href="https://x.com/yohaku_x/status/1918581908642119701" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">22</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1678805589391192069/J6gpPaHP_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/atannon_nampa" target="_blank" rel="noopener">@atannon_nampa</a></div></td><td class="display-name">あたんのん@大阪ストサロン代表</td><td class="sokusuu">10 <a href="https://x.com/atannon_nampa/status/1917879494435852663" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">23</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1962445840645242880/2immPLc3_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/daigakusei_pua" target="_blank" rel="noopener">@daigakusei_pua</a></div></td><td class="display-name">きの山@MBH</td><td class="sokusuu">10 <a href="https://x.com/daigakusei_pua/status/1917772172757721453" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">24</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1622941095436095489/2S_80YIb_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/motebody_pua" target="_blank" rel="noopener">@motebody_pua</a></div></td><td class="display-name">エース@体刺し一門関東代表</td><td class="sokusuu">10 <a href="https://x.com/motebody_pua/status/1917561038305911041" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">25</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2029916545980538880/AHLu7G4L_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/ak1_pua" target="_blank" rel="noopener">@ak1_pua</a></div></td><td class="display-name">あぴ@5月5/6即</td><td class="sokusuu">9 <a href="https://x.com/ak1_pua/status/1917524227311427697" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">26</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/Cu0y3YCFhLtY9Y9" target="_blank" rel="noopener">@Cu0y3YCFhLtY9Y9</a></div></td><td class="display-name">アルフィー@シン・アルフィー軍団</td><td class="sokusuu">8 <a href="https://x.com/Cu0y3YCFhLtY9Y9/status/1919298602288984215" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">27</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1807268243826196480/bM7rOVmt_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/gintoki_street" target="_blank" rel="noopener">@gintoki_street</a></div></td><td class="display-name">ゴラッソ田村麻呂🤖</td><td class="sokusuu">8 <a href="https://x.com/gintoki_street/status/1917588971040956423" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">28</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/roku6in_palis" target="_blank" rel="noopener">@roku6in_palis</a></div></td><td class="display-name">ろくすっぽ仏@🍪一門</td><td class="sokusuu">8 <a href="https://x.com/roku6in_palis/status/1917543696377209082" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">29</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1766509683488202752/QArWMiHT_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/shin9suke" target="_blank" rel="noopener">@shin9suke</a></div></td><td class="display-name">しんすけ@侍長期(受講済)×wing中期(受講済）</td><td class="sokusuu">8 <a href="https://x.com/shin9suke/status/1917712093308150182" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">30</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/shizuki_iminait" target="_blank" rel="noopener">@shizuki_iminait</a></div></td><td class="display-name">紫月</td><td class="sokusuu">8 <a href="https://x.com/shizuki_iminait/status/1917470393281175949" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">31</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/JKJD92" target="_blank" rel="noopener">@JKJD92</a></div></td><td class="display-name">おたまじゃくし@おちんぽ侍長期</td><td class="sokusuu">7 <a href="https://x.com/JKJD92/status/1918157103245758944" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">32</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/K_suto_nan" target="_blank" rel="noopener">@K_suto_nan</a></div></td><td class="display-name">K@Mの王</td><td class="sokusuu">7 <a href="https://x.com/K_suto_nan/status/1918312004965798046" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">33</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/raina_pussy" target="_blank" rel="noopener">@raina_pussy</a></div></td><td class="display-name">RAINA@いわし長期2期生</td><td class="sokusuu">7 <a href="https://x.com/raina_pussy/status/1917738962778742927" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">34</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1790016171334660096/9cW-Smfw_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/River_p823" target="_blank" rel="noopener">@River_p823</a></div></td><td class="display-name">フェニックス🪽＠🍚セクシーコマンドー部🍚</td><td class="sokusuu">7 <a href="https://x.com/River_p823/status/1918241883417145816" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">35</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/sae71110" target="_blank" rel="noopener">@sae71110</a></div></td><td class="display-name">さえ</td><td class="sokusuu">7 <a href="https://x.com/sae71110/status/1917672324368851295" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">36</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2007996715690082304/fdLmGvrg_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/sugi_ichiban" target="_blank" rel="noopener">@sugi_ichiban</a></div></td><td class="display-name">杉山先生@一番星プロジェクト</td><td class="sokusuu">7 <a href="https://x.com/sugi_ichiban/status/1917581511446126763" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> <span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">37</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1908749122242551808/T1nYhxfr_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yarimokutoma2" target="_blank" rel="noopener">@yarimokutoma2</a></div></td><td class="display-name">とま🧊@尿道弱者</td><td class="sokusuu">7 <a href="https://x.com/yarimokutoma2/status/1917900847130058939" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-club">クラブ</span> </td></tr><tr><td class="rank">38</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/Bm5My" target="_blank" rel="noopener">@Bm5My</a></div></td><td class="display-name">もくも</td><td class="sokusuu">6 <a href="https://x.com/Bm5My/status/1920343560806936924" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">39</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/chikyukun_pua" target="_blank" rel="noopener">@chikyukun_pua</a></div></td><td class="display-name">地球くん</td><td class="sokusuu">6 <a href="https://x.com/chikyukun_pua/status/1917858234091856326" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-none">未分類</span></td></tr><tr><td class="rank">40</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1826573501752389632/TOPo7EwU_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/greed_pua" target="_blank" rel="noopener">@greed_pua</a></div></td><td class="display-name">強欲</td><td class="sokusuu">6 <a href="https://x.com/greed_pua/status/1917558136573157872" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">41</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1918566617035968512/zO1oPwNl_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/matagi_pua" target="_blank" rel="noopener">@matagi_pua</a></div></td><td class="display-name">故マタギ@東北田舎ちん棒</td><td class="sokusuu">6 <a href="https://x.com/matagi_pua/status/1918365315354005571" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">42</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1957266522814271488/HK9v5HSj_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/Nano486273" target="_blank" rel="noopener">@Nano486273</a></div></td><td class="display-name">🍏@雄華軍団</td><td class="sokusuu">6 <a href="https://x.com/Nano486273/status/1917559698615853551" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">43</td><td class="user-cell"><div class="avatar avatar-placeholder"></div><div class="user-info"><a href="https://twitter.com/suto_komari" target="_blank" rel="noopener">@suto_komari</a></div></td><td class="display-name">こまり</td><td class="sokusuu">6 <a href="https://x.com/suto_komari/status/1919594301706899565" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> <span class="badge badge-cat-online">オンライン</span> </td></tr><tr><td class="rank">44</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1762861031259512832/dWYy4uxa_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/taka_DTnmp" target="_blank" rel="noopener">@taka_DTnmp</a></div></td><td class="display-name">たかはる@MBH(スト休止中)</td><td class="sokusuu">6 <a href="https://x.com/taka_DTnmp/status/1917706893822460216" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">45</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/2025237418480377856/HguhahFd_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/untamedknight" target="_blank" rel="noopener">@untamedknight</a></div></td><td class="display-name">チー・牛太@牛太塾</td><td class="sokusuu">6 <a href="https://x.com/untamedknight/status/1917632989607125116" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr><tr><td class="rank">46</td><td class="user-cell"><img class="avatar" src="https://pbs.twimg.com/profile_images/1887099699964063744/sbQ-czmq_400x400.jpg" alt=""><div class="user-info"><a href="https://twitter.com/yszk1624" target="_blank" rel="noopener">@yszk1624</a></div></td><td class="display-name">ちゃの@MBH</td><td class="sokusuu">6 <a href="https://x.com/yszk1624/status/1917591673749790827" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a></td><td><span class="badge badge-cat-street">ストリート</span> </td></tr></tbody></table></div>
     </div>
 
     <div id="tab-dist" class="tab-content">
@@ -17579,7 +17336,8 @@
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tab).classList.add('active');
-            event.target.classList.add('active');
+            const clicked = (typeof event !== 'undefined' && event.target) ? event.target : null;
+            if (clicked) clicked.classList.add('active');
             document.getElementById('searchBox').value = '';
             filterRows();
         }
