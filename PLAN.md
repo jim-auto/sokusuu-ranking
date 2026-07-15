@@ -4,56 +4,111 @@
 
 ## 直近の目的
 
-2026年6月の月間即数ランキングを収集し、`docs/index.html` に反映する。
+2026年1〜6月の月間ランキングと、2026年 YTD 年間ランキングを揃え、`docs/index.html` に反映する。
 
-1. `data/monthly_2026_06.json` を新規作成する
-2. `data/monthly_ranking.json` を更新する
-3. 月別タブ付きで `docs/index.html` を再生成する
-4. ドラフト PR で公開前レビューする
+1. 欠けていた月次（1 / 4 / 5 月）を収集
+2. 6月は先行収集済みを利用
+3. 2 / 3 月は既存 local データを利用
+4. 年間 2026（現時点）を YTD ウィンドウで収集
+5. 月別 / 年別タブ付きで HTML 再生成 → ドラフト PR
 
-## 2026年6月 収集サマリ
+## 2026 月次・年間 収集サマリ
 
-実行コマンド:
-
-```bash
-python monthly_collect.py --mode monthly --year 2026 --month 6 --global-search --prefetch-only --checkpoint-every 10
-```
-
-条件:
+共通条件:
 
 - 対象: 384アカウント
-- モード: `--global-search --prefetch-only`（個別タイムライン走査なし）
-- Cookie: 6個利用（2026-03 時点のものを再利用、スモーク収集で動作確認済み）
+- モード: `--global-search --prefetch-only`
+- Cookie: 6個利用
 
-結果:
+```bash
+# 欠け月
+python monthly_collect.py --mode monthly --year 2026 --month 1 --global-search --prefetch-only --checkpoint-every 10
+python monthly_collect.py --mode monthly --year 2026 --month 4 --global-search --prefetch-only --checkpoint-every 10
+python monthly_collect.py --mode monthly --year 2026 --month 5 --global-search --prefetch-only --checkpoint-every 10
+# 6月は先行実施済み
+# 年間 YTD
+python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-only --checkpoint-every 10
+```
 
-- 出力: `data/monthly_2026_06.json` = 23件
-- `data/monthly_ranking.json` 更新あり
-- HTML: `SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=monthlyselect DEFAULT_MONTH=202606 python generate_html.py`
+件数:
+
+| period | file | hits | top |
+| --- | --- | ---: | --- |
+| 2026-01 | `monthly_2026_01.json` | 27 | `@shime_pua` 25 |
+| 2026-02 | `monthly_2026_02.json` | 34 | `@nakayamasoku` 42（既存） |
+| 2026-03 | `monthly_2026_03.json` | 18 | `@tora_maru005` 39（既存） |
+| 2026-04 | `monthly_2026_04.json` | 28 | `@kukuru_nanpa` 32 |
+| 2026-05 | `monthly_2026_05.json` | 21 | `@tora_maru005` 35 |
+| 2026-06 | `monthly_2026_06.json` | 23 | `@tora_maru005` 51 |
+| 2026 YTD | `yearly_2026.json` | 14 | `@chino_ey` 100 |
+
+月次上位（新規収集分）:
+
+### 1月
+
+| rank | username | count |
+| ---: | --- | ---: |
+| 1 | `shime_pua` | 25 |
+| 2 | `sandorafc` | 24 |
+| 3 | `mic_pua` | 16 |
+
+### 4月
+
+| rank | username | count |
+| ---: | --- | ---: |
+| 1 | `kukuru_nanpa` | 32 |
+| 2 | `ak1_pua` | 26 |
+| 3 | `PUAINOKI` | 25 |
+
+### 5月
+
+| rank | username | count |
+| ---: | --- | ---: |
+| 1 | `tora_maru005` | 35 |
+| 2 | `kukuru_nanpa` | 25 |
+| 3 | `PUAINOKI` | 22 |
+
+### 6月
+
+| rank | username | count |
+| ---: | --- | ---: |
+| 1 | `tora_maru005` | 51 |
+| 2 | `kent_o_o` | 45 |
+| 3 | `kukuru_nanpa` | 23 |
+
+### 年間 2026（YTD / 現時点）
 
 | rank | username | count | source |
 | ---: | --- | ---: | --- |
-| 1 | `tora_maru005` | 51 | `global_search` |
-| 2 | `kent_o_o` | 45 | `global_search` |
-| 3 | `kukuru_nanpa` | 23 | `global_search` |
-| 4 | `okarun_pua` | 15 | `global_search` |
-| 5 | `bookmaker_2015` | 13 | `global_search` |
-| 6 | `omamco_pua2` | 10 | `global_search` |
-| 7 | `ururunpua` | 7 | `global_search` |
-| 8 | `daigakusei_pua` | 7 | `global_search` |
-| 9 | `chiroru_pua` | 5 | `global_search` |
-| 10 | `taku__pua` | 5 | `global_search` |
+| 1 | `chino_ey` | 100 | `global_search` |
+| 2 | `PUAINOKI` | 67 | `profile_bio` |
+| 3 | `taruchan100` | 47 | `global_search` |
+| 4 | `entpxxxxxx` | 45 | `global_search` |
+| 5 | `nampa_poke` | 33 | `global_search` |
+
+コード変更:
+
+- `monthly_collect.py` の `build_reporting_window`
+  - 完了年: 従来どおり 12/20〜翌1/15
+  - **進行中の年**: 1/1〜本日の YTD ウィンドウ（今回 2026-01-01〜2026-07-15）
+
+HTML 再生成:
+
+```bash
+SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=monthlyselect DEFAULT_MONTH=202606 python generate_html.py
+```
 
 補足:
 
-- 全件 `match_source=global_search`（tweet evidence あり）
-- 低スコア（1–2即）は誤検出リスクがあるので public merge 前に目視推奨
-- `data/` は gitignore のため、PR 本体は `docs/index.html`（埋め込み済み）と `PLAN.md` / `requirements.txt`
+- 7月は途中月のため未収集
+- 2 / 3 月は過去収集のまま（再走査していない）
+- 年間 YTD は年末総括よりヒットが薄い（14件）。bio 由来も含むので merge 前レビュー推奨
+- `data/` は gitignore。PR は `docs/index.html` 埋め込み + スクリプト / PLAN
 
 ## 現在の公開状態
 
 - 公開URL: https://jim-auto.github.io/sokusuu-ranking/
-- 本ブランチでは period タブ（月別 / 月間記録 など）を HTML に含めて再生成済み
+- 本ブランチでは period タブ（月別 / 年別 / 月間記録 など）を HTML に含めて再生成済み
 - マージ方針はドラフト PR レビュー後に判断
 
 ## 現在の件数
@@ -68,11 +123,13 @@ python monthly_collect.py --mode monthly --year 2026 --month 6 --global-search -
   - クラブ: 50件
   - オンライン: 125件
 - local 保持データ:
-  - `data/monthly_ranking.json` = 72件
-  - `data/yearly_ranking.json` = 53件
+  - `data/monthly_2026_01.json` = 27件
   - `data/monthly_2026_02.json` = 34件
   - `data/monthly_2026_03.json` = 18件
+  - `data/monthly_2026_04.json` = 28件
+  - `data/monthly_2026_05.json` = 21件
   - `data/monthly_2026_06.json` = 23件
+  - `data/yearly_2026.json` = 14件
   - `data/yearly_2025.json` = 35件
 
 ## 今回変更したコード

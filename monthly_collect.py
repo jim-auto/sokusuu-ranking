@@ -1274,8 +1274,18 @@ def find_yearly_profile_hit(account, year):
 
 def build_reporting_window(mode, year, month=None):
     if mode == "yearly":
-        start = datetime(year, 12, 20)
-        end = datetime(year + 1, 1, 15)
+        today = datetime.now().date()
+        if year < today.year:
+            # 完了年: 年末〜年始の総括ツイートを拾う
+            start = datetime(year, 12, 20)
+            end = datetime(year + 1, 1, 15)
+        elif year == today.year:
+            # 進行中の年: 年初〜本日までの YTD 報告を拾う
+            start = datetime(year, 1, 1)
+            end = datetime(today.year, today.month, today.day)
+        else:
+            start = datetime(year, 1, 1)
+            end = datetime(year, 1, 1)
     else:
         if month is None:
             raise ValueError("monthly mode requires month")
