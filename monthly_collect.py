@@ -897,10 +897,16 @@ def extract_yearly_count(text, year, strict=False):
         return None
 
     short_year = str(year)[2:]
+    prev_year = year - 1
+    prev_short = str(prev_year)[2:]
     year_tokens = "|".join(re.escape(token) for token in (f"{year}年", f"{short_year}年"))
+    prev_year_tokens = "|".join(
+        re.escape(token) for token in (f"{prev_year}年", f"{prev_short}年")
+    )
+    month_num = r"(?:0?[1-9]|1[0-2])"
     has_explicit_year = bool(re.search(rf"(?:{year_tokens})", cleaned, re.IGNORECASE))
     has_year_month_phrase = bool(
-        re.search(rf"(?:{year_tokens})\s*(?:1[0-2]|[1-9])月", cleaned, re.IGNORECASE)
+        re.search(rf"(?:{year_tokens})\s*{month_num}月", cleaned, re.IGNORECASE)
     )
     has_report_keyword = bool(
         re.search(r"(?:年間|年最多|年最高|結果|実績|戦績|総括|振り返り|着地|まとめ)", cleaned)
@@ -912,8 +918,33 @@ def extract_yearly_count(text, year, strict=False):
         re.search(r"(?:tips?|TIPS|運用術|攻略|ノウハウ|講習|コンサル|教材|方法)", cleaned)
     )
     has_goal_keyword = bool(re.search(r"(?:目標|予定|目指す|狙う|達成したい)", cleaned))
+    has_this_year_word = bool(re.search(r"(?:今年|本年)", cleaned))
+    has_prev_year_recap = bool(
+        re.search(
+            rf"(?:{prev_year_tokens})\s*(?:総括|結果|実績|戦績|まとめ).{{0,16}}\d+\s*(?:即|get|g\b)",
+            cleaned,
+            re.IGNORECASE,
+        )
+    )
 
     if re.search(r"累計|通算|total|トータル", cleaned, re.IGNORECASE):
+        return None
+    # 他人の実績紹介・商材宣伝（例: 「購入者のXXさんは今年100即」）を除外
+    if re.search(
+        r"(?:購入者|メソッド|情報商材|教材).{0,40}(?:さん|くん|ちゃん|氏)",
+        cleaned,
+    ) or re.search(
+        r"(?:さん|くん|ちゃん|氏).{0,24}(?:は|が).{0,24}(?:今年|本年|\d{2,4}年).{0,12}\d+\s*(?:即|get|g\b)",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    # 「2026年4月総括 7即」のような月次報告を年間扱いにしない
+    # （上半期/年間など年単位の語がある場合は許可）
+    has_period_total_keyword = bool(
+        re.search(r"(?:年間|年最多|年最高|上半期|下半期|半期|今年|本年)", cleaned)
+    )
+    if has_year_month_phrase and not has_period_total_keyword:
         return None
     if has_year_month_phrase and not has_strong_report_keyword:
         return None
@@ -928,12 +959,31 @@ def extract_yearly_count(text, year, strict=False):
 
     month_count_matches = list(
         re.finditer(
-            r"(1[0-2]|[1-9])月\s*[=:：]?\s*(\d+)\s*(?:即|get|g\b)",
+            rf"({month_num})月\s*[=:：]?\s*(\d+)\s*(?:即|get|g\b)",
             cleaned,
             re.IGNORECASE,
         )
     )
-    if len(month_count_matches) >= 3:
+    # 月別内訳の合算は「対象年の総括」として明示されているときだけ使う。
+    # 前年総括ツイート内の月別表を誤って今年扱いにしない。
+    allow_month_series = False
+    if len(month_count_matches) >= 3 and not has_prev_year_recap:
+        prefix = cleaned[: month_count_matches[0].start()]
+        year_mentions = list(
+            re.finditer(r"((?:20)?\d{2})年|(今年|本年)", prefix)
+        )
+        if year_mentions:
+            last = year_mentions[-1]
+            token = last.group(1) or last.group(2) or ""
+            if token in {"今年", "本年"} or token in {str(year), short_year}:
+                allow_month_series = True
+        elif has_this_year_word or has_explicit_year:
+            # 月の直前に年表記が無くても、本文が対象年/今年中心なら許可
+            allow_month_series = not bool(
+                re.search(rf"(?:{prev_year_tokens})", cleaned)
+            )
+
+    if allow_month_series:
         month_values = {}
         for match in month_count_matches:
             month_values[int(match.group(1))] = int(match.group(2))
@@ -947,8 +997,8 @@ def extract_yearly_count(text, year, strict=False):
             value = int(match.group(1))
             if not 0 < value <= 2000:
                 continue
-            before = cleaned[max(0, match.start() - 6) : match.start()]
-            if re.search(r"(?:1[0-2]|[1-9])月\s*$", before):
+            before = cleaned[max(0, match.start() - 8) : match.start()]
+            if re.search(rf"{month_num}月\s*$", before):
                 continue
             non_month_counts.append(match)
 
@@ -973,23 +1023,27 @@ def extract_yearly_count(text, year, strict=False):
                 return summed
 
     patterns = [
-        rf"(?:{year_tokens})\s*(?:の)?\s*(?:結果|実績|戦績|総括|振り返り|着地|まとめ)?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
-        rf"(?:{year_tokens}).{{0,30}}?(?:計|合計|結果|実績|戦績|総括|振り返り|着地|まとめ)?\s*(\d+)\s*(?:即|get|g\b)",
+        rf"(?:{year_tokens})\s*(?:の)?\s*(?:結果|実績|戦績|総括|振り返り|着地|まとめ|上半期|下半期)?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        rf"(?:{year_tokens}).{{0,30}}?(?:計|合計|結果|実績|戦績|総括|振り返り|着地|まとめ|上半期|下半期)?\s*(\d+)\s*(?:即|get|g\b)",
         r"(?:年間|年最多|年最高)\s*(?:は|の)?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
         r"(?:今年|本年)\s*(?:は|の結果|の実績|の総括|の振り返り|の着地|のまとめ)?\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
     ]
 
     year_month_pattern = re.compile(
-        rf"(?:{year_tokens})\s*(?:1[0-2]|[1-9])月", re.IGNORECASE
+        rf"(?:{year_tokens})\s*{month_num}月", re.IGNORECASE
     )
     annual_context_pattern = re.compile(
-        r"(?:年間|年最多|年最高|今年|本年|総括|振り返り|着地|まとめ)"
+        r"(?:年間|年最多|年最高|今年|本年|上半期|下半期|半期|総括|振り返り|着地|まとめ)"
     )
 
     for pattern in patterns:
         for match in re.finditer(pattern, cleaned, re.IGNORECASE):
             window = cleaned[max(0, match.start() - 16) : min(len(cleaned), match.end() + 16)]
             if year_month_pattern.search(window) and not annual_context_pattern.search(window):
+                continue
+            # 「2026年は〜 1月 0即」のような月次の先頭数字を年間にしない
+            after = cleaned[match.end() : match.end() + 12]
+            if re.search(rf"^\s*{month_num}月", after):
                 continue
             value = int(match.group(1))
             if 0 < value <= 2000:

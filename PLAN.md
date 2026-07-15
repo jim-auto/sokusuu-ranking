@@ -40,7 +40,16 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2026-04 | `monthly_2026_04.json` | 28 | `@kukuru_nanpa` 32 |
 | 2026-05 | `monthly_2026_05.json` | 21 | `@tora_maru005` 35 |
 | 2026-06 | `monthly_2026_06.json` | 23 | `@tora_maru005` 51 |
-| 2026 YTD | `yearly_2026.json` | 14 | `@chino_ey` 100 |
+| 2026 YTD | `yearly_2026.json` | 7（誤検出除去後） | `@PUAINOKI` 67 |
+
+### 年間 YTD 誤検出メモ（2026-07-15）
+
+- `@chino_ey` 100 は **誤検出**。本人実績ではなく「購入者のえろんがさんは今年100即」という宣伝ツイート
+- 同様に前年総括・月次報告の誤混入（`entpxxxxxx` 45 / `nampa_poke` 33 / 月次総括系）を除去
+- `extract_yearly_count` に除外を追加:
+  - 第三者実績・商材宣伝
+  - `YYYY年M月` の月次報告
+  - 前年総括ツイート内の月別表の合算
 
 月次上位（新規収集分）:
 
@@ -76,15 +85,15 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2 | `kent_o_o` | 45 |
 | 3 | `kukuru_nanpa` | 23 |
 
-### 年間 2026（YTD / 現時点）
+### 年間 2026（YTD / 現時点・洗浄後）
 
 | rank | username | count | source |
 | ---: | --- | ---: | --- |
-| 1 | `chino_ey` | 100 | `global_search` |
-| 2 | `PUAINOKI` | 67 | `profile_bio` |
-| 3 | `taruchan100` | 47 | `global_search` |
-| 4 | `entpxxxxxx` | 45 | `global_search` |
-| 5 | `nampa_poke` | 33 | `global_search` |
+| 1 | `PUAINOKI` | 67 | `profile_bio` |
+| 2 | `taruchan100` | 47 | `global_search` |
+| 3 | `ak1_pua` | 25 | `global_search` |
+| 4 | `around60g` | 8 | `global_search` |
+| 5 | `yutayuta_pua` | 3 | `profile_bio` |
 
 コード変更:
 
