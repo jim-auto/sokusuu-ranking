@@ -474,7 +474,28 @@ def generate_html(records: list[dict]) -> str:
         display = "block" if is_first else "none"
         yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
         selected = " selected" if is_first else ""
-        yearly_options += '<option value="' + year_id + '"' + selected + '>' + str(y_year) + '年 (' + str(len(y_data)) + '件・集計中)</option>'
+        # 月次合算の上半期などは period / period_label を優先して表示名を変える
+        period = (y_data[0].get("period") or "") if y_data else ""
+        period_label = (y_data[0].get("period_label") or "") if y_data else ""
+        if period == "h1" or period_label == "上半期":
+            year_title = f"{y_year}年上半期"
+            year_note = "月次合算"
+        else:
+            year_title = f"{y_year}年"
+            year_note = "集計中"
+        yearly_options += (
+            '<option value="'
+            + year_id
+            + '"'
+            + selected
+            + ">"
+            + year_title
+            + " ("
+            + str(len(y_data))
+            + "件・"
+            + year_note
+            + ")</option>"
+        )
 
     if yearly_divs:
         yearlyselect_active = active_class("yearlyselect")

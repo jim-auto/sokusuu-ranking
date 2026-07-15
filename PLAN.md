@@ -4,12 +4,12 @@
 
 ## 直近の目的
 
-2026年1〜6月の月間ランキングと、2026年 YTD 年間ランキングを揃え、`docs/index.html` に反映する。
+2026年1〜6月の月間ランキングと、その合算による上半期ランキングを揃え、`docs/index.html` に反映する。
 
 1. 欠けていた月次（1 / 4 / 5 月）を収集
 2. 6月は先行収集済みを利用
 3. 2 / 3 月は既存 local データを利用
-4. 年間 2026（現時点）を YTD ウィンドウで収集
+4. 1〜6月合算で 2026年上半期ランキングを生成
 5. 月別 / 年別タブ付きで HTML 再生成 → ドラフト PR
 
 ## 2026 月次・年間 収集サマリ
@@ -40,16 +40,29 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2026-04 | `monthly_2026_04.json` | 28 | `@kukuru_nanpa` 32 |
 | 2026-05 | `monthly_2026_05.json` | 21 | `@tora_maru005` 35 |
 | 2026-06 | `monthly_2026_06.json` | 23 | `@tora_maru005` 51 |
-| 2026 YTD | `yearly_2026.json` | 7（誤検出除去後） | `@PUAINOKI` 67 |
+| 2026 上半期 | `yearly_2026.json` | 82（1〜6月合算） | `@tora_maru005` 125 |
 
-### 年間 YTD 誤検出メモ（2026-07-15）
+### 上半期ランキング（月次合算）
 
-- `@chino_ey` 100 は **誤検出**。本人実績ではなく「購入者のえろんがさんは今年100即」という宣伝ツイート
-- 同様に前年総括・月次報告の誤混入（`entpxxxxxx` 45 / `nampa_poke` 33 / 月次総括系）を除去
-- `extract_yearly_count` に除外を追加:
-  - 第三者実績・商材宣伝
-  - `YYYY年M月` の月次報告
-  - 前年総括ツイート内の月別表の合算
+YTD 検索は誤検出が多いため、**1〜6月の月次ランキング合算**に切り替えた。
+
+```bash
+python build_halfyear_ranking.py --year 2026
+# -> data/yearly_2026.json
+```
+
+- `match_source`: `monthly_sum_h1`
+- `period` / `period_label`: `h1` / `上半期`
+- 表示: 年別タブで「2026年上半期 (N件・月次合算)」
+- 注意: 各月の取りこぼしがあるユーザーは合算も低めになる
+
+| rank | username | total | breakdown |
+| ---: | --- | ---: | --- |
+| 1 | `tora_maru005` | 125 | 3:39 / 5:35 / 6:51 |
+| 2 | `kukuru_nanpa` | 95 | 2:15 / 4:32 / 5:25 / 6:23 |
+| 3 | `PUAINOKI` | 81 | 2:19 / 3:15 / 4:25 / 5:22 |
+| 4 | `mic_pua` | 70 | 1:16 / 2:15 / 3:1 / 4:21 / 5:17 |
+| 5 | `okarun_pua` | 53 | 2:19 / 4:10 / 5:9 / 6:15 |
 
 月次上位（新規収集分）:
 
@@ -85,15 +98,9 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2 | `kent_o_o` | 45 |
 | 3 | `kukuru_nanpa` | 23 |
 
-### 年間 2026（YTD / 現時点・洗浄後）
+### 2026年上半期（1〜6月合算）
 
-| rank | username | count | source |
-| ---: | --- | ---: | --- |
-| 1 | `PUAINOKI` | 67 | `profile_bio` |
-| 2 | `taruchan100` | 47 | `global_search` |
-| 3 | `ak1_pua` | 25 | `global_search` |
-| 4 | `around60g` | 8 | `global_search` |
-| 5 | `yutayuta_pua` | 3 | `profile_bio` |
+上記「上半期ランキング」表を参照。
 
 コード変更:
 
