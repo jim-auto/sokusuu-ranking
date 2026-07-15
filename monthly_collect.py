@@ -673,6 +673,11 @@ def extract_monthly_count(text, year, month, strict=False):
     }
     month_tokens = "|".join(re.escape(name) for name in month_names.get(month, []))
     has_explicit_month = bool(re.search(rf"(?:{month_tokens})", cleaned, re.IGNORECASE))
+    # 「2月実績 42即」を 1月や 3月に流用しない
+    mentioned_months = {
+        int(token)
+        for token in re.findall(r"(?<!\d)(1[0-2]|[1-9])\s*月", cleaned)
+    }
     has_report_keyword = bool(
         re.search(
             r"(?:実績|結果|戦績|総括|統括|振り返り|振返り|着地|出撃|報告|まとめ|締め)",
@@ -700,6 +705,8 @@ def extract_monthly_count(text, year, month, strict=False):
     has_cross_month_range = bool(
         re.search(rf"{month}\s*/\s*\d+\s*[〜~\-ー]\s*{next_month}\s*/\s*\d+", cleaned)
     )
+    if mentioned_months and month not in mentioned_months:
+        return None
     if strict and not has_explicit_month and re.search(rf"{next_month}月", cleaned):
         return None
 
@@ -1695,9 +1702,29 @@ async def search_user_period(playwright_contexts, context_idx, username, mode, y
         playwright_contexts,
         context_idx,
         query,
-        scrolls=3,
+        scrolls=6,
     )
-    return pick_best_hit(captured, username, mode, year, month)
+    hit = pick_best_hit(captured, username, mode, year, month)
+    if hit:
+        return hit
+    # 追加: 総括/実績の明示クエリ（from:user + 月トークン）
+    if mode == "monthly" and month:
+        start_date, end_date = build_reporting_window(mode, year, month)
+        until_date = end_date + timedelta(days=1)
+        extra_q = (
+            f"from:{username} since:{start_date.isoformat()} until:{until_date.isoformat()} "
+            f'("{month}月") (総括 OR 実績 OR 結果 OR 戦績 OR まとめ)'
+        )
+        captured = await search_query_tweets_with_rotation(
+            playwright_contexts,
+            context_idx,
+            extra_q,
+            scrolls=5,
+        )
+        hit = pick_best_hit(captured, username, mode, year, month)
+        if hit:
+            return hit
+    return None
 
 
 async def browse_user_period(
@@ -1707,7 +1734,7 @@ async def browse_user_period(
         playwright_contexts,
         context_idx,
         username,
-        scrolls=4,
+        scrolls=10,
     )
     return pick_best_hit(captured, username, mode, year, month, strict=True)
 

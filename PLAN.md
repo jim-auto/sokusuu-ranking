@@ -121,6 +121,19 @@ SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=monthlyselect DEFAULT_M
 - 年間 YTD は年末総括よりヒットが薄い（14件）。bio 由来も含むので merge 前レビュー推奨
 - `data/` は gitignore。PR は `docs/index.html` 埋め込み + スクリプト / PLAN
 
+
+### nakayamasoku 月次補完 (2026-07-15)
+
+- 問題: 上半期合算が2月42のみ → 実勢より低い
+- 原因: prefetch-only だと古い総括ツイートを取りこぼす / 個別走査もスクロール不足
+- 公開ポスト確認:
+  - 1月: 【1月総括】43即 (status/2018194015842374014) → **補完済み**
+  - 2月: 【2月実績】42即 → 既存
+  - 3〜6月: `【N月実績/総括】` 形式の公開総括は検索上見つからず（途中経過ポストのみ）
+- 抽出修正: `extract_monthly_count` で「2月実績」を他月に流用しない
+- 収集強化: user search スクロール増 + `from:user "N月" (総括|実績)` 追加クエリ
+- 上半期再計算後: @nakayamasoku 85即 (1:43 + 2:42) で 3位
+
 ## 現在の公開状態
 
 - 公開URL: https://jim-auto.github.io/sokusuu-ranking/
