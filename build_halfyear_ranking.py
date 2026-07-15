@@ -141,7 +141,8 @@ def main() -> None:
 
     print(f"{len(ranking)}件 -> {out}")
     for i, row in enumerate(ranking[:15], 1):
-        print(f"  {i}. @{row['username']}: {row['yearly_count']}即")
+        name = row.get("display_name") or "-"
+        print(f"  {i}. @{row['username']} ({name}): {row['yearly_count']}即")
     if len(ranking) > 15:
         print(f"  ... +{len(ranking) - 15} more")
 

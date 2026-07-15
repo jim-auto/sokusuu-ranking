@@ -142,6 +142,32 @@ def build_period_value_html(record: dict, count_key: str) -> str:
     return f"{record[count_key]:,}{approximate_suffix}{evidence_html}{review_html}"
 
 
+def build_user_cell_html(
+    username: str,
+    display_name: str = "",
+    avatar_url: str = "",
+    profile_url: str = "",
+    extra_html: str = "",
+) -> str:
+    """アカウント + 表示名を user-cell にまとめて出す。"""
+    href = profile_url or f"https://twitter.com/{username}"
+    if avatar_url:
+        av_html = f'<img class="avatar" src="{avatar_url}" alt="">'
+    else:
+        av_html = '<div class="avatar avatar-placeholder"></div>'
+    name = (display_name or "").strip()
+    name_html = (
+        f'<div class="user-display-name">{name}</div>' if name else ""
+    )
+    return (
+        f'<td class="user-cell">{av_html}'
+        f'<div class="user-info">'
+        f'<a href="{href}" target="_blank" rel="noopener">@{username}</a>'
+        f"{name_html}{extra_html}"
+        f"</div></td>"
+    )
+
+
 def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
     merged_records = [dict(r) for r in records]
     by_username = {r["username"]: r for r in merged_records}
@@ -211,7 +237,6 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
             alt_html = f'<span class="alt-badge">= {alt}</span>'
 
         avatar_url = r.get("profile_image_url", "")
-        avatar_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
 
         cat_html = ""
         if show_category:
@@ -225,16 +250,17 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
             else:
                 cat_html = '<td><span class="badge badge-cat-none">未分類</span></td>'
 
+        user_cell = build_user_cell_html(
+            r["username"],
+            r.get("display_name", ""),
+            avatar_url,
+            r.get("url", ""),
+            extra_html=alt_html,
+        )
         rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
-                <td class="user-cell">
-                    {avatar_html}
-                    <div class="user-info">
-                        <a href="{r['url']}" target="_blank" rel="noopener">@{r['username']}</a>
-                        {alt_html}
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r['display_name']}</td>
                 <td class="sokusuu">{r['sokusuu']:,}{"+" if r.get("approximate") else ""}{' <a href="' + r['evidence_url'] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get('evidence_url') else ''}</td>
                 <td>{source_badge}</td>
@@ -294,17 +320,15 @@ def generate_html(records: list[dict]) -> str:
             continue
         rank += 1
         medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(rank, "")
-        avatar_url = r.get("profile_image_url", "")
-        av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+        user_cell = build_user_cell_html(
+            r["username"],
+            r.get("display_name", ""),
+            r.get("profile_image_url", ""),
+        )
         followers_rows += f"""
             <tr>
                 <td class="rank">{medal}{rank}</td>
-                <td class="user-cell">
-                    {av_html}
-                    <div class="user-info">
-                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r['display_name']}</td>
                 <td class="followers">{followers:,}</td>
                 <td class="sokusuu">{r['sokusuu']:,}</td>
@@ -338,19 +362,17 @@ def generate_html(records: list[dict]) -> str:
         monthly_rows = ""
         for i, r in enumerate(monthly_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             achieved_m = r.get("achieved_date")
             date_str = f'<span style="color:#888">{achieved_m}</span>' if achieved_m else '<span style="color:#444">-</span>'
+            user_cell = build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             monthly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
-                <td class="user-cell">
-                    {av_html}
-                    <div class="user-info">
-                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{build_period_value_html(r, 'monthly_best')}</td>
                 <td>{date_str}</td>
@@ -384,19 +406,17 @@ def generate_html(records: list[dict]) -> str:
         yearly_rows = ""
         for i, r in enumerate(yearly, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             achieved = r.get("achieved_year")
             year_str = f'<span style="color:#888">{achieved}年</span>' if achieved else '<span style="color:#444">-</span>'
+            user_cell = build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             yearly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
-                <td class="user-cell">
-                    {av_html}
-                    <div class="user-info">
-                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{build_period_value_html(r, 'yearly_best')}</td>
                 <td>{year_str}</td>
@@ -453,11 +473,13 @@ def generate_html(records: list[dict]) -> str:
         y_rows = ""
         for i, r in enumerate(y_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             y_rows += '<tr>'
             y_rows += '<td class="rank">' + medal + str(i) + '</td>'
-            y_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
+            y_rows += build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             y_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             y_rows += '<td class="sokusuu">' + build_period_value_html(r, "yearly_count") + '</td>'
             cats = r.get('categories', '')
@@ -543,11 +565,13 @@ def generate_html(records: list[dict]) -> str:
         m_rows = ""
         for i, r in enumerate(m_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             m_rows += '<tr>'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
-            m_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
+            m_rows += build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             m_rows += '<td class="sokusuu">' + build_period_value_html(r, "monthly_count") + '</td>'
             cats = r.get('categories', '')
@@ -771,6 +795,13 @@ def generate_html(records: list[dict]) -> str:
         }}
         .user-info a {{ color: #1d9bf0; text-decoration: none; }}
         .user-info a:hover {{ text-decoration: underline; }}
+        .user-display-name {{
+            color: #ccc;
+            font-size: 0.85em;
+            margin-top: 2px;
+            line-height: 1.3;
+            word-break: break-word;
+        }}
         .display-name {{ color: #999; font-size: 0.9em; }}
         .sokusuu {{ font-weight: bold; color: #ff6b6b; font-size: 1.1em; }}
         .followers {{ font-weight: bold; color: #1d9bf0; }}
@@ -815,7 +846,9 @@ def generate_html(records: list[dict]) -> str:
             body {{ padding: 10px; }}
             .stats {{ flex-direction: column; align-items: center; }}
             th, td {{ padding: 8px 10px; font-size: 0.85em; }}
-            .display-name {{ display: none; }}
+            /* 表示名カラムは狭いので隠すが、user-cell 内の表示名は残す */
+            th:nth-child(3),
+            td.display-name {{ display: none; }}
             .tabs {{ gap: 5px; }}
             .tab {{ padding: 6px 12px; font-size: 0.8em; }}
         }}
