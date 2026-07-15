@@ -751,7 +751,8 @@ def extract_monthly_count(text, year, month, strict=False):
         if any(re.search(pattern, cleaned) for pattern in exclude_patterns):
             return None
 
-    count_unit = r"(?:即|get|g\b|そ\b)"
+    # 節 = 一部クラスタの「即」言い換え（例: 50節）
+    count_unit = r"(?:即|節|get|g\b|そ\b)"
     has_multi_month_series = len(re.findall(r"\d{1,2}\s*月(?!間)", cleaned)) >= 2
     component_sum = None
 
