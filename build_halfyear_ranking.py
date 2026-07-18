@@ -34,6 +34,7 @@ def build_halfyear_ranking(year: int, months: list[int] | None = None) -> list[d
             "meta": None,
             "best_evidence": None,
             "best_month_count": -1,
+            "month_rows": {},  # month -> row (for channel inference)
         }
     )
 
@@ -60,6 +61,7 @@ def build_halfyear_ranking(year: int, months: list[int] | None = None) -> list[d
                 entry["total"] -= prev
             entry["months"][month] = count
             entry["total"] += count
+            entry["month_rows"][month] = row
 
             followers = int(row.get("followers_count") or 0)
             meta = entry["meta"]
@@ -75,6 +77,12 @@ def build_halfyear_ranking(year: int, months: list[int] | None = None) -> list[d
                     or ""
                 )
 
+    # 月次本文からチャネルを合算（generate_html.infer_channels と揃える）
+    try:
+        from generate_html import infer_channels
+    except Exception:
+        infer_channels = None
+
     ranking = []
     for username, entry in by_user.items():
         if entry["total"] <= 0:
@@ -83,6 +91,32 @@ def build_halfyear_ranking(year: int, months: list[int] | None = None) -> list[d
         breakdown = entry["months"]
         parts = [f"{m}月{breakdown[m]}即" for m in sorted(breakdown)]
         text = f"{year}年上半期 合算{entry['total']}即（" + " / ".join(parts) + "）"
+
+        # 各月の総括本文を連結してチャネル判定用にする
+        evidence_parts = []
+        channel_set: list[str] = []
+        for m in sorted(entry["month_rows"]):
+            row = entry["month_rows"][m]
+            t = (row.get("tweet_text") or "").strip()
+            if t:
+                evidence_parts.append(t)
+            if infer_channels is not None:
+                for ch in infer_channels(row):
+                    if ch not in channel_set and ch != "unknown":
+                        channel_set.append(ch)
+        channel_evidence = "\n".join(evidence_parts)
+        if not channel_set and infer_channels is not None:
+            channel_set = [
+                c
+                for c in infer_channels(
+                    {
+                        "tweet_text": channel_evidence,
+                        "categories": meta.get("categories", ""),
+                        "bio": meta.get("bio", ""),
+                        "display_name": meta.get("display_name", ""),
+                    }
+                )
+            ]
 
         ranking.append(
             {
@@ -93,6 +127,8 @@ def build_halfyear_ranking(year: int, months: list[int] | None = None) -> list[d
                 "source_url": entry["best_evidence"] or f"https://x.com/{username}",
                 "evidence_url": entry["best_evidence"] or "",
                 "tweet_text": text,
+                "channel_evidence": channel_evidence,
+                "channels": channel_set,
                 "tweet_created_at": "",
                 "followers_count": meta.get("followers_count", 0),
                 "categories": meta.get("categories", ""),

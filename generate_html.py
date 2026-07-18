@@ -52,25 +52,57 @@ CATEGORY_LABELS = {
 }
 CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
 
-# ツイート/プロフィールからチャネルを推定するキーワード
+# ツイート本文向けのチャネル推定（誤爆しにくいパターン）
+# 「スト」は インスト 等に誤爆しやすいので前後を制限
 STREET_HINTS = re.compile(
-    r"(スト|street|路上|GT|kk|連れ出し|🐶|🦁|🦉|味噌|明太子|地方スト|"
-    r"完ソロスト|ストナン|SGT|MGT)",
+    r"(?<![イアウ])スト(?:ナン|即|×|ｘ|x|\d|[\s　/／・・]|$)|"
+    r"完ソロスト|ソロスト|地方スト|ストリート|"
+    r"路上|[🐶🦁🦉]|(?:SGT|MGT)|GTスト|"
+    r"味噌(?:スト|1日|遠征)?|明太子",
     re.IGNORECASE,
 )
 ONLINE_HINTS = re.compile(
-    r"(ネト|アプリ|マチアプ|東カレ|with|タップ|tin|tinder|pairs|ペアーズ|"
-    r"🗼🍛|🍎|🔥|🍐|ワクメ|ネトナン|マッチング)",
+    r"(?:^|[^ア-ン])ネト(?:ナン|即|×|ｘ|x|ヘルプ|\d|[\s　/／・]|$)|"
+    r"マチアプ|マッチングアプリ|東カレ|"
+    r"with|ｳｨｽﾞ|ウィズ|wiz|"
+    r"タップル?|タプ|tin|tinder|pairs|ペアーズ|"
+    r"[🗼🍛🍎🔥🍐]|"
+    r"ワクメ|アプリ即|ネトナン|イン⭐",
     re.IGNORECASE,
 )
 CLUB_HINTS = re.compile(
-    r"(箱|クラブ|クラブナン|🦾|🧚|📦|相席|オリラジ|ロマ絵|箱ナン|クラナン)",
+    r"(?:^|[^ア-ン])箱(?:ナン|即|×|ｘ|x|\d|[\s　/／・]|$)|"
+    r"クラブナン|クラナン|クラブ|"
+    r"相席|オリラジ|ロマ絵|"
+    r"[🦾🧚📦]",
     re.IGNORECASE,
 )
+# パス/代打は「その他」（メインチャネルが無いときだけ）
 OTHER_HINTS = re.compile(
-    r"(パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名|その他)",
+    r"(?:パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名)(?:即|×|\(|（|\d|[\s　]|$)|その他|オフライン",
     re.IGNORECASE,
 )
+
+# よく分かっている人のチャネル上書き（プロフィールカテゴリより優先）
+CHANNEL_OVERRIDES = {
+    "kent_o_o": ["street"],
+    "taruchan100": ["street"],
+    "daigakusei_pua": ["street"],
+    "nakayamasoku": ["online"],
+    "tinder_god_2": ["online"],
+    "tomu_riddle": ["online"],
+    "shime_pua": ["online"],  # ネト主、少量ストは本文があれば追加
+    "river_p823": ["club"],
+    "outlook_sabo_4": ["club"],
+    "cx_lm5": ["club"],
+    "sub_chilll": ["club"],
+    "pua_chilll": ["club"],
+    "bangedaisuki": ["street"],
+    "pua_co": ["street"],
+    "chiroru_pua": ["street"],
+    "oyasugaoo": ["street"],
+    "atannon_nampa": ["street"],
+}
 
 
 def active_class(tab_id: str) -> str:
@@ -118,42 +150,100 @@ def join_unique_csv(*values: str, exclude: set[str] | None = None) -> str:
     return ", ".join(merged)
 
 
-def infer_channels(record: dict) -> list[str]:
-    """ネト/スト/箱/その他/謎 を推定する。"""
+def _scan_channel_text(text: str) -> list[str]:
+    """本文だけからチャネルを拾う。"""
+    if not text or not str(text).strip():
+        return []
     found: list[str] = []
 
     def add(channel: str) -> None:
         if channel not in found:
             found.append(channel)
 
-    # 1) 既存 categories フィールド
-    for item in split_csv(record.get("categories", "")):
-        if item in {"street", "online", "club", "other", "unknown"}:
-            add(item)
-
-    # 2) ツイート本文・表示名・bio から推定
-    text = " ".join(
-        str(record.get(key) or "")
-        for key in ("tweet_text", "display_name", "bio", "tweet_url")
-    )
     if STREET_HINTS.search(text):
         add("street")
     if ONLINE_HINTS.search(text):
         add("online")
     if CLUB_HINTS.search(text):
         add("club")
-    if OTHER_HINTS.search(text) and not any(c in found for c in ("street", "online", "club")):
+    if OTHER_HINTS.search(text) and not any(
+        c in found for c in ("street", "online", "club")
+    ):
         add("other")
-    elif OTHER_HINTS.search(text) and len(found) >= 1:
-        # パス/代打など副次チャネルがある場合は other も付ける
-        # （メインが分かるなら multiple でよい）
-        pass
+    return found
 
-    # 3) 何もなければ謎
+
+def infer_channels(record: dict) -> list[str]:
+    """ネト/スト/箱/その他/謎 を推定する。
+
+    優先順位:
+      1. 明示フィールド channels / channel
+      2. 総括ツイート本文（channel_evidence 含む）
+      3. ユーザ名の既知オーバーライド
+      4. プロフィール categories（弱いフォールバック）
+      5. bio / display_name
+      6. 謎
+    """
+    # 1) 事前計算済み
+    explicit = record.get("channels")
+    if isinstance(explicit, list) and explicit:
+        return [c for c in CHANNEL_ORDER if c in explicit]
+    if isinstance(explicit, str) and explicit.strip():
+        items = split_csv(explicit)
+        return [c for c in CHANNEL_ORDER if c in items]
+
+    single = record.get("channel")
+    if isinstance(single, str) and single in CHANNEL_ORDER:
+        return [single]
+
+    found: list[str] = []
+
+    def add_many(channels: list[str]) -> None:
+        for channel in channels:
+            if channel not in found:
+                found.append(channel)
+
+    # 2) 総括本文（上半期合算のダミー文は無視）
+    evidence = " ".join(
+        str(record.get(key) or "")
+        for key in ("channel_evidence", "tweet_text")
+    )
+    if re.search(r"上半期\s*合算", evidence):
+        evidence = str(record.get("channel_evidence") or "")
+    add_many(_scan_channel_text(evidence))
+
+    # 3) 本文が薄いときだけ既知ユーザの上書き
+    username = str(record.get("username") or "").lower()
+    if not found and username in CHANNEL_OVERRIDES:
+        add_many(CHANNEL_OVERRIDES[username])
+
+    # 4) categories → bio
     if not found:
-        add("unknown")
+        for item in split_csv(record.get("categories", "")):
+            if item in {"street", "online", "club", "other", "unknown"}:
+                if item not in found:
+                    found.append(item)
 
-    # 安定した順序
+    if not found:
+        profile_text = " ".join(
+            str(record.get(key) or "") for key in ("bio", "display_name")
+        )
+        add_many(_scan_channel_text(profile_text))
+
+    # 5) 既知ユーザは本文が path のみ等で other になった場合の補正
+    if username in CHANNEL_OVERRIDES:
+        # 本文から取れたものがあればそれを優先し、足りない分を override で補わない
+        # ただし完全に other/unknown だけなら override を使う
+        if not found or found == ["other"] or found == ["unknown"]:
+            found = list(CHANNEL_OVERRIDES[username])
+
+    if not found:
+        found.append("unknown")
+
+    # 主チャネルがあるのに「その他」が付くのはノイズになりやすいので落とす
+    if "other" in found and any(c in found for c in ("street", "online", "club")):
+        found = [c for c in found if c != "other"]
+
     return [c for c in CHANNEL_ORDER if c in found]
 
 
