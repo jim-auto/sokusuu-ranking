@@ -16,7 +16,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 
 - 月次: 公開総括などの収集・補完
 - **本表は月間5即以上のみ（4即以下は掲載しない）**
-- **根拠ツイートは月間即数の総括であることを人手精査**（序数・通算残数・bioのみ・遠征部分集計は除外）
+- **根拠ツイートは月間即数の総括であることを人手精査**（序数・通算残数・bioのみ・遠征部分集計・「くらい」推定は除外）
 - チャネル: 総括本文キーワード優先（ストナン/ネトナン/箱/その他/謎）
 - 根拠は **URLリンクのみ**（ツイート文はMDに書かない）
 
@@ -29,7 +29,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 1 | @nakayamasoku | 中山@tips更新中（ジジネト） | 43 | ネトナン | [link](https://x.com/nakayamasoku/status/2018194015842374014) |
 | 2 | @PUAINOKI | フランク | 37 | ストナン/ネトナン | [link](https://x.com/PUAINOKI/status/2017800334023008698) |
 | 3 | @shime_pua | しめ | 25 | ストナン/ネトナン | [link](https://x.com/shime_pua/status/2018182025614971305) |
-| 4 | @sandorafc | ジン@裏垢侍 | 24 | ネトナン | [link](https://x.com/sandorafc/status/2017934626514456839) |
+| 4 | @sandorafc | ジン@裏垢侍 | 24 | ネトナン/箱 | [link](https://x.com/sandorafc/status/2017934626514456839) |
 | 5 | @sub_chilll | あつ太郎の本音bot | 21 | 箱 | [link](https://x.com/sub_chilll/status/2018324278249460090) |
 | 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
 | 7 | @KDS2DGhK2E79657 | 伊藤ペケポン | 15 | 謎 | [link](https://x.com/KDS2DGhK2E79657/status/2017820458507506127) |
@@ -45,7 +45,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 17 | @namenayone | ナメクニ | 5 | ストナン | [link](https://x.com/namenayone/status/2018162327020056926) |
 | 18 | @tamaon_zone | ぞね | 5 | その他 | [link](https://x.com/tamaon_zone/status/2017832771885142462) |
 
-### 2026年2月（18件・5即以上 / 非掲載12件）
+### 2026年2月（18件・5即以上 / 非掲載13件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -66,9 +66,9 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 15 | @weekly_nanpa | 週刊プロナンパ日誌 | 6 | ストナン | [link](https://x.com/weekly_nanpa/status/2027554886179836078) |
 | 16 | @chiroru_pua | チロル@帝都の雌猫 | 5 | ストナン | [link](https://x.com/chiroru_pua/status/2027789094563250478) |
 | 17 | @namenayone | ナメクニ | 5 | ストナン | [link](https://x.com/namenayone/status/2029395182777712695) |
-| 18 | @Nano486273 | なの@雄華軍団 | 5 | 謎 | [link](https://x.com/Nano486273/status/2028081329523581201) |
+| 18 | @Nano486273 | なの@雄華軍団 | 5 | ストナン/箱 | [link](https://x.com/Nano486273/status/2028081329523581201) |
 
-### 2026年3月（17件・5即以上 / 非掲載6件）
+### 2026年3月（17件・5即以上 / 非掲載7件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -90,7 +90,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 16 | @chiroru_pua | チロル@帝都の雌猫 | 6 | ストナン | [link](https://x.com/chiroru_pua/status/2038998601322692608) |
 | 17 | @omamco_pua2 | える | 6 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2038984894182043763) |
 
-### 2026年4月（21件・5即以上 / 非掲載11件）
+### 2026年4月（20件・5即以上 / 非掲載11件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -113,8 +113,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 17 | @_springfox_ | 春野キツネ@ピカ講習 | 5 | ストナン | [link](https://x.com/_springfox_/status/2050208547687068044) |
 | 18 | @asai_pua | 浅井 | 5 | ストナン/箱 | [link](https://x.com/asai_pua/status/2049761391842869530) |
 | 19 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 5 | ストナン | [link](https://x.com/rei_app_pua/status/2049878421678031060) |
-| 20 | @sub_chilll | あつ太郎の本音bot | 5 | 箱 | [link](https://x.com/sub_chilll/status/2047713143351370057) |
-| 21 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2050191172849803706) |
+| 20 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2050191172849803706) |
 
 ### 2026年5月（20件・5即以上 / 非掲載8件）
 
@@ -126,7 +125,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 4 | @PUAINOKI | フランク | 22 | その他 | [link](https://x.com/PUAINOKI/status/2061283382060101939) |
 | 5 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2061697844273352975) |
 | 6 | @River_p823 | フェニックス@セクシーコマンドー部 | 14 | 箱 | [link](https://x.com/River_p823/status/2062840176251224456) |
-| 7 | @omamco_pua2 | える | 13 | ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2061365911001694357) |
+| 7 | @omamco_pua2 | える | 13 | ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2061065125612888080) |
 | 8 | @ururunpua | うるるん | 13 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2061365911001694357) |
 | 9 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
 | 10 | @Nano486273 | なの@雄華軍団 | 12 | 謎 | [link](https://x.com/Nano486273/status/2061108226243133825) |
