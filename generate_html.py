@@ -713,8 +713,27 @@ def generate_html(records: list[dict]) -> str:
             first_month_id = month_id
         is_default_month = month_id == default_month_id if default_month_id else is_first
 
+        # 月間1即は本表に載せず「その他（1即）」へ
+        ranked_data = [
+            r for r in m_data if int(r.get("monthly_count") or 0) >= 2
+        ]
+        other_data = [
+            r for r in m_data if int(r.get("monthly_count") or 0) == 1
+        ]
+        ranked_data = sorted(
+            ranked_data,
+            key=lambda r: (
+                -int(r.get("monthly_count") or 0),
+                (r.get("username") or "").lower(),
+            ),
+        )
+        other_data = sorted(
+            other_data,
+            key=lambda r: (r.get("username") or "").lower(),
+        )
+
         m_rows = ""
-        for i, r in enumerate(m_data, 1):
+        for i, r in enumerate(ranked_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
             m_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
@@ -728,10 +747,46 @@ def generate_html(records: list[dict]) -> str:
             m_rows += '<td>' + build_channel_badges_html(r) + '</td>'
             m_rows += '</tr>'
 
+        other_block = ""
+        if other_data:
+            o_rows = ""
+            for r in other_data:
+                o_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
+                o_rows += '<td class="rank">-</td>'
+                o_rows += build_user_cell_html(
+                    r["username"],
+                    r.get("display_name", ""),
+                    r.get("profile_image_url", ""),
+                )
+                o_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
+                o_rows += '<td class="sokusuu">' + build_period_value_html(r, "monthly_count") + '</td>'
+                o_rows += '<td>' + build_channel_badges_html(r) + '</td>'
+                o_rows += '</tr>'
+            other_block = (
+                '<h4 style="color:#9ca3af;margin:18px 0 8px;font-weight:600">'
+                f'その他（1即・{len(other_data)}件）</h4>'
+                '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>'
+                + o_rows
+                + '</tbody></table>'
+            )
+
         display = "block" if is_default_month else "none"
-        monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
+        monthly_divs += (
+            '<div id="monthly-' + month_id + '" style="display:' + display + '">'
+            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>'
+            + m_rows
+            + '</tbody></table>'
+            + other_block
+            + '</div>'
+        )
         selected = " selected" if is_default_month else ""
-        monthly_options += '<option value="' + month_id + '"' + selected + '>' + str(m_year) + '年' + str(m_month) + '月 (' + str(len(m_data)) + '件・集計中)</option>'
+        monthly_options += (
+            '<option value="' + month_id + '"' + selected + '>'
+            + str(m_year) + '年' + str(m_month) + '月 ('
+            + str(len(ranked_data)) + '件'
+            + (f' +1即{len(other_data)}' if other_data else '')
+            + '・集計中)</option>'
+        )
 
     if monthly_divs:
         monthlyselect_active = active_class("monthlyselect")

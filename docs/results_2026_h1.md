@@ -15,12 +15,13 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 ## 方針メモ
 
 - 月次: 公開総括などの収集・補完
+- **月間1即は本表に載せず「その他（1即）」へ**
 - チャネル: 総括本文キーワード優先（ストナン/ネトナン/箱/その他/謎）
 - 根拠は **URLリンクのみ**（ツイート文はMDに書かない）
 
 ## 月次ランキング（根拠リンク）
 
-### 2026年1月（32件）
+### 2026年1月（本表 27件 / その他1即 5件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -51,13 +52,18 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 25 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | [link](https://x.com/tsuyumushi777/status/2017958348776411510) |
 | 26 | @yamikinsan | ケンタロウ | 3 | 謎 | [link](https://x.com/yamikinsan/status/2017770501905740127) |
 | 27 | @heshi_omonaga | へし | 2 | ストナン | [link](https://x.com/heshi_omonaga/status/2017941533643932091) |
-| 28 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 1 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
-| 29 | @hiro_re_1919 | ヒロ@Rising 明太子 | 1 | ストナン/ネトナン | [link](https://x.com/hiro_re_1919/status/2017901381370486858) |
-| 30 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 1 | ストナン | [link](https://x.com/hirohirorenai) |
-| 31 | @taka_DTnmp | たかはる@MBH | 1 | 箱 | [link](https://x.com/taka_DTnmp/status/2017958890202415174) |
-| 32 | @yszk1624 | ちゃの@MBH | 1 | ストナン | [link](https://x.com/yszk1624/status/2017616162956460428) |
 
-### 2026年2月（36件）
+#### その他（1即・5件）
+
+| account | 表示名 | チャネル | 根拠 |
+|---------|--------|----------|------|
+| @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
+| @hiro_re_1919 | ヒロ@Rising 明太子 | ストナン/ネトナン | [link](https://x.com/hiro_re_1919/status/2017901381370486858) |
+| @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | ストナン | [link](https://x.com/hirohirorenai) |
+| @taka_DTnmp | たかはる@MBH | 箱 | [link](https://x.com/taka_DTnmp/status/2017958890202415174) |
+| @yszk1624 | ちゃの@MBH | ストナン | [link](https://x.com/yszk1624/status/2017616162956460428) |
+
+### 2026年2月（本表 33件 / その他1即 3件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -94,11 +100,16 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 31 | @sandorafc | ジン@裏垢侍 | 3 | 謎 | [link](https://x.com/sandorafc/status/2029849459438539173) |
 | 32 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | [link](https://x.com/tsuyumushi777/status/2028312652636950620) |
 | 33 | @badasai_kush | バダサイ | 2 | ストナン | [link](https://x.com/badasai_kush/status/2023050385687023674) |
-| 34 | @ManaBuHirokawa7 | 【二代目】広川学 | 1 | 謎 | [link](https://x.com/ManaBuHirokawa7) |
-| 35 | @taruchan100 | たる | 1 | ストナン | [link](https://x.com/taruchan100/status/2032261557808480295) |
-| 36 | @yupisnono | ゆぴ(白ちゃま)@のんちゃま一門 | 1 | ストナン/ネトナン | [link](https://x.com/yupisnono/status/2027987827364126887) |
 
-### 2026年3月（24件）
+#### その他（1即・3件）
+
+| account | 表示名 | チャネル | 根拠 |
+|---------|--------|----------|------|
+| @ManaBuHirokawa7 | 【二代目】広川学 | 謎 | [link](https://x.com/ManaBuHirokawa7) |
+| @taruchan100 | たる | ストナン | [link](https://x.com/taruchan100/status/2032261557808480295) |
+| @yupisnono | ゆぴ(白ちゃま)@のんちゃま一門 | ストナン/ネトナン | [link](https://x.com/yupisnono/status/2027987827364126887) |
+
+### 2026年3月（本表 22件 / その他1即 2件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -124,10 +135,15 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 20 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 3 | ストナン | [link](https://x.com/pua_yossy/status/2038981792137679122) |
 | 21 | @asumi_pua | あすみ@東京ストナン会 | 2 | ストナン | [link](https://x.com/asumi_pua/status/2038964941030572501) |
 | 22 | @ManaBuHirokawa7 | 【二代目】広川学 | 2 | 謎 | [link](https://x.com/ManaBuHirokawa7) |
-| 23 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2042119741519884599) |
-| 24 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 1 | 謎 | [link](https://x.com/RobertPowerJ) |
 
-### 2026年4月（33件）
+#### その他（1即・2件）
+
+| account | 表示名 | チャネル | 根拠 |
+|---------|--------|----------|------|
+| @badasai_kush | バダサイ | ストナン | [link](https://x.com/badasai_kush/status/2042119741519884599) |
+| @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 謎 | [link](https://x.com/RobertPowerJ) |
+
+### 2026年4月（本表 31件 / その他1即 2件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -162,10 +178,15 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 29 | @yarimokutoma2 | とま🧊@尿道弱者 | 3 | ストナン | [link](https://x.com/yarimokutoma2/status/2050112595139707310) |
 | 30 | @KgNoYou1 | aki | 2 | ストナン | [link](https://x.com/KgNoYou1/status/2051302697178198033) |
 | 31 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 2 | ストナン | [link](https://x.com/pua_yossy/status/2049814594177384848) |
-| 32 | @ayase_mbh | アヤセ@MBH | 1 | 謎 | [link](https://x.com/ayase_mbh/status/2048385703613206571) |
-| 33 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2050311077859385352) |
 
-### 2026年5月（28件）
+#### その他（1即・2件）
+
+| account | 表示名 | チャネル | 根拠 |
+|---------|--------|----------|------|
+| @ayase_mbh | アヤセ@MBH | 謎 | [link](https://x.com/ayase_mbh/status/2048385703613206571) |
+| @nampa_poke | ゆうき | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2050311077859385352) |
+
+### 2026年5月（本表 23件 / その他1即 5件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -192,13 +213,18 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 21 | @asai_pua | 浅井 | 4 | ストナン | [link](https://x.com/asai_pua/status/2061083665367781652) |
 | 22 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2061010265102233654) |
 | 23 | @heshi_omonaga | へし | 2 | 謎 | [link](https://x.com/heshi_omonaga/status/2061086556803498377) |
-| 24 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2064345954804003323) |
-| 25 | @daigakusei_pua | きの山@MBH3月師範 | 1 | ストナン | [link](https://x.com/daigakusei_pua/status/2060989659359117385) |
-| 26 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 謎 | [link](https://x.com/mbhsgr46/status/2061186477493715114) |
-| 27 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2062486824900243912) |
-| 28 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 1 | ストナン | [link](https://x.com/pua_yossy/status/2060896272723382740) |
 
-### 2026年6月（30件）
+#### その他（1即・5件）
+
+| account | 表示名 | チャネル | 根拠 |
+|---------|--------|----------|------|
+| @badasai_kush | バダサイ | ストナン | [link](https://x.com/badasai_kush/status/2064345954804003323) |
+| @daigakusei_pua | きの山@MBH3月師範 | ストナン | [link](https://x.com/daigakusei_pua/status/2060989659359117385) |
+| @mbhsgr46 | 温☀︎玉☀︎KONAN | 謎 | [link](https://x.com/mbhsgr46/status/2061186477493715114) |
+| @nampa_poke | ゆうき | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2062486824900243912) |
+| @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | ストナン | [link](https://x.com/pua_yossy/status/2060896272723382740) |
+
+### 2026年6月（本表 25件 / その他1即 5件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -227,8 +253,13 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 23 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2071202131596726348) |
 | 24 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 3 | ストナン | [link](https://x.com/shin9suke/status/2072352575630848463) |
 | 25 | @ManaBuHirokawa7 | 【二代目】広川学 | 2 | 謎 | [link](https://x.com/ManaBuHirokawa7/status/2071955169676546297) |
-| 26 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 1 | ストナン | [link](https://x.com/HyndP2qxWq4n3Xb/status/2071993668802859343) |
-| 27 | @riku_pua0801 | リク@ナノ講習 | 1 | ストナン | [link](https://x.com/riku_pua0801/status/2071975285134966810) |
-| 28 | @River_p823 | フェニックス@セクシーコマンドー部 | 1 | 箱 | [link](https://x.com/River_p823/status/2075539786048389450) |
-| 29 | @SIYK_Hage | 性欲ハゲ | 1 | ストナン | [link](https://x.com/SIYK_Hage/status/2073414576516030640) |
-| 30 | @tensai_nanpa4 | 統鈴木 | 1 | ストナン/ネトナン | [link](https://x.com/tensai_nanpa4/status/2071993319945588946) |
+
+#### その他（1即・5件）
+
+| account | 表示名 | チャネル | 根拠 |
+|---------|--------|----------|------|
+| @HyndP2qxWq4n3Xb | スーパービックボーイ | ストナン | [link](https://x.com/HyndP2qxWq4n3Xb/status/2071993668802859343) |
+| @riku_pua0801 | リク@ナノ講習 | ストナン | [link](https://x.com/riku_pua0801/status/2071975285134966810) |
+| @River_p823 | フェニックス@セクシーコマンドー部 | 箱 | [link](https://x.com/River_p823/status/2075539786048389450) |
+| @SIYK_Hage | 性欲ハゲ | ストナン | [link](https://x.com/SIYK_Hage/status/2073414576516030640) |
+| @tensai_nanpa4 | 統鈴木 | ストナン/ネトナン | [link](https://x.com/tensai_nanpa4/status/2071993319945588946) |
