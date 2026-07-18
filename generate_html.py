@@ -13,6 +13,7 @@ index.html を docs/ に生成する。
 
 import json
 import os
+import re
 from datetime import datetime
 
 
@@ -40,12 +41,36 @@ DUPLICATE_ACCOUNT_CANONICALS = {
     "inpsub": "ryepua",
 }
 
+# チャネル分類: ストナン / ネトナン / 箱 / その他 / 謎
 CATEGORY_LABELS = {
     "all": "総合",
-    "street": "ストリート",
-    "club": "クラブ",
-    "online": "オンライン",
+    "street": "ストナン",
+    "online": "ネトナン",
+    "club": "箱",
+    "other": "その他",
+    "unknown": "謎",
 }
+CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
+
+# ツイート/プロフィールからチャネルを推定するキーワード
+STREET_HINTS = re.compile(
+    r"(スト|street|路上|GT|kk|連れ出し|🐶|🦁|🦉|味噌|明太子|地方スト|"
+    r"完ソロスト|ストナン|SGT|MGT)",
+    re.IGNORECASE,
+)
+ONLINE_HINTS = re.compile(
+    r"(ネト|アプリ|マチアプ|東カレ|with|タップ|tin|tinder|pairs|ペアーズ|"
+    r"🗼🍛|🍎|🔥|🍐|ワクメ|ネトナン|マッチング)",
+    re.IGNORECASE,
+)
+CLUB_HINTS = re.compile(
+    r"(箱|クラブ|クラブナン|🦾|🧚|📦|相席|オリラジ|ロマ絵|箱ナン|クラナン)",
+    re.IGNORECASE,
+)
+OTHER_HINTS = re.compile(
+    r"(パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名|その他)",
+    re.IGNORECASE,
+)
 
 
 def active_class(tab_id: str) -> str:
@@ -91,6 +116,58 @@ def join_unique_csv(*values: str, exclude: set[str] | None = None) -> str:
                 continue
             merged.append(item)
     return ", ".join(merged)
+
+
+def infer_channels(record: dict) -> list[str]:
+    """ネト/スト/箱/その他/謎 を推定する。"""
+    found: list[str] = []
+
+    def add(channel: str) -> None:
+        if channel not in found:
+            found.append(channel)
+
+    # 1) 既存 categories フィールド
+    for item in split_csv(record.get("categories", "")):
+        if item in {"street", "online", "club", "other", "unknown"}:
+            add(item)
+
+    # 2) ツイート本文・表示名・bio から推定
+    text = " ".join(
+        str(record.get(key) or "")
+        for key in ("tweet_text", "display_name", "bio", "tweet_url")
+    )
+    if STREET_HINTS.search(text):
+        add("street")
+    if ONLINE_HINTS.search(text):
+        add("online")
+    if CLUB_HINTS.search(text):
+        add("club")
+    if OTHER_HINTS.search(text) and not any(c in found for c in ("street", "online", "club")):
+        add("other")
+    elif OTHER_HINTS.search(text) and len(found) >= 1:
+        # パス/代打など副次チャネルがある場合は other も付ける
+        # （メインが分かるなら multiple でよい）
+        pass
+
+    # 3) 何もなければ謎
+    if not found:
+        add("unknown")
+
+    # 安定した順序
+    return [c for c in CHANNEL_ORDER if c in found]
+
+
+def build_channel_badges_html(record: dict) -> str:
+    channels = infer_channels(record)
+    badges = ""
+    for channel in channels:
+        label = CATEGORY_LABELS.get(channel, channel)
+        badges += f'<span class="badge badge-cat-{channel}">{label}</span> '
+    return badges.strip()
+
+
+def channels_data_attr(record: dict) -> str:
+    return " ".join(infer_channels(record))
 
 
 def get_period_evidence_url(record: dict) -> str:
@@ -210,10 +287,10 @@ def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
 
 
 def filter_by_category(records: list[dict], category: str) -> list[dict]:
-    """カテゴリでフィルタする。'all' なら全件返す。"""
+    """チャネルでフィルタする。'all' なら全件返す。"""
     if category == "all":
         return records
-    return [r for r in records if category in (r.get("categories") or "")]
+    return [r for r in records if category in infer_channels(r)]
 
 
 def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
@@ -240,15 +317,7 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
 
         cat_html = ""
         if show_category:
-            cats = r.get("categories", "")
-            if cats:
-                cat_badges = ""
-                for c in cats.split(", "):
-                    label = CATEGORY_LABELS.get(c, c)
-                    cat_badges += f'<span class="badge badge-cat-{c}">{label}</span> '
-                cat_html = f'<td>{cat_badges}</td>'
-            else:
-                cat_html = '<td><span class="badge badge-cat-none">未分類</span></td>'
+            cat_html = f"<td>{build_channel_badges_html(r)}</td>"
 
         user_cell = build_user_cell_html(
             r["username"],
@@ -257,8 +326,9 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
             r.get("url", ""),
             extra_html=alt_html,
         )
+        ch_attr = channels_data_attr(r)
         rows += f"""
-            <tr>
+            <tr data-channels="{ch_attr}">
                 <td class="rank">{medal}{i}</td>
                 {user_cell}
                 <td class="display-name">{r['display_name']}</td>
@@ -274,10 +344,10 @@ def generate_html(records: list[dict]) -> str:
     """ランキングHTMLを生成する"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    # カテゴリ別テーブルを生成
+    # チャネル別テーブルを生成
     tab_buttons = ""
     tab_contents = ""
-    categories = ["all", "street", "club", "online"]
+    categories = ["all", "street", "online", "club", "other", "unknown"]
     for idx, cat in enumerate(categories):
         label = CATEGORY_LABELS[cat]
         filtered = filter_by_category(records, cat)
@@ -287,7 +357,7 @@ def generate_html(records: list[dict]) -> str:
         tab_buttons += f'        <div class="tab{active}" onclick="switchTab(\'{cat}\')">{label} ({count})</div>\n'
 
         show_cat = cat == "all"
-        cat_header = '<th>カテゴリ</th>' if show_cat else ''
+        cat_header = '<th>チャネル</th>' if show_cat else ''
         rows = build_ranking_rows(filtered, show_category=show_cat)
 
         tab_contents += f"""
@@ -473,7 +543,7 @@ def generate_html(records: list[dict]) -> str:
         y_rows = ""
         for i, r in enumerate(y_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            y_rows += '<tr>'
+            y_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
             y_rows += '<td class="rank">' + medal + str(i) + '</td>'
             y_rows += build_user_cell_html(
                 r["username"],
@@ -482,19 +552,11 @@ def generate_html(records: list[dict]) -> str:
             )
             y_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             y_rows += '<td class="sokusuu">' + build_period_value_html(r, "yearly_count") + '</td>'
-            cats = r.get('categories', '')
-            cat_badges = ''
-            if cats:
-                for c in cats.split(', '):
-                    label = CATEGORY_LABELS.get(c, c)
-                    cat_badges += '<span class="badge badge-cat-' + c + '">' + label + '</span> '
-            else:
-                cat_badges = '<span class="badge badge-cat-none">未分類</span>'
-            y_rows += '<td>' + cat_badges + '</td>'
+            y_rows += '<td>' + build_channel_badges_html(r) + '</td>'
             y_rows += '</tr>'
 
         display = "block" if is_first else "none"
-        yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
+        yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
         selected = " selected" if is_first else ""
         # 月次合算の上半期などは period / period_label を優先して表示名を変える
         period = (y_data[0].get("period") or "") if y_data else ""
@@ -565,7 +627,7 @@ def generate_html(records: list[dict]) -> str:
         m_rows = ""
         for i, r in enumerate(m_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            m_rows += '<tr>'
+            m_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
             m_rows += build_user_cell_html(
                 r["username"],
@@ -574,19 +636,11 @@ def generate_html(records: list[dict]) -> str:
             )
             m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             m_rows += '<td class="sokusuu">' + build_period_value_html(r, "monthly_count") + '</td>'
-            cats = r.get('categories', '')
-            cat_badges = ''
-            if cats:
-                for c in cats.split(', '):
-                    label = CATEGORY_LABELS.get(c, c)
-                    cat_badges += '<span class="badge badge-cat-' + c + '">' + label + '</span> '
-            else:
-                cat_badges = '<span class="badge badge-cat-none">未分類</span>'
-            m_rows += '<td>' + cat_badges + '</td>'
+            m_rows += '<td>' + build_channel_badges_html(r) + '</td>'
             m_rows += '</tr>'
 
         display = "block" if is_default_month else "none"
-        monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
+        monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
         selected = " selected" if is_default_month else ""
         monthly_options += '<option value="' + month_id + '"' + selected + '>' + str(m_year) + '年' + str(m_month) + '月 (' + str(len(m_data)) + '件・集計中)</option>'
 
@@ -642,10 +696,17 @@ def generate_html(records: list[dict]) -> str:
         </div>"""
 
     # カテゴリ別分布
-    cat_colors = {"street": "#60a5fa", "club": "#c084fc", "online": "#2dd4bf"}
+    cat_colors = {
+        "street": "#60a5fa",
+        "online": "#2dd4bf",
+        "club": "#c084fc",
+        "other": "#fbbf24",
+        "unknown": "#9ca3af",
+    }
     cat_dist = ""
-    for cat, cat_label in [("street", "ストリート"), ("club", "クラブ"), ("online", "オンライン")]:
-        cat_count = len([r for r in records if cat in (r.get("categories") or "")])
+    for cat in CHANNEL_ORDER:
+        cat_label = CATEGORY_LABELS[cat]
+        cat_count = len([r for r in records if cat in infer_channels(r)])
         cat_pct = (cat_count / len(records) * 100) if records else 0
         color = cat_colors[cat]
         cat_dist += f"""
@@ -655,17 +716,6 @@ def generate_html(records: list[dict]) -> str:
                 <div style="width:{cat_pct:.0f}%;background:{color};height:100%;border-radius:4px;min-width:2px"></div>
             </div>
             <div style="width:80px;color:#e0e0e0;font-size:0.9em">{cat_count}件 ({cat_pct:.0f}%)</div>
-        </div>"""
-    uncategorized = len([r for r in records if not r.get("categories")])
-    if uncategorized:
-        uncat_pct = (uncategorized / len(records) * 100) if records else 0
-        cat_dist += f"""
-        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
-            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">未分類</div>
-            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
-                <div style="width:{uncat_pct:.0f}%;background:#666;height:100%;border-radius:4px;min-width:2px"></div>
-            </div>
-            <div style="width:80px;color:#e0e0e0;font-size:0.9em">{uncategorized}件 ({uncat_pct:.0f}%)</div>
         </div>"""
 
     dist_active = active_class("dist")
@@ -677,7 +727,7 @@ def generate_html(records: list[dict]) -> str:
             {dist_bars}
         </div>
         <div style="background:#1a1a1a;border-radius:12px;padding:20px">
-            <h3 style="color:#fff;margin-bottom:15px">カテゴリ分布</h3>
+            <h3 style="color:#fff;margin-bottom:15px">チャネル分布（ストナン/ネトナン/箱/その他/謎）</h3>
             {cat_dist}
         </div>
     </div>
@@ -817,8 +867,10 @@ def generate_html(records: list[dict]) -> str:
         .badge-pinned {{ background: #3a2a1a; color: #fbbf24; }}
         .badge-review {{ background: #3a1f1f; color: #fca5a5; }}
         .badge-cat-street {{ background: #1a2a3a; color: #60a5fa; }}
-        .badge-cat-club {{ background: #2a1a3a; color: #c084fc; }}
         .badge-cat-online {{ background: #1a3a3a; color: #2dd4bf; }}
+        .badge-cat-club {{ background: #2a1a3a; color: #c084fc; }}
+        .badge-cat-other {{ background: #3a2f1a; color: #fbbf24; }}
+        .badge-cat-unknown {{ background: #2a2a2a; color: #9ca3af; }}
         .badge-cat-none {{ background: #2a2a2a; color: #666; }}
         .alt-badge {{
             display: block;
@@ -891,7 +943,8 @@ def generate_html(records: list[dict]) -> str:
         <strong>注意事項:</strong>
         即数は全て自己申告ベースであり、正確性は保証されません。
         プロフィールおよび固定ツイートから自動抽出した値です。
-        カテゴリはプロフィール記載のキーワードから自動判定しています。
+        チャネル（ストナン / ネトナン / 箱 / その他 / 謎）はプロフィール・総括ツイートのキーワードから自動判定しています。
+        複数チャネルに当てはまる場合は複数表示されます。判定できない場合は「謎」です。
     </div>
 
     <div class="footer">
@@ -927,9 +980,25 @@ def generate_html(records: list[dict]) -> str:
             const q = document.getElementById('searchBox').value.toLowerCase();
             const active = document.querySelector('.tab-content.active');
             if (!active) return;
-            active.querySelectorAll('tbody tr').forEach(tr => {{
-                const text = tr.textContent.toLowerCase();
-                tr.style.display = text.includes(q) ? '' : 'none';
+            // 表示中のテーブルだけ検索（月別/年別は visible な子テーブル）
+            const tables = [];
+            active.querySelectorAll('table').forEach(table => {{
+                const wrap = table.closest('[id^="monthly-"], [id^="yearly-"]');
+                if (wrap && wrap.style.display === 'none') return;
+                tables.push(table);
+            }});
+            if (!tables.length) {{
+                active.querySelectorAll('tbody tr').forEach(tr => {{
+                    const text = tr.textContent.toLowerCase();
+                    tr.style.display = text.includes(q) ? '' : 'none';
+                }});
+                return;
+            }}
+            tables.forEach(table => {{
+                table.querySelectorAll('tbody tr').forEach(tr => {{
+                    const text = tr.textContent.toLowerCase();
+                    tr.style.display = text.includes(q) ? '' : 'none';
+                }});
             }});
         }}
     </script>
@@ -949,13 +1018,18 @@ def main():
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
 
-    # カテゴリ別件数を表示
+    # チャネル別件数を表示
     all_count = len(records)
-    street = len([r for r in records if "street" in (r.get("categories") or "")])
-    club = len([r for r in records if "club" in (r.get("categories") or "")])
-    online = len([r for r in records if "online" in (r.get("categories") or "")])
+    counts = {c: len(filter_by_category(records, c)) for c in CHANNEL_ORDER}
     print(f"[OUTPUT] {OUTPUT_HTML} を生成しました")
-    print(f"  総合: {all_count} 名 / ストリート: {street} 名 / クラブ: {club} 名 / オンライン: {online} 名")
+    print(
+        f"  総合: {all_count} 名"
+        f" / ストナン: {counts['street']}"
+        f" / ネトナン: {counts['online']}"
+        f" / 箱: {counts['club']}"
+        f" / その他: {counts['other']}"
+        f" / 謎: {counts['unknown']}"
+    )
 
 
 if __name__ == "__main__":
