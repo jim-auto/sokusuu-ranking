@@ -752,8 +752,10 @@ def extract_monthly_count(text, year, month, strict=False):
     ):
         return None
 
-    if re.search(r"累計|通算|total|トータル", cleaned, re.IGNORECASE):
-        return None
+    # 累計/通算だけを月間合計扱いしない（「6月4即 … 累計279即」は月間4を残す）
+    has_career_total_cue = bool(
+        re.search(r"累計|通算|total|トータル", cleaned, re.IGNORECASE)
+    )
     if re.search(r"(?:月間データ|回転数|BIG|REG|HANABI|スロット|パチスロ)", cleaned, re.IGNORECASE):
         return None
     # 商材・買取系は除外。合流募集の「DMください」は月次総括本文にも出るので単独では落とさない。
@@ -815,6 +817,12 @@ def extract_monthly_count(text, year, month, strict=False):
         component_values = []
         component_spans = []
         component_patterns = [
+            # スト393k3即（kk数のあとに即数）
+            r"(?:スト|ネト|アポ|弾丸|準即|準|ブメ|パス|リア|箱|クラブ|wiz|with|m|gt)\s*"
+            r"\d+\s*[kKｋＫ]+\s*(\d+)\s*"
+            + count_unit,
+            # ネト9アポ5即（アポ数が挟まる）
+            r"(?:ネト|スト|アポ)\s*\d+\s*アポ\s*(\d+)\s*" + count_unit,
             r"(?:スト|ネト|アポ|弾丸|準即|準|ブメ|パス|リア|箱|クラブ|wiz|with|m|gt)\s*[/:：]?\s*(\d+)\s*"
             + count_unit,
             r"(?:弾丸|準即|準|ブメ|パス)\s*"
@@ -822,8 +830,9 @@ def extract_monthly_count(text, year, month, strict=False):
             + r"\s*(\d+)",
             r"(\d+)\s*(?:弾丸|準即|準|ブメ|パス)\s*" + count_unit,
             # 「弾丸6(1、3…) パス2」のように単位なしのラベル内訳
+            # kk の桁（393k）や ネト9アポ の9は拾わない
             r"(?:弾丸|準即|準|ブメ|パス|スト|ネト|アポ|リア|箱|クラブ)\s*[/:：]?\s*(\d+)"
-            r"(?!\s*(?:即|節|get|g\b|そ\b)?目)(?!\d)",
+            r"(?![kKｋＫ\d])(?!\s*アポ)(?!\s*(?:即|節|get|g\b|そ\b)?目)",
         ]
         for pattern in component_patterns:
             for match in re.finditer(pattern, cleaned, re.IGNORECASE):
@@ -840,6 +849,11 @@ def extract_monthly_count(text, year, month, strict=False):
                 context = cleaned[max(0, match.start() - 12) : min(len(cleaned), match.end() + 12)]
                 if re.search(r"(?:目標|残\d+\s*(?:即|そ|get|g\b)|チャレ)", context):
                     continue
+                # 累計/通算に隣接する数字は月間内訳にしない
+                if has_career_total_cue and re.search(
+                    r"(?:累計|通算|total|トータル)", context, re.IGNORECASE
+                ):
+                    continue
                 value = int(match.group(1))
                 if 0 < value <= 100:
                     component_values.append(value)
@@ -850,12 +864,13 @@ def extract_monthly_count(text, year, month, strict=False):
                 return summed
         return None
 
-    # 総括本文なら内訳合算を先行（strict 以外でも）。「1即だけ」より「弾丸6+パス2」を優先する。
-    if has_report_keyword and not has_multi_month_series:
+    # 総括 or 明示月なら内訳合算を先行。「1即だけ」より「弾丸6+パス2」「スト3+ネト5」を優先。
+    if (has_report_keyword or has_explicit_month) and not has_multi_month_series:
         component_sum = _sum_labeled_components()
 
     strong_patterns = []
-    if has_report_keyword:
+    # 「計25即」は総括語が無くても月次合計として優先
+    if has_report_keyword or has_explicit_month or has_generic_month:
         explicit_total_patterns = [
             r"(?:結果|実績)\s*[】\]）」)]?\s*[=:：／/|・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
             + count_unit,
@@ -866,10 +881,14 @@ def extract_monthly_count(text, year, month, strict=False):
             match = re.search(pattern, cleaned, re.IGNORECASE)
             if not match:
                 continue
+            context = cleaned[max(0, match.start() - 12) : min(len(cleaned), match.end() + 12)]
+            if re.search(r"(?:累計|通算|total|トータル|去年|昨年)", context, re.IGNORECASE):
+                continue
             value = int(match.group(1))
             if 0 < value <= 500:
                 return value
 
+    if has_report_keyword:
         strong_patterns.extend(
             [
                 rf"(?:{month_tokens})\s*[)）:：/／・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
@@ -933,6 +952,15 @@ def extract_monthly_count(text, year, month, strict=False):
         ) and not re.search(r"(?:結果|実績)", context):
             continue
         if strict and re.search(r"(?:講習|コンサル|教材|固定ツイート|興味ある方)", context):
+            continue
+        # 「去年ですら4月終了時点で26即」など過去比較の数字
+        if re.search(r"(?:去年|昨年)", context) and not re.search(
+            r"(?:総括|統括|今月|月間|計|合計)", context
+        ):
+            continue
+        # 「累計279即」は直前が累計のときだけ除外（同ツイ内の月次数字は残す）
+        pre = cleaned[max(0, match.start() - 10) : match.start()]
+        if re.search(r"(?:累計|通算|total|トータル)\s*$", pre, re.IGNORECASE):
             continue
         value = int(match.group(1))
         if 0 < value <= 500:
