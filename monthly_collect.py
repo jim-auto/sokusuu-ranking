@@ -657,6 +657,15 @@ def extract_monthly_count(text, year, month, strict=False):
     if cleaned.startswith("RT @"):
         return None
 
+    # 暦日（例: 2022年3月30日 / 3月30日）を月次レポートの「3月」と誤認しない。
+    # 「初即 2022年3月30日 10即 2024年1月23日」のような通算マイルストーンを
+    # 「3月10即」として拾う誤検出を防ぐ。
+    cleaned = re.sub(
+        r"(?:\d{2,4}\s*年\s*)?(?:1[0-2]|[1-9])\s*月\s*\d{1,2}\s*日",
+        " ",
+        cleaned,
+    )
+
     month_names = {
         1: ["1月", "一月", "jan"],
         2: ["2月", "二月", "feb"],
@@ -674,6 +683,7 @@ def extract_monthly_count(text, year, month, strict=False):
     month_tokens = "|".join(re.escape(name) for name in month_names.get(month, []))
     has_explicit_month = bool(re.search(rf"(?:{month_tokens})", cleaned, re.IGNORECASE))
     # 「2月実績 42即」を 1月や 3月に流用しない
+    # 「3月30日」のような暦日は上で除去済み。残りはレポート月の言及だけ。
     mentioned_months = {
         int(token)
         for token in re.findall(r"(?<!\d)(1[0-2]|[1-9])\s*月", cleaned)
