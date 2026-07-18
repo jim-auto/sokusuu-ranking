@@ -1,6 +1,6 @@
 # 2026 月次・上半期ランキング結果
 
-PR 確認用スナップショット。**上半期トップは末尾**。
+PR 確認用スナップショット。**上半期トップは末尾**。根拠はリンクのみ（ツイート本文は載せない）。
 
 ## チャネル凡例
 
@@ -17,228 +17,228 @@ PR 確認用スナップショット。**上半期トップは末尾**。
 - 月次: 公開総括などの収集・補完
 - 上半期: 1〜6月の月次合算（拾えた月の和）
 - チャネル: 総括本文キーワード優先（ストナン/ネトナン/箱/その他/謎）
-- 根拠リンクは各行の「根拠」列（証拠ツイート）
+- 根拠は **URLリンクのみ**（ツイート文はMDに書かない）
 
-## 月次ランキング（根拠付き）
+## 月次ランキング（根拠リンク）
 
 ### 2026年1月（31件）
 
-| # | account | 表示名 | 即数 | チャネル | 根拠URL | 総括抜粋 |
-|---|---------|--------|-----:|----------|---------|----------|
-| 1 | @nakayamasoku | 中山@tips更新中（ジジネト） | 43 | ネトナン | https://x.com/nakayamasoku/status/2018194015842374014 | 【1月総括】43即 |
-| 2 | @PUAINOKI | フランク | 37 | ストナン/ネトナン | https://x.com/PUAINOKI/status/2017800334023008698 | 【2026年1月総括】37即、56SEX、46射精 ネトヘルプ即 🐶スト即 パス多数 |
-| 3 | @shime_pua | しめ | 25 | ストナン/ネトナン | https://x.com/shime_pua/status/2018182025614971305 | 【1月総括】 ネト14即 ⭐️1即 スト1即 アポ代打2即 自力18即 パス7即 合計25即 |
-| 4 | @sandorafc | ジン@裏垢侍 | 24 | ネトナン | https://x.com/sandorafc/status/2017934626514456839 | 1月総括 24即 ・ ×2 ・ ×1 ・ ×11 ・ ×7 ・パス×3 (パス出し×5) ゴリゴリのネトナン師で草 #ジン一門 |
-| 5 | @sub_chilll | あつ太郎の本音bot | 21 | 箱 | https://x.com/sub_chilll/status/2018324278249460090 | 1月総括  オリラジ 13 箱 8 |
-| 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | 謎 | https://x.com/mic_pua/status/2028037366959739333 | 総括してなかった↓ 12月　15即 1月　17即 2月　15即 |
-| 7 | @KDS2DGhK2E79657 | 伊藤ペケポン | 15 | 謎 | https://x.com/KDS2DGhK2E79657/status/2017820458507506127 | 1月頑張って15即 |
-| 8 | @omamco_pua2 | える | 15 | ストナン/ネトナン/箱 | https://x.com/omamco_pua2/status/2017803638845116605 | 1月総括15即 🦁3 🦾1 🍎3 🔥2 🗼🍛2 ワクメ2 パス2 |
-| 9 | @motebody_pua | エース@体刺し一門副代表 | 13 | ネトナン | https://x.com/motebody_pua/status/2017575087755694190 | APO自体はユニークで25APO。うち12勝。わかってない温 打診せず負けもあるし、ちゃんと打診負け、 内負けもある。とにかく集客数 is GOD. ちな、これ… |
-| 10 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 13 | ネトナン | https://x.com/tomu_riddle/status/2017975525546012763 | 1月ネト13即 7即 某アプリ6即 |
-| 11 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | その他 | https://x.com/dick_duck_swing/status/2018169414353605025 | 【1月総括】 ・12即： 1(弾丸1)、 3(弾丸3)、パス8 ・寒さで反応が悪く、自力は暖かかった時の1即以外 ‍⚕️しか即れなかった ・来たパスを漏れなく拾… |
-| 12 | @yomaru_street | よまる@顔面淘汰男 | 12 | その他 | https://x.com/yomaru_street/status/2017898001868665281 | ⚫︎1月総括 弾丸10( 7、 1、 1、 1) (値6×2 値5.5×3 値5×2 値4.5×3) パス2( 2) 計12即 月間即子スト値平均5.2 今後の… |
-| 13 | @River_p823 | フェニックス@セクシーコマンドー部 | 11 | 箱 | https://x.com/River_p823/status/2018310886738612405 | 🍚1月総括🍚  11即💨 |
-| 14 | @bookmaker_2015 | とも | 9 | ネトナン/箱 | https://x.com/bookmaker_2015/status/2017821497675657416 | 【1月総括】 9即 ×6 ×3 スト出撃きつかった だんだん暖かくなってきてもうちょい反応良くなることを期待 来月こそは 以外でもやってみる |
-| 15 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 6 | ネトナン | https://x.com/sugi_ichiban/status/2017609200558579805 | 【1月総括】6即(先月10) 東カレ1、ゴージャス1、ペアーズ2 、tinder 2 23芸能モデル 27芸能モデル 22ガルバJD 22介護士 26凄腕営業(… |
-| 16 | @tamaon_zone | ぞね | 5 | その他 | https://x.com/tamaon_zone/status/2017832771885142462 | 1月総括5即 1 2 2 アプリ入れてなかったからオフライン多めになった。 案件から「mbti絶対Iでしょ笑」とか言われるしノンバ話し方に改善点あり。 強い人と… |
-| 17 | @daigakusei_pua | きの山@MBH3月師範 | 4 | ストナン | https://x.com/daigakusei_pua/status/2017775962147176685 | 【1月総括】 178kk4即（弾丸2店連れ1準1）1連れ負け2アポ負け1番ゲ 過去最低声かけ数更新 出撃数も6と破門ギリギリだったので2月からぶち上げて3月いい… |
-| 18 | @midori_nanpa | みどり | 3 | ストナン/ネトナン/箱 | https://x.com/midori_nanpa/status/2017829101986603272 | 【1月総括】 計 3即 Mスト 1 スト 1 アテンド 1 モチベ下がったけどギリ生き残ってる ストナン、クラナンはマチアプと違って思い立ったその日だけ頑張れば… |
-| 19 | @nampa_poke | ゆうき | 3 | ストナン/ネトナン | https://x.com/nampa_poke/status/2018178983855341702 | 1月 3即 出撃は5,6回? 最近の質が良くてどんどん過食が狭くなってる 今月は引越しと彼女化した案件の食いつき高すぎて活動できるかも怪しい... |
-| 20 | @Nano486273 | なの@雄華軍団 | 3 | ストナン/ネトナン | https://x.com/Nano486273/status/2017846549502640341 | 1月総括 3即Ⓜ️ スト2ネト1 去年と同じ即数。 90kkで2即。 一即あたりのkk数は減ってるので声掛け自体は上手くなってると思う。トークは難あり。 ネト1… |
-| 21 | @satoshi5991 | サトシ（むし） | 3 | 謎 | https://x.com/satoshi5991/status/2017953702418714902 | 【1月結果】 3即 ①あらさ バンゲ→準々ヨネ即 ②みどさ ぽんさんコンビ即 ③あらつ 1年前バンゲ→準即 ・5アポ→2キャンセル2即1負 ソロ当日即がなかった… |
-| 22 | @SIYK_Hage | 性欲ハゲ | 3 | ストナン | https://x.com/SIYK_Hage/status/2017891125529657771 | 【1月 総括】 計3即 あんまり出れてなかったけど、苦手な で即れたのと、ずっと即りたかった女を回収できたので良かった。 ※2026年からフォーマットを更新し、… |
-| 23 | @streets_bach | バッハ@味噌 | 3 | ストナン | https://x.com/streets_bach/status/2017860645178511882 | 【1月総括】 3即(u準×2、u準準準×1) 年始の と下旬の胃腸 で体調は散々。 そこそこ出撃するもボズリ散らかし、当日即は一度もなかったw 2月も週末はなる… |
-| 24 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | https://x.com/tsuyumushi777/status/2017958348776411510 | 【26年】 1月)344k,8出,1ﾊﾞ,3弾→3即 |
-| 25 | @yamikinsan | ケンタロウ | 3 | 謎 | https://x.com/yamikinsan/status/2017770501905740127 | 1月3即 ミンキセみたいのしか即れませんでした |
-| 26 | @heshi_omonaga | へし | 2 | ストナン | https://x.com/heshi_omonaga/status/2017941533643932091 | 1月スト 2即 色々うんこすぎて出れてなさすぎ 2月はもうちょいやる |
-| 27 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 1 | ストナン/ネトナン | https://x.com/1jEvvc | 界隈2021年春〜/ネト約72.スト約81ofpk1.2024/1月1.2月1.3月0.4月1.5月0.6月1.7月1.8月0.9月0.10月1.11月2.12… |
-| 28 | @hiro_re_1919 | ヒロ@Rising 明太子 | 1 | ストナン/ネトナン | https://x.com/hiro_re_1919/status/2017901381370486858 | 1月総括 スト1即 ネト5即 ネトが割といけたのが良かった! ストは出撃数を上げたいところぼちぼちしていく 1月1番良かったのは、ゆってぃさんのオフ会行ってゆっ… |
-| 29 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 1 | ストナン | https://x.com/hirohirorenai | 2022.11.20〜MBH入店 入店前8g /22年 9g / 23年87g / 24年51g / 25年1月3g 2月2g 3月3g 4月1g 5月3g 6… |
-| 30 | @taka_DTnmp | たかはる@MBH | 1 | 箱 | https://x.com/taka_DTnmp/status/2017958890202415174 | ・1月総括 1043/1000k 3/1即(2弾丸即1箱即) 15ヶ月連続新規即 某スーパールーキーのおかげで俺もマインド上がって久しぶりに1000k超えれた。… |
-| 31 | @yszk1624 | ちゃの@MBH | 1 | ストナン | https://x.com/yszk1624/status/2017616162956460428 | 1月総括 10出撃 511kk 1即 ・後半、風邪引いてしまいほぼ出れなかった。 ・来月はまだ寒いと思うので、折れないようにしたい。 |
+| # | account | 表示名 | 即数 | チャネル | 根拠 |
+|---|---------|--------|-----:|----------|------|
+| 1 | @nakayamasoku | 中山@tips更新中（ジジネト） | 43 | ネトナン | [link](https://x.com/nakayamasoku/status/2018194015842374014) |
+| 2 | @PUAINOKI | フランク | 37 | ストナン/ネトナン | [link](https://x.com/PUAINOKI/status/2017800334023008698) |
+| 3 | @shime_pua | しめ | 25 | ストナン/ネトナン | [link](https://x.com/shime_pua/status/2018182025614971305) |
+| 4 | @sandorafc | ジン@裏垢侍 | 24 | ネトナン | [link](https://x.com/sandorafc/status/2017934626514456839) |
+| 5 | @sub_chilll | あつ太郎の本音bot | 21 | 箱 | [link](https://x.com/sub_chilll/status/2018324278249460090) |
+| 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
+| 7 | @KDS2DGhK2E79657 | 伊藤ペケポン | 15 | 謎 | [link](https://x.com/KDS2DGhK2E79657/status/2017820458507506127) |
+| 8 | @omamco_pua2 | える | 15 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2017803638845116605) |
+| 9 | @motebody_pua | エース@体刺し一門副代表 | 13 | ネトナン | [link](https://x.com/motebody_pua/status/2017575087755694190) |
+| 10 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 13 | ネトナン | [link](https://x.com/tomu_riddle/status/2017975525546012763) |
+| 11 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | その他 | [link](https://x.com/dick_duck_swing/status/2018169414353605025) |
+| 12 | @yomaru_street | よまる@顔面淘汰男 | 12 | その他 | [link](https://x.com/yomaru_street/status/2017898001868665281) |
+| 13 | @River_p823 | フェニックス@セクシーコマンドー部 | 11 | 箱 | [link](https://x.com/River_p823/status/2018310886738612405) |
+| 14 | @bookmaker_2015 | とも | 9 | ネトナン/箱 | [link](https://x.com/bookmaker_2015/status/2017821497675657416) |
+| 15 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 6 | ネトナン | [link](https://x.com/sugi_ichiban/status/2017609200558579805) |
+| 16 | @tamaon_zone | ぞね | 5 | その他 | [link](https://x.com/tamaon_zone/status/2017832771885142462) |
+| 17 | @daigakusei_pua | きの山@MBH3月師範 | 4 | ストナン | [link](https://x.com/daigakusei_pua/status/2017775962147176685) |
+| 18 | @midori_nanpa | みどり | 3 | ストナン/ネトナン/箱 | [link](https://x.com/midori_nanpa/status/2017829101986603272) |
+| 19 | @nampa_poke | ゆうき | 3 | ストナン/ネトナン | [link](https://x.com/nampa_poke/status/2018178983855341702) |
+| 20 | @Nano486273 | なの@雄華軍団 | 3 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2017846549502640341) |
+| 21 | @satoshi5991 | サトシ（むし） | 3 | 謎 | [link](https://x.com/satoshi5991/status/2017953702418714902) |
+| 22 | @SIYK_Hage | 性欲ハゲ | 3 | ストナン | [link](https://x.com/SIYK_Hage/status/2017891125529657771) |
+| 23 | @streets_bach | バッハ@味噌 | 3 | ストナン | [link](https://x.com/streets_bach/status/2017860645178511882) |
+| 24 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | [link](https://x.com/tsuyumushi777/status/2017958348776411510) |
+| 25 | @yamikinsan | ケンタロウ | 3 | 謎 | [link](https://x.com/yamikinsan/status/2017770501905740127) |
+| 26 | @heshi_omonaga | へし | 2 | ストナン | [link](https://x.com/heshi_omonaga/status/2017941533643932091) |
+| 27 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 1 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
+| 28 | @hiro_re_1919 | ヒロ@Rising 明太子 | 1 | ストナン/ネトナン | [link](https://x.com/hiro_re_1919/status/2017901381370486858) |
+| 29 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 1 | ストナン | [link](https://x.com/hirohirorenai) |
+| 30 | @taka_DTnmp | たかはる@MBH | 1 | 箱 | [link](https://x.com/taka_DTnmp/status/2017958890202415174) |
+| 31 | @yszk1624 | ちゃの@MBH | 1 | ストナン | [link](https://x.com/yszk1624/status/2017616162956460428) |
 
 ### 2026年2月（36件）
 
-| # | account | 表示名 | 即数 | チャネル | 根拠URL | 総括抜粋 |
-|---|---------|--------|-----:|----------|---------|----------|
-| 1 | @nakayamasoku | 中山@tips更新中（ジジネト） | 42 | ネトナン | https://x.com/nakayamasoku/status/2028627708725588288 | 【2月実績】42即 ｳｨｽﾞ16 12新町11 1 1 パス1 |
-| 2 | @socool55555 | 味噌どガス | 21 | ネトナン | https://x.com/socool55555/status/2028600869202350159 | - |
-| 3 | @okarun_pua | おかるん@りお講習 | 19 | 謎 | https://x.com/okarun_pua/status/2027955878612410806 | - |
-| 4 | @PUAINOKI | フランク | 19 | ストナン | https://x.com/PUAINOKI/status/2028299880339574968 | 【2月総括】19即 パス多数 スト即/26 代打・パス中心 |
-| 5 | @nsan_pua | なつ。 | 18 | ストナン/ネトナン | https://x.com/nsan_pua/status/2032821703697641636 | - |
-| 6 | @kukuru_nanpa | くくる | 15 | ネトナン | https://x.com/kukuru_nanpa/status/2024709774731071813 | 2月現在 東カレで15即 |
-| 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 15 | 謎 | https://x.com/mic_pua/status/2028037366959739333 | 総括してなかった↓ 12月 15即 1月 17即 2月 15即 意外と数捌いてる |
-| 8 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 13 | 箱 | https://x.com/cx_lm5/status/2027947831307403661 | 2026年2月 13即(⬛️2、 4、 7) ☑️最後の週インフル だったの悔やまれる ☑️そろそろm?出たいお気持ち |
-| 9 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | https://x.com/Tinder_god_2/status/2027732435258249323 | 2月総括 (アプリ案件13) キセヌク×4 |
-| 10 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 箱 | https://x.com/outlook_sabo_4/status/2027980319694197212 | 2月 某席12即 →逆3即×1、逆3P×1、1日2即×3 GT1即 質も全然悪くないし歩き回る必要ないから某席最強‼️‼️‼️ |
-| 11 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 12 | ネトナン | https://x.com/tomu_riddle/status/2028135483193295205 | 2月ネトのみ12即‼️ |
-| 12 | @omamco_pua2 | える | 8 | ストナン/ネトナン/箱 | https://x.com/omamco_pua2/status/2027971008553193664 | 2月総括8即 🦁2 🦾2 🧚1 🗼🍛2 🍎1 スト高彼女 |
-| 13 | @Razor_pua | 非モテのレイザー | 8 | ネトナン | https://x.com/Razor_pua/status/2028019198241477001 | 【2月総括】 8即( 4即、 ×4即) 6連敗、4健全アポ 1負け 2負け 婚活の結果 が一人できそうなので、はやく100即行って 滅回遊からoutしたい。 3… |
-| 14 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | https://x.com/River_p823/status/2030190761107673554 | 🍚2月総括🍚  8即💨 |
-| 15 | @PokopokoChin1 | ポコ@アンチエイジング美容ガチ勢 | 7 | ネトナン | https://x.com/PokopokoChin1/status/2030574402489000116 | 【2月統括】 7即‼️えうじゃけ5即‼️ ① /1.9/千問/ カフェ ② /1.8/えうじゃけ/身体値7 ③ /1.8/えうじゃけ/清福 ④某ｱﾌﾟﾘ/1.8… |
-| 16 | @anshin_pua | あんしん🎀ナンパ師 | 6 | 謎 | https://x.com/anshin_pua/status/2027730351574110355 | - |
-| 17 | @makoto_kurasuta | 伊藤誠@今月20即目標 | 6 | 謎 | https://x.com/makoto_kurasuta/status/2031050315865469233 | - |
-| 18 | @weekly_nanpa | 週刊プロナンパ日誌 | 6 | ストナン | https://x.com/weekly_nanpa/status/2027554886179836078 | - |
-| 19 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 5 | ストナン/ネトナン | https://x.com/1jEvvc | 界隈2021年春〜/ネト約72.スト約81ofpk1.2024/1月1.2月1.3月0.4月1.5月0.6月1.7月1.8月0.9月0.10月1.11月2.12… |
-| 20 | @namenayone | ナメクニ | 5 | ストナン | https://x.com/namenayone/status/2029395182777712695 | 2月総括 Uスト 1即 4即 計 5即 2026年はモチベが上がりません 知り合いも皆街にいないし寒いし男と遊ぶ方がおもろいです ストは随分前から飽きてますが … |
-| 21 | @Nano486273 | なの@雄華軍団 | 5 | 謎 | https://x.com/Nano486273/status/2028081329523581201 | 2月総括 5即 帝都 と 前の実績解除できて嬉しい コンビスト箱ほんまに楽しかった！ 合流してくださった皆様本当にありがとうございました！ 3月は花粉症グダなの… |
-| 22 | @bird_pua | 鳥太郎PUA@アンチAI | 4 | 箱 | https://x.com/bird_pua/status/2027936657971024223 | 2月総括 計4即 、 、✌️、 箱2回しか行ってないが全勝。 遠征も2年ぶりくらいにやって楽しかった。 某美容施術やったおかげもあると思うが、まだ余裕で戦えると… |
-| 23 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 4 | ストナン | https://x.com/hirohirorenai | 2022.11.20〜MBH入店 入店前8g /22年 9g / 23年87g / 24年51g / 25年1月3g 2月2g 3月3g 4月1g 5月3g 6… |
-| 24 | @riku_pua0801 | リク@ナノ講習 | 4 | ストナン/ネトナン | https://x.com/riku_pua0801/status/2028014875667271691 | - |
-| 25 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 4 | 謎 | https://x.com/RobertPowerJ | メンチカ寄せしてます、趣味はツインテールとネイル。ヘッダーはぱこなりさんとのツーショ。 MBH 25.2.2〜/2 1/3 7/4 3/5 2/6 4/7 3/… |
-| 26 | @yolu_pua | ヨル | 4 | 謎 | https://x.com/yolu_pua/status/2027890652454015182 | 【2月総括】 4即 3 1 完全に淘汰。後半全敗。月間即数もいつぶりだこんな低い数字。 |
-| 27 | @asumi_pua | あすみ@東京ストナン会 | 3 | ストナン | https://x.com/asumi_pua/status/2027719962161532975 | 2月総括 3即(2弾丸即、1準即) |
-| 28 | @Jlc3Z4 | L | 3 | ストナン | https://x.com/Jlc3Z4/status/2028123772793078099 | うーん昨日も今日もなんとか連れ出してるんだけど即れないなあ 2月が過去一番毎年即数多いのにスト3即しかしてなくて危機感感じる |
-| 29 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 3 | ストナン/ネトナン | https://x.com/rei_app_pua/status/2027921065788510502 | - |
-| 30 | @salmon_nnp | サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長 | 3 | 謎 | https://x.com/salmon_nnp/status/2028389365953781768 | @1jEvvc いやおれ2月3即もしてるしガンガン出てるし100kやってるし仲間を裏切ったりしてないしwww |
-| 31 | @sandorafc | ジン@裏垢侍 | 3 | 謎 | https://x.com/sandorafc/status/2029849459438539173 | 2月総括 3即 ・ ×3 プラベ優先しまくった結果、大変充実しました。 |
-| 32 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | https://x.com/tsuyumushi777/status/2028312652636950620 | - |
-| 33 | @badasai_kush | バダサイ | 2 | ストナン | https://x.com/badasai_kush/status/2023050385687023674 | - |
-| 34 | @ManaBuHirokawa7 | 【二代目】広川学 | 1 | 謎 | https://x.com/ManaBuHirokawa7 | 地平線に消える瞳にはいつしか眩しい男の光 〜25.12/26入店〜 26年 1月0.2月1.3月2 |
-| 35 | @taruchan100 | たる | 1 | ストナン | https://x.com/taruchan100/status/2032261557808480295 | - |
-| 36 | @yupisnono | ゆぴ(白ちゃま)@のんちゃま一門 | 1 | ストナン/ネトナン | https://x.com/yupisnono/status/2027987827364126887 | 2月 1即。9ヶ月ぶりの新規即 |
+| # | account | 表示名 | 即数 | チャネル | 根拠 |
+|---|---------|--------|-----:|----------|------|
+| 1 | @nakayamasoku | 中山@tips更新中（ジジネト） | 42 | ネトナン | [link](https://x.com/nakayamasoku/status/2028627708725588288) |
+| 2 | @socool55555 | 味噌どガス | 21 | ネトナン | [link](https://x.com/socool55555/status/2028600869202350159) |
+| 3 | @okarun_pua | おかるん@りお講習 | 19 | 謎 | [link](https://x.com/okarun_pua/status/2027955878612410806) |
+| 4 | @PUAINOKI | フランク | 19 | ストナン | [link](https://x.com/PUAINOKI/status/2028299880339574968) |
+| 5 | @nsan_pua | なつ。 | 18 | ストナン/ネトナン | [link](https://x.com/nsan_pua/status/2032821703697641636) |
+| 6 | @kukuru_nanpa | くくる | 15 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2024709774731071813) |
+| 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 15 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
+| 8 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 13 | 箱 | [link](https://x.com/cx_lm5/status/2027947831307403661) |
+| 9 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2027732435258249323) |
+| 10 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 箱 | [link](https://x.com/outlook_sabo_4/status/2027980319694197212) |
+| 11 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 12 | ネトナン | [link](https://x.com/tomu_riddle/status/2028135483193295205) |
+| 12 | @omamco_pua2 | える | 8 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2027971008553193664) |
+| 13 | @Razor_pua | 非モテのレイザー | 8 | ネトナン | [link](https://x.com/Razor_pua/status/2028019198241477001) |
+| 14 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/River_p823/status/2030190761107673554) |
+| 15 | @PokopokoChin1 | ポコ@アンチエイジング美容ガチ勢 | 7 | ネトナン | [link](https://x.com/PokopokoChin1/status/2030574402489000116) |
+| 16 | @anshin_pua | あんしん🎀ナンパ師 | 6 | 謎 | [link](https://x.com/anshin_pua/status/2027730351574110355) |
+| 17 | @makoto_kurasuta | 伊藤誠@今月20即目標 | 6 | 謎 | [link](https://x.com/makoto_kurasuta/status/2031050315865469233) |
+| 18 | @weekly_nanpa | 週刊プロナンパ日誌 | 6 | ストナン | [link](https://x.com/weekly_nanpa/status/2027554886179836078) |
+| 19 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 5 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
+| 20 | @namenayone | ナメクニ | 5 | ストナン | [link](https://x.com/namenayone/status/2029395182777712695) |
+| 21 | @Nano486273 | なの@雄華軍団 | 5 | 謎 | [link](https://x.com/Nano486273/status/2028081329523581201) |
+| 22 | @bird_pua | 鳥太郎PUA@アンチAI | 4 | 箱 | [link](https://x.com/bird_pua/status/2027936657971024223) |
+| 23 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 4 | ストナン | [link](https://x.com/hirohirorenai) |
+| 24 | @riku_pua0801 | リク@ナノ講習 | 4 | ストナン/ネトナン | [link](https://x.com/riku_pua0801/status/2028014875667271691) |
+| 25 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 4 | 謎 | [link](https://x.com/RobertPowerJ) |
+| 26 | @yolu_pua | ヨル | 4 | 謎 | [link](https://x.com/yolu_pua/status/2027890652454015182) |
+| 27 | @asumi_pua | あすみ@東京ストナン会 | 3 | ストナン | [link](https://x.com/asumi_pua/status/2027719962161532975) |
+| 28 | @Jlc3Z4 | L | 3 | ストナン | [link](https://x.com/Jlc3Z4/status/2028123772793078099) |
+| 29 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 3 | ストナン/ネトナン | [link](https://x.com/rei_app_pua/status/2027921065788510502) |
+| 30 | @salmon_nnp | サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長 | 3 | 謎 | [link](https://x.com/salmon_nnp/status/2028389365953781768) |
+| 31 | @sandorafc | ジン@裏垢侍 | 3 | 謎 | [link](https://x.com/sandorafc/status/2029849459438539173) |
+| 32 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | [link](https://x.com/tsuyumushi777/status/2028312652636950620) |
+| 33 | @badasai_kush | バダサイ | 2 | ストナン | [link](https://x.com/badasai_kush/status/2023050385687023674) |
+| 34 | @ManaBuHirokawa7 | 【二代目】広川学 | 1 | 謎 | [link](https://x.com/ManaBuHirokawa7) |
+| 35 | @taruchan100 | たる | 1 | ストナン | [link](https://x.com/taruchan100/status/2032261557808480295) |
+| 36 | @yupisnono | ゆぴ(白ちゃま)@のんちゃま一門 | 1 | ストナン/ネトナン | [link](https://x.com/yupisnono/status/2027987827364126887) |
 
 ### 2026年3月（25件）
 
-| # | account | 表示名 | 即数 | チャネル | 根拠URL | 総括抜粋 |
-|---|---------|--------|-----:|----------|---------|----------|
-| 1 | @daigakusei_pua | きの山@MBH3月師範 | 46 | ストナン | https://x.com/daigakusei_pua/status/2039002500720963636 | 今月完ソロスト46即で終了！！！ |
-| 2 | @tora_maru005 | とらまる@ナンパ | 39 | ストナン/ネトナン/箱 | https://x.com/tora_maru005/status/2039520788169318887 | 3月総括39即 久々に結構出た 8連勤とかもした。 ロ前11 スト11 6 松屋1 某箱2 ‍♀️2 tin1 飲み1 コンビ即、乱とかしてくれた人ありがとう！… |
-| 3 | @okarun_pua | おかるん@りお講習 | 26 | ストナン/ネトナン/箱 | https://x.com/okarun_pua/status/2039311973834428508 | 【3月総括】 スト 🦁🦁 1即 ネト 🍎🔥 6即 箱 🦾🧚 19即 計 26即 |
-| 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | ネトナン/箱 | https://x.com/mic_pua/status/2039186941820989692 | 【3月総括】 ﾘｱｺﾐｭ即:8 ネト即:6 🍸準即:1 🦾即:1 計16即 |
-| 5 | @sub_chilll | あつ太郎の本音bot | 16 | 箱 | https://x.com/sub_chilll/status/2039302364310741414 | 3月 総括 16即 |
-| 6 | @PUAINOKI | フランク | 15 | その他 | https://x.com/PUAINOKI/status/2043633776484655526 | 【北国遠征(4回目)総括】(3泊4日) 計15即(19SEX、16射精) U 1即、代打アポ5即、パス9即 ①強欲パス ②代打アポ( /強欲)/20/ﾛﾝｸﾞｺ… |
-| 7 | @taka_DTnmp | たかはる@MBH | 10 | ストナン | https://x.com/taka_DTnmp/status/2038864156254941485 | 初kk 2021年10月1日 初即 2022年3月30日 10即 2024年1月23日 50即 2025年8月28日 今年中に100即いきたい ここまで4年半も… |
-| 8 | @taruchan100 | たる | 9 | ストナン | https://x.com/taruchan100/status/2039016828215918592 | 僕は9即だったので（3月） |
-| 9 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 8 | 箱 | https://x.com/cx_lm5/status/2038993251160780895 | 2026年3月 8即(⬛️1、 2、 4、 1) ☑️飛田箱妥協して不満即だった ☑️そろそろm?出たいお気持ち ☑️カノ別れたので日曜日動ける |
-| 10 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | https://x.com/River_p823/status/2040785016469471641 | 🍚3月総括🍚  8即💨 |
-| 11 | @ao_nampa | あお | 7 | 謎 | https://x.com/ao_nampa/status/2039361725007618336 | 3月7即 変わった出会いもありクラスタとの交流も何回かあり良かった！今月も仕事優先で適度に楽しめたらと思います |
-| 12 | @atannon_nampa | あたんのん@ナンパ講師 | 7 | ストナン | https://x.com/atannon_nampa/status/2039188199369781496 | 3月なんだかんだ7即してたなw 以前より出撃頻度減った中でこの数字は個人的にビックリw ナンパスキルが身に付くとマジで街が無料風俗化する！ フラッと街出た時や仕… |
-| 13 | @entpxxxxxx | もらく→ | 7 | 謎 | https://x.com/entpxxxxxx/status/2038921485180699084 | 負けた 三月は7即着地です |
-| 14 | @Nano486273 | なの@雄華軍団 | 7 | ストナン/ネトナン | https://x.com/Nano486273/status/2038992271606169767 | 3月総括 7即⬛️ Ⓜ️ 鰻T 3スト3ネト1 はコンビがいてくださると楽しゅうございます。 絵留自衛系即れんかったの無念 |
-| 15 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 6 | ストナン/ネトナン | https://x.com/1jEvvc | 界隈2021年春〜/ネト約72.スト約81ofpk1.2024/1月1.2月1.3月0.4月1.5月0.6月1.7月1.8月0.9月0.10月1.11月2.12… |
-| 16 | @chiroru_pua | チロル@帝都の雌猫 | 6 | ストナン | https://x.com/chiroru_pua/status/2038998601322692608 | 26年　3月 スト　6即 |
-| 17 | @omamco_pua2 | える | 6 | ストナン/ネトナン | https://x.com/omamco_pua2/status/2038984894182043763 | 3月総括6即 🦐2 🐶1 🍎2 🗼🍛1 |
-| 18 | @KgNoYou1 | aki | 4 | ストナン | https://x.com/KgNoYou1/status/2039010460213842179 | 3月4即 もっとがんばりてえよ |
-| 19 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 4 | ストナン | https://x.com/tsuyumushi777/status/2039316017919455295 | 【26年】 1月)344k,8出,1ﾊﾞ,3弾→3即 2月)492k,7出,2ﾊﾞ,3弾→3即 3月)410k,8出,3ﾊﾞ,4弾→4即 |
-| 20 | @ak166121 | とき | 3 | ストナン/ネトナン | https://x.com/ak166121/status/2038979835142472040 | 3月は3即で終了。 去年3月は0即だったので結果は出せたと言える。 |
-| 21 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 3 | ストナン | https://x.com/pua_yossy/status/2038981792137679122 | 3月の総括 3即。 アラツー2即、アラフィフ1即。 正直、かなりボズを散らかしたけど… ここぞという時の行動力で、準即・2即をしっかりモノにしたのは自分でも上出… |
-| 22 | @asumi_pua | あすみ@東京ストナン会 | 2 | ストナン | https://x.com/asumi_pua/status/2038964941030572501 | 3月総括 2即(2弾丸即) |
-| 23 | @ManaBuHirokawa7 | 【二代目】広川学 | 2 | 謎 | https://x.com/ManaBuHirokawa7 | 地平線に消える瞳にはいつしか眩しい男の光 〜25.12/26入店〜 26年 1月0.2月1.3月2 |
-| 24 | @badasai_kush | バダサイ | 1 | ストナン | https://x.com/badasai_kush/status/2042119741519884599 | 1月 明太子 1即 2月 明太子 2即 3月 明太子 ボズ 4月 牛タン 1即 5月 明太子 6月 火の国 7月 明太子 8月 北国 9月 明太子 10月 明太… |
-| 25 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 1 | 謎 | https://x.com/RobertPowerJ | メンチカ寄せしてます、趣味はツインテールとネイル。ヘッダーはぱこなりさんとのツーショ。 MBH 25.2.2〜/2 1/3 7/4 3/5 2/6 4/7 3/… |
+| # | account | 表示名 | 即数 | チャネル | 根拠 |
+|---|---------|--------|-----:|----------|------|
+| 1 | @daigakusei_pua | きの山@MBH3月師範 | 46 | ストナン | [link](https://x.com/daigakusei_pua/status/2039002500720963636) |
+| 2 | @tora_maru005 | とらまる@ナンパ | 39 | ストナン/ネトナン/箱 | [link](https://x.com/tora_maru005/status/2039520788169318887) |
+| 3 | @okarun_pua | おかるん@りお講習 | 26 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2039311973834428508) |
+| 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2039186941820989692) |
+| 5 | @sub_chilll | あつ太郎の本音bot | 16 | 箱 | [link](https://x.com/sub_chilll/status/2039302364310741414) |
+| 6 | @PUAINOKI | フランク | 15 | その他 | [link](https://x.com/PUAINOKI/status/2043633776484655526) |
+| 7 | @taka_DTnmp | たかはる@MBH | 10 | ストナン | [link](https://x.com/taka_DTnmp/status/2038864156254941485) |
+| 8 | @taruchan100 | たる | 9 | ストナン | [link](https://x.com/taruchan100/status/2039016828215918592) |
+| 9 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/cx_lm5/status/2038993251160780895) |
+| 10 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/River_p823/status/2040785016469471641) |
+| 11 | @ao_nampa | あお | 7 | 謎 | [link](https://x.com/ao_nampa/status/2039361725007618336) |
+| 12 | @atannon_nampa | あたんのん@ナンパ講師 | 7 | ストナン | [link](https://x.com/atannon_nampa/status/2039188199369781496) |
+| 13 | @entpxxxxxx | もらく→ | 7 | 謎 | [link](https://x.com/entpxxxxxx/status/2038921485180699084) |
+| 14 | @Nano486273 | なの@雄華軍団 | 7 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2038992271606169767) |
+| 15 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 6 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
+| 16 | @chiroru_pua | チロル@帝都の雌猫 | 6 | ストナン | [link](https://x.com/chiroru_pua/status/2038998601322692608) |
+| 17 | @omamco_pua2 | える | 6 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2038984894182043763) |
+| 18 | @KgNoYou1 | aki | 4 | ストナン | [link](https://x.com/KgNoYou1/status/2039010460213842179) |
+| 19 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 4 | ストナン | [link](https://x.com/tsuyumushi777/status/2039316017919455295) |
+| 20 | @ak166121 | とき | 3 | ストナン/ネトナン | [link](https://x.com/ak166121/status/2038979835142472040) |
+| 21 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 3 | ストナン | [link](https://x.com/pua_yossy/status/2038981792137679122) |
+| 22 | @asumi_pua | あすみ@東京ストナン会 | 2 | ストナン | [link](https://x.com/asumi_pua/status/2038964941030572501) |
+| 23 | @ManaBuHirokawa7 | 【二代目】広川学 | 2 | 謎 | [link](https://x.com/ManaBuHirokawa7) |
+| 24 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2042119741519884599) |
+| 25 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 1 | 謎 | [link](https://x.com/RobertPowerJ) |
 
 ### 2026年4月（33件）
 
-| # | account | 表示名 | 即数 | チャネル | 根拠URL | 総括抜粋 |
-|---|---------|--------|-----:|----------|---------|----------|
-| 1 | @kent_o_o | 健人 | 50 | ストナン | https://x.com/kent_o_o/status/2049917334043910354 | 4月総括  50節  しょのち |
-| 2 | @kukuru_nanpa | くくる | 32 | ネトナン | https://x.com/kukuru_nanpa/status/2049859854077186308 | 🗼🍛即 4月32即達成 東カレのみ |
-| 3 | @ak1_pua | あぴ | 26 | ストナン/ネトナン | https://x.com/ak1_pua/status/2046512956587049390 | もうぶっちゃけるわ 2026年始まって4ヶ月終わりそうなのに今年16即しかしてない あぴ史上最悪の年と言われた去年ですら4月終了時点で26即 もう終わりだよ |
-| 4 | @PUAINOKI | フランク | 25 | その他 | https://x.com/PUAINOKI/status/2050051593429754269 | 【4月総括】 25即、47SEX、44射精 1.パス(中山) 2.パス(強欲) 3.代打アポ( /強欲)/20/ﾛﾝｸﾞｺｰﾄﾀﾞﾃﾞｨ 4.代打アポ( )/3… |
-| 5 | @oyasugaoo | たいが@ピーコック一門 | 22 | ストナン | https://x.com/oyasugaoo/status/2050200140712190344 | 4月総括 22即 ※最高記録 パスなし ソロスト19(味噌1日4即) コンビスト2(セパ1正三1) ソロ箱1 初日 した事で火がつき師匠に月間最高即行くと宣言。… |
-| 6 | @atannon_nampa | あたんのん@ナンパ講師 | 21 | ストナン/箱 | https://x.com/atannon_nampa/status/2050158904630534264 | 【4月総括】 【即数内訳】 スト18即 箱1即 パス2即(タイガさん) 【場所内訳】 1即 3即 味噌 2即 3即 松江1即 1即 2即 明太子 3即 1即 4… |
-| 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 21 | ネトナン/箱 | https://x.com/mic_pua/status/2050210287236849701 | 【4月総括】ﾘｱｺﾐｭ即×8 🍎即×6 🦾即×3 🗼🍛即×2 U🐰即×1 ﾌｧﾝ即×1 計21即 |
-| 8 | @mostkkweek | ウィークまりも | 17 | ストナン/ネトナン/箱 | https://x.com/mostkkweek/status/2050146695091220679 | そういえば4月は質とって17即でした。 しばらくは休息。 |
-| 9 | @omamco_pua2 | える | 17 | 謎 | https://x.com/omamco_pua2/status/2050089251388473636 | 4月総括17節 |
-| 10 | @training_pua | トレニー | 14 | 謎 | https://x.com/training_pua/status/2050139192748073301 | ◽️4月総括 計14そ |
-| 11 | @taruchan100 | たる | 13 | ストナン | https://x.com/taruchan100/status/2051258855313805580 | よく考えたら4月は13即して12人が18-24歳、26歳が1人 たる値4-5が8人くらいで泥らしい泥も即ってなくてかなり上振れしてたな （ただ5.5以上のスト高… |
-| 12 | @Nano486273 | なの@雄華軍団 | 12 | ストナン/ネトナン | https://x.com/Nano486273/status/2049849342669029507 | 4月総括 12即（内パス2） ﾒｶﾞﾊﾞﾘﾌ様ﾊﾟｽ2 6 ⬛️ ⬛️ ストSGT2 ネト 2 オフライン即は全部コンビを組んでくださった方々のおかげでできまし… |
-| 13 | @bookmaker_2015 | とも | 10 | ストナン | https://x.com/bookmaker_2015/status/2049898107849355543 | 【4月総括】  🐶×10  節9準1 |
-| 14 | @okarun_pua | おかるん@りお講習 | 10 | 箱 | https://x.com/okarun_pua/status/2050028862269276563 | 【4月総括】 箱 10即 計 10即 箱連勤しすぎて体が限界でした。 5月は少しお休みします。 |
-| 15 | @River_p823 | フェニックス@セクシーコマンドー部 | 9 | 箱 | https://x.com/River_p823/status/2049858679323910360 | 🍚4月総括🍚  9即💨 |
-| 16 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | https://x.com/chiroru_pua/status/2049892324029980694 | 26年　4月　総括 スト7即 |
-| 17 | @_springfox_ | 春野キツネ@ピカ講習 | 5 | ストナン | https://x.com/_springfox_/status/2050208547687068044 | 4月 Uスト準 1 コンアポ 4 5即 T箱と コン以外ほぼ出撃してなかったけど、仕事頑張って週末アポで即るみたいな良い習慣ができていた月 コンビしてくれた性ハ… |
-| 18 | @asai_pua | 浅井 | 5 | ストナン/箱 | https://x.com/asai_pua/status/2049761391842869530 | 【2026年4月総括】 MGT2即 ネト代打１即 箱1即 箱1即 合計5即 |
-| 19 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 5 | ストナン | https://x.com/rei_app_pua/status/2049878421678031060 | 4月総括 5そ 弾/ 20 卒 案件 準/32 明太子弁ハ◯太郎 弾/27 コン業者 準/22 R教✈️ イン /18 2ヶ月連続5そ達成 なお後半、 ️のため… |
-| 20 | @sub_chilll | あつ太郎の本音bot | 5 | 箱 | https://x.com/sub_chilll/status/2047713143351370057 | 色々考えた結果セケスしたいので街に出よかな。 よー考えたら今月5即くらい。 過去5年で一番少ない。 |
-| 21 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | https://x.com/taka_DTnmp/status/2050191172849803706 | ・4月総括 1400/1000k 4/5即(3弾丸即1即) 18ヶ月連続新規即 久しぶりに1000k超えたが自分が敗者淘汰男だと思い知らされた。 |
-| 22 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 4 | ストナン/ネトナン | https://x.com/HyndP2qxWq4n3Xb/status/2049811910179307707 | 4月スト統括 4即 北国1 1 2 めちゃくちゃ街に出れた訳ではないけど、街に出てる時間だけは全力で汗水たらしてストに集中することができた！ |
-| 23 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 4 | ストナン | https://x.com/shin9suke/status/2062602916184404015 | 【4月総括】 9出撃4即 |
-| 24 | @asumi_pua | あすみ@東京ストナン会 | 3 | ストナン | https://x.com/asumi_pua/status/2050141355826106864 | 4月総括 3即(3弾丸即) |
-| 25 | @daigakusei_pua | きの山@MBH3月師範 | 3 | ストナン | https://x.com/daigakusei_pua/status/2049747426345673018 | 【4月総括】130kk3即（弾丸2準1）6番ゲ |
-| 26 | @oyajii_nanpa | プレンド | 3 | ストナン | https://x.com/oyajii_nanpa/status/2050429626183524428 | 新規総括 4月▼ スト2即 準即1 即1 ※出撃9日 ※街: ️ 三宮 初の三宮に行くも惨敗（3連れ全メシモク） ここはリベンジ あとは GTでようやく1即 別… |
-| 27 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 3 | ネトナン | https://x.com/sugi_ichiban/status/2049099161375769085 | 1月6即 2月3即 3月5即 4月3即 職変えてバタバタとはいえ、さすがに温玉すぎるからガチで気合い入れんと あとまさか胃腸炎になるとは思わんかった。一緒に仕事… |
-| 28 | @yarimokutoma2 | とま🧊@尿道弱者 | 3 | ストナン | https://x.com/yarimokutoma2/status/2050112595139707310 | 4月総括 3出撃 180kk 6番ゲ 3連れ スト3即(即2,準1) 計3即 4月も出撃数ワーストタイだが3即できたので上出来 クラスタと会う機会は多くてわちゃ… |
-| 29 | @KgNoYou1 | aki | 2 | ストナン | https://x.com/KgNoYou1/status/2051302697178198033 | 4月から新1回jojo2即 また日本のDT率とjojo率の乖離に貢献してしまったな |
-| 30 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 2 | ストナン | https://x.com/pua_yossy/status/2049814594177384848 | 4月の総括 今月も無事に「2即」達成。 相手はアラサーとアラツー。 2人とも可愛くて、結果も非常に満足のいくものになりました。 今月も、相変わらずボズ散らかしま… |
-| 31 | @ayase_mbh | アヤセ@MBH | 1 | 謎 | https://x.com/ayase_mbh/status/2048385703613206571 | 完全に体調崩したな昨日のダメージが、、まあ4月1即出来たから良かった。 |
-| 32 | @gureran_m3 | まーぼー@MBHナンパコーチ(サブ垢) | 1 | ストナン | https://x.com/gureran_m3/status/2049104731570905226 | 4月芋街で1即もできないやつは重い商外持ち確定。 |
-| 33 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | https://x.com/pua_poke/status/2050311077859385352 | 4月総括 2出撃 1即 |
+| # | account | 表示名 | 即数 | チャネル | 根拠 |
+|---|---------|--------|-----:|----------|------|
+| 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2049917334043910354) |
+| 2 | @kukuru_nanpa | くくる | 32 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2049859854077186308) |
+| 3 | @ak1_pua | あぴ | 26 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2046512956587049390) |
+| 4 | @PUAINOKI | フランク | 25 | その他 | [link](https://x.com/PUAINOKI/status/2050051593429754269) |
+| 5 | @oyasugaoo | たいが@ピーコック一門 | 22 | ストナン | [link](https://x.com/oyasugaoo/status/2050200140712190344) |
+| 6 | @atannon_nampa | あたんのん@ナンパ講師 | 21 | ストナン/箱 | [link](https://x.com/atannon_nampa/status/2050158904630534264) |
+| 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 21 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2050210287236849701) |
+| 8 | @mostkkweek | ウィークまりも | 17 | ストナン/ネトナン/箱 | [link](https://x.com/mostkkweek/status/2050146695091220679) |
+| 9 | @omamco_pua2 | える | 17 | 謎 | [link](https://x.com/omamco_pua2/status/2050089251388473636) |
+| 10 | @training_pua | トレニー | 14 | 謎 | [link](https://x.com/training_pua/status/2050139192748073301) |
+| 11 | @taruchan100 | たる | 13 | ストナン | [link](https://x.com/taruchan100/status/2051258855313805580) |
+| 12 | @Nano486273 | なの@雄華軍団 | 12 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2049849342669029507) |
+| 13 | @bookmaker_2015 | とも | 10 | ストナン | [link](https://x.com/bookmaker_2015/status/2049898107849355543) |
+| 14 | @okarun_pua | おかるん@りお講習 | 10 | 箱 | [link](https://x.com/okarun_pua/status/2050028862269276563) |
+| 15 | @River_p823 | フェニックス@セクシーコマンドー部 | 9 | 箱 | [link](https://x.com/River_p823/status/2049858679323910360) |
+| 16 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2049892324029980694) |
+| 17 | @_springfox_ | 春野キツネ@ピカ講習 | 5 | ストナン | [link](https://x.com/_springfox_/status/2050208547687068044) |
+| 18 | @asai_pua | 浅井 | 5 | ストナン/箱 | [link](https://x.com/asai_pua/status/2049761391842869530) |
+| 19 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 5 | ストナン | [link](https://x.com/rei_app_pua/status/2049878421678031060) |
+| 20 | @sub_chilll | あつ太郎の本音bot | 5 | 箱 | [link](https://x.com/sub_chilll/status/2047713143351370057) |
+| 21 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2050191172849803706) |
+| 22 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 4 | ストナン/ネトナン | [link](https://x.com/HyndP2qxWq4n3Xb/status/2049811910179307707) |
+| 23 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 4 | ストナン | [link](https://x.com/shin9suke/status/2062602916184404015) |
+| 24 | @asumi_pua | あすみ@東京ストナン会 | 3 | ストナン | [link](https://x.com/asumi_pua/status/2050141355826106864) |
+| 25 | @daigakusei_pua | きの山@MBH3月師範 | 3 | ストナン | [link](https://x.com/daigakusei_pua/status/2049747426345673018) |
+| 26 | @oyajii_nanpa | プレンド | 3 | ストナン | [link](https://x.com/oyajii_nanpa/status/2050429626183524428) |
+| 27 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 3 | ネトナン | [link](https://x.com/sugi_ichiban/status/2049099161375769085) |
+| 28 | @yarimokutoma2 | とま🧊@尿道弱者 | 3 | ストナン | [link](https://x.com/yarimokutoma2/status/2050112595139707310) |
+| 29 | @KgNoYou1 | aki | 2 | ストナン | [link](https://x.com/KgNoYou1/status/2051302697178198033) |
+| 30 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 2 | ストナン | [link](https://x.com/pua_yossy/status/2049814594177384848) |
+| 31 | @ayase_mbh | アヤセ@MBH | 1 | 謎 | [link](https://x.com/ayase_mbh/status/2048385703613206571) |
+| 32 | @gureran_m3 | まーぼー@MBHナンパコーチ(サブ垢) | 1 | ストナン | [link](https://x.com/gureran_m3/status/2049104731570905226) |
+| 33 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2050311077859385352) |
 
 ### 2026年5月（28件）
 
-| # | account | 表示名 | 即数 | チャネル | 根拠URL | 総括抜粋 |
-|---|---------|--------|-----:|----------|---------|----------|
-| 1 | @kent_o_o | 健人 | 50 | ストナン | https://x.com/kent_o_o/status/2061412990239515069 | 5月総括  50節  かなり暴れたか |
-| 2 | @tora_maru005 | とらまる@ナンパ | 35 | ストナン/ネトナン | https://x.com/tora_maru005/status/2061775728019169561 | 5月総括 35即 1番覚えてるのはリアコ新卒即と 数日前の スト上振れ。 イン⭐️と が少しずつアポ増えてきたのでオフライン引退視野。オンラインの方が効率いいの… |
-| 3 | @kukuru_nanpa | くくる | 25 | ネトナン | https://x.com/kukuru_nanpa/status/2062934212056166885 | そういえば5月は25即でした（🗼🍛オンリー） |
-| 4 | @PUAINOKI | フランク | 22 | その他 | https://x.com/PUAINOKI/status/2061283382060101939 | 【5月総括】 22即、48SEX、48射精 1.パス(強欲) 2.代打アポ/中山/24/医療 3. /24/ 4.パス(中山) 5.パス(中山) 6.パス(イヌ… |
-| 5 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | ネトナン/箱 | https://x.com/mic_pua/status/2061697844273352975 | 【5月総括】17即 🗼🍛即×14 🦾即×2 時間即×1 |
-| 6 | @River_p823 | フェニックス@セクシーコマンドー部 | 14 | 箱 | https://x.com/River_p823/status/2062840176251224456 | 🍚5月総括🍚  14即💨 |
-| 7 | @omamco_pua2 | える | 13 | ネトナン/箱 | https://x.com/omamco_pua2/status/2061365911001694357 | 5月総括13即 🦾×2 🦐×5 🍎×4 パス×2 |
-| 8 | @ururunpua | うるるん | 13 | ストナン/ネトナン/箱 | https://x.com/ururunpua/status/2061365911001694357 | ５月総括　１３即 |
-| 9 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | ストナン | https://x.com/yk_yamate/status/2061460951153696809 | よぶんが選手、コナン選手の5月総括 よぶんが 計12即 |
-| 10 | @Nano486273 | なの@雄華軍団 | 12 | 謎 | https://x.com/Nano486273/status/2061108226243133825 | 5月総括  12節（内ぱす1） |
-| 11 | @taruchan100 | たる | 11 | ストナン | https://x.com/taruchan100/status/2060632608363696637 | 5月の結果 9出撃11即（ 6 4 1） ・5/6 5/7 で2連続ボズしたのをきっかけにメイク変えてから反応良くなったかも（去年の強かった時のに戻した） ・上… |
-| 12 | @gureran_m3 | まーぼー@MBHナンパコーチ(サブ垢) | 10 | ストナン | https://x.com/gureran_m3/status/2060932389866729597 | 3月から5月の美味しい時期に泥なし10即すらできてないやつは間違いなく敗者だから今後も敗者の人生をおくるしかない。まず自分の星を理解すること。 |
-| 13 | @okarun_pua | おかるん@りお講習 | 9 | ストナン/ネトナン/箱 | https://x.com/okarun_pua/status/2061059496156578026 | 【5月総括】 スト 1即 ネト 1即 箱 7即 計 9即 また箱で を作って破綻する。学習しない。 そろそろ彼女が欲しいです。 |
-| 14 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 9 | ストナン | https://x.com/yk_yamate/status/2061460951153696809 | よぶんが選手、コナン選手の5月総括 コナン 計9即 |
-| 15 | @ak1_pua | あぴ | 8 | ストナン/ネトナン | https://x.com/ak1_pua/status/2061101013013241970 | 5月 スト393k3即 ネト9アポ5即 |
-| 16 | @bookmaker_2015 | とも | 7 | ストナン | https://x.com/bookmaker_2015/status/2061103094440829426 | 【5月総括】  7節  🐶×6 🍻×1 |
-| 17 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | https://x.com/chiroru_pua/status/2061114978766373328 | 26年　5月　総括 スト7節 |
-| 18 | @hengeal2 | あき | 7 | ストナン/ネトナン | https://x.com/hengeal2/status/2061063317955965056 | 5月 7即 1即 めずらしく で5連勝できたのがでかい 友達が少なくてコンビ組むの苦手なので、来月以降友達作りを頑張ります |
-| 19 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | https://x.com/shin9suke/status/2062603298503627207 | 【5月総括】 12出撃7即 |
-| 20 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | https://x.com/taka_DTnmp/status/2063827906716213539 | 遅くなったけど5月総括 656/1000k 3/5即(2弾丸即1即) 19ヶ月連続新規即 後半成猫により街出れず。 |
-| 21 | @asai_pua | 浅井 | 4 | ストナン | https://x.com/asai_pua/status/2061083665367781652 | 【2026年5月総括】 MGT2即 ネト代打2即 合計4即 |
-| 22 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | https://x.com/oyasugaoo/status/2061010265102233654 | 5月総括 ソロスト3即 GW終わった頃から街出れなくなって... その間キセヌク0、パスもらわない なし 100いくまではこのスタイル貫きます。 |
-| 23 | @heshi_omonaga | へし | 2 | 謎 | https://x.com/heshi_omonaga/status/2061086556803498377 | 5月総括 700kk2即 1ヶ月で1000kk以上やってた時期が懐かしすぎる |
-| 24 | @badasai_kush | バダサイ | 1 | ストナン | https://x.com/badasai_kush/status/2064345954804003323 | 1月 明太子 1即 2月 明太子 2即 3月 明太子 ボズ 4月 牛タン 1即 5月 明太子 1即 6月 ボズ(1おかわり) 7月 未定 8月 未定 9月 未定… |
-| 25 | @daigakusei_pua | きの山@MBH3月師範 | 1 | ストナン | https://x.com/daigakusei_pua/status/2060989659359117385 | 【5月総括】42kk1即（準1） |
-| 26 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 謎 | https://x.com/mbhsgr46/status/2061186477493715114 | 5月総括 1即 |
-| 27 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | https://x.com/pua_poke/status/2062486824900243912 | 5月総括 1出撃 1即 |
-| 28 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 1 | ストナン | https://x.com/pua_yossy/status/2060896272723382740 | 5月の総括｜1即、アラツー 今月は、3出撃＋キープ全断ち。 酒にやられてめまい連発、不甲斐ない自分を何度も見つめて、結局「スト」から一旦距離を置くことにしました… |
+| # | account | 表示名 | 即数 | チャネル | 根拠 |
+|---|---------|--------|-----:|----------|------|
+| 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2061412990239515069) |
+| 2 | @tora_maru005 | とらまる@ナンパ | 35 | ストナン/ネトナン | [link](https://x.com/tora_maru005/status/2061775728019169561) |
+| 3 | @kukuru_nanpa | くくる | 25 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2062934212056166885) |
+| 4 | @PUAINOKI | フランク | 22 | その他 | [link](https://x.com/PUAINOKI/status/2061283382060101939) |
+| 5 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2061697844273352975) |
+| 6 | @River_p823 | フェニックス@セクシーコマンドー部 | 14 | 箱 | [link](https://x.com/River_p823/status/2062840176251224456) |
+| 7 | @omamco_pua2 | える | 13 | ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2061365911001694357) |
+| 8 | @ururunpua | うるるん | 13 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2061365911001694357) |
+| 9 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
+| 10 | @Nano486273 | なの@雄華軍団 | 12 | 謎 | [link](https://x.com/Nano486273/status/2061108226243133825) |
+| 11 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2060632608363696637) |
+| 12 | @gureran_m3 | まーぼー@MBHナンパコーチ(サブ垢) | 10 | ストナン | [link](https://x.com/gureran_m3/status/2060932389866729597) |
+| 13 | @okarun_pua | おかるん@りお講習 | 9 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2061059496156578026) |
+| 14 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 9 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
+| 15 | @ak1_pua | あぴ | 8 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2061101013013241970) |
+| 16 | @bookmaker_2015 | とも | 7 | ストナン | [link](https://x.com/bookmaker_2015/status/2061103094440829426) |
+| 17 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2061114978766373328) |
+| 18 | @hengeal2 | あき | 7 | ストナン/ネトナン | [link](https://x.com/hengeal2/status/2061063317955965056) |
+| 19 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | [link](https://x.com/shin9suke/status/2062603298503627207) |
+| 20 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
+| 21 | @asai_pua | 浅井 | 4 | ストナン | [link](https://x.com/asai_pua/status/2061083665367781652) |
+| 22 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2061010265102233654) |
+| 23 | @heshi_omonaga | へし | 2 | 謎 | [link](https://x.com/heshi_omonaga/status/2061086556803498377) |
+| 24 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2064345954804003323) |
+| 25 | @daigakusei_pua | きの山@MBH3月師範 | 1 | ストナン | [link](https://x.com/daigakusei_pua/status/2060989659359117385) |
+| 26 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 謎 | [link](https://x.com/mbhsgr46/status/2061186477493715114) |
+| 27 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2062486824900243912) |
+| 28 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 1 | ストナン | [link](https://x.com/pua_yossy/status/2060896272723382740) |
 
 ### 2026年6月（30件）
 
-| # | account | 表示名 | 即数 | チャネル | 根拠URL | 総括抜粋 |
-|---|---------|--------|-----:|----------|---------|----------|
-| 1 | @tora_maru005 | とらまる@ナンパ | 51 | ストナン/ネトナン | https://x.com/tora_maru005/status/2072680301743288578 | 6月総括 51即 スト、 GT、 、某前、 ‍♀️、古都遠征、 、タプ、イン⭐️、地方ストとか 思い出即は3つかな ①古都遠征一日8即できたこと の高地トレーニ… |
-| 2 | @kent_o_o | 健人 | 45 | ストナン | https://x.com/kent_o_o/status/2072960097110905072 | 6月総括 45即 思い出即 ①姉妹 丼w/紫月 ②激エロ6P乱、トリプルフェラハメ撮り 7月は流石に暴れるか |
-| 3 | @kukuru_nanpa | くくる | 25 | ストナン/ネトナン | https://x.com/kukuru_nanpa/status/2071985839283040736 | これにて6月は  🗼🍛23即 🦁スト2即 計25即 |
-| 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 20 | ネトナン | https://x.com/mic_pua/status/2072504113624187193 | 【6月総括】  20即  🗼🍛即×19 |
-| 5 | @okarun_pua | おかるん@りお講習 | 15 | ストナン/ネトナン/箱 | https://x.com/okarun_pua/status/2072302504768090284 | 【6月総括】 スト 6即 ネト 2即 箱 ‍♂️ 7即 計 15即 今月はバランスよく各チャネルをやっていたが、 鉄が一番意味がない。 値5もイベントこそあるも… |
-| 6 | @puro_nanpa | M氏@ナンパ講師 | 15 | ストナン/箱 | https://x.com/puro_nanpa/status/2072156791669170363 | 6月総括 15節  スト7節 📦3節 👫🍽️5節 |
-| 7 | @bookmaker_2015 | とも | 13 | ストナン | https://x.com/bookmaker_2015/status/2071298448721350899 | 【6月総括】 13即 ×9 ×1 明太子×3 最後以外は達成できてよかった 色々思い出作れて大満足 ちょい早いが来月は低出撃＆低浮上になる見込み （我慢できれば… |
-| 8 | @PUAINOKI | フランク | 13 | ストナン | https://x.com/PUAINOKI/status/2071949161881071796 | 【6月総括】13即 パス 🐶GTスト 代打アポ コンビ即 |
-| 9 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 12 | ネトナン | https://x.com/Tinder_god_2/status/2071977003482563012 | 6月総括 (🍐12) キセヌク×6 |
-| 10 | @taruchan100 | たる | 11 | ストナン | https://x.com/taruchan100/status/2071976729946767686 | 2026年上半期の結果 38出撃47即（6月日別合計11） |
-| 11 | @omamco_pua2 | える | 10 | ネトナン | https://x.com/omamco_pua2/status/2072190191138402691 | 6月総括10即 🗼🍛×5 🍎×3 🦐×1 パス×1 オフライン |
-| 12 | @daigakusei_pua | きの山@MBH3月師範 | 7 | ストナン | https://x.com/daigakusei_pua/status/2071920079269462413 | 【6月総括】449kk7即（弾丸5ブメ1店連れ1）9番ゲ |
-| 13 | @ururunpua | うるるん | 7 | ストナン/ネトナン/箱 | https://x.com/ururunpua/status/2072076875091046701 | ６月総括　７即 |
-| 14 | @chiroru_pua | チロル@帝都の雌猫 | 5 | ストナン | https://x.com/chiroru_pua/status/2071998405031907564 | 26年　6月　総括 スト5即 |
-| 15 | @taku__pua | たく@東京ストナン会 | 5 | ストナン | https://x.com/taku__pua/status/2071920282395394262 | 6月の振り返り 5弾丸即 |
-| 16 | @ak1_pua | あぴ | 4 | ネトナン | https://x.com/ak1_pua/status/2071925069303980274 | 6月4即/ネト121 即/累計279即 |
-| 17 | @Nano486273 | なの@雄華軍団 | 4 | 謎 | https://x.com/Nano486273/status/2072115904775852214 | 6月総括  4節 |
-| 18 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 4 | ストナン | https://x.com/pua_co/status/2072923219699683354 | 6月たぶん4即。月間童貞だけは絶対に避けるべくやってきたので、逮捕が月末でほんとよかったよん。長くて20日間勾留としたら7月下旬からまた覚醒します。 |
-| 19 | @streets_bach | バッハ@味噌 | 4 | ストナン | https://x.com/streets_bach/status/2071885627612959082 | 【6月総括】 4即(北国3、u準1) 来月は引きこもります。 |
-| 20 | @yarimokutoma2 | とま🧊@尿道弱者 | 4 | ストナン | https://x.com/yarimokutoma2/status/2072359428813435284 | 6月総括 2出撃 71kk 2番ゲ 3連れ スト4即(正三3,準々…1) 計4即 過去ワーストの3出撃を下回らないという低い目標を掲げて見事に不達でワースト記録… |
-| 21 | @anshin_pua | あんしん🎀ナンパ師 | 3 | 謎 | https://x.com/anshin_pua/status/2074734077236875537 | 4月→たぶん7即とか 5月→10即 6月→3即 今月→1週間経つのにまだ1即 いや、マジでどした？？？？ 不調すぎぃ..... |
-| 22 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | https://x.com/oyasugaoo/status/2071202131596726348 | 6月総括 3即 ソロスト2 コンビスト1 先月と同じ数だけど18→19→20若マンあざす 出たらノーイベって事がなかった、その分ホテ前で負けたり搬送して負けてる… |
-| 23 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 3 | ストナン | https://x.com/shin9suke/status/2072352575630848463 | 【6月総括】 9出撃3即 |
-| 24 | @ManaBuHirokawa7 | 【二代目】広川学 | 2 | 謎 | https://x.com/ManaBuHirokawa7/status/2071955169676546297 | 6月総括 361k 2即 声掛け数終わってらぁ、、弱体化立て直せ！！ |
-| 25 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 1 | ストナン | https://x.com/HyndP2qxWq4n3Xb/status/2071993668802859343 | 6月 スト1即 配信オフ◯コ1 7月はもう少しスト出たい |
-| 26 | @riku_pua0801 | リク@ナノ講習 | 1 | ストナン | https://x.com/riku_pua0801/status/2071975285134966810 | 6月統括 スト1即のみ 今月は6出撃くらいしかできておらず、かなり自分に甘えていたと思う。 Xで宣言したことも有言実行できずに不義理ばかりしてしまっていたので、… |
-| 27 | @River_p823 | フェニックス@セクシーコマンドー部 | 1 | 箱 | https://x.com/River_p823/status/2075539786048389450 | 🍚6月総括🍚  1即💨 |
-| 28 | @SIYK_Hage | 性欲ハゲ | 1 | ストナン | https://x.com/SIYK_Hage/status/2073414576516030640 | そういえば上げ忘れてたので… 【6月 総括】 計1即 序盤に逆3即の実績解除したものの、その後は全然出撃せず。 最終日になってようやく出たら 案件でメンブレして… |
-| 29 | @tensai_nanpa4 | 統鈴木 | 1 | ストナン/ネトナン | https://x.com/tensai_nanpa4/status/2071993319945588946 | 6月総括195k1即 |
-| 30 | @yomaru_street | よまる@顔面淘汰男 | 1 | その他 | https://x.com/yomaru_street/status/2072067695252820127 | ⚫︎6月総括 弾丸6( 1、 3、 1、 1) パス2 完全自力即は の1即だけで他は全部他力要素即、値5が1人いたのみであとは値4近辺 最近は即れないだけでは… |
+| # | account | 表示名 | 即数 | チャネル | 根拠 |
+|---|---------|--------|-----:|----------|------|
+| 1 | @tora_maru005 | とらまる@ナンパ | 51 | ストナン/ネトナン | [link](https://x.com/tora_maru005/status/2072680301743288578) |
+| 2 | @kent_o_o | 健人 | 45 | ストナン | [link](https://x.com/kent_o_o/status/2072960097110905072) |
+| 3 | @kukuru_nanpa | くくる | 25 | ストナン/ネトナン | [link](https://x.com/kukuru_nanpa/status/2071985839283040736) |
+| 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 20 | ネトナン | [link](https://x.com/mic_pua/status/2072504113624187193) |
+| 5 | @okarun_pua | おかるん@りお講習 | 15 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2072302504768090284) |
+| 6 | @puro_nanpa | M氏@ナンパ講師 | 15 | ストナン/箱 | [link](https://x.com/puro_nanpa/status/2072156791669170363) |
+| 7 | @bookmaker_2015 | とも | 13 | ストナン | [link](https://x.com/bookmaker_2015/status/2071298448721350899) |
+| 8 | @PUAINOKI | フランク | 13 | ストナン | [link](https://x.com/PUAINOKI/status/2071949161881071796) |
+| 9 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 12 | ネトナン | [link](https://x.com/Tinder_god_2/status/2071977003482563012) |
+| 10 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2071976729946767686) |
+| 11 | @omamco_pua2 | える | 10 | ネトナン | [link](https://x.com/omamco_pua2/status/2072190191138402691) |
+| 12 | @daigakusei_pua | きの山@MBH3月師範 | 7 | ストナン | [link](https://x.com/daigakusei_pua/status/2071920079269462413) |
+| 13 | @ururunpua | うるるん | 7 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2072076875091046701) |
+| 14 | @chiroru_pua | チロル@帝都の雌猫 | 5 | ストナン | [link](https://x.com/chiroru_pua/status/2071998405031907564) |
+| 15 | @taku__pua | たく@東京ストナン会 | 5 | ストナン | [link](https://x.com/taku__pua/status/2071920282395394262) |
+| 16 | @ak1_pua | あぴ | 4 | ネトナン | [link](https://x.com/ak1_pua/status/2071925069303980274) |
+| 17 | @Nano486273 | なの@雄華軍団 | 4 | 謎 | [link](https://x.com/Nano486273/status/2072115904775852214) |
+| 18 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 4 | ストナン | [link](https://x.com/pua_co/status/2072923219699683354) |
+| 19 | @streets_bach | バッハ@味噌 | 4 | ストナン | [link](https://x.com/streets_bach/status/2071885627612959082) |
+| 20 | @yarimokutoma2 | とま🧊@尿道弱者 | 4 | ストナン | [link](https://x.com/yarimokutoma2/status/2072359428813435284) |
+| 21 | @anshin_pua | あんしん🎀ナンパ師 | 3 | 謎 | [link](https://x.com/anshin_pua/status/2074734077236875537) |
+| 22 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2071202131596726348) |
+| 23 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 3 | ストナン | [link](https://x.com/shin9suke/status/2072352575630848463) |
+| 24 | @ManaBuHirokawa7 | 【二代目】広川学 | 2 | 謎 | [link](https://x.com/ManaBuHirokawa7/status/2071955169676546297) |
+| 25 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 1 | ストナン | [link](https://x.com/HyndP2qxWq4n3Xb/status/2071993668802859343) |
+| 26 | @riku_pua0801 | リク@ナノ講習 | 1 | ストナン | [link](https://x.com/riku_pua0801/status/2071975285134966810) |
+| 27 | @River_p823 | フェニックス@セクシーコマンドー部 | 1 | 箱 | [link](https://x.com/River_p823/status/2075539786048389450) |
+| 28 | @SIYK_Hage | 性欲ハゲ | 1 | ストナン | [link](https://x.com/SIYK_Hage/status/2073414576516030640) |
+| 29 | @tensai_nanpa4 | 統鈴木 | 1 | ストナン/ネトナン | [link](https://x.com/tensai_nanpa4/status/2071993319945588946) |
+| 30 | @yomaru_street | よまる@顔面淘汰男 | 1 | その他 | [link](https://x.com/yomaru_street/status/2072067695252820127) |
 
 ---
 
 ## 2026年上半期トップ（月次合算・最後）
 
-全 **85** 件。合算は拾えた月次の和。根拠は月ごとの証拠リンク。
+全 **85** 件。合算は拾えた月次の和。根拠は月ごとのリンクのみ。
 
 | # | account | 表示名 | 合算 | 内訳 | チャネル |
 |---|---------|--------|-----:|------|----------|
@@ -328,328 +328,161 @@ PR 確認用スナップショット。**上半期トップは末尾**。
 | 84 | @yszk1624 | ちゃの@MBH | 1 | 1月1 | ストナン |
 | 85 | @yupisnono | ゆぴ(白ちゃま)@のんちゃま一門 | 1 | 2月1 | ストナン/ネトナン |
 
-### 上半期トップ根拠（月次証拠の一覧）
-
-上位から順に、合算に使った月次の根拠URLを列挙。
+### 上半期トップ根拠（月次リンクのみ）
 
 #### 1. @kent_o_o（合算 145即）
 
 - **4月 50即**: https://x.com/kent_o_o/status/2049917334043910354
-  - 抜粋: 4月総括  50節  しょのち
-  - source: `manual_backfill`
 - **5月 50即**: https://x.com/kent_o_o/status/2061412990239515069
-  - 抜粋: 5月総括  50節  かなり暴れたか
-  - source: `manual_backfill`
 - **6月 45即**: https://x.com/kent_o_o/status/2072960097110905072
-  - 抜粋: 6月総括 45即 思い出即 ①姉妹 丼w/紫月 ②激エロ6P乱、トリプルフェラハメ撮り 7月は流石に暴れるか
-  - source: `global_search`
 
 #### 2. @PUAINOKI（合算 131即）
 
 - **1月 37即**: https://x.com/PUAINOKI/status/2017800334023008698
-  - 抜粋: 【2026年1月総括】37即、56SEX、46射精 ネトヘルプ即 🐶スト即 パス多数
-  - source: `manual_backfill`
 - **2月 19即**: https://x.com/PUAINOKI/status/2028299880339574968
-  - 抜粋: 【2月総括】19即 パス多数 スト即/26 代打・パス中心
-  - source: `timeline`
 - **3月 15即**: https://x.com/PUAINOKI/status/2043633776484655526
-  - 抜粋: 【北国遠征(4回目)総括】(3泊4日) 計15即(19SEX、16射精) U 1即、代打アポ5即、パス9即 ①強欲パス ②代打アポ( /強欲)/20/ﾛﾝｸﾞｺｰﾄﾀﾞﾃﾞｨ→パス ③代打アポ( )/37/ｲﾍﾞﾝﾄ司会 ④中山パス ⑤中山…
-  - source: `global_search`
 - **4月 25即**: https://x.com/PUAINOKI/status/2050051593429754269
-  - 抜粋: 【4月総括】 25即、47SEX、44射精 1.パス(中山) 2.パス(強欲) 3.代打アポ( /強欲)/20/ﾛﾝｸﾞｺｰﾄﾀﾞﾃﾞｨ 4.代打アポ( )/37/ｲﾍﾞﾝﾄ司会 5.パス(中山) 6.パス(中山) 7.パス(しめ) 8.代…
-  - source: `global_search`
 - **5月 22即**: https://x.com/PUAINOKI/status/2061283382060101939
-  - 抜粋: 【5月総括】 22即、48SEX、48射精 1.パス(強欲) 2.代打アポ/中山/24/医療 3. /24/ 4.パス(中山) 5.パス(中山) 6.パス(イヌピィ) 7.パス(イヌピィ) 8.パス(イヌピィ) 9.パス(イヌピィ) 10.…
-  - source: `global_search`
 - **6月 13即**: https://x.com/PUAINOKI/status/2071949161881071796
-  - 抜粋: 【6月総括】13即 パス 🐶GTスト 代打アポ コンビ即
-  - source: `manual_backfill`
 
 #### 3. @tora_maru005（合算 125即）
 
 - **3月 39即**: https://x.com/tora_maru005/status/2039520788169318887
-  - 抜粋: 3月総括39即 久々に結構出た 8連勤とかもした。 ロ前11 スト11 6 松屋1 某箱2 ‍♀️2 tin1 飲み1 コンビ即、乱とかしてくれた人ありがとう！ 4月は少し控えますが、引き続きよろしくお願いいたします。
-  - source: `global_search`
 - **5月 35即**: https://x.com/tora_maru005/status/2061775728019169561
-  - 抜粋: 5月総括 35即 1番覚えてるのはリアコ新卒即と 数日前の スト上振れ。 イン⭐️と が少しずつアポ増えてきたのでオフライン引退視野。オンラインの方が効率いいので 5月経路はバラバラ スト スト ロマ tin イン⭐️ ‍♀️ 横 リアコ …
-  - source: `global_search`
 - **6月 51即**: https://x.com/tora_maru005/status/2072680301743288578
-  - 抜粋: 6月総括 51即 スト、 GT、 、某前、 ‍♀️、古都遠征、 、タプ、イン⭐️、地方ストとか 思い出即は3つかな ①古都遠征一日8即できたこと の高地トレーニングが活かせた ②武蔵某杉スト準含め2即できたこと 地方スト攻略したい ③某号と…
-  - source: `global_search`
 
 #### 4. @mic_pua（合算 106即）
 
 - **1月 17即**: https://x.com/mic_pua/status/2028037366959739333
-  - 抜粋: 総括してなかった↓ 12月　15即 1月　17即 2月　15即
-  - source: `manual_backfill`
 - **2月 15即**: https://x.com/mic_pua/status/2028037366959739333
-  - 抜粋: 総括してなかった↓ 12月 15即 1月 17即 2月 15即 意外と数捌いてる
-  - source: `timeline`
 - **3月 16即**: https://x.com/mic_pua/status/2039186941820989692
-  - 抜粋: 【3月総括】 ﾘｱｺﾐｭ即:8 ネト即:6 🍸準即:1 🦾即:1 計16即
-  - source: `manual_backfill`
 - **4月 21即**: https://x.com/mic_pua/status/2050210287236849701
-  - 抜粋: 【4月総括】ﾘｱｺﾐｭ即×8 🍎即×6 🦾即×3 🗼🍛即×2 U🐰即×1 ﾌｧﾝ即×1 計21即
-  - source: `global_search`
 - **5月 17即**: https://x.com/mic_pua/status/2061697844273352975
-  - 抜粋: 【5月総括】17即 🗼🍛即×14 🦾即×2 時間即×1
-  - source: `global_search`
 - **6月 20即**: https://x.com/mic_pua/status/2072504113624187193
-  - 抜粋: 【6月総括】  20即  🗼🍛即×19
-  - source: `manual_backfill`
 
 #### 5. @kukuru_nanpa（合算 97即）
 
 - **2月 15即**: https://x.com/kukuru_nanpa/status/2024709774731071813
-  - 抜粋: 2月現在 東カレで15即
-  - source: `timeline`
 - **4月 32即**: https://x.com/kukuru_nanpa/status/2049859854077186308
-  - 抜粋: 🗼🍛即 4月32即達成 東カレのみ
-  - source: `global_search`
 - **5月 25即**: https://x.com/kukuru_nanpa/status/2062934212056166885
-  - 抜粋: そういえば5月は25即でした（🗼🍛オンリー）
-  - source: `global_search`
 - **6月 25即**: https://x.com/kukuru_nanpa/status/2071985839283040736
-  - 抜粋: これにて6月は  🗼🍛23即 🦁スト2即 計25即
-  - source: `manual_backfill`
 
 #### 6. @nakayamasoku（合算 85即）
 
 - **1月 43即**: https://x.com/nakayamasoku/status/2018194015842374014
-  - 抜粋: 【1月総括】43即
-  - source: `manual_backfill`
 - **2月 42即**: https://x.com/nakayamasoku/status/2028627708725588288
-  - 抜粋: 【2月実績】42即 ｳｨｽﾞ16 12新町11 1 1 パス1
-  - source: `search`
 
 #### 7. @okarun_pua（合算 79即）
 
 - **2月 19即**: https://x.com/okarun_pua/status/2027955878612410806
 - **3月 26即**: https://x.com/okarun_pua/status/2039311973834428508
-  - 抜粋: 【3月総括】 スト 🦁🦁 1即 ネト 🍎🔥 6即 箱 🦾🧚 19即 計 26即
-  - source: `manual_backfill`
 - **4月 10即**: https://x.com/okarun_pua/status/2050028862269276563
-  - 抜粋: 【4月総括】 箱 10即 計 10即 箱連勤しすぎて体が限界でした。 5月は少しお休みします。
-  - source: `global_search`
 - **5月 9即**: https://x.com/okarun_pua/status/2061059496156578026
-  - 抜粋: 【5月総括】 スト 1即 ネト 1即 箱 7即 計 9即 また箱で を作って破綻する。学習しない。 そろそろ彼女が欲しいです。
-  - source: `global_search`
 - **6月 15即**: https://x.com/okarun_pua/status/2072302504768090284
-  - 抜粋: 【6月総括】 スト 6即 ネト 2即 箱 ‍♂️ 7即 計 15即 今月はバランスよく各チャネルをやっていたが、 鉄が一番意味がない。 値5もイベントこそあるものの 即まで持っていけず。 整形、筋トレ、トーク、 諸々できることからやっていき…
-  - source: `global_search`
 
 #### 8. @omamco_pua2（合算 69即）
 
 - **1月 15即**: https://x.com/omamco_pua2/status/2017803638845116605
-  - 抜粋: 1月総括15即 🦁3 🦾1 🍎3 🔥2 🗼🍛2 ワクメ2 パス2
-  - source: `manual_backfill`
 - **2月 8即**: https://x.com/omamco_pua2/status/2027971008553193664
-  - 抜粋: 2月総括8即 🦁2 🦾2 🧚1 🗼🍛2 🍎1 スト高彼女
-  - source: `timeline`
 - **3月 6即**: https://x.com/omamco_pua2/status/2038984894182043763
-  - 抜粋: 3月総括6即 🦐2 🐶1 🍎2 🗼🍛1
-  - source: `manual_backfill`
 - **4月 17即**: https://x.com/omamco_pua2/status/2050089251388473636
-  - 抜粋: 4月総括17節
-  - source: `manual_backfill`
 - **5月 13即**: https://x.com/omamco_pua2/status/2061365911001694357
-  - 抜粋: 5月総括13即 🦾×2 🦐×5 🍎×4 パス×2
-  - source: `global_search`
 - **6月 10即**: https://x.com/omamco_pua2/status/2072190191138402691
-  - 抜粋: 6月総括10即 🗼🍛×5 🍎×3 🦐×1 パス×1 オフライン
-  - source: `global_search`
 
 #### 9. @daigakusei_pua（合算 61即）
 
 - **1月 4即**: https://x.com/daigakusei_pua/status/2017775962147176685
-  - 抜粋: 【1月総括】 178kk4即（弾丸2店連れ1準1）1連れ負け2アポ負け1番ゲ 過去最低声かけ数更新 出撃数も6と破門ギリギリだったので2月からぶち上げて3月いいスタートきれるように頑張ります！
-  - source: `global_search`
 - **3月 46即**: https://x.com/daigakusei_pua/status/2039002500720963636
-  - 抜粋: 今月完ソロスト46即で終了！！！
-  - source: `manual_backfill`
 - **4月 3即**: https://x.com/daigakusei_pua/status/2049747426345673018
-  - 抜粋: 【4月総括】130kk3即（弾丸2準1）6番ゲ
-  - source: `manual_backfill`
 - **5月 1即**: https://x.com/daigakusei_pua/status/2060989659359117385
-  - 抜粋: 【5月総括】42kk1即（準1）
-  - source: `manual_backfill`
 - **6月 7即**: https://x.com/daigakusei_pua/status/2071920079269462413
-  - 抜粋: 【6月総括】449kk7即（弾丸5ブメ1店連れ1）9番ゲ
-  - source: `manual_backfill`
 
 #### 10. @River_p823（合算 51即）
 
 - **1月 11即**: https://x.com/River_p823/status/2018310886738612405
-  - 抜粋: 🍚1月総括🍚  11即💨
-  - source: `manual_backfill`
 - **2月 8即**: https://x.com/River_p823/status/2030190761107673554
-  - 抜粋: 🍚2月総括🍚  8即💨
-  - source: `manual_backfill`
 - **3月 8即**: https://x.com/River_p823/status/2040785016469471641
-  - 抜粋: 🍚3月総括🍚  8即💨
-  - source: `manual_backfill`
 - **4月 9即**: https://x.com/River_p823/status/2049858679323910360
-  - 抜粋: 🍚4月総括🍚  9即💨
-  - source: `manual_backfill`
 - **5月 14即**: https://x.com/River_p823/status/2062840176251224456
-  - 抜粋: 🍚5月総括🍚  14即💨
-  - source: `manual_backfill`
 - **6月 1即**: https://x.com/River_p823/status/2075539786048389450
-  - 抜粋: 🍚6月総括🍚  1即💨
-  - source: `manual_backfill`
 
 #### 11. @taruchan100（合算 45即）
 
 - **2月 1即**: https://x.com/taruchan100/status/2032261557808480295
 - **3月 9即**: https://x.com/taruchan100/status/2039016828215918592
-  - 抜粋: 僕は9即だったので（3月）
-  - source: `manual_backfill`
 - **4月 13即**: https://x.com/taruchan100/status/2051258855313805580
-  - 抜粋: よく考えたら4月は13即して12人が18-24歳、26歳が1人 たる値4-5が8人くらいで泥らしい泥も即ってなくてかなり上振れしてたな （ただ5.5以上のスト高が相変わらず0即だが） 春の恩恵＋1日7即ブーストがかかってた
-  - source: `global_search`
 - **5月 11即**: https://x.com/taruchan100/status/2060632608363696637
-  - 抜粋: 5月の結果 9出撃11即（ 6 4 1） ・5/6 5/7 で2連続ボズしたのをきっかけにメイク変えてから反応良くなったかも（去年の強かった時のに戻した） ・上振れ即やタイプ値高い子と出会えて仲良くなれたりもしたので即数や即率以外も良い月だ…
-  - source: `global_search`
 - **6月 11即**: https://x.com/taruchan100/status/2071976729946767686
-  - 抜粋: 2026年上半期の結果 38出撃47即（6月日別合計11）
-  - source: `manual_backfill`
 
 #### 12. @Nano486273（合算 43即）
 
 - **1月 3即**: https://x.com/Nano486273/status/2017846549502640341
-  - 抜粋: 1月総括 3即Ⓜ️ スト2ネト1 去年と同じ即数。 90kkで2即。 一即あたりのkk数は減ってるので声掛け自体は上手くなってると思う。トークは難あり。 ネト1勝3敗。 相手に特別感を演出させられてない。
-  - source: `global_search`
 - **2月 5即**: https://x.com/Nano486273/status/2028081329523581201
-  - 抜粋: 2月総括 5即 帝都 と 前の実績解除できて嬉しい コンビスト箱ほんまに楽しかった！ 合流してくださった皆様本当にありがとうございました！ 3月は花粉症グダなのでネト専になります
-  - source: `timeline`
 - **3月 7即**: https://x.com/Nano486273/status/2038992271606169767
-  - 抜粋: 3月総括 7即⬛️ Ⓜ️ 鰻T 3スト3ネト1 はコンビがいてくださると楽しゅうございます。 絵留自衛系即れんかったの無念
-  - source: `global_search`
 - **4月 12即**: https://x.com/Nano486273/status/2049849342669029507
-  - 抜粋: 4月総括 12即（内パス2） ﾒｶﾞﾊﾞﾘﾌ様ﾊﾟｽ2 6 ⬛️ ⬛️ ストSGT2 ネト 2 オフライン即は全部コンビを組んでくださった方々のおかげでできました。 パス、大変満即でございます！！ ネト、君の 舐めて熱出たよ ありがとうござ…
-  - source: `global_search`
 - **5月 12即**: https://x.com/Nano486273/status/2061108226243133825
-  - 抜粋: 5月総括  12節（内ぱす1）
-  - source: `manual_backfill`
 - **6月 4即**: https://x.com/Nano486273/status/2072115904775852214
-  - 抜粋: 6月総括  4節
-  - source: `manual_backfill`
 
 #### 13. @sub_chilll（合算 42即）
 
 - **1月 21即**: https://x.com/sub_chilll/status/2018324278249460090
-  - 抜粋: 1月総括  オリラジ 13 箱 8
-  - source: `manual_backfill`
 - **3月 16即**: https://x.com/sub_chilll/status/2039302364310741414
-  - 抜粋: 3月 総括 16即
-  - source: `manual_backfill`
 - **4月 5即**: https://x.com/sub_chilll/status/2047713143351370057
-  - 抜粋: 色々考えた結果セケスしたいので街に出よかな。 よー考えたら今月5即くらい。 過去5年で一番少ない。
-  - source: `global_search`
 
 #### 14. @bookmaker_2015（合算 39即）
 
 - **1月 9即**: https://x.com/bookmaker_2015/status/2017821497675657416
-  - 抜粋: 【1月総括】 9即 ×6 ×3 スト出撃きつかった だんだん暖かくなってきてもうちょい反応良くなることを期待 来月こそは 以外でもやってみる
-  - source: `global_search`
 - **4月 10即**: https://x.com/bookmaker_2015/status/2049898107849355543
-  - 抜粋: 【4月総括】  🐶×10  節9準1
-  - source: `manual_backfill`
 - **5月 7即**: https://x.com/bookmaker_2015/status/2061103094440829426
-  - 抜粋: 【5月総括】  7節  🐶×6 🍻×1
-  - source: `manual_backfill`
 - **6月 13即**: https://x.com/bookmaker_2015/status/2071298448721350899
-  - 抜粋: 【6月総括】 13即 ×9 ×1 明太子×3 最後以外は達成できてよかった 色々思い出作れて大満足 ちょい早いが来月は低出撃＆低浮上になる見込み （我慢できれば） ※某法でパクられた訳ではない（はず）
-  - source: `global_search`
 
 #### 15. @ak1_pua（合算 38即）
 
 - **4月 26即**: https://x.com/ak1_pua/status/2046512956587049390
-  - 抜粋: もうぶっちゃけるわ 2026年始まって4ヶ月終わりそうなのに今年16即しかしてない あぴ史上最悪の年と言われた去年ですら4月終了時点で26即 もう終わりだよ
-  - source: `global_search`
 - **5月 8即**: https://x.com/ak1_pua/status/2061101013013241970
-  - 抜粋: 5月 スト393k3即 ネト9アポ5即
-  - source: `manual_backfill`
 - **6月 4即**: https://x.com/ak1_pua/status/2071925069303980274
-  - 抜粋: 6月4即/ネト121 即/累計279即
-  - source: `manual_backfill`
 
 #### 16. @atannon_nampa（合算 28即）
 
 - **3月 7即**: https://x.com/atannon_nampa/status/2039188199369781496
-  - 抜粋: 3月なんだかんだ7即してたなw 以前より出撃頻度減った中でこの数字は個人的にビックリw ナンパスキルが身に付くとマジで街が無料風俗化する！ フラッと街出た時や仕事終わりや用事終わりにサクッと即れるようになるのはデカすぎる。 マジでナンパスキ…
-  - source: `global_search`
 - **4月 21即**: https://x.com/atannon_nampa/status/2050158904630534264
-  - 抜粋: 【4月総括】 【即数内訳】 スト18即 箱1即 パス2即(タイガさん) 【場所内訳】 1即 3即 味噌 2即 3即 松江1即 1即 2即 明太子 3即 1即 4即 合計21即！ 月間最多即数記録更新！ 元某局アナ即や W フ○ラ4乱、 店内…
-  - source: `global_search`
 
 #### 17. @oyasugaoo（合算 28即）
 
 - **4月 22即**: https://x.com/oyasugaoo/status/2050200140712190344
-  - 抜粋: 4月総括 22即 ※最高記録 パスなし ソロスト19(味噌1日4即) コンビスト2(セパ1正三1) ソロ箱1 初日 した事で火がつき師匠に月間最高即行くと宣言。 シコイのも勿論いたけど泥も啜ったり英語駆使してGG行ったり芸能実績解除など、幅…
-  - source: `global_search`
 - **5月 3即**: https://x.com/oyasugaoo/status/2061010265102233654
-  - 抜粋: 5月総括 ソロスト3即 GW終わった頃から街出れなくなって... その間キセヌク0、パスもらわない なし 100いくまではこのスタイル貫きます。
-  - source: `global_search`
 - **6月 3即**: https://x.com/oyasugaoo/status/2071202131596726348
-  - 抜粋: 6月総括 3即 ソロスト2 コンビスト1 先月と同じ数だけど18→19→20若マンあざす 出たらノーイベって事がなかった、その分ホテ前で負けたり搬送して負けてるから取りこぼし減らしたいです。
-  - source: `global_search`
 
 #### 18. @sandorafc（合算 27即）
 
 - **1月 24即**: https://x.com/sandorafc/status/2017934626514456839
-  - 抜粋: 1月総括 24即 ・ ×2 ・ ×1 ・ ×11 ・ ×7 ・パス×3 (パス出し×5) ゴリゴリのネトナン師で草 #ジン一門
-  - source: `global_search`
 - **2月 3即**: https://x.com/sandorafc/status/2029849459438539173
-  - 抜粋: 2月総括 3即 ・ ×3 プラベ優先しまくった結果、大変充実しました。
-  - source: `timeline`
 
 #### 19. @chiroru_pua（合算 25即）
 
 - **3月 6即**: https://x.com/chiroru_pua/status/2038998601322692608
-  - 抜粋: 26年　3月 スト　6即
-  - source: `manual_backfill`
 - **4月 7即**: https://x.com/chiroru_pua/status/2049892324029980694
-  - 抜粋: 26年　4月　総括 スト7即
-  - source: `manual_backfill`
 - **5月 7即**: https://x.com/chiroru_pua/status/2061114978766373328
-  - 抜粋: 26年　5月　総括 スト7節
-  - source: `manual_backfill`
 - **6月 5即**: https://x.com/chiroru_pua/status/2071998405031907564
-  - 抜粋: 26年　6月　総括 スト5即
-  - source: `manual_backfill`
 
 #### 20. @shime_pua（合算 25即）
 
 - **1月 25即**: https://x.com/shime_pua/status/2018182025614971305
-  - 抜粋: 【1月総括】 ネト14即 ⭐️1即 スト1即 アポ代打2即 自力18即 パス7即 合計25即
-  - source: `global_search`
 
 #### 21. @Tinder_god_2（合算 25即）
 
 - **2月 13即**: https://x.com/Tinder_god_2/status/2027732435258249323
-  - 抜粋: 2月総括 (アプリ案件13) キセヌク×4
-  - source: `manual_backfill`
 - **6月 12即**: https://x.com/Tinder_god_2/status/2071977003482563012
-  - 抜粋: 6月総括 (🍐12) キセヌク×6
-  - source: `manual_backfill`
 
 #### 22. @tomu_riddle（合算 25即）
 
 - **1月 13即**: https://x.com/tomu_riddle/status/2017975525546012763
-  - 抜粋: 1月ネト13即 7即 某アプリ6即
-  - source: `global_search`
 - **2月 12即**: https://x.com/tomu_riddle/status/2028135483193295205
-  - 抜粋: 2月ネトのみ12即‼️
 
 #### 23. @cx_lm5（合算 21即）
 
 - **2月 13即**: https://x.com/cx_lm5/status/2027947831307403661
-  - 抜粋: 2026年2月 13即(⬛️2、 4、 7) ☑️最後の週インフル だったの悔やまれる ☑️そろそろm?出たいお気持ち
-  - source: `search`
 - **3月 8即**: https://x.com/cx_lm5/status/2038993251160780895
-  - 抜粋: 2026年3月 8即(⬛️1、 2、 4、 1) ☑️飛田箱妥協して不満即だった ☑️そろそろm?出たいお気持ち ☑️カノ別れたので日曜日動ける
-  - source: `global_search`
 
 #### 24. @socool55555（合算 21即）
 
@@ -658,26 +491,14 @@ PR 確認用スナップショット。**上半期トップは末尾**。
 #### 25. @taka_DTnmp（合算 21即）
 
 - **1月 1即**: https://x.com/taka_DTnmp/status/2017958890202415174
-  - 抜粋: ・1月総括 1043/1000k 3/1即(2弾丸即1箱即) 15ヶ月連続新規即 某スーパールーキーのおかげで俺もマインド上がって久しぶりに1000k超えれた。 童卒など思い出にのこる月になった。
-  - source: `global_search`
 - **3月 10即**: https://x.com/taka_DTnmp/status/2038864156254941485
-  - 抜粋: 初kk 2021年10月1日 初即 2022年3月30日 10即 2024年1月23日 50即 2025年8月28日 今年中に100即いきたい ここまで4年半もかかってる 継続力‼️
-  - source: `global_search`
 - **4月 5即**: https://x.com/taka_DTnmp/status/2050191172849803706
-  - 抜粋: ・4月総括 1400/1000k 4/5即(3弾丸即1即) 18ヶ月連続新規即 久しぶりに1000k超えたが自分が敗者淘汰男だと思い知らされた。
-  - source: `global_search`
 - **5月 5即**: https://x.com/taka_DTnmp/status/2063827906716213539
-  - 抜粋: 遅くなったけど5月総括 656/1000k 3/5即(2弾丸即1即) 19ヶ月連続新規即 後半成猫により街出れず。
-  - source: `global_search`
 
 #### 26. @ururunpua（合算 20即）
 
 - **5月 13即**: https://x.com/ururunpua/status/2061365911001694357
-  - 抜粋: ５月総括　１３即
-  - source: `manual_backfill`
 - **6月 7即**: https://x.com/ururunpua/status/2072076875091046701
-  - 抜粋: ６月総括　７即
-  - source: `manual_backfill`
 
 #### 27. @nsan_pua（合算 18即）
 
@@ -686,212 +507,128 @@ PR 確認用スナップショット。**上半期トップは末尾**。
 #### 28. @mostkkweek（合算 17即）
 
 - **4月 17即**: https://x.com/mostkkweek/status/2050146695091220679
-  - 抜粋: そういえば4月は質とって17即でした。 しばらくは休息。
-  - source: `global_search`
 
 #### 29. @KDS2DGhK2E79657（合算 15即）
 
 - **1月 15即**: https://x.com/KDS2DGhK2E79657/status/2017820458507506127
-  - 抜粋: 1月頑張って15即
-  - source: `global_search`
 
 #### 30. @puro_nanpa（合算 15即）
 
 - **6月 15即**: https://x.com/puro_nanpa/status/2072156791669170363
-  - 抜粋: 6月総括 15節  スト7節 📦3節 👫🍽️5節
-  - source: `manual_backfill`
 
 #### 31. @shin9suke（合算 14即）
 
 - **4月 4即**: https://x.com/shin9suke/status/2062602916184404015
-  - 抜粋: 【4月総括】 9出撃4即
-  - source: `manual_backfill`
 - **5月 7即**: https://x.com/shin9suke/status/2062603298503627207
-  - 抜粋: 【5月総括】 12出撃7即
-  - source: `manual_backfill`
 - **6月 3即**: https://x.com/shin9suke/status/2072352575630848463
-  - 抜粋: 【6月総括】 9出撃3即
-  - source: `manual_backfill`
 
 #### 32. @training_pua（合算 14即）
 
 - **4月 14即**: https://x.com/training_pua/status/2050139192748073301
-  - 抜粋: ◽️4月総括 計14そ
-  - source: `manual_backfill`
 
 #### 33. @motebody_pua（合算 13即）
 
 - **1月 13即**: https://x.com/motebody_pua/status/2017575087755694190
-  - 抜粋: APO自体はユニークで25APO。うち12勝。わかってない温 打診せず負けもあるし、ちゃんと打診負け、 内負けもある。とにかく集客数 is GOD. ちな、これまでの最高記録は2023年1月の13即。一撃 がなければあかんかった。感慨深い。
-  - source: `global_search`
 
 #### 34. @pua_co（合算 13即）
 
 - **5月 9即**: https://x.com/yk_yamate/status/2061460951153696809
-  - 抜粋: よぶんが選手、コナン選手の5月総括 コナン 計9即
-  - source: `alt_or_related_account`
 - **6月 4即**: https://x.com/pua_co/status/2072923219699683354
-  - 抜粋: 6月たぶん4即。月間童貞だけは絶対に避けるべくやってきたので、逮捕が月末でほんとよかったよん。長くて20日間勾留としたら7月下旬からまた覚醒します。
-  - source: `global_search`
 
 #### 35. @yomaru_street（合算 13即）
 
 - **1月 12即**: https://x.com/yomaru_street/status/2017898001868665281
-  - 抜粋: ⚫︎1月総括 弾丸10( 7、 1、 1、 1) (値6×2 値5.5×3 値5×2 値4.5×3) パス2( 2) 計12即 月間即子スト値平均5.2 今後の はムーブ学習メインにして来月からは 、丘や✌️等も開拓して更に質を高めたい 最…
-  - source: `global_search`
 - **6月 1即**: https://x.com/yomaru_street/status/2072067695252820127
-  - 抜粋: ⚫︎6月総括 弾丸6( 1、 3、 1、 1) パス2 完全自力即は の1即だけで他は全部他力要素即、値5が1人いたのみであとは値4近辺 最近は即れないだけではなくパスすら通らないのでいよいよ引退を考える月だった 色々手を出してはみたものの…
-  - source: `global_search`
 
 #### 36. @1jEvvc（合算 12即）
 
 - **1月 1即**: https://x.com/1jEvvc
-  - 抜粋: 界隈2021年春〜/ネト約72.スト約81ofpk1.2024/1月1.2月1.3月0.4月1.5月0.6月1.7月1.8月0.9月0.10月1.11月2.12月3_2025/1月4.2月0.3月2.4月5.5月5.6月1.7月1.8月2.…
-  - source: `profile_bio`
 - **2月 5即**: https://x.com/1jEvvc
-  - 抜粋: 界隈2021年春〜/ネト約72.スト約81ofpk1.2024/1月1.2月1.3月0.4月1.5月0.6月1.7月1.8月0.9月0.10月1.11月2.12月3_2025/1月4.2月0.3月2.4月5.5月5.6月1.7月1.8月2.…
-  - source: `profile_bio`
 - **3月 6即**: https://x.com/1jEvvc
-  - 抜粋: 界隈2021年春〜/ネト約72.スト約81ofpk1.2024/1月1.2月1.3月0.4月1.5月0.6月1.7月1.8月0.9月0.10月1.11月2.12月3_2025/1月4.2月0.3月2.4月5.5月5.6月1.7月1.8月2.…
-  - source: `profile_bio`
 
 #### 37. @bangedaisuki（合算 12即）
 
 - **5月 12即**: https://x.com/yk_yamate/status/2061460951153696809
-  - 抜粋: よぶんが選手、コナン選手の5月総括 よぶんが 計12即
-  - source: `alt_or_related_account`
 
 #### 38. @dick_duck_swing（合算 12即）
 
 - **1月 12即**: https://x.com/dick_duck_swing/status/2018169414353605025
-  - 抜粋: 【1月総括】 ・12即： 1(弾丸1)、 3(弾丸3)、パス8 ・寒さで反応が悪く、自力は暖かかった時の1即以外 ‍⚕️しか即れなかった ・来たパスを漏れなく拾ってパス即しすぎた →去年は昼ストが2月からアツくなったし、健常者含め自力即を増…
-  - source: `global_search`
 
 #### 39. @outlook_sabo_4（合算 12即）
 
 - **2月 12即**: https://x.com/outlook_sabo_4/status/2027980319694197212
-  - 抜粋: 2月 某席12即 →逆3即×1、逆3P×1、1日2即×3 GT1即 質も全然悪くないし歩き回る必要ないから某席最強‼️‼️‼️
-  - source: `timeline`
 
 #### 40. @gureran_m3（合算 11即）
 
 - **4月 1即**: https://x.com/gureran_m3/status/2049104731570905226
-  - 抜粋: 4月芋街で1即もできないやつは重い商外持ち確定。
-  - source: `global_search`
 - **5月 10即**: https://x.com/gureran_m3/status/2060932389866729597
-  - 抜粋: 3月から5月の美味しい時期に泥なし10即すらできてないやつは間違いなく敗者だから今後も敗者の人生をおくるしかない。まず自分の星を理解すること。
-  - source: `global_search`
 
 #### 41. @tsuyumushi777（合算 10即）
 
 - **1月 3即**: https://x.com/tsuyumushi777/status/2017958348776411510
-  - 抜粋: 【26年】 1月)344k,8出,1ﾊﾞ,3弾→3即
-  - source: `global_search`
 - **2月 3即**: https://x.com/tsuyumushi777/status/2028312652636950620
 - **3月 4即**: https://x.com/tsuyumushi777/status/2039316017919455295
-  - 抜粋: 【26年】 1月)344k,8出,1ﾊﾞ,3弾→3即 2月)492k,7出,2ﾊﾞ,3弾→3即 3月)410k,8出,3ﾊﾞ,4弾→4即
-  - source: `global_search`
 
 #### 42. @anshin_pua（合算 9即）
 
 - **2月 6即**: https://x.com/anshin_pua/status/2027730351574110355
 - **6月 3即**: https://x.com/anshin_pua/status/2074734077236875537
-  - 抜粋: 4月→たぶん7即とか 5月→10即 6月→3即 今月→1週間経つのにまだ1即 いや、マジでどした？？？？ 不調すぎぃ.....
-  - source: `global_search`
 
 #### 43. @asai_pua（合算 9即）
 
 - **4月 5即**: https://x.com/asai_pua/status/2049761391842869530
-  - 抜粋: 【2026年4月総括】 MGT2即 ネト代打１即 箱1即 箱1即 合計5即
-  - source: `global_search`
 - **5月 4即**: https://x.com/asai_pua/status/2061083665367781652
-  - 抜粋: 【2026年5月総括】 MGT2即 ネト代打2即 合計4即
-  - source: `global_search`
 
 #### 44. @sugi_ichiban（合算 9即）
 
 - **1月 6即**: https://x.com/sugi_ichiban/status/2017609200558579805
-  - 抜粋: 【1月総括】6即(先月10) 東カレ1、ゴージャス1、ペアーズ2 、tinder 2 23芸能モデル 27芸能モデル 22ガルバJD 22介護士 26凄腕営業(元ソープ) 20JD(JOJO) ダウンタイムと超絶ブラック企業での研修でほぼ動…
-  - source: `global_search`
 - **4月 3即**: https://x.com/sugi_ichiban/status/2049099161375769085
-  - 抜粋: 1月6即 2月3即 3月5即 4月3即 職変えてバタバタとはいえ、さすがに温玉すぎるからガチで気合い入れんと あとまさか胃腸炎になるとは思わんかった。一緒に仕事してる方々，ご迷惑をおかけして申し訳ございません しばらく固形物食えんからダイエ…
-  - source: `global_search`
 
 #### 45. @asumi_pua（合算 8即）
 
 - **2月 3即**: https://x.com/asumi_pua/status/2027719962161532975
-  - 抜粋: 2月総括 3即(2弾丸即、1準即)
-  - source: `manual_backfill`
 - **3月 2即**: https://x.com/asumi_pua/status/2038964941030572501
-  - 抜粋: 3月総括 2即(2弾丸即)
-  - source: `manual_backfill`
 - **4月 3即**: https://x.com/asumi_pua/status/2050141355826106864
-  - 抜粋: 4月総括 3即(3弾丸即)
-  - source: `manual_backfill`
 
 #### 46. @Razor_pua（合算 8即）
 
 - **2月 8即**: https://x.com/Razor_pua/status/2028019198241477001
-  - 抜粋: 【2月総括】 8即( 4即、 ×4即) 6連敗、4健全アポ 1負け 2負け 婚活の結果 が一人できそうなので、はやく100即行って 滅回遊からoutしたい。 3月は副業と や あたりでヌクヌク4即予定です。
-  - source: `search`
 
 #### 47. @rei_app_pua（合算 8即）
 
 - **2月 3即**: https://x.com/rei_app_pua/status/2027921065788510502
 - **4月 5即**: https://x.com/rei_app_pua/status/2049878421678031060
-  - 抜粋: 4月総括 5そ 弾/ 20 卒 案件 準/32 明太子弁ハ◯太郎 弾/27 コン業者 準/22 R教✈️ イン /18 2ヶ月連続5そ達成 なお後半、 ️のため活動休止（） 来月も明日を除いて初週は活動休止継続ですが、後半で追い上げて3ヶ月…
-  - source: `global_search`
 
 #### 48. @ao_nampa（合算 7即）
 
 - **3月 7即**: https://x.com/ao_nampa/status/2039361725007618336
-  - 抜粋: 3月7即 変わった出会いもありクラスタとの交流も何回かあり良かった！今月も仕事優先で適度に楽しめたらと思います
-  - source: `global_search`
 
 #### 49. @entpxxxxxx（合算 7即）
 
 - **3月 7即**: https://x.com/entpxxxxxx/status/2038921485180699084
-  - 抜粋: 負けた 三月は7即着地です
-  - source: `global_search`
 
 #### 50. @hengeal2（合算 7即）
 
 - **5月 7即**: https://x.com/hengeal2/status/2061063317955965056
-  - 抜粋: 5月 7即 1即 めずらしく で5連勝できたのがでかい 友達が少なくてコンビ組むの苦手なので、来月以降友達作りを頑張ります
-  - source: `global_search`
 
 #### 51. @PokopokoChin1（合算 7即）
 
 - **2月 7即**: https://x.com/PokopokoChin1/status/2030574402489000116
-  - 抜粋: 【2月統括】 7即‼️えうじゃけ5即‼️ ① /1.9/千問/ カフェ ② /1.8/えうじゃけ/身体値7 ③ /1.8/えうじゃけ/清福 ④某ｱﾌﾟﾘ/1.8/えうじゃけ/ カフェ/F ⑤某ｱﾌﾟﾘ/1.8/えうじゃけ/箪笥部/nn/清福…
-  - source: `search`
 
 #### 52. @streets_bach（合算 7即）
 
 - **1月 3即**: https://x.com/streets_bach/status/2017860645178511882
-  - 抜粋: 【1月総括】 3即(u準×2、u準準準×1) 年始の と下旬の胃腸 で体調は散々。 そこそこ出撃するもボズリ散らかし、当日即は一度もなかったw 2月も週末はなるべく出るようにする
-  - source: `global_search`
 - **6月 4即**: https://x.com/streets_bach/status/2071885627612959082
-  - 抜粋: 【6月総括】 4即(北国3、u準1) 来月は引きこもります。
-  - source: `global_search`
 
 #### 53. @yarimokutoma2（合算 7即）
 
 - **4月 3即**: https://x.com/yarimokutoma2/status/2050112595139707310
-  - 抜粋: 4月総括 3出撃 180kk 6番ゲ 3連れ スト3即(即2,準1) 計3即 4月も出撃数ワーストタイだが3即できたので上出来 クラスタと会う機会は多くてわちゃわちゃ出来たり 人即の実績解除したりと楽しかったし復帰後スト100即も達成できて…
-  - source: `global_search`
 - **6月 4即**: https://x.com/yarimokutoma2/status/2072359428813435284
-  - 抜粋: 6月総括 2出撃 71kk 2番ゲ 3連れ スト4即(正三3,準々…1) 計4即 過去ワーストの3出撃を下回らないという低い目標を掲げて見事に不達でワースト記録更新 出撃数のわりに即数はまずまずだったが色んな意味で弱体化が止まらない 7月目…
-  - source: `global_search`
 
 #### 54. @KgNoYou1（合算 6即）
 
 - **3月 4即**: https://x.com/KgNoYou1/status/2039010460213842179
-  - 抜粋: 3月4即 もっとがんばりてえよ
-  - source: `global_search`
 - **4月 2即**: https://x.com/KgNoYou1/status/2051302697178198033
-  - 抜粋: 4月から新1回jojo2即 また日本のDT率とjojo率の乖離に貢献してしまったな
-  - source: `global_search`
 
 #### 55. @makoto_kurasuta（合算 6即）
 
@@ -900,14 +637,8 @@ PR 確認用スナップショット。**上半期トップは末尾**。
 #### 56. @pua_yossy（合算 6即）
 
 - **3月 3即**: https://x.com/pua_yossy/status/2038981792137679122
-  - 抜粋: 3月の総括 3即。 アラツー2即、アラフィフ1即。 正直、かなりボズを散らかしたけど… ここぞという時の行動力で、準即・2即をしっかりモノにしたのは自分でも上出来だと思う。 特にアラフィフは、めちゃくちゃ美容に投資してて、普通にシコいレベル…
-  - source: `global_search`
 - **4月 2即**: https://x.com/pua_yossy/status/2049814594177384848
-  - 抜粋: 4月の総括 今月も無事に「2即」達成。 相手はアラサーとアラツー。 2人とも可愛くて、結果も非常に満足のいくものになりました。 今月も、相変わらずボズ散らかしましたが… 行動すれば、即は叶う✨ この言葉を信じて、マインド全開で折れる事なく挑…
-  - source: `global_search`
 - **5月 1即**: https://x.com/pua_yossy/status/2060896272723382740
-  - 抜粋: 5月の総括｜1即、アラツー 今月は、3出撃＋キープ全断ち。 酒にやられてめまい連発、不甲斐ない自分を何度も見つめて、結局「スト」から一旦距離を置くことにしました。 久しぶりに普通のおっさん生活に戻ってみたら、 意外と悪くない。
-  - source: `global_search`
 
 #### 57. @weekly_nanpa（合算 6即）
 
@@ -916,203 +647,130 @@ PR 確認用スナップショット。**上半期トップは末尾**。
 #### 58. @_springfox_（合算 5即）
 
 - **4月 5即**: https://x.com/_springfox_/status/2050208547687068044
-  - 抜粋: 4月 Uスト準 1 コンアポ 4 5即 T箱と コン以外ほぼ出撃してなかったけど、仕事頑張って週末アポで即るみたいな良い習慣ができていた月 コンビしてくれた性ハゲに感謝の月 アポの数＝精神安定という学びもあった アポ残弾少なく、集客のためそ…
-  - source: `global_search`
 
 #### 59. @hirohirorenai（合算 5即）
 
 - **1月 1即**: https://x.com/hirohirorenai
-  - 抜粋: 2022.11.20〜MBH入店 入店前8g /22年 9g / 23年87g / 24年51g / 25年1月3g 2月2g 3月3g 4月1g 5月3g 6月3g 7月4g 8月0g 9月2g 10月4g 11月10g 12月2g 26…
-  - source: `profile_bio`
 - **2月 4即**: https://x.com/hirohirorenai
-  - 抜粋: 2022.11.20〜MBH入店 入店前8g /22年 9g / 23年87g / 24年51g / 25年1月3g 2月2g 3月3g 4月1g 5月3g 6月3g 7月4g 8月0g 9月2g 10月4g 11月10g 12月2g 26…
-  - source: `profile_bio`
 
 #### 60. @HyndP2qxWq4n3Xb（合算 5即）
 
 - **4月 4即**: https://x.com/HyndP2qxWq4n3Xb/status/2049811910179307707
-  - 抜粋: 4月スト統括 4即 北国1 1 2 めちゃくちゃ街に出れた訳ではないけど、街に出てる時間だけは全力で汗水たらしてストに集中することができた！
-  - source: `global_search`
 - **6月 1即**: https://x.com/HyndP2qxWq4n3Xb/status/2071993668802859343
-  - 抜粋: 6月 スト1即 配信オフ◯コ1 7月はもう少しスト出たい
-  - source: `global_search`
 
 #### 61. @ManaBuHirokawa7（合算 5即）
 
 - **2月 1即**: https://x.com/ManaBuHirokawa7
-  - 抜粋: 地平線に消える瞳にはいつしか眩しい男の光 〜25.12/26入店〜 26年 1月0.2月1.3月2
-  - source: `profile_bio`
 - **3月 2即**: https://x.com/ManaBuHirokawa7
-  - 抜粋: 地平線に消える瞳にはいつしか眩しい男の光 〜25.12/26入店〜 26年 1月0.2月1.3月2
-  - source: `profile_bio`
 - **6月 2即**: https://x.com/ManaBuHirokawa7/status/2071955169676546297
-  - 抜粋: 6月総括 361k 2即 声掛け数終わってらぁ、、弱体化立て直せ！！
-  - source: `global_search`
 
 #### 62. @namenayone（合算 5即）
 
 - **2月 5即**: https://x.com/namenayone/status/2029395182777712695
-  - 抜粋: 2月総括 Uスト 1即 4即 計 5即 2026年はモチベが上がりません 知り合いも皆街にいないし寒いし男と遊ぶ方がおもろいです ストは随分前から飽きてますが に大叱責喰らったのででます あ、 もたまには行きます やっと暖かくなったので今月…
 
 #### 63. @nampa_poke（合算 5即）
 
 - **1月 3即**: https://x.com/nampa_poke/status/2018178983855341702
-  - 抜粋: 1月 3即 出撃は5,6回? 最近の質が良くてどんどん過食が狭くなってる 今月は引越しと彼女化した案件の食いつき高すぎて活動できるかも怪しい...
-  - source: `global_search`
 - **4月 1即**: https://x.com/pua_poke/status/2050311077859385352
-  - 抜粋: 4月総括 2出撃 1即
-  - source: `alt_or_related_account`
 - **5月 1即**: https://x.com/pua_poke/status/2062486824900243912
-  - 抜粋: 5月総括 1出撃 1即
-  - source: `alt_or_related_account`
 
 #### 64. @riku_pua0801（合算 5即）
 
 - **2月 4即**: https://x.com/riku_pua0801/status/2028014875667271691
 - **6月 1即**: https://x.com/riku_pua0801/status/2071975285134966810
-  - 抜粋: 6月統括 スト1即のみ 今月は6出撃くらいしかできておらず、かなり自分に甘えていたと思う。 Xで宣言したことも有言実行できずに不義理ばかりしてしまっていたので、来月はより一層引き締めて活動頑張る
-  - source: `global_search`
 
 #### 65. @RobertPowerJ（合算 5即）
 
 - **2月 4即**: https://x.com/RobertPowerJ
-  - 抜粋: メンチカ寄せしてます、趣味はツインテールとネイル。ヘッダーはぱこなりさんとのツーショ。 MBH 25.2.2〜/2 1/3 7/4 3/5 2/6 4/7 3/8 2/9 4/10 6/11 7/12 6/26.1 2/2 4/3 1 計5…
-  - source: `profile_bio`
 - **3月 1即**: https://x.com/RobertPowerJ
-  - 抜粋: メンチカ寄せしてます、趣味はツインテールとネイル。ヘッダーはぱこなりさんとのツーショ。 MBH 25.2.2〜/2 1/3 7/4 3/5 2/6 4/7 3/8 2/9 4/10 6/11 7/12 6/26.1 2/2 4/3 1 計5…
-  - source: `profile_bio`
 
 #### 66. @taku__pua（合算 5即）
 
 - **6月 5即**: https://x.com/taku__pua/status/2071920282395394262
-  - 抜粋: 6月の振り返り 5弾丸即
-  - source: `manual_backfill`
 
 #### 67. @tamaon_zone（合算 5即）
 
 - **1月 5即**: https://x.com/tamaon_zone/status/2017832771885142462
-  - 抜粋: 1月総括5即 1 2 2 アプリ入れてなかったからオフライン多めになった。 案件から「mbti絶対Iでしょ笑」とか言われるしノンバ話し方に改善点あり。 強い人とコンビ組むと置物になって やね。
-  - source: `global_search`
 
 #### 68. @badasai_kush（合算 4即）
 
 - **2月 2即**: https://x.com/badasai_kush/status/2023050385687023674
 - **3月 1即**: https://x.com/badasai_kush/status/2042119741519884599
-  - 抜粋: 1月 明太子 1即 2月 明太子 2即 3月 明太子 ボズ 4月 牛タン 1即 5月 明太子 6月 火の国 7月 明太子 8月 北国 9月 明太子 10月 明太子 11月 薩摩 12月 明太子 東日本は北国以外行きません
-  - source: `global_search`
 - **5月 1即**: https://x.com/badasai_kush/status/2064345954804003323
-  - 抜粋: 1月 明太子 1即 2月 明太子 2即 3月 明太子 ボズ 4月 牛タン 1即 5月 明太子 1即 6月 ボズ(1おかわり) 7月 未定 8月 未定 9月 未定 10月 未定 11月 未定 12月 未定
-  - source: `global_search`
 
 #### 69. @bird_pua（合算 4即）
 
 - **2月 4即**: https://x.com/bird_pua/status/2027936657971024223
-  - 抜粋: 2月総括 計4即 、 、✌️、 箱2回しか行ってないが全勝。 遠征も2年ぶりくらいにやって楽しかった。 某美容施術やったおかげもあると思うが、まだ余裕で戦えると思った 引き続きたまに遠征したり箱行くスタイルで楽しみながら無理のない活動を続け…
 
 #### 70. @heshi_omonaga（合算 4即）
 
 - **1月 2即**: https://x.com/heshi_omonaga/status/2017941533643932091
-  - 抜粋: 1月スト 2即 色々うんこすぎて出れてなさすぎ 2月はもうちょいやる
-  - source: `global_search`
 - **5月 2即**: https://x.com/heshi_omonaga/status/2061086556803498377
-  - 抜粋: 5月総括 700kk2即 1ヶ月で1000kk以上やってた時期が懐かしすぎる
-  - source: `global_search`
 
 #### 71. @SIYK_Hage（合算 4即）
 
 - **1月 3即**: https://x.com/SIYK_Hage/status/2017891125529657771
-  - 抜粋: 【1月 総括】 計3即 あんまり出れてなかったけど、苦手な で即れたのと、ずっと即りたかった女を回収できたので良かった。 ※2026年からフォーマットを更新し、さらにキモくなりました。
-  - source: `global_search`
 - **6月 1即**: https://x.com/SIYK_Hage/status/2073414576516030640
-  - 抜粋: そういえば上げ忘れてたので… 【6月 総括】 計1即 序盤に逆3即の実績解除したものの、その後は全然出撃せず。 最終日になってようやく出たら 案件でメンブレして罰退… どうやら顔を覚えられてたらしいのでしばらくはm以外でストる予定。
-  - source: `global_search`
 
 #### 72. @yolu_pua（合算 4即）
 
 - **2月 4即**: https://x.com/yolu_pua/status/2027890652454015182
-  - 抜粋: 【2月総括】 4即 3 1 完全に淘汰。後半全敗。月間即数もいつぶりだこんな低い数字。
-  - source: `search`
 
 #### 73. @ak166121（合算 3即）
 
 - **3月 3即**: https://x.com/ak166121/status/2038979835142472040
-  - 抜粋: 3月は3即で終了。 去年3月は0即だったので結果は出せたと言える。
-  - source: `global_search`
 
 #### 74. @Jlc3Z4（合算 3即）
 
 - **2月 3即**: https://x.com/Jlc3Z4/status/2028123772793078099
-  - 抜粋: うーん昨日も今日もなんとか連れ出してるんだけど即れないなあ 2月が過去一番毎年即数多いのにスト3即しかしてなくて危機感感じる
 
 #### 75. @midori_nanpa（合算 3即）
 
 - **1月 3即**: https://x.com/midori_nanpa/status/2017829101986603272
-  - 抜粋: 【1月総括】 計 3即 Mスト 1 スト 1 アテンド 1 モチベ下がったけどギリ生き残ってる ストナン、クラナンはマチアプと違って思い立ったその日だけ頑張れば即れるのが素晴らしいなと実感した
-  - source: `global_search`
 
 #### 76. @oyajii_nanpa（合算 3即）
 
 - **4月 3即**: https://x.com/oyajii_nanpa/status/2050429626183524428
-  - 抜粋: 新規総括 4月▼ スト2即 準即1 即1 ※出撃9日 ※街: ️ 三宮 初の三宮に行くも惨敗（3連れ全メシモク） ここはリベンジ あとは GTでようやく1即 別日でもGTしたが坊主 アラサーばっか即 毎月即れなくなってるのが目に見えて分かる…
-  - source: `global_search`
 
 #### 77. @salmon_nnp（合算 3即）
 
 - **2月 3即**: https://x.com/salmon_nnp/status/2028389365953781768
-  - 抜粋: @1jEvvc いやおれ2月3即もしてるしガンガン出てるし100kやってるし仲間を裏切ったりしてないしwww
-  - source: `search`
 
 #### 78. @satoshi5991（合算 3即）
 
 - **1月 3即**: https://x.com/satoshi5991/status/2017953702418714902
-  - 抜粋: 【1月結果】 3即 ①あらさ バンゲ→準々ヨネ即 ②みどさ ぽんさんコンビ即 ③あらつ 1年前バンゲ→準即 ・5アポ→2キャンセル2即1負 ソロ当日即がなかったので2月はがんばりたい
-  - source: `global_search`
 
 #### 79. @yamikinsan（合算 3即）
 
 - **1月 3即**: https://x.com/yamikinsan/status/2017770501905740127
-  - 抜粋: 1月3即 ミンキセみたいのしか即れませんでした
-  - source: `global_search`
 
 #### 80. @ayase_mbh（合算 1即）
 
 - **4月 1即**: https://x.com/ayase_mbh/status/2048385703613206571
-  - 抜粋: 完全に体調崩したな昨日のダメージが、、まあ4月1即出来たから良かった。
-  - source: `global_search`
 
 #### 81. @hiro_re_1919（合算 1即）
 
 - **1月 1即**: https://x.com/hiro_re_1919/status/2017901381370486858
-  - 抜粋: 1月総括 スト1即 ネト5即 ネトが割といけたのが良かった! ストは出撃数を上げたいところぼちぼちしていく 1月1番良かったのは、ゆってぃさんのオフ会行ってゆってぃさんに会えたのと明太子の長期の方としか会ったことなかったから、都会でされてる…
-  - source: `global_search`
 
 #### 82. @mbhsgr46（合算 1即）
 
 - **5月 1即**: https://x.com/mbhsgr46/status/2061186477493715114
-  - 抜粋: 5月総括 1即
-  - source: `global_search`
 
 #### 83. @tensai_nanpa4（合算 1即）
 
 - **6月 1即**: https://x.com/tensai_nanpa4/status/2071993319945588946
-  - 抜粋: 6月総括195k1即
-  - source: `global_search`
 
 #### 84. @yszk1624（合算 1即）
 
 - **1月 1即**: https://x.com/yszk1624/status/2017616162956460428
-  - 抜粋: 1月総括 10出撃 511kk 1即 ・後半、風邪引いてしまいほぼ出れなかった。 ・来月はまだ寒いと思うので、折れないようにしたい。
-  - source: `global_search`
 
 #### 85. @yupisnono（合算 1即）
 
 - **2月 1即**: https://x.com/yupisnono/status/2027987827364126887
-  - 抜粋: 2月 1即。9ヶ月ぶりの新規即
-  - source: `search`
 
 ## 注意
 
 - 総括未投稿の月は合算に入らない
-- チャネルは自動判定（誤判定の余地あり）
-- 関連垢・実況垢由来は source を確認
+- チャネルは自動判定
+- ツイート本文はMDに載せない（リンクのみ）
 
