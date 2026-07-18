@@ -665,6 +665,19 @@ def extract_monthly_count(text, year, month, strict=False):
         " ",
         cleaned,
     )
+    # 対象年以外の「2023年1月の13即」など過去年の月次言及を落とす。
+    def _keep_if_target_year(match: re.Match) -> str:
+        raw = match.group(1)
+        y = int(raw)
+        if y == year or y == year % 100:
+            return match.group(0)
+        return " "
+
+    cleaned = re.sub(
+        r"(?<!\d)(\d{2,4})\s*年\s*(?:1[0-2]|[1-9])\s*月(?:\s*の)?",
+        _keep_if_target_year,
+        cleaned,
+    )
 
     month_names = {
         1: ["1月", "一月", "jan"],
@@ -747,6 +760,26 @@ def extract_monthly_count(text, year, month, strict=False):
         re.IGNORECASE,
     ):
         return None
+    # 「4月で1即もできないやつ」「10即すらできてないやつ」など本人実績ではない煽り・閾値トーク
+    if re.search(
+        r"\d+\s*(?:即|節|get|g\b|そ\b)\s*(?:も|すら|さえ).{0,10}"
+        r"(?:できねー|できない|できてない|できてねー|取れない|取れねえ|いけな|行けな)",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    if re.search(
+        r"(?:即|節|get|g\b|そ\b)\s*すら\s*(?:できねー|できない|できてない|できてねー|取れない)",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    # 総括キーワード無しで「〜やつは/奴は」系の第三者煽りだけの投稿
+    if not has_report_keyword and re.search(
+        r"(?:できないやつ|できてないやつ|できねーやつ|(?:やつ|奴)は)",
+        cleaned,
+    ):
+        return None
     if strict and not has_report_keyword and re.search(
         r"(?:#PR|来店|調査隊|ちゅんげー|パチンコ|PACHINKO)", cleaned, re.IGNORECASE
     ):
@@ -755,7 +788,8 @@ def extract_monthly_count(text, year, month, strict=False):
     if not (has_report_keyword or has_generic_month):
         exclude_patterns = [
             r"\d+即したら",
-            r"即すら(?:できねー|できない)",
+            r"即すら(?:できねー|できない|できてない)",
+            r"\d+\s*即\s*も\s*(?:でき|取れ)",
             r"0-\d+即",
         ]
         if any(re.search(pattern, cleaned) for pattern in exclude_patterns):

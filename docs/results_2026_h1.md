@@ -21,7 +21,7 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 
 ## 月次ランキング（根拠リンク）
 
-### 2026年1月（31件）
+### 2026年1月（30件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -33,29 +33,28 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 | 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
 | 7 | @KDS2DGhK2E79657 | 伊藤ペケポン | 15 | 謎 | [link](https://x.com/KDS2DGhK2E79657/status/2017820458507506127) |
 | 8 | @omamco_pua2 | える | 15 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2017803638845116605) |
-| 9 | @motebody_pua | エース@体刺し一門副代表 | 13 | ネトナン | [link](https://x.com/motebody_pua/status/2017575087755694190) |
-| 10 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 13 | ネトナン | [link](https://x.com/tomu_riddle/status/2017975525546012763) |
-| 11 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | その他 | [link](https://x.com/dick_duck_swing/status/2018169414353605025) |
-| 12 | @yomaru_street | よまる@顔面淘汰男 | 12 | その他 | [link](https://x.com/yomaru_street/status/2017898001868665281) |
-| 13 | @River_p823 | フェニックス@セクシーコマンドー部 | 11 | 箱 | [link](https://x.com/River_p823/status/2018310886738612405) |
-| 14 | @bookmaker_2015 | とも | 9 | ネトナン/箱 | [link](https://x.com/bookmaker_2015/status/2017821497675657416) |
-| 15 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 6 | ネトナン | [link](https://x.com/sugi_ichiban/status/2017609200558579805) |
-| 16 | @tamaon_zone | ぞね | 5 | その他 | [link](https://x.com/tamaon_zone/status/2017832771885142462) |
-| 17 | @daigakusei_pua | きの山@MBH3月師範 | 4 | ストナン | [link](https://x.com/daigakusei_pua/status/2017775962147176685) |
-| 18 | @midori_nanpa | みどり | 3 | ストナン/ネトナン/箱 | [link](https://x.com/midori_nanpa/status/2017829101986603272) |
-| 19 | @nampa_poke | ゆうき | 3 | ストナン/ネトナン | [link](https://x.com/nampa_poke/status/2018178983855341702) |
-| 20 | @Nano486273 | なの@雄華軍団 | 3 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2017846549502640341) |
-| 21 | @satoshi5991 | サトシ（むし） | 3 | 謎 | [link](https://x.com/satoshi5991/status/2017953702418714902) |
-| 22 | @SIYK_Hage | 性欲ハゲ | 3 | ストナン | [link](https://x.com/SIYK_Hage/status/2017891125529657771) |
-| 23 | @streets_bach | バッハ@味噌 | 3 | ストナン | [link](https://x.com/streets_bach/status/2017860645178511882) |
-| 24 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | [link](https://x.com/tsuyumushi777/status/2017958348776411510) |
-| 25 | @yamikinsan | ケンタロウ | 3 | 謎 | [link](https://x.com/yamikinsan/status/2017770501905740127) |
-| 26 | @heshi_omonaga | へし | 2 | ストナン | [link](https://x.com/heshi_omonaga/status/2017941533643932091) |
-| 27 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 1 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
-| 28 | @hiro_re_1919 | ヒロ@Rising 明太子 | 1 | ストナン/ネトナン | [link](https://x.com/hiro_re_1919/status/2017901381370486858) |
-| 29 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 1 | ストナン | [link](https://x.com/hirohirorenai) |
-| 30 | @taka_DTnmp | たかはる@MBH | 1 | 箱 | [link](https://x.com/taka_DTnmp/status/2017958890202415174) |
-| 31 | @yszk1624 | ちゃの@MBH | 1 | ストナン | [link](https://x.com/yszk1624/status/2017616162956460428) |
+| 9 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 13 | ネトナン | [link](https://x.com/tomu_riddle/status/2017975525546012763) |
+| 10 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | その他 | [link](https://x.com/dick_duck_swing/status/2018169414353605025) |
+| 11 | @yomaru_street | よまる@顔面淘汰男 | 12 | その他 | [link](https://x.com/yomaru_street/status/2017898001868665281) |
+| 12 | @River_p823 | フェニックス@セクシーコマンドー部 | 11 | 箱 | [link](https://x.com/River_p823/status/2018310886738612405) |
+| 13 | @bookmaker_2015 | とも | 9 | ネトナン/箱 | [link](https://x.com/bookmaker_2015/status/2017821497675657416) |
+| 14 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 6 | ネトナン | [link](https://x.com/sugi_ichiban/status/2017609200558579805) |
+| 15 | @tamaon_zone | ぞね | 5 | その他 | [link](https://x.com/tamaon_zone/status/2017832771885142462) |
+| 16 | @daigakusei_pua | きの山@MBH3月師範 | 4 | ストナン | [link](https://x.com/daigakusei_pua/status/2017775962147176685) |
+| 17 | @midori_nanpa | みどり | 3 | ストナン/ネトナン/箱 | [link](https://x.com/midori_nanpa/status/2017829101986603272) |
+| 18 | @nampa_poke | ゆうき | 3 | ストナン/ネトナン | [link](https://x.com/nampa_poke/status/2018178983855341702) |
+| 19 | @Nano486273 | なの@雄華軍団 | 3 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2017846549502640341) |
+| 20 | @satoshi5991 | サトシ（むし） | 3 | 謎 | [link](https://x.com/satoshi5991/status/2017953702418714902) |
+| 21 | @SIYK_Hage | 性欲ハゲ | 3 | ストナン | [link](https://x.com/SIYK_Hage/status/2017891125529657771) |
+| 22 | @streets_bach | バッハ@味噌 | 3 | ストナン | [link](https://x.com/streets_bach/status/2017860645178511882) |
+| 23 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 3 | ストナン | [link](https://x.com/tsuyumushi777/status/2017958348776411510) |
+| 24 | @yamikinsan | ケンタロウ | 3 | 謎 | [link](https://x.com/yamikinsan/status/2017770501905740127) |
+| 25 | @heshi_omonaga | へし | 2 | ストナン | [link](https://x.com/heshi_omonaga/status/2017941533643932091) |
+| 26 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 1 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
+| 27 | @hiro_re_1919 | ヒロ@Rising 明太子 | 1 | ストナン/ネトナン | [link](https://x.com/hiro_re_1919/status/2017901381370486858) |
+| 28 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 1 | ストナン | [link](https://x.com/hirohirorenai) |
+| 29 | @taka_DTnmp | たかはる@MBH | 1 | 箱 | [link](https://x.com/taka_DTnmp/status/2017958890202415174) |
+| 30 | @yszk1624 | ちゃの@MBH | 1 | ストナン | [link](https://x.com/yszk1624/status/2017616162956460428) |
 
 ### 2026年2月（36件）
 
@@ -127,7 +126,7 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 | 23 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2042119741519884599) |
 | 24 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 1 | 謎 | [link](https://x.com/RobertPowerJ) |
 
-### 2026年4月（33件）
+### 2026年4月（32件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -162,10 +161,9 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 | 29 | @KgNoYou1 | aki | 2 | ストナン | [link](https://x.com/KgNoYou1/status/2051302697178198033) |
 | 30 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 2 | ストナン | [link](https://x.com/pua_yossy/status/2049814594177384848) |
 | 31 | @ayase_mbh | アヤセ@MBH | 1 | 謎 | [link](https://x.com/ayase_mbh/status/2048385703613206571) |
-| 32 | @gureran_m3 | まーぼー@MBHナンパコーチ(サブ垢) | 1 | ストナン | [link](https://x.com/gureran_m3/status/2049104731570905226) |
-| 33 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2050311077859385352) |
+| 32 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2050311077859385352) |
 
-### 2026年5月（28件）
+### 2026年5月（27件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -180,23 +178,22 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 | 9 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
 | 10 | @Nano486273 | なの@雄華軍団 | 12 | 謎 | [link](https://x.com/Nano486273/status/2061108226243133825) |
 | 11 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2060632608363696637) |
-| 12 | @gureran_m3 | まーぼー@MBHナンパコーチ(サブ垢) | 10 | ストナン | [link](https://x.com/gureran_m3/status/2060932389866729597) |
-| 13 | @okarun_pua | おかるん@りお講習 | 9 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2061059496156578026) |
-| 14 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 9 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
-| 15 | @ak1_pua | あぴ | 8 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2061101013013241970) |
-| 16 | @bookmaker_2015 | とも | 7 | ストナン | [link](https://x.com/bookmaker_2015/status/2061103094440829426) |
-| 17 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2061114978766373328) |
-| 18 | @hengeal2 | あき | 7 | ストナン/ネトナン | [link](https://x.com/hengeal2/status/2061063317955965056) |
-| 19 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | [link](https://x.com/shin9suke/status/2062603298503627207) |
-| 20 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
-| 21 | @asai_pua | 浅井 | 4 | ストナン | [link](https://x.com/asai_pua/status/2061083665367781652) |
-| 22 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2061010265102233654) |
-| 23 | @heshi_omonaga | へし | 2 | 謎 | [link](https://x.com/heshi_omonaga/status/2061086556803498377) |
-| 24 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2064345954804003323) |
-| 25 | @daigakusei_pua | きの山@MBH3月師範 | 1 | ストナン | [link](https://x.com/daigakusei_pua/status/2060989659359117385) |
-| 26 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 謎 | [link](https://x.com/mbhsgr46/status/2061186477493715114) |
-| 27 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2062486824900243912) |
-| 28 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 1 | ストナン | [link](https://x.com/pua_yossy/status/2060896272723382740) |
+| 12 | @okarun_pua | おかるん@りお講習 | 9 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2061059496156578026) |
+| 13 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 9 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
+| 14 | @ak1_pua | あぴ | 8 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2061101013013241970) |
+| 15 | @bookmaker_2015 | とも | 7 | ストナン | [link](https://x.com/bookmaker_2015/status/2061103094440829426) |
+| 16 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2061114978766373328) |
+| 17 | @hengeal2 | あき | 7 | ストナン/ネトナン | [link](https://x.com/hengeal2/status/2061063317955965056) |
+| 18 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | [link](https://x.com/shin9suke/status/2062603298503627207) |
+| 19 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
+| 20 | @asai_pua | 浅井 | 4 | ストナン | [link](https://x.com/asai_pua/status/2061083665367781652) |
+| 21 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2061010265102233654) |
+| 22 | @heshi_omonaga | へし | 2 | 謎 | [link](https://x.com/heshi_omonaga/status/2061086556803498377) |
+| 23 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2064345954804003323) |
+| 24 | @daigakusei_pua | きの山@MBH3月師範 | 1 | ストナン | [link](https://x.com/daigakusei_pua/status/2060989659359117385) |
+| 25 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 謎 | [link](https://x.com/mbhsgr46/status/2061186477493715114) |
+| 26 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2062486824900243912) |
+| 27 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 1 | ストナン | [link](https://x.com/pua_yossy/status/2060896272723382740) |
 
 ### 2026年6月（30件）
 
@@ -237,7 +234,7 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 
 ## 2026年上半期トップ（月次合算・最後）
 
-全 **85** 件。合算は拾えた月次の和。根拠は月ごとのリンクのみ。
+全 **83** 件。合算は拾えた月次の和。根拠は月ごとのリンクのみ。
 
 | # | account | 表示名 | 合算 | 内訳 | チャネル |
 |---|---------|--------|-----:|------|----------|
@@ -272,60 +269,58 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 | 29 | @puro_nanpa | M氏@ナンパ講師 | 15 | 6月15即 | ストナン/箱 |
 | 30 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 14 | 4月4即 / 5月7即 / 6月3即 | ストナン |
 | 31 | @training_pua | トレニー | 14 | 4月14即 | 謎 |
-| 32 | @motebody_pua | エース@体刺し一門副代表 | 13 | 1月13即 | ネトナン |
-| 33 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 13 | 5月9即 / 6月4即 | ストナン |
-| 34 | @yomaru_street | よまる@顔面淘汰男 | 13 | 1月12即 / 6月1即 | その他 |
-| 35 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 12 | 1月1即 / 2月5即 / 3月6即 | ストナン/ネトナン |
-| 36 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | 5月12即 | ストナン |
-| 37 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | 1月12即 | その他 |
-| 38 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 2月12即 | 箱 |
-| 39 | @gureran_m3 | まーぼー@MBHナンパコーチ(サブ垢) | 11 | 4月1即 / 5月10即 | ストナン |
-| 40 | @taka_DTnmp | たかはる@MBH | 11 | 1月1即 / 4月5即 / 5月5即 | ストナン/箱 |
-| 41 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 10 | 1月3即 / 2月3即 / 3月4即 | ストナン |
-| 42 | @anshin_pua | あんしん🎀ナンパ師 | 9 | 2月6即 / 6月3即 | 謎 |
-| 43 | @asai_pua | 浅井 | 9 | 4月5即 / 5月4即 | ストナン/箱 |
-| 44 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 9 | 1月6即 / 4月3即 | ネトナン |
-| 45 | @asumi_pua | あすみ@東京ストナン会 | 8 | 2月3即 / 3月2即 / 4月3即 | ストナン |
-| 46 | @Razor_pua | 非モテのレイザー | 8 | 2月8即 | ネトナン |
-| 47 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 8 | 2月3即 / 4月5即 | ストナン/ネトナン |
-| 48 | @ao_nampa | あお | 7 | 3月7即 | 謎 |
-| 49 | @entpxxxxxx | もらく→ | 7 | 3月7即 | 謎 |
-| 50 | @hengeal2 | あき | 7 | 5月7即 | ストナン/ネトナン |
-| 51 | @PokopokoChin1 | ポコ@アンチエイジング美容ガチ勢 | 7 | 2月7即 | ネトナン |
-| 52 | @streets_bach | バッハ@味噌 | 7 | 1月3即 / 6月4即 | ストナン |
-| 53 | @yarimokutoma2 | とま🧊@尿道弱者 | 7 | 4月3即 / 6月4即 | ストナン |
-| 54 | @KgNoYou1 | aki | 6 | 3月4即 / 4月2即 | ストナン |
-| 55 | @makoto_kurasuta | 伊藤誠@今月20即目標 | 6 | 2月6即 | 謎 |
-| 56 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 6 | 3月3即 / 4月2即 / 5月1即 | ストナン |
-| 57 | @weekly_nanpa | 週刊プロナンパ日誌 | 6 | 2月6即 | ストナン |
-| 58 | @_springfox_ | 春野キツネ@ピカ講習 | 5 | 4月5即 | ストナン |
-| 59 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 5 | 1月1即 / 2月4即 | ストナン |
-| 60 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 5 | 4月4即 / 6月1即 | ストナン/ネトナン |
-| 61 | @ManaBuHirokawa7 | 【二代目】広川学 | 5 | 2月1即 / 3月2即 / 6月2即 | 謎 |
-| 62 | @namenayone | ナメクニ | 5 | 2月5即 | ストナン |
-| 63 | @nampa_poke | ゆうき | 5 | 1月3即 / 4月1即 / 5月1即 | ストナン/ネトナン |
-| 64 | @riku_pua0801 | リク@ナノ講習 | 5 | 2月4即 / 6月1即 | ストナン/ネトナン |
-| 65 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 5 | 2月4即 / 3月1即 | 謎 |
-| 66 | @taku__pua | たく@東京ストナン会 | 5 | 6月5即 | ストナン |
-| 67 | @tamaon_zone | ぞね | 5 | 1月5即 | その他 |
-| 68 | @badasai_kush | バダサイ | 4 | 2月2即 / 3月1即 / 5月1即 | ストナン |
-| 69 | @bird_pua | 鳥太郎PUA@アンチAI | 4 | 2月4即 | 箱 |
-| 70 | @heshi_omonaga | へし | 4 | 1月2即 / 5月2即 | ストナン |
-| 71 | @SIYK_Hage | 性欲ハゲ | 4 | 1月3即 / 6月1即 | ストナン |
-| 72 | @yolu_pua | ヨル | 4 | 2月4即 | 謎 |
-| 73 | @ak166121 | とき | 3 | 3月3即 | ストナン/ネトナン |
-| 74 | @Jlc3Z4 | L | 3 | 2月3即 | ストナン |
-| 75 | @midori_nanpa | みどり | 3 | 1月3即 | ストナン/ネトナン/箱 |
-| 76 | @oyajii_nanpa | プレンド | 3 | 4月3即 | ストナン |
-| 77 | @salmon_nnp | サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長 | 3 | 2月3即 | 謎 |
-| 78 | @satoshi5991 | サトシ（むし） | 3 | 1月3即 | 謎 |
-| 79 | @yamikinsan | ケンタロウ | 3 | 1月3即 | 謎 |
-| 80 | @ayase_mbh | アヤセ@MBH | 1 | 4月1即 | 謎 |
-| 81 | @hiro_re_1919 | ヒロ@Rising 明太子 | 1 | 1月1即 | ストナン/ネトナン |
-| 82 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 5月1即 | 謎 |
-| 83 | @tensai_nanpa4 | 統鈴木 | 1 | 6月1即 | ストナン/ネトナン |
-| 84 | @yszk1624 | ちゃの@MBH | 1 | 1月1即 | ストナン |
-| 85 | @yupisnono | ゆぴ(白ちゃま)@のんちゃま一門 | 1 | 2月1即 | ストナン/ネトナン |
+| 32 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 13 | 5月9即 / 6月4即 | ストナン |
+| 33 | @yomaru_street | よまる@顔面淘汰男 | 13 | 1月12即 / 6月1即 | その他 |
+| 34 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 12 | 1月1即 / 2月5即 / 3月6即 | ストナン/ネトナン |
+| 35 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | 5月12即 | ストナン |
+| 36 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | 1月12即 | その他 |
+| 37 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 2月12即 | 箱 |
+| 38 | @taka_DTnmp | たかはる@MBH | 11 | 1月1即 / 4月5即 / 5月5即 | ストナン/箱 |
+| 39 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 10 | 1月3即 / 2月3即 / 3月4即 | ストナン |
+| 40 | @anshin_pua | あんしん🎀ナンパ師 | 9 | 2月6即 / 6月3即 | 謎 |
+| 41 | @asai_pua | 浅井 | 9 | 4月5即 / 5月4即 | ストナン/箱 |
+| 42 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 9 | 1月6即 / 4月3即 | ネトナン |
+| 43 | @asumi_pua | あすみ@東京ストナン会 | 8 | 2月3即 / 3月2即 / 4月3即 | ストナン |
+| 44 | @Razor_pua | 非モテのレイザー | 8 | 2月8即 | ネトナン |
+| 45 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 8 | 2月3即 / 4月5即 | ストナン/ネトナン |
+| 46 | @ao_nampa | あお | 7 | 3月7即 | 謎 |
+| 47 | @entpxxxxxx | もらく→ | 7 | 3月7即 | 謎 |
+| 48 | @hengeal2 | あき | 7 | 5月7即 | ストナン/ネトナン |
+| 49 | @PokopokoChin1 | ポコ@アンチエイジング美容ガチ勢 | 7 | 2月7即 | ネトナン |
+| 50 | @streets_bach | バッハ@味噌 | 7 | 1月3即 / 6月4即 | ストナン |
+| 51 | @yarimokutoma2 | とま🧊@尿道弱者 | 7 | 4月3即 / 6月4即 | ストナン |
+| 52 | @KgNoYou1 | aki | 6 | 3月4即 / 4月2即 | ストナン |
+| 53 | @makoto_kurasuta | 伊藤誠@今月20即目標 | 6 | 2月6即 | 謎 |
+| 54 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 6 | 3月3即 / 4月2即 / 5月1即 | ストナン |
+| 55 | @weekly_nanpa | 週刊プロナンパ日誌 | 6 | 2月6即 | ストナン |
+| 56 | @_springfox_ | 春野キツネ@ピカ講習 | 5 | 4月5即 | ストナン |
+| 57 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 5 | 1月1即 / 2月4即 | ストナン |
+| 58 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 5 | 4月4即 / 6月1即 | ストナン/ネトナン |
+| 59 | @ManaBuHirokawa7 | 【二代目】広川学 | 5 | 2月1即 / 3月2即 / 6月2即 | 謎 |
+| 60 | @namenayone | ナメクニ | 5 | 2月5即 | ストナン |
+| 61 | @nampa_poke | ゆうき | 5 | 1月3即 / 4月1即 / 5月1即 | ストナン/ネトナン |
+| 62 | @riku_pua0801 | リク@ナノ講習 | 5 | 2月4即 / 6月1即 | ストナン/ネトナン |
+| 63 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 5 | 2月4即 / 3月1即 | 謎 |
+| 64 | @taku__pua | たく@東京ストナン会 | 5 | 6月5即 | ストナン |
+| 65 | @tamaon_zone | ぞね | 5 | 1月5即 | その他 |
+| 66 | @badasai_kush | バダサイ | 4 | 2月2即 / 3月1即 / 5月1即 | ストナン |
+| 67 | @bird_pua | 鳥太郎PUA@アンチAI | 4 | 2月4即 | 箱 |
+| 68 | @heshi_omonaga | へし | 4 | 1月2即 / 5月2即 | ストナン |
+| 69 | @SIYK_Hage | 性欲ハゲ | 4 | 1月3即 / 6月1即 | ストナン |
+| 70 | @yolu_pua | ヨル | 4 | 2月4即 | 謎 |
+| 71 | @ak166121 | とき | 3 | 3月3即 | ストナン/ネトナン |
+| 72 | @Jlc3Z4 | L | 3 | 2月3即 | ストナン |
+| 73 | @midori_nanpa | みどり | 3 | 1月3即 | ストナン/ネトナン/箱 |
+| 74 | @oyajii_nanpa | プレンド | 3 | 4月3即 | ストナン |
+| 75 | @salmon_nnp | サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長 | 3 | 2月3即 | 謎 |
+| 76 | @satoshi5991 | サトシ（むし） | 3 | 1月3即 | 謎 |
+| 77 | @yamikinsan | ケンタロウ | 3 | 1月3即 | 謎 |
+| 78 | @ayase_mbh | アヤセ@MBH | 1 | 4月1即 | 謎 |
+| 79 | @hiro_re_1919 | ヒロ@Rising 明太子 | 1 | 1月1即 | ストナン/ネトナン |
+| 80 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 5月1即 | 謎 |
+| 81 | @tensai_nanpa4 | 統鈴木 | 1 | 6月1即 | ストナン/ネトナン |
+| 82 | @yszk1624 | ちゃの@MBH | 1 | 1月1即 | ストナン |
+| 83 | @yupisnono | ゆぴ(白ちゃま)@のんちゃま一門 | 1 | 2月1即 | ストナン/ネトナン |
 
 ### 上半期トップ根拠（月次リンクのみ）
 
@@ -518,250 +513,241 @@ PR 確認用スナップショット。**上半期トップは末尾**。根拠�
 
 - **4月 14即**: https://x.com/training_pua/status/2050139192748073301
 
-#### 32. @motebody_pua（合算 13即）
-
-- **1月 13即**: https://x.com/motebody_pua/status/2017575087755694190
-
-#### 33. @pua_co（合算 13即）
+#### 32. @pua_co（合算 13即）
 
 - **5月 9即**: https://x.com/yk_yamate/status/2061460951153696809
 - **6月 4即**: https://x.com/pua_co/status/2072923219699683354
 
-#### 34. @yomaru_street（合算 13即）
+#### 33. @yomaru_street（合算 13即）
 
 - **1月 12即**: https://x.com/yomaru_street/status/2017898001868665281
 - **6月 1即**: https://x.com/yomaru_street/status/2072067695252820127
 
-#### 35. @1jEvvc（合算 12即）
+#### 34. @1jEvvc（合算 12即）
 
 - **1月 1即**: https://x.com/1jEvvc
 - **2月 5即**: https://x.com/1jEvvc
 - **3月 6即**: https://x.com/1jEvvc
 
-#### 36. @bangedaisuki（合算 12即）
+#### 35. @bangedaisuki（合算 12即）
 
 - **5月 12即**: https://x.com/yk_yamate/status/2061460951153696809
 
-#### 37. @dick_duck_swing（合算 12即）
+#### 36. @dick_duck_swing（合算 12即）
 
 - **1月 12即**: https://x.com/dick_duck_swing/status/2018169414353605025
 
-#### 38. @outlook_sabo_4（合算 12即）
+#### 37. @outlook_sabo_4（合算 12即）
 
 - **2月 12即**: https://x.com/outlook_sabo_4/status/2027980319694197212
 
-#### 39. @gureran_m3（合算 11即）
-
-- **4月 1即**: https://x.com/gureran_m3/status/2049104731570905226
-- **5月 10即**: https://x.com/gureran_m3/status/2060932389866729597
-
-#### 40. @taka_DTnmp（合算 11即）
+#### 38. @taka_DTnmp（合算 11即）
 
 - **1月 1即**: https://x.com/taka_DTnmp/status/2017958890202415174
 - **4月 5即**: https://x.com/taka_DTnmp/status/2050191172849803706
 - **5月 5即**: https://x.com/taka_DTnmp/status/2063827906716213539
 
-#### 41. @tsuyumushi777（合算 10即）
+#### 39. @tsuyumushi777（合算 10即）
 
 - **1月 3即**: https://x.com/tsuyumushi777/status/2017958348776411510
 - **2月 3即**: https://x.com/tsuyumushi777/status/2028312652636950620
 - **3月 4即**: https://x.com/tsuyumushi777/status/2039316017919455295
 
-#### 42. @anshin_pua（合算 9即）
+#### 40. @anshin_pua（合算 9即）
 
 - **2月 6即**: https://x.com/anshin_pua/status/2027730351574110355
 - **6月 3即**: https://x.com/anshin_pua/status/2074734077236875537
 
-#### 43. @asai_pua（合算 9即）
+#### 41. @asai_pua（合算 9即）
 
 - **4月 5即**: https://x.com/asai_pua/status/2049761391842869530
 - **5月 4即**: https://x.com/asai_pua/status/2061083665367781652
 
-#### 44. @sugi_ichiban（合算 9即）
+#### 42. @sugi_ichiban（合算 9即）
 
 - **1月 6即**: https://x.com/sugi_ichiban/status/2017609200558579805
 - **4月 3即**: https://x.com/sugi_ichiban/status/2049099161375769085
 
-#### 45. @asumi_pua（合算 8即）
+#### 43. @asumi_pua（合算 8即）
 
 - **2月 3即**: https://x.com/asumi_pua/status/2027719962161532975
 - **3月 2即**: https://x.com/asumi_pua/status/2038964941030572501
 - **4月 3即**: https://x.com/asumi_pua/status/2050141355826106864
 
-#### 46. @Razor_pua（合算 8即）
+#### 44. @Razor_pua（合算 8即）
 
 - **2月 8即**: https://x.com/Razor_pua/status/2028019198241477001
 
-#### 47. @rei_app_pua（合算 8即）
+#### 45. @rei_app_pua（合算 8即）
 
 - **2月 3即**: https://x.com/rei_app_pua/status/2027921065788510502
 - **4月 5即**: https://x.com/rei_app_pua/status/2049878421678031060
 
-#### 48. @ao_nampa（合算 7即）
+#### 46. @ao_nampa（合算 7即）
 
 - **3月 7即**: https://x.com/ao_nampa/status/2039361725007618336
 
-#### 49. @entpxxxxxx（合算 7即）
+#### 47. @entpxxxxxx（合算 7即）
 
 - **3月 7即**: https://x.com/entpxxxxxx/status/2038921485180699084
 
-#### 50. @hengeal2（合算 7即）
+#### 48. @hengeal2（合算 7即）
 
 - **5月 7即**: https://x.com/hengeal2/status/2061063317955965056
 
-#### 51. @PokopokoChin1（合算 7即）
+#### 49. @PokopokoChin1（合算 7即）
 
 - **2月 7即**: https://x.com/PokopokoChin1/status/2030574402489000116
 
-#### 52. @streets_bach（合算 7即）
+#### 50. @streets_bach（合算 7即）
 
 - **1月 3即**: https://x.com/streets_bach/status/2017860645178511882
 - **6月 4即**: https://x.com/streets_bach/status/2071885627612959082
 
-#### 53. @yarimokutoma2（合算 7即）
+#### 51. @yarimokutoma2（合算 7即）
 
 - **4月 3即**: https://x.com/yarimokutoma2/status/2050112595139707310
 - **6月 4即**: https://x.com/yarimokutoma2/status/2072359428813435284
 
-#### 54. @KgNoYou1（合算 6即）
+#### 52. @KgNoYou1（合算 6即）
 
 - **3月 4即**: https://x.com/KgNoYou1/status/2039010460213842179
 - **4月 2即**: https://x.com/KgNoYou1/status/2051302697178198033
 
-#### 55. @makoto_kurasuta（合算 6即）
+#### 53. @makoto_kurasuta（合算 6即）
 
 - **2月 6即**: https://x.com/makoto_kurasuta/status/2031050315865469233
 
-#### 56. @pua_yossy（合算 6即）
+#### 54. @pua_yossy（合算 6即）
 
 - **3月 3即**: https://x.com/pua_yossy/status/2038981792137679122
 - **4月 2即**: https://x.com/pua_yossy/status/2049814594177384848
 - **5月 1即**: https://x.com/pua_yossy/status/2060896272723382740
 
-#### 57. @weekly_nanpa（合算 6即）
+#### 55. @weekly_nanpa（合算 6即）
 
 - **2月 6即**: https://x.com/weekly_nanpa/status/2027554886179836078
 
-#### 58. @_springfox_（合算 5即）
+#### 56. @_springfox_（合算 5即）
 
 - **4月 5即**: https://x.com/_springfox_/status/2050208547687068044
 
-#### 59. @hirohirorenai（合算 5即）
+#### 57. @hirohirorenai（合算 5即）
 
 - **1月 1即**: https://x.com/hirohirorenai
 - **2月 4即**: https://x.com/hirohirorenai
 
-#### 60. @HyndP2qxWq4n3Xb（合算 5即）
+#### 58. @HyndP2qxWq4n3Xb（合算 5即）
 
 - **4月 4即**: https://x.com/HyndP2qxWq4n3Xb/status/2049811910179307707
 - **6月 1即**: https://x.com/HyndP2qxWq4n3Xb/status/2071993668802859343
 
-#### 61. @ManaBuHirokawa7（合算 5即）
+#### 59. @ManaBuHirokawa7（合算 5即）
 
 - **2月 1即**: https://x.com/ManaBuHirokawa7
 - **3月 2即**: https://x.com/ManaBuHirokawa7
 - **6月 2即**: https://x.com/ManaBuHirokawa7/status/2071955169676546297
 
-#### 62. @namenayone（合算 5即）
+#### 60. @namenayone（合算 5即）
 
 - **2月 5即**: https://x.com/namenayone/status/2029395182777712695
 
-#### 63. @nampa_poke（合算 5即）
+#### 61. @nampa_poke（合算 5即）
 
 - **1月 3即**: https://x.com/nampa_poke/status/2018178983855341702
 - **4月 1即**: https://x.com/pua_poke/status/2050311077859385352
 - **5月 1即**: https://x.com/pua_poke/status/2062486824900243912
 
-#### 64. @riku_pua0801（合算 5即）
+#### 62. @riku_pua0801（合算 5即）
 
 - **2月 4即**: https://x.com/riku_pua0801/status/2028014875667271691
 - **6月 1即**: https://x.com/riku_pua0801/status/2071975285134966810
 
-#### 65. @RobertPowerJ（合算 5即）
+#### 63. @RobertPowerJ（合算 5即）
 
 - **2月 4即**: https://x.com/RobertPowerJ
 - **3月 1即**: https://x.com/RobertPowerJ
 
-#### 66. @taku__pua（合算 5即）
+#### 64. @taku__pua（合算 5即）
 
 - **6月 5即**: https://x.com/taku__pua/status/2071920282395394262
 
-#### 67. @tamaon_zone（合算 5即）
+#### 65. @tamaon_zone（合算 5即）
 
 - **1月 5即**: https://x.com/tamaon_zone/status/2017832771885142462
 
-#### 68. @badasai_kush（合算 4即）
+#### 66. @badasai_kush（合算 4即）
 
 - **2月 2即**: https://x.com/badasai_kush/status/2023050385687023674
 - **3月 1即**: https://x.com/badasai_kush/status/2042119741519884599
 - **5月 1即**: https://x.com/badasai_kush/status/2064345954804003323
 
-#### 69. @bird_pua（合算 4即）
+#### 67. @bird_pua（合算 4即）
 
 - **2月 4即**: https://x.com/bird_pua/status/2027936657971024223
 
-#### 70. @heshi_omonaga（合算 4即）
+#### 68. @heshi_omonaga（合算 4即）
 
 - **1月 2即**: https://x.com/heshi_omonaga/status/2017941533643932091
 - **5月 2即**: https://x.com/heshi_omonaga/status/2061086556803498377
 
-#### 71. @SIYK_Hage（合算 4即）
+#### 69. @SIYK_Hage（合算 4即）
 
 - **1月 3即**: https://x.com/SIYK_Hage/status/2017891125529657771
 - **6月 1即**: https://x.com/SIYK_Hage/status/2073414576516030640
 
-#### 72. @yolu_pua（合算 4即）
+#### 70. @yolu_pua（合算 4即）
 
 - **2月 4即**: https://x.com/yolu_pua/status/2027890652454015182
 
-#### 73. @ak166121（合算 3即）
+#### 71. @ak166121（合算 3即）
 
 - **3月 3即**: https://x.com/ak166121/status/2038979835142472040
 
-#### 74. @Jlc3Z4（合算 3即）
+#### 72. @Jlc3Z4（合算 3即）
 
 - **2月 3即**: https://x.com/Jlc3Z4/status/2028123772793078099
 
-#### 75. @midori_nanpa（合算 3即）
+#### 73. @midori_nanpa（合算 3即）
 
 - **1月 3即**: https://x.com/midori_nanpa/status/2017829101986603272
 
-#### 76. @oyajii_nanpa（合算 3即）
+#### 74. @oyajii_nanpa（合算 3即）
 
 - **4月 3即**: https://x.com/oyajii_nanpa/status/2050429626183524428
 
-#### 77. @salmon_nnp（合算 3即）
+#### 75. @salmon_nnp（合算 3即）
 
 - **2月 3即**: https://x.com/salmon_nnp/status/2028389365953781768
 
-#### 78. @satoshi5991（合算 3即）
+#### 76. @satoshi5991（合算 3即）
 
 - **1月 3即**: https://x.com/satoshi5991/status/2017953702418714902
 
-#### 79. @yamikinsan（合算 3即）
+#### 77. @yamikinsan（合算 3即）
 
 - **1月 3即**: https://x.com/yamikinsan/status/2017770501905740127
 
-#### 80. @ayase_mbh（合算 1即）
+#### 78. @ayase_mbh（合算 1即）
 
 - **4月 1即**: https://x.com/ayase_mbh/status/2048385703613206571
 
-#### 81. @hiro_re_1919（合算 1即）
+#### 79. @hiro_re_1919（合算 1即）
 
 - **1月 1即**: https://x.com/hiro_re_1919/status/2017901381370486858
 
-#### 82. @mbhsgr46（合算 1即）
+#### 80. @mbhsgr46（合算 1即）
 
 - **5月 1即**: https://x.com/mbhsgr46/status/2061186477493715114
 
-#### 83. @tensai_nanpa4（合算 1即）
+#### 81. @tensai_nanpa4（合算 1即）
 
 - **6月 1即**: https://x.com/tensai_nanpa4/status/2071993319945588946
 
-#### 84. @yszk1624（合算 1即）
+#### 82. @yszk1624（合算 1即）
 
 - **1月 1即**: https://x.com/yszk1624/status/2017616162956460428
 
-#### 85. @yupisnono（合算 1即）
+#### 83. @yupisnono（合算 1即）
 
 - **2月 1即**: https://x.com/yupisnono/status/2027987827364126887
