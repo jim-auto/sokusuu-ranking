@@ -184,13 +184,19 @@ def infer_channels(record: dict) -> list[str]:
       5. bio / display_name
       6. 謎
     """
+    def finalize(channels: list[str]) -> list[str]:
+        if "other" in channels and any(c in channels for c in ("street", "online", "club")):
+            channels = [c for c in channels if c != "other"]
+        if not channels:
+            channels = ["unknown"]
+        return [c for c in CHANNEL_ORDER if c in channels]
+
     # 1) 事前計算済み
     explicit = record.get("channels")
     if isinstance(explicit, list) and explicit:
-        return [c for c in CHANNEL_ORDER if c in explicit]
+        return finalize(list(explicit))
     if isinstance(explicit, str) and explicit.strip():
-        items = split_csv(explicit)
-        return [c for c in CHANNEL_ORDER if c in items]
+        return finalize(split_csv(explicit))
 
     single = record.get("channel")
     if isinstance(single, str) and single in CHANNEL_ORDER:
@@ -237,14 +243,7 @@ def infer_channels(record: dict) -> list[str]:
         if not found or found == ["other"] or found == ["unknown"]:
             found = list(CHANNEL_OVERRIDES[username])
 
-    if not found:
-        found.append("unknown")
-
-    # 主チャネルがあるのに「その他」が付くのはノイズになりやすいので落とす
-    if "other" in found and any(c in found for c in ("street", "online", "club")):
-        found = [c for c in found if c != "other"]
-
-    return [c for c in CHANNEL_ORDER if c in found]
+    return finalize(found)
 
 
 def build_channel_badges_html(record: dict) -> str:
