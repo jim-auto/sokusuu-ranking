@@ -863,7 +863,8 @@ def extract_monthly_count(text, year, month, strict=False):
         if not match:
             continue
         match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
-        if strict and re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+        # 「16即目」は序数（N回目）であり月間合計ではない
+        if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
             continue
         value = int(match.group(1))
         if 0 < value <= 500:
@@ -925,7 +926,8 @@ def extract_monthly_count(text, year, month, strict=False):
         if not match:
             continue
         match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
-        if strict and re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+        # 「16即目」は序数（N回目）であり月間合計ではない
+        if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
             continue
         context = cleaned[max(0, match.start() - 18) : min(len(cleaned), match.end() + 18)]
         if strict and re.search(
