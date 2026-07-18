@@ -127,7 +127,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 23 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2042119741519884599) |
 | 24 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 1 | 謎 | [link](https://x.com/RobertPowerJ) |
 
-### 2026年4月（32件）
+### 2026年4月（33件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -140,31 +140,32 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 21 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2050210287236849701) |
 | 8 | @mostkkweek | ウィークまりも | 17 | ストナン/ネトナン/箱 | [link](https://x.com/mostkkweek/status/2050146695091220679) |
 | 9 | @omamco_pua2 | える | 17 | 謎 | [link](https://x.com/omamco_pua2/status/2050089251388473636) |
-| 10 | @training_pua | トレニー | 14 | 謎 | [link](https://x.com/training_pua/status/2050139192748073301) |
-| 11 | @taruchan100 | たる | 13 | ストナン | [link](https://x.com/taruchan100/status/2051258855313805580) |
-| 12 | @Nano486273 | なの@雄華軍団 | 12 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2049849342669029507) |
-| 13 | @bookmaker_2015 | とも | 10 | ストナン | [link](https://x.com/bookmaker_2015/status/2049898107849355543) |
-| 14 | @okarun_pua | おかるん@りお講習 | 10 | 箱 | [link](https://x.com/okarun_pua/status/2050028862269276563) |
-| 15 | @River_p823 | フェニックス@セクシーコマンドー部 | 9 | 箱 | [link](https://x.com/River_p823/status/2049858679323910360) |
-| 16 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2049892324029980694) |
-| 17 | @_springfox_ | 春野キツネ@ピカ講習 | 5 | ストナン | [link](https://x.com/_springfox_/status/2050208547687068044) |
-| 18 | @asai_pua | 浅井 | 5 | ストナン/箱 | [link](https://x.com/asai_pua/status/2049761391842869530) |
-| 19 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 5 | ストナン | [link](https://x.com/rei_app_pua/status/2049878421678031060) |
-| 20 | @sub_chilll | あつ太郎の本音bot | 5 | 箱 | [link](https://x.com/sub_chilll/status/2047713143351370057) |
-| 21 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2050191172849803706) |
-| 22 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 4 | ストナン/ネトナン | [link](https://x.com/HyndP2qxWq4n3Xb/status/2049811910179307707) |
-| 23 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 4 | ストナン | [link](https://x.com/shin9suke/status/2062602916184404015) |
-| 24 | @asumi_pua | あすみ@東京ストナン会 | 3 | ストナン | [link](https://x.com/asumi_pua/status/2050141355826106864) |
-| 25 | @daigakusei_pua | きの山@MBH3月師範 | 3 | ストナン | [link](https://x.com/daigakusei_pua/status/2049747426345673018) |
-| 26 | @oyajii_nanpa | プレンド | 3 | ストナン | [link](https://x.com/oyajii_nanpa/status/2050429626183524428) |
-| 27 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 3 | ネトナン | [link](https://x.com/sugi_ichiban/status/2049099161375769085) |
-| 28 | @yarimokutoma2 | とま🧊@尿道弱者 | 3 | ストナン | [link](https://x.com/yarimokutoma2/status/2050112595139707310) |
-| 29 | @KgNoYou1 | aki | 2 | ストナン | [link](https://x.com/KgNoYou1/status/2051302697178198033) |
-| 30 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 2 | ストナン | [link](https://x.com/pua_yossy/status/2049814594177384848) |
-| 31 | @ayase_mbh | アヤセ@MBH | 1 | 謎 | [link](https://x.com/ayase_mbh/status/2048385703613206571) |
-| 32 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2050311077859385352) |
+| 10 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 15 | 箱 | [link](https://x.com/cx_lm5) |
+| 11 | @training_pua | トレニー | 14 | 謎 | [link](https://x.com/training_pua/status/2050139192748073301) |
+| 12 | @taruchan100 | たる | 13 | ストナン | [link](https://x.com/taruchan100/status/2051258855313805580) |
+| 13 | @Nano486273 | なの@雄華軍団 | 12 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2049849342669029507) |
+| 14 | @bookmaker_2015 | とも | 10 | ストナン | [link](https://x.com/bookmaker_2015/status/2049898107849355543) |
+| 15 | @okarun_pua | おかるん@りお講習 | 10 | 箱 | [link](https://x.com/okarun_pua/status/2050028862269276563) |
+| 16 | @River_p823 | フェニックス@セクシーコマンドー部 | 9 | 箱 | [link](https://x.com/River_p823/status/2049858679323910360) |
+| 17 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2049892324029980694) |
+| 18 | @_springfox_ | 春野キツネ@ピカ講習 | 5 | ストナン | [link](https://x.com/_springfox_/status/2050208547687068044) |
+| 19 | @asai_pua | 浅井 | 5 | ストナン/箱 | [link](https://x.com/asai_pua/status/2049761391842869530) |
+| 20 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 5 | ストナン | [link](https://x.com/rei_app_pua/status/2049878421678031060) |
+| 21 | @sub_chilll | あつ太郎の本音bot | 5 | 箱 | [link](https://x.com/sub_chilll/status/2047713143351370057) |
+| 22 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2050191172849803706) |
+| 23 | @HyndP2qxWq4n3Xb | スーパービックボーイ | 4 | ストナン/ネトナン | [link](https://x.com/HyndP2qxWq4n3Xb/status/2049811910179307707) |
+| 24 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 4 | ストナン | [link](https://x.com/shin9suke/status/2062602916184404015) |
+| 25 | @asumi_pua | あすみ@東京ストナン会 | 3 | ストナン | [link](https://x.com/asumi_pua/status/2050141355826106864) |
+| 26 | @daigakusei_pua | きの山@MBH3月師範 | 3 | ストナン | [link](https://x.com/daigakusei_pua/status/2049747426345673018) |
+| 27 | @oyajii_nanpa | プレンド | 3 | ストナン | [link](https://x.com/oyajii_nanpa/status/2050429626183524428) |
+| 28 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 3 | ネトナン | [link](https://x.com/sugi_ichiban/status/2049099161375769085) |
+| 29 | @yarimokutoma2 | とま🧊@尿道弱者 | 3 | ストナン | [link](https://x.com/yarimokutoma2/status/2050112595139707310) |
+| 30 | @KgNoYou1 | aki | 2 | ストナン | [link](https://x.com/KgNoYou1/status/2051302697178198033) |
+| 31 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 2 | ストナン | [link](https://x.com/pua_yossy/status/2049814594177384848) |
+| 32 | @ayase_mbh | アヤセ@MBH | 1 | 謎 | [link](https://x.com/ayase_mbh/status/2048385703613206571) |
+| 33 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2050311077859385352) |
 
-### 2026年5月（27件）
+### 2026年5月（28件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -186,15 +187,16 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 16 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2061114978766373328) |
 | 17 | @hengeal2 | あき | 7 | ストナン/ネトナン | [link](https://x.com/hengeal2/status/2061063317955965056) |
 | 18 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | [link](https://x.com/shin9suke/status/2062603298503627207) |
-| 19 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
-| 20 | @asai_pua | 浅井 | 4 | ストナン | [link](https://x.com/asai_pua/status/2061083665367781652) |
-| 21 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2061010265102233654) |
-| 22 | @heshi_omonaga | へし | 2 | 謎 | [link](https://x.com/heshi_omonaga/status/2061086556803498377) |
-| 23 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2064345954804003323) |
-| 24 | @daigakusei_pua | きの山@MBH3月師範 | 1 | ストナン | [link](https://x.com/daigakusei_pua/status/2060989659359117385) |
-| 25 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 謎 | [link](https://x.com/mbhsgr46/status/2061186477493715114) |
-| 26 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2062486824900243912) |
-| 27 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 1 | ストナン | [link](https://x.com/pua_yossy/status/2060896272723382740) |
+| 19 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 6 | 箱 | [link](https://x.com/cx_lm5) |
+| 20 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
+| 21 | @asai_pua | 浅井 | 4 | ストナン | [link](https://x.com/asai_pua/status/2061083665367781652) |
+| 22 | @oyasugaoo | たいが@ピーコック一門 | 3 | ストナン | [link](https://x.com/oyasugaoo/status/2061010265102233654) |
+| 23 | @heshi_omonaga | へし | 2 | 謎 | [link](https://x.com/heshi_omonaga/status/2061086556803498377) |
+| 24 | @badasai_kush | バダサイ | 1 | ストナン | [link](https://x.com/badasai_kush/status/2064345954804003323) |
+| 25 | @daigakusei_pua | きの山@MBH3月師範 | 1 | ストナン | [link](https://x.com/daigakusei_pua/status/2060989659359117385) |
+| 26 | @mbhsgr46 | 温☀︎玉☀︎KONAN | 1 | 謎 | [link](https://x.com/mbhsgr46/status/2061186477493715114) |
+| 27 | @nampa_poke | ゆうき | 1 | ストナン/ネトナン | [link](https://x.com/pua_poke/status/2062486824900243912) |
+| 28 | @pua_yossy | アラフィフのヨッシー｜ネオナンパ理論講師 | 1 | ストナン | [link](https://x.com/pua_yossy/status/2060896272723382740) |
 
 ### 2026年6月（30件）
 

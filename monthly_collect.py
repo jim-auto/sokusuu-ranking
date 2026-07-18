@@ -647,6 +647,8 @@ def extract_user_tweets_from_body(body):
 def clean_tweet_text(text):
     text = re.sub(r"https?://\S+", " ", text)
     text = re.sub(r"[\U00010000-\U0010ffff]", " ", text)
+    # 異体字を正規化（例: 「6 卽」→「6 即」）
+    text = text.replace("卽", "即")
     text = text.replace("\n", " ")
     return re.sub(r"\s+", " ", text).strip()
 
@@ -754,10 +756,18 @@ def extract_monthly_count(text, year, month, strict=False):
         return None
     if re.search(r"(?:月間データ|回転数|BIG|REG|HANABI|スロット|パチスロ)", cleaned, re.IGNORECASE):
         return None
+    # 商材・買取系は除外。合流募集の「DMください」は月次総括本文にも出るので単独では落とさない。
     if re.search(
-        r"(?:即現金|買取|お支払い|予約後|キャンセル不可|お問い合わせ|DMください)",
+        r"(?:即現金|買取|お支払い|予約後|キャンセル不可|お問い合わせ)",
         cleaned,
         re.IGNORECASE,
+    ):
+        return None
+    if (
+        re.search(r"DMください", cleaned, re.IGNORECASE)
+        and re.search(r"(?:講習|コンサル|tips?|教材|ノウハウ|固定ツイート)", cleaned, re.IGNORECASE)
+        and not has_report_keyword
+        and not has_explicit_month
     ):
         return None
     # 「4月で1即もできないやつ」「10即すらできてないやつ」など本人実績ではない煽り・閾値トーク
