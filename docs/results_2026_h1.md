@@ -16,13 +16,13 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 
 - 月次: 公開総括などの収集・補完
 - **本表は月間5即以上のみ（4即以下は掲載しない）**
-- 明らかな誤検知は除外（例: 去年比較の数字、煽り文、通算マイルストーン）
+- **根拠ツイートは月間即数の総括であることを人手精査**（序数・通算残数・bioのみは除外）
 - チャネル: 総括本文キーワード優先（ストナン/ネトナン/箱/その他/謎）
 - 根拠は **URLリンクのみ**（ツイート文はMDに書かない）
 
 ## 月次ランキング（根拠リンク）
 
-### 2026年1月（17件・5即以上 / 非掲載15件）
+### 2026年1月（17件・5即以上 / 非掲載13件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -44,33 +44,28 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 16 | @namenayone | ナメクニ | 5 | ストナン | [link](https://x.com/namenayone/status/2018162327020056926) |
 | 17 | @tamaon_zone | ぞね | 5 | その他 | [link](https://x.com/tamaon_zone/status/2017832771885142462) |
 
-### 2026年2月（21件・5即以上 / 非掲載15件）
+### 2026年2月（16件・5即以上 / 非掲載12件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
 | 1 | @nakayamasoku | 中山@tips更新中（ジジネト） | 42 | ネトナン | [link](https://x.com/nakayamasoku/status/2028627708725588288) |
-| 2 | @socool55555 | 味噌どガス | 21 | ネトナン | [link](https://x.com/socool55555/status/2028600869202350159) |
-| 3 | @okarun_pua | おかるん@りお講習 | 19 | 謎 | [link](https://x.com/okarun_pua/status/2027955878612410806) |
-| 4 | @PUAINOKI | フランク | 19 | ストナン | [link](https://x.com/PUAINOKI/status/2028299880339574968) |
-| 5 | @nsan_pua | なつ。 | 18 | ストナン/ネトナン | [link](https://x.com/nsan_pua/status/2032821703697641636) |
-| 6 | @kukuru_nanpa | くくる | 15 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2024709774731071813) |
-| 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 15 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
-| 8 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 13 | 箱 | [link](https://x.com/cx_lm5/status/2027947831307403661) |
-| 9 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2027732435258249323) |
-| 10 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 箱 | [link](https://x.com/outlook_sabo_4/status/2027980319694197212) |
-| 11 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 12 | ネトナン | [link](https://x.com/tomu_riddle/status/2028135483193295205) |
-| 12 | @omamco_pua2 | える | 8 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2027971008553193664) |
-| 13 | @Razor_pua | 非モテのレイザー | 8 | ネトナン | [link](https://x.com/Razor_pua/status/2028019198241477001) |
-| 14 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/River_p823/status/2030190761107673554) |
-| 15 | @PokopokoChin1 | ポコ@アンチエイジング美容ガチ勢 | 7 | ネトナン | [link](https://x.com/PokopokoChin1/status/2030574402489000116) |
-| 16 | @anshin_pua | あんしん🎀ナンパ師 | 6 | 謎 | [link](https://x.com/anshin_pua/status/2027730351574110355) |
-| 17 | @makoto_kurasuta | 伊藤誠@今月20即目標 | 6 | 謎 | [link](https://x.com/makoto_kurasuta/status/2031050315865469233) |
-| 18 | @weekly_nanpa | 週刊プロナンパ日誌 | 6 | ストナン | [link](https://x.com/weekly_nanpa/status/2027554886179836078) |
-| 19 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 5 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
-| 20 | @namenayone | ナメクニ | 5 | ストナン | [link](https://x.com/namenayone/status/2029395182777712695) |
-| 21 | @Nano486273 | なの@雄華軍団 | 5 | 謎 | [link](https://x.com/Nano486273/status/2028081329523581201) |
+| 2 | @PUAINOKI | フランク | 19 | ストナン | [link](https://x.com/PUAINOKI/status/2028299880339574968) |
+| 3 | @kukuru_nanpa | くくる | 15 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2024709774731071813) |
+| 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 15 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
+| 5 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 13 | 箱 | [link](https://x.com/cx_lm5/status/2027947831307403661) |
+| 6 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2027732435258249323) |
+| 7 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 箱 | [link](https://x.com/outlook_sabo_4/status/2027980319694197212) |
+| 8 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 12 | ネトナン | [link](https://x.com/tomu_riddle/status/2028135483193295205) |
+| 9 | @omamco_pua2 | える | 8 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2027971008553193664) |
+| 10 | @Razor_pua | 非モテのレイザー | 8 | ネトナン | [link](https://x.com/Razor_pua/status/2028019198241477001) |
+| 11 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/River_p823/status/2030190761107673554) |
+| 12 | @PokopokoChin1 | ポコ@アンチエイジング美容ガチ勢 | 7 | ネトナン | [link](https://x.com/PokopokoChin1/status/2030574402489000116) |
+| 13 | @anshin_pua | あんしん🎀ナンパ師 | 6 | 謎 | [link](https://x.com/anshin_pua/status/2027730351574110355) |
+| 14 | @weekly_nanpa | 週刊プロナンパ日誌 | 6 | ストナン | [link](https://x.com/weekly_nanpa/status/2027554886179836078) |
+| 15 | @namenayone | ナメクニ | 5 | ストナン | [link](https://x.com/namenayone/status/2029395182777712695) |
+| 16 | @Nano486273 | なの@雄華軍団 | 5 | 謎 | [link](https://x.com/Nano486273/status/2028081329523581201) |
 
-### 2026年3月（17件・5即以上 / 非掲載9件）
+### 2026年3月（16件・5即以上 / 非掲載6件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -88,11 +83,10 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 12 | @atannon_nampa | あたんのん@ナンパ講師 | 7 | ストナン | [link](https://x.com/atannon_nampa/status/2039188199369781496) |
 | 13 | @entpxxxxxx | もらく→ | 7 | 謎 | [link](https://x.com/entpxxxxxx/status/2038921485180699084) |
 | 14 | @Nano486273 | なの@雄華軍団 | 7 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2038992271606169767) |
-| 15 | @1jEvvc | ダイエット王いずちん様@クソ雑魚短小ﾁｿﾁｿボーイ様のお仕事を応援の会 | 6 | ストナン/ネトナン | [link](https://x.com/1jEvvc) |
-| 16 | @chiroru_pua | チロル@帝都の雌猫 | 6 | ストナン | [link](https://x.com/chiroru_pua/status/2038998601322692608) |
-| 17 | @omamco_pua2 | える | 6 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2038984894182043763) |
+| 15 | @chiroru_pua | チロル@帝都の雌猫 | 6 | ストナン | [link](https://x.com/chiroru_pua/status/2038998601322692608) |
+| 16 | @omamco_pua2 | える | 6 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2038984894182043763) |
 
-### 2026年4月（21件・5即以上 / 非掲載12件）
+### 2026年4月（21件・5即以上 / 非掲載11件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -118,7 +112,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 20 | @sub_chilll | あつ太郎の本音bot | 5 | 箱 | [link](https://x.com/sub_chilll/status/2047713143351370057) |
 | 21 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2050191172849803706) |
 
-### 2026年5月（21件・5即以上 / 非掲載8件）
+### 2026年5月（20件・5即以上 / 非掲載8件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -141,10 +135,9 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 17 | @hengeal2 | あき | 7 | ストナン/ネトナン | [link](https://x.com/hengeal2/status/2061063317955965056) |
 | 18 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | [link](https://x.com/shin9suke/status/2062603298503627207) |
 | 19 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 6 | 箱 | [link](https://x.com/cx_lm5) |
-| 20 | @namenayone | ナメクニ | 6 | ストナン | [link](https://x.com/namenayone) |
-| 21 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
+| 20 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
 
-### 2026年6月（16件・5即以上 / 非掲載15件）
+### 2026年6月（16件・5即以上 / 非掲載14件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
