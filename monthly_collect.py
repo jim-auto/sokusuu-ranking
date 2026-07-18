@@ -800,7 +800,8 @@ def extract_monthly_count(text, year, month, strict=False):
     has_multi_month_series = len(re.findall(r"\d{1,2}\s*月(?!間)", cleaned)) >= 2
     component_sum = None
 
-    if strict and has_report_keyword and not has_multi_month_series:
+    def _sum_labeled_components() -> int | None:
+        """総括内の内訳（弾丸6 パス2 / スト3即 ネト1即 等）を合算する。"""
         component_values = []
         component_spans = []
         component_patterns = [
@@ -810,11 +811,18 @@ def extract_monthly_count(text, year, month, strict=False):
             + count_unit
             + r"\s*(\d+)",
             r"(\d+)\s*(?:弾丸|準即|準|ブメ|パス)\s*" + count_unit,
+            # 「弾丸6(1、3…) パス2」のように単位なしのラベル内訳
+            r"(?:弾丸|準即|準|ブメ|パス|スト|ネト|アポ|リア|箱|クラブ)\s*[/:：]?\s*(\d+)"
+            r"(?!\s*(?:即|節|get|g\b|そ\b)?目)(?!\d)",
         ]
         for pattern in component_patterns:
             for match in re.finditer(pattern, cleaned, re.IGNORECASE):
                 match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
                 if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+                    continue
+                # 「値5が1人」等の人数・倍率を除外
+                after = cleaned[match.end() : min(len(cleaned), match.end() + 2)]
+                if re.match(r"\s*(?:人|倍|日|週|回|ヶ月|か月)", after):
                     continue
                 span = match.span()
                 if any(not (span[1] <= start or span[0] >= end) for start, end in component_spans):
@@ -829,7 +837,12 @@ def extract_monthly_count(text, year, month, strict=False):
         if len(component_values) >= 2:
             summed = sum(component_values)
             if 0 < summed <= 100:
-                component_sum = summed
+                return summed
+        return None
+
+    # 総括本文なら内訳合算を先行（strict 以外でも）。「1即だけ」より「弾丸6+パス2」を優先する。
+    if has_report_keyword and not has_multi_month_series:
+        component_sum = _sum_labeled_components()
 
     strong_patterns = []
     if has_report_keyword:
@@ -866,6 +879,10 @@ def extract_monthly_count(text, year, month, strict=False):
         # 「16即目」は序数（N回目）であり月間合計ではない
         if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
             continue
+        # 「完全自力即は1即だけ」など内訳の限定表現は、内訳合算があるなら無視
+        tail = cleaned[match.end() : min(len(cleaned), match.end() + 4)]
+        if component_sum is not None and re.match(r"\s*(?:だけ|のみ|しか)", tail):
+            continue
         value = int(match.group(1))
         if 0 < value <= 500:
             if component_sum is not None:
@@ -874,37 +891,6 @@ def extract_monthly_count(text, year, month, strict=False):
 
     if component_sum is not None:
         return component_sum
-
-    if strict and has_report_keyword and not has_multi_month_series and component_sum is None:
-        component_values = []
-        component_spans = []
-        component_patterns = [
-            r"(?:スト|ネト|アポ|弾丸|準即|準|ブメ|パス|リア|箱|クラブ|wiz|with|m|gt)\s*[/:：]?\s*(\d+)\s*"
-            + count_unit,
-            r"(?:弾丸|準即|準|ブメ|パス)\s*"
-            + count_unit
-            + r"\s*(\d+)",
-            r"(\d+)\s*(?:弾丸|準即|準|ブメ|パス)\s*" + count_unit,
-        ]
-        for pattern in component_patterns:
-            for match in re.finditer(pattern, cleaned, re.IGNORECASE):
-                match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
-                if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
-                    continue
-                span = match.span()
-                if any(not (span[1] <= start or span[0] >= end) for start, end in component_spans):
-                    continue
-                context = cleaned[max(0, match.start() - 12) : min(len(cleaned), match.end() + 12)]
-                if re.search(r"(?:目標|残\d+\s*(?:即|そ|get|g\b)|チャレ)", context):
-                    continue
-                value = int(match.group(1))
-                if 0 < value <= 100:
-                    component_values.append(value)
-                    component_spans.append(span)
-        if len(component_values) >= 2:
-            summed = sum(component_values)
-            if 0 < summed <= 100:
-                return summed
 
     patterns = [
         rf"(?:{month_tokens})\s*(?:結果|実績|戦績|総括|統括|報告|着地|振り返り|振返り|まとめ|締め)\s*[】\]）」)]?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*{count_unit}",
