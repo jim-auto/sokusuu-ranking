@@ -146,7 +146,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 2 | @tora_maru005 | とらまる@ナンパ | 35 | ストナン/ネトナン | [link](https://x.com/tora_maru005/status/2061775728019169561) |
 | 3 | @kukuru_nanpa | くくる | 25 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2062934212056166885) |
 | 4 | @PUAINOKI | フランク | 22 | その他 | [link](https://x.com/PUAINOKI/status/2061283382060101939) |
-| 5 | @kimu__himitsu2 | ナンパ版デスドル | 21 | ストナン | [link](https://x.com/kimu__himitsu2/status/2063589689467240616) ※ |
+| 5 | @kimu__himitsu2 | ナンパ版デスドル | 21 | ストナン/ネトナン | [link](https://x.com/kimu__himitsu2/status/2063589689467240616) ※ |
 | 6 | @17go_pua | 17号 | 20 | ストナン/箱 | [link](https://x.com/17go_pua/status/2061380476095615309) |
 | 7 | @makoto__pua | 伊藤誠@講習 | 20 | ストナン/箱 | [link](https://x.com/makoto__pua/status/2061110224455713106) |
 | 8 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2061697844273352975) |
@@ -173,7 +173,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 29 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 6 | 箱 | [link](https://x.com/cx_lm5/status/2061005015452680274) |
 | 30 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
 
-※ @kimu__himitsu2 はX上に月次総括ツイートが無いため例外掲載。根拠は本人の note を告知したツイートで、note本文に「5月は21節で終了」と明記（2026年5月）。@saku_pua の言及（「キム君5月21即」）とも一致。チャネルは所属（東京ストナン会）よりストナン扱い。
+※ @kimu__himitsu2 はX上に月次総括ツイートが無いため例外掲載。根拠は本人の note を告知したツイートで、note本文に「5月は21節で終了」と明記（2026年5月）。@saku_pua の言及（「キム君5月21即」）とも一致。5月内訳はスト＋Tinder・東カレ（マチアプ）混合のためチャネルはストナン/ネトナン。
 
 ### 2026年6月（26件・5即以上 / 非掲載16件）
 
