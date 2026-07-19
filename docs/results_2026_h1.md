@@ -75,7 +75,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 22 | @namenayone | ナメクニ | 5 | ストナン/ネトナン | [link](https://x.com/namenayone/status/2029395182777712695) |
 | 23 | @Nano486273 | なの@雄華軍団 | 5 | ストナン/箱 | [link](https://x.com/Nano486273/status/2028081329523581201) |
 
-### 2026年3月（24件・5即以上 / 非掲載10件）
+### 2026年3月（25件・5即以上 / 非掲載10件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -86,23 +86,24 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 5 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2039186941820989692) |
 | 6 | @sub_chilll | あつ太郎の本音bot | 16 | 箱 | [link](https://x.com/sub_chilll/status/2039302364310741414) |
 | 7 | @yomaru_street | よまる@顔面淘汰男 | 15 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2039340007748763881) |
-| 8 | @training_pua | トレニー | 14 | ストナン | [link](https://x.com/training_pua/status/2039277755339280538) |
-| 9 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ネトナン | [link](https://x.com/motebody_pua/status/2038975377457234166) |
-| 10 | @bookmaker_2015 | とも | 10 | ストナン | [link](https://x.com/bookmaker_2015/status/2038953318849110333) |
-| 11 | @taruchan100 | たる | 9 | ストナン | [link](https://x.com/taruchan100/status/2039016828215918592) |
-| 12 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/cx_lm5/status/2038993251160780895) |
-| 13 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/River_p823/status/2040785016469471641) |
-| 14 | @ao_nampa | あお | 7 | 謎 | [link](https://x.com/ao_nampa/status/2039361725007618336) |
-| 15 | @atannon_nampa | あたんのん@ナンパ講師 | 7 | ストナン | [link](https://x.com/atannon_nampa/status/2039188199369781496) |
-| 16 | @entpxxxxxx | もらく→ | 7 | 謎 | [link](https://x.com/entpxxxxxx/status/2038921485180699084) |
-| 17 | @Nano486273 | なの@雄華軍団 | 7 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2038992271606169767) |
-| 18 | @ot_aza | ヤシャ | 7 | 箱 | [link](https://x.com/ot_aza/status/2039549846320001140) |
-| 19 | @chiroru_pua | チロル@帝都の雌猫 | 6 | ストナン | [link](https://x.com/chiroru_pua/status/2038998601322692608) |
-| 20 | @dick_duck_swing | 狩るー@淘汰男🙏 | 6 | ストナン | [link](https://x.com/dick_duck_swing/status/2039282412157616137) |
-| 21 | @omamco_pua2 | える | 6 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2038984894182043763) |
-| 22 | @qh0kum | いくらpua | 6 | ストナン/箱 | [link](https://x.com/qh0kum/status/2039289936638304349) |
-| 23 | @SFgzKAHifDvjfVu | Ren | 6 | ストナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2039618474738372690) |
-| 24 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 5 | ネトナン | [link](https://x.com/sugi_ichiban/status/2049099161375769085) |
+| 8 | @makoto__pua | 伊藤誠@講習 | 15 | ストナン/箱 | [link](https://x.com/makoto__pua/status/2039008106680889847) |
+| 9 | @training_pua | トレニー | 14 | ストナン | [link](https://x.com/training_pua/status/2039277755339280538) |
+| 10 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ネトナン | [link](https://x.com/motebody_pua/status/2038975377457234166) |
+| 11 | @bookmaker_2015 | とも | 10 | ストナン | [link](https://x.com/bookmaker_2015/status/2038953318849110333) |
+| 12 | @taruchan100 | たる | 9 | ストナン | [link](https://x.com/taruchan100/status/2039016828215918592) |
+| 13 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/cx_lm5/status/2038993251160780895) |
+| 14 | @River_p823 | フェニックス@セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/River_p823/status/2040785016469471641) |
+| 15 | @ao_nampa | あお | 7 | 謎 | [link](https://x.com/ao_nampa/status/2039361725007618336) |
+| 16 | @atannon_nampa | あたんのん@ナンパ講師 | 7 | ストナン | [link](https://x.com/atannon_nampa/status/2039188199369781496) |
+| 17 | @entpxxxxxx | もらく→ | 7 | 謎 | [link](https://x.com/entpxxxxxx/status/2038921485180699084) |
+| 18 | @Nano486273 | なの@雄華軍団 | 7 | ストナン/ネトナン | [link](https://x.com/Nano486273/status/2038992271606169767) |
+| 19 | @ot_aza | ヤシャ | 7 | 箱 | [link](https://x.com/ot_aza/status/2039549846320001140) |
+| 20 | @chiroru_pua | チロル@帝都の雌猫 | 6 | ストナン | [link](https://x.com/chiroru_pua/status/2038998601322692608) |
+| 21 | @dick_duck_swing | 狩るー@淘汰男🙏 | 6 | ストナン | [link](https://x.com/dick_duck_swing/status/2039282412157616137) |
+| 22 | @omamco_pua2 | える | 6 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2038984894182043763) |
+| 23 | @qh0kum | いくらpua | 6 | ストナン/箱 | [link](https://x.com/qh0kum/status/2039289936638304349) |
+| 24 | @SFgzKAHifDvjfVu | Ren | 6 | ストナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2039618474738372690) |
+| 25 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 5 | ネトナン | [link](https://x.com/sugi_ichiban/status/2049099161375769085) |
 
 ### 2026年4月（27件・5即以上 / 非掲載12件）
 
@@ -136,7 +137,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 26 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 5 | ストナン/ネトナン | [link](https://x.com/rei_app_pua/status/2049878421678031060) |
 | 27 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2050191172849803706) |
 
-### 2026年5月（28件・5即以上 / 非掲載10件）
+### 2026年5月（29件・5即以上 / 非掲載10件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -145,31 +146,32 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 3 | @kukuru_nanpa | くくる | 25 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2062934212056166885) |
 | 4 | @PUAINOKI | フランク | 22 | その他 | [link](https://x.com/PUAINOKI/status/2061283382060101939) |
 | 5 | @17go_pua | 17号 | 20 | ストナン/箱 | [link](https://x.com/17go_pua/status/2061380476095615309) |
-| 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2061697844273352975) |
-| 7 | @yomaru_street | よまる@顔面淘汰男 | 15 | ストナン/ネトナン/箱 | [link](https://x.com/yomaru_street/status/2061107630731637184) |
-| 8 | @ot_aza | ヤシャ | 14 | 箱 | [link](https://x.com/ot_aza/status/2061795911056179363) |
-| 9 | @River_p823 | フェニックス@セクシーコマンドー部 | 14 | 箱 | [link](https://x.com/River_p823/status/2062840176251224456) |
-| 10 | @omamco_pua2 | える | 13 | ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2061065125612888080) |
-| 11 | @ururunpua | うるるん | 13 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2061365911001694357) |
-| 12 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
-| 13 | @Nano486273 | なの@雄華軍団 | 12 | 謎 | [link](https://x.com/Nano486273/status/2061108226243133825) |
-| 14 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ストナン/ネトナン | [link](https://x.com/motebody_pua/status/2061020501045354793) |
-| 15 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2060632608363696637) |
-| 16 | @SFgzKAHifDvjfVu | Ren | 10 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2060847769523528027) |
-| 17 | @okarun_pua | おかるん@りお講習 | 9 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2061059496156578026) |
-| 18 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 9 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
-| 19 | @ak1_pua | あぴ | 8 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2061101013013241970) |
-| 20 | @hengeal2 | あき | 8 | ストナン/箱 | [link](https://x.com/hengeal2/status/2061063317955965056) |
-| 21 | @SIYK_Hage | 性欲ハゲ | 8 | ストナン | [link](https://x.com/SIYK_Hage/status/2061461294088368553) |
-| 22 | @bookmaker_2015 | とも | 7 | ストナン | [link](https://x.com/bookmaker_2015/status/2061103094440829426) |
-| 23 | @chinpan870141 | パン@MBH | 7 | ストナン | [link](https://x.com/chinpan870141/status/2061291798790812152) |
-| 24 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2061114978766373328) |
-| 25 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | [link](https://x.com/shin9suke/status/2062603298503627207) |
-| 26 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 7 | ストナン/ネトナン | [link](https://x.com/sugi_ichiban/status/2060997338639007758) |
-| 27 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 6 | 箱 | [link](https://x.com/cx_lm5/status/2061005015452680274) |
-| 28 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
+| 6 | @makoto__pua | 伊藤誠@講習 | 20 | ストナン/箱 | [link](https://x.com/makoto__pua/status/2061110224455713106) |
+| 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2061697844273352975) |
+| 8 | @yomaru_street | よまる@顔面淘汰男 | 15 | ストナン/ネトナン/箱 | [link](https://x.com/yomaru_street/status/2061107630731637184) |
+| 9 | @ot_aza | ヤシャ | 14 | 箱 | [link](https://x.com/ot_aza/status/2061795911056179363) |
+| 10 | @River_p823 | フェニックス@セクシーコマンドー部 | 14 | 箱 | [link](https://x.com/River_p823/status/2062840176251224456) |
+| 11 | @omamco_pua2 | える | 13 | ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2061065125612888080) |
+| 12 | @ururunpua | うるるん | 13 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2061365911001694357) |
+| 13 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
+| 14 | @Nano486273 | なの@雄華軍団 | 12 | 謎 | [link](https://x.com/Nano486273/status/2061108226243133825) |
+| 15 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ストナン/ネトナン | [link](https://x.com/motebody_pua/status/2061020501045354793) |
+| 16 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2060632608363696637) |
+| 17 | @SFgzKAHifDvjfVu | Ren | 10 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2060847769523528027) |
+| 18 | @okarun_pua | おかるん@りお講習 | 9 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2061059496156578026) |
+| 19 | @pua_co | こなんぱん┃界隈屈指の面倒見最強講師 | 9 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
+| 20 | @ak1_pua | あぴ | 8 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2061101013013241970) |
+| 21 | @hengeal2 | あき | 8 | ストナン/箱 | [link](https://x.com/hengeal2/status/2061063317955965056) |
+| 22 | @SIYK_Hage | 性欲ハゲ | 8 | ストナン | [link](https://x.com/SIYK_Hage/status/2061461294088368553) |
+| 23 | @bookmaker_2015 | とも | 7 | ストナン | [link](https://x.com/bookmaker_2015/status/2061103094440829426) |
+| 24 | @chinpan870141 | パン@MBH | 7 | ストナン | [link](https://x.com/chinpan870141/status/2061291798790812152) |
+| 25 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2061114978766373328) |
+| 26 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 7 | ストナン | [link](https://x.com/shin9suke/status/2062603298503627207) |
+| 27 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 7 | ストナン/ネトナン | [link](https://x.com/sugi_ichiban/status/2060997338639007758) |
+| 28 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 6 | 箱 | [link](https://x.com/cx_lm5/status/2061005015452680274) |
+| 29 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
 
-### 2026年6月（24件・5即以上 / 非掲載16件）
+### 2026年6月（25件・5即以上 / 非掲載16件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -187,13 +189,14 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 12 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2071976729946767686) |
 | 13 | @omamco_pua2 | える | 10 | ネトナン | [link](https://x.com/omamco_pua2/status/2072190191138402691) |
 | 14 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 10 | ストナン/ネトナン | [link](https://x.com/sugi_ichiban/status/2072107192808047073) |
-| 15 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン/ネトナン | [link](https://x.com/rei_app_pua/status/2071177516103160003) |
-| 16 | @yomaru_street | よまる@顔面淘汰男 | 8 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2072067695252820127) |
-| 17 | @17go_pua | 17号 | 7 | ストナン/箱 | [link](https://x.com/17go_pua/status/2072271540045955211) |
-| 18 | @daigakusei_pua | きの山@MBH3月師範 | 7 | ストナン | [link](https://x.com/daigakusei_pua/status/2071920079269462413) |
-| 19 | @ururunpua | うるるん | 7 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2072076875091046701) |
-| 20 | @tsutsumi_ye4pe | よしあき@wing長期 | 6 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2072054398306431188) |
-| 21 | @chiroru_pua | チロル@帝都の雌猫 | 5 | ストナン | [link](https://x.com/chiroru_pua/status/2071998405031907564) |
-| 22 | @dick_duck_swing | 狩るー@淘汰男🙏 | 5 | ストナン/ネトナン | [link](https://x.com/dick_duck_swing/status/2071961636261519690) |
-| 23 | @SFgzKAHifDvjfVu | Ren | 5 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2072881707867598980) |
-| 24 | @taku__pua | たく@東京ストナン会 | 5 | ストナン | [link](https://x.com/taku__pua/status/2071920282395394262) |
+| 15 | @makoto__pua | 伊藤誠@講習 | 10 | ストナン | [link](https://x.com/makoto__pua/status/2071973437053308981) |
+| 16 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン/ネトナン | [link](https://x.com/rei_app_pua/status/2071177516103160003) |
+| 17 | @yomaru_street | よまる@顔面淘汰男 | 8 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2072067695252820127) |
+| 18 | @17go_pua | 17号 | 7 | ストナン/箱 | [link](https://x.com/17go_pua/status/2072271540045955211) |
+| 19 | @daigakusei_pua | きの山@MBH3月師範 | 7 | ストナン | [link](https://x.com/daigakusei_pua/status/2071920079269462413) |
+| 20 | @ururunpua | うるるん | 7 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2072076875091046701) |
+| 21 | @tsutsumi_ye4pe | よしあき@wing長期 | 6 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2072054398306431188) |
+| 22 | @chiroru_pua | チロル@帝都の雌猫 | 5 | ストナン | [link](https://x.com/chiroru_pua/status/2071998405031907564) |
+| 23 | @dick_duck_swing | 狩るー@淘汰男🙏 | 5 | ストナン/ネトナン | [link](https://x.com/dick_duck_swing/status/2071961636261519690) |
+| 24 | @SFgzKAHifDvjfVu | Ren | 5 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2072881707867598980) |
+| 25 | @taku__pua | たく@東京ストナン会 | 5 | ストナン | [link](https://x.com/taku__pua/status/2071920282395394262) |
