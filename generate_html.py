@@ -103,6 +103,8 @@ CHANNEL_OVERRIDES = {
     "chiroru_pua": ["street"],
     "oyasugaoo": ["street"],
     "atannon_nampa": ["street"],
+    "dick_duck_swing": ["street"],  # スト主（🐶🦁）+ パス多めでもその他にしない
+    "yomaru_street": ["street", "club"],  # スト+箱メイン
 }
 
 
@@ -236,6 +238,19 @@ def infer_channels(record: dict) -> list[str]:
             str(record.get(key) or "") for key in ("bio", "display_name")
         )
         add_many(_scan_channel_text(profile_text))
+
+    # 4b) 「パス」だけで other になった場合、categories / override を優先
+    # （絵文字落ちした総括で その他 誤爆するのを防ぐ）
+    if found == ["other"]:
+        cat_main = [
+            item
+            for item in split_csv(record.get("categories", ""))
+            if item in {"street", "online", "club"}
+        ]
+        if cat_main:
+            found = cat_main
+        elif username in CHANNEL_OVERRIDES:
+            found = list(CHANNEL_OVERRIDES[username])
 
     # 5) 既知ユーザは本文が path のみ等で other になった場合の補正
     if username in CHANNEL_OVERRIDES:

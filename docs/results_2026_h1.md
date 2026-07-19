@@ -36,8 +36,8 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 8 | @motebody_pua | エース@体刺し一門関東代表 | 15 | ネトナン | [link](https://x.com/motebody_pua/status/2017527948266656124) |
 | 9 | @omamco_pua2 | える | 15 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2017803638845116605) |
 | 10 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 13 | ネトナン | [link](https://x.com/tomu_riddle/status/2017975525546012763) |
-| 11 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | その他 | [link](https://x.com/dick_duck_swing/status/2018169414353605025) |
-| 12 | @yomaru_street | よまる@顔面淘汰男 | 12 | その他 | [link](https://x.com/yomaru_street/status/2017898001868665281) |
+| 11 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | ストナン | [link](https://x.com/dick_duck_swing/status/2018169414353605025) |
+| 12 | @yomaru_street | よまる@顔面淘汰男 | 12 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2017898001868665281) |
 | 13 | @ot_aza | ヤシャ | 11 | 箱 | [link](https://x.com/ot_aza/status/2017915943075398051) |
 | 14 | @River_p823 | フェニックス@セクシーコマンドー部 | 11 | 箱 | [link](https://x.com/River_p823/status/2018310886738612405) |
 | 15 | @bookmaker_2015 | とも | 9 | ネトナン/箱 | [link](https://x.com/bookmaker_2015/status/2017821497675657416) |
@@ -45,7 +45,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 17 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン/ネトナン | [link](https://x.com/chiroru_pua/status/2017753182932463696) |
 | 18 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 6 | ネトナン | [link](https://x.com/sugi_ichiban/status/2017609200558579805) |
 | 19 | @namenayone | ナメクニ | 5 | ストナン | [link](https://x.com/namenayone/status/2018162327020056926) |
-| 20 | @tamaon_zone | ぞね | 5 | その他 | [link](https://x.com/tamaon_zone/status/2017832771885142462) |
+| 20 | @tamaon_zone | ぞね | 5 | ストナン/ネトナン/箱 | [link](https://x.com/tamaon_zone/status/2017832771885142462) |
 
 ### 2026年2月（23件・5即以上 / 非掲載19件）
 
@@ -188,7 +188,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 13 | @omamco_pua2 | える | 10 | ネトナン | [link](https://x.com/omamco_pua2/status/2072190191138402691) |
 | 14 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 10 | ストナン/ネトナン | [link](https://x.com/sugi_ichiban/status/2072107192808047073) |
 | 15 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン/ネトナン | [link](https://x.com/rei_app_pua/status/2071177516103160003) |
-| 16 | @yomaru_street | よまる@顔面淘汰男 | 8 | その他 | [link](https://x.com/yomaru_street/status/2072067695252820127) |
+| 16 | @yomaru_street | よまる@顔面淘汰男 | 8 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2072067695252820127) |
 | 17 | @17go_pua | 17号 | 7 | ストナン/箱 | [link](https://x.com/17go_pua/status/2072271540045955211) |
 | 18 | @daigakusei_pua | きの山@MBH3月師範 | 7 | ストナン | [link](https://x.com/daigakusei_pua/status/2071920079269462413) |
 | 19 | @ururunpua | うるるん | 7 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2072076875091046701) |
