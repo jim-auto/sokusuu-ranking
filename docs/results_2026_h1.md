@@ -33,7 +33,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 5 | @sub_chilll | あつ太郎の本音bot | 21 | 箱 | [link](https://x.com/sub_chilll/status/2018324278249460090) |
 | 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
 | 7 | @KDS2DGhK2E79657 | 伊藤ペケポン | 15 | 謎 | [link](https://x.com/KDS2DGhK2E79657/status/2017820458507506127) |
-| 8 | @motebody_pua | エース@体刺し一門関東代表 | 15 | ネトナン/箱 | [link](https://x.com/motebody_pua/status/2017527948266656124) |
+| 8 | @motebody_pua | エース@体刺し一門関東代表 | 15 | ネトナン | [link](https://x.com/motebody_pua/status/2017527948266656124) |
 | 9 | @omamco_pua2 | える | 15 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2017803638845116605) |
 | 10 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 13 | ネトナン | [link](https://x.com/tomu_riddle/status/2017975525546012763) |
 | 11 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | その他 | [link](https://x.com/dick_duck_swing/status/2018169414353605025) |
@@ -55,7 +55,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 2 | @PUAINOKI | フランク | 19 | 謎 | [link](https://x.com/PUAINOKI/status/2028299880339574968) |
 | 3 | @kukuru_nanpa | くくる | 15 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2024709774731071813) |
 | 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 15 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
-| 5 | @motebody_pua | エース@体刺し一門関東代表 | 14 | ネトナン/箱 | [link](https://x.com/motebody_pua/status/2027684313467408569) |
+| 5 | @motebody_pua | エース@体刺し一門関東代表 | 14 | ネトナン | [link](https://x.com/motebody_pua/status/2027684313467408569) |
 | 6 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 13 | 箱 | [link](https://x.com/cx_lm5/status/2027947831307403661) |
 | 7 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2027732435258249323) |
 | 8 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 箱 | [link](https://x.com/outlook_sabo_4/status/2027980319694197212) |
@@ -87,7 +87,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 6 | @sub_chilll | あつ太郎の本音bot | 16 | 箱 | [link](https://x.com/sub_chilll/status/2039302364310741414) |
 | 7 | @yomaru_street | よまる@顔面淘汰男 | 15 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2039340007748763881) |
 | 8 | @training_pua | トレニー | 14 | ストナン | [link](https://x.com/training_pua/status/2039277755339280538) |
-| 9 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ネトナン/箱 | [link](https://x.com/motebody_pua/status/2038975377457234166) |
+| 9 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ネトナン | [link](https://x.com/motebody_pua/status/2038975377457234166) |
 | 10 | @bookmaker_2015 | とも | 10 | ストナン | [link](https://x.com/bookmaker_2015/status/2038953318849110333) |
 | 11 | @taruchan100 | たる | 9 | ストナン | [link](https://x.com/taruchan100/status/2039016828215918592) |
 | 12 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 8 | 箱 | [link](https://x.com/cx_lm5/status/2038993251160780895) |
@@ -125,7 +125,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 15 | @bookmaker_2015 | とも | 10 | ストナン | [link](https://x.com/bookmaker_2015/status/2049898107849355543) |
 | 16 | @okarun_pua | おかるん@りお講習 | 10 | 箱 | [link](https://x.com/okarun_pua/status/2050028862269276563) |
 | 17 | @ot_aza | ヤシャ | 10 | 箱 | [link](https://x.com/ot_aza/status/2050068076021129418) |
-| 18 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネトナン/箱 | [link](https://x.com/motebody_pua/status/2050034503549362214) |
+| 18 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネトナン | [link](https://x.com/motebody_pua/status/2050034503549362214) |
 | 19 | @River_p823 | フェニックス@セクシーコマンドー部 | 9 | 箱 | [link](https://x.com/River_p823/status/2049858679323910360) |
 | 20 | @SFgzKAHifDvjfVu | Ren | 8 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2050024655784903110) |
 | 21 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2049892324029980694) |
@@ -153,7 +153,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 11 | @ururunpua | うるるん | 13 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2061365911001694357) |
 | 12 | @bangedaisuki | よぶんが@コナンに負けた男 | 12 | ストナン | [link](https://x.com/yk_yamate/status/2061460951153696809) |
 | 13 | @Nano486273 | なの@雄華軍団 | 12 | 謎 | [link](https://x.com/Nano486273/status/2061108226243133825) |
-| 14 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ストナン | [link](https://x.com/motebody_pua/status/2061020501045354793) |
+| 14 | @motebody_pua | エース@体刺し一門関東代表 | 11 | ストナン/ネトナン | [link](https://x.com/motebody_pua/status/2061020501045354793) |
 | 15 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2060632608363696637) |
 | 16 | @SFgzKAHifDvjfVu | Ren | 10 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2060847769523528027) |
 | 17 | @okarun_pua | おかるん@りお講習 | 9 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2061059496156578026) |
@@ -181,7 +181,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 6 | @puro_nanpa | M氏@ナンパ講師 | 15 | ストナン/箱 | [link](https://x.com/puro_nanpa/status/2072156791669170363) |
 | 7 | @bookmaker_2015 | とも | 13 | ストナン | [link](https://x.com/bookmaker_2015/status/2071298448721350899) |
 | 8 | @PUAINOKI | フランク | 13 | ストナン | [link](https://x.com/PUAINOKI/status/2071949161881071796) |
-| 9 | @motebody_pua | エース@体刺し一門関東代表 | 12 | ネトナン/箱 | [link](https://x.com/motebody_pua/status/2071971901023379695) |
+| 9 | @motebody_pua | エース@体刺し一門関東代表 | 12 | ネトナン | [link](https://x.com/motebody_pua/status/2071971901023379695) |
 | 10 | @ot_aza | ヤシャ | 12 | ストナン/箱 | [link](https://x.com/ot_aza/status/2072329806948241698) |
 | 11 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 12 | ネトナン | [link](https://x.com/Tinder_god_2/status/2071977003482563012) |
 | 12 | @taruchan100 | たる | 11 | ストナン | [link](https://x.com/taruchan100/status/2071976729946767686) |

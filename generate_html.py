@@ -92,6 +92,7 @@ CHANNEL_OVERRIDES = {
     "tinder_god_2": ["online"],
     "tomu_riddle": ["online"],
     "shime_pua": ["online"],  # ネト主、少量ストは本文があれば追加
+    "motebody_pua": ["online"],  # マチアプ主戦（節報はapp中心）
     "river_p823": ["club"],
     "outlook_sabo_4": ["club"],
     "cx_lm5": ["club"],
