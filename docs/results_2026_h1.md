@@ -172,7 +172,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 28 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 6 | 箱 | [link](https://x.com/cx_lm5/status/2061005015452680274) |
 | 29 | @taka_DTnmp | たかはる@MBH | 5 | ストナン | [link](https://x.com/taka_DTnmp/status/2063827906716213539) |
 
-### 2026年6月（25件・5即以上 / 非掲載16件）
+### 2026年6月（26件・5即以上 / 非掲載16件）
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
@@ -196,8 +196,9 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 18 | @17go_pua | 17号 | 7 | ストナン/箱 | [link](https://x.com/17go_pua/status/2072271540045955211) |
 | 19 | @daigakusei_pua | きの山@MBH3月師範 | 7 | ストナン | [link](https://x.com/daigakusei_pua/status/2071920079269462413) |
 | 20 | @ururunpua | うるるん | 7 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2072076875091046701) |
-| 21 | @tsutsumi_ye4pe | よしあき@wing長期 | 6 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2072054398306431188) |
-| 22 | @chiroru_pua | チロル@帝都の雌猫 | 5 | ストナン | [link](https://x.com/chiroru_pua/status/2071998405031907564) |
-| 23 | @dick_duck_swing | 狩るー@淘汰男🙏 | 5 | ストナン/ネトナン | [link](https://x.com/dick_duck_swing/status/2071961636261519690) |
-| 24 | @SFgzKAHifDvjfVu | Ren | 5 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2072881707867598980) |
-| 25 | @taku__pua | たく@東京ストナン会 | 5 | ストナン | [link](https://x.com/taku__pua/status/2071920282395394262) |
+| 21 | @homura_tin | ほむら🔥 | 7 | ネトナン | [link](https://x.com/homura_tin/status/2071941956578705553) |
+| 22 | @tsutsumi_ye4pe | よしあき@wing長期 | 6 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2072054398306431188) |
+| 23 | @chiroru_pua | チロル@帝都の雌猫 | 5 | ストナン | [link](https://x.com/chiroru_pua/status/2071998405031907564) |
+| 24 | @dick_duck_swing | 狩るー@淘汰男🙏 | 5 | ストナン/ネトナン | [link](https://x.com/dick_duck_swing/status/2071961636261519690) |
+| 25 | @SFgzKAHifDvjfVu | Ren | 5 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2072881707867598980) |
+| 26 | @taku__pua | たく@東京ストナン会 | 5 | ストナン | [link](https://x.com/taku__pua/status/2071920282395394262) |
