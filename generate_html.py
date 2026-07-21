@@ -13,6 +13,7 @@ index.html を docs/ に生成する。
 
 import json
 import os
+import re
 from datetime import datetime
 
 
@@ -40,11 +41,70 @@ DUPLICATE_ACCOUNT_CANONICALS = {
     "inpsub": "ryepua",
 }
 
+# チャネル分類: ストナン / ネトナン / 箱 / その他 / 謎
 CATEGORY_LABELS = {
     "all": "総合",
-    "street": "ストリート",
-    "club": "クラブ",
-    "online": "オンライン",
+    "street": "ストナン",
+    "online": "ネトナン",
+    "club": "箱",
+    "other": "その他",
+    "unknown": "謎",
+}
+CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
+
+# ツイート本文向けのチャネル推定（誤爆しにくいパターン）
+# 「スト」は インスト 等に誤爆しやすいので前後を制限
+STREET_HINTS = re.compile(
+    r"(?<![イアウ])スト(?:ナン|即|×|ｘ|x|\d|[\s　/／・・]|$)|"
+    r"完ソロスト|ソロスト|地方スト|ストリート|"
+    r"路上|[🐶🦁🦉]|(?:SGT|MGT)|GTスト|"
+    r"味噌(?:スト|1日|遠征)?|明太子",
+    re.IGNORECASE,
+)
+ONLINE_HINTS = re.compile(
+    r"(?:^|[^ア-ン])ネト(?:ナン|即|×|ｘ|x|ヘルプ|\d|[\s　/／・]|$)|"
+    r"マチアプ|マッチングアプリ|東カレ|"
+    r"with|ｳｨｽﾞ|ウィズ|wiz|"
+    r"タップル?|タプ|tin|tinder|pairs|ペアーズ|"
+    r"[🗼🍛🍎🔥🍐]|"
+    r"ワクメ|アプリ即|ネトナン|イン⭐",
+    re.IGNORECASE,
+)
+CLUB_HINTS = re.compile(
+    r"(?:^|[^ア-ン])箱(?:ナン|即|×|ｘ|x|\d|[\s　/／・]|$)|"
+    r"クラブナン|クラナン|クラブ|"
+    r"相席|オリラジ|ロマ絵|"
+    r"[🦾🧚📦]",
+    re.IGNORECASE,
+)
+# パス/代打は「その他」（メインチャネルが無いときだけ）
+OTHER_HINTS = re.compile(
+    r"(?:パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名)(?:即|×|\(|（|\d|[\s　]|$)|その他|オフライン",
+    re.IGNORECASE,
+)
+
+# よく分かっている人のチャネル上書き（プロフィールカテゴリより優先）
+CHANNEL_OVERRIDES = {
+    "kent_o_o": ["street"],
+    "taruchan100": ["street"],
+    "daigakusei_pua": ["street"],
+    "nakayamasoku": ["online"],
+    "tinder_god_2": ["online"],
+    "tomu_riddle": ["online"],
+    "shime_pua": ["online"],  # ネト主、少量ストは本文があれば追加
+    "motebody_pua": ["online"],  # マチアプ主戦（節報はapp中心）
+    "river_p823": ["club"],
+    "outlook_sabo_4": ["club"],
+    "cx_lm5": ["club"],
+    "sub_chilll": ["club"],
+    "pua_chilll": ["club"],
+    "bangedaisuki": ["street"],
+    "pua_co": ["street"],
+    "chiroru_pua": ["street"],
+    "oyasugaoo": ["street"],
+    "atannon_nampa": ["street"],
+    "dick_duck_swing": ["street"],  # スト主（🐶🦁）+ パス多めでもその他にしない
+    "yomaru_street": ["street", "club"],  # スト+箱メイン
 }
 
 
@@ -91,6 +151,128 @@ def join_unique_csv(*values: str, exclude: set[str] | None = None) -> str:
                 continue
             merged.append(item)
     return ", ".join(merged)
+
+
+def _scan_channel_text(text: str) -> list[str]:
+    """本文だけからチャネルを拾う。"""
+    if not text or not str(text).strip():
+        return []
+    found: list[str] = []
+
+    def add(channel: str) -> None:
+        if channel not in found:
+            found.append(channel)
+
+    if STREET_HINTS.search(text):
+        add("street")
+    if ONLINE_HINTS.search(text):
+        add("online")
+    if CLUB_HINTS.search(text):
+        add("club")
+    if OTHER_HINTS.search(text) and not any(
+        c in found for c in ("street", "online", "club")
+    ):
+        add("other")
+    return found
+
+
+def infer_channels(record: dict) -> list[str]:
+    """ネト/スト/箱/その他/謎 を推定する。
+
+    優先順位:
+      1. 明示フィールド channels / channel
+      2. 総括ツイート本文（channel_evidence 含む）
+      3. ユーザ名の既知オーバーライド
+      4. プロフィール categories（弱いフォールバック）
+      5. bio / display_name
+      6. 謎
+    """
+    def finalize(channels: list[str]) -> list[str]:
+        if "other" in channels and any(c in channels for c in ("street", "online", "club")):
+            channels = [c for c in channels if c != "other"]
+        if not channels:
+            channels = ["unknown"]
+        return [c for c in CHANNEL_ORDER if c in channels]
+
+    # 1) 事前計算済み
+    explicit = record.get("channels")
+    if isinstance(explicit, list) and explicit:
+        return finalize(list(explicit))
+    if isinstance(explicit, str) and explicit.strip():
+        return finalize(split_csv(explicit))
+
+    single = record.get("channel")
+    if isinstance(single, str) and single in CHANNEL_ORDER:
+        return [single]
+
+    found: list[str] = []
+
+    def add_many(channels: list[str]) -> None:
+        for channel in channels:
+            if channel not in found:
+                found.append(channel)
+
+    # 2) 総括本文（上半期合算のダミー文は無視）
+    evidence = " ".join(
+        str(record.get(key) or "")
+        for key in ("channel_evidence", "tweet_text")
+    )
+    if re.search(r"上半期\s*合算", evidence):
+        evidence = str(record.get("channel_evidence") or "")
+    add_many(_scan_channel_text(evidence))
+
+    # 3) 本文が薄いときだけ既知ユーザの上書き
+    username = str(record.get("username") or "").lower()
+    if not found and username in CHANNEL_OVERRIDES:
+        add_many(CHANNEL_OVERRIDES[username])
+
+    # 4) categories → bio
+    if not found:
+        for item in split_csv(record.get("categories", "")):
+            if item in {"street", "online", "club", "other", "unknown"}:
+                if item not in found:
+                    found.append(item)
+
+    if not found:
+        profile_text = " ".join(
+            str(record.get(key) or "") for key in ("bio", "display_name")
+        )
+        add_many(_scan_channel_text(profile_text))
+
+    # 4b) 「パス」だけで other になった場合、categories / override を優先
+    # （絵文字落ちした総括で その他 誤爆するのを防ぐ）
+    if found == ["other"]:
+        cat_main = [
+            item
+            for item in split_csv(record.get("categories", ""))
+            if item in {"street", "online", "club"}
+        ]
+        if cat_main:
+            found = cat_main
+        elif username in CHANNEL_OVERRIDES:
+            found = list(CHANNEL_OVERRIDES[username])
+
+    # 5) 既知ユーザは本文が path のみ等で other になった場合の補正
+    if username in CHANNEL_OVERRIDES:
+        # 本文から取れたものがあればそれを優先し、足りない分を override で補わない
+        # ただし完全に other/unknown だけなら override を使う
+        if not found or found == ["other"] or found == ["unknown"]:
+            found = list(CHANNEL_OVERRIDES[username])
+
+    return finalize(found)
+
+
+def build_channel_badges_html(record: dict) -> str:
+    channels = infer_channels(record)
+    badges = ""
+    for channel in channels:
+        label = CATEGORY_LABELS.get(channel, channel)
+        badges += f'<span class="badge badge-cat-{channel}">{label}</span> '
+    return badges.strip()
+
+
+def channels_data_attr(record: dict) -> str:
+    return " ".join(infer_channels(record))
 
 
 def get_period_evidence_url(record: dict) -> str:
@@ -142,6 +324,32 @@ def build_period_value_html(record: dict, count_key: str) -> str:
     return f"{record[count_key]:,}{approximate_suffix}{evidence_html}{review_html}"
 
 
+def build_user_cell_html(
+    username: str,
+    display_name: str = "",
+    avatar_url: str = "",
+    profile_url: str = "",
+    extra_html: str = "",
+) -> str:
+    """アカウント + 表示名を user-cell にまとめて出す。"""
+    href = profile_url or f"https://twitter.com/{username}"
+    if avatar_url:
+        av_html = f'<img class="avatar" src="{avatar_url}" alt="">'
+    else:
+        av_html = '<div class="avatar avatar-placeholder"></div>'
+    name = (display_name or "").strip()
+    name_html = (
+        f'<div class="user-display-name">{name}</div>' if name else ""
+    )
+    return (
+        f'<td class="user-cell">{av_html}'
+        f'<div class="user-info">'
+        f'<a href="{href}" target="_blank" rel="noopener">@{username}</a>'
+        f"{name_html}{extra_html}"
+        f"</div></td>"
+    )
+
+
 def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
     merged_records = [dict(r) for r in records]
     by_username = {r["username"]: r for r in merged_records}
@@ -184,10 +392,10 @@ def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
 
 
 def filter_by_category(records: list[dict], category: str) -> list[dict]:
-    """カテゴリでフィルタする。'all' なら全件返す。"""
+    """チャネルでフィルタする。'all' なら全件返す。"""
     if category == "all":
         return records
-    return [r for r in records if category in (r.get("categories") or "")]
+    return [r for r in records if category in infer_channels(r)]
 
 
 def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
@@ -211,30 +419,23 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
             alt_html = f'<span class="alt-badge">= {alt}</span>'
 
         avatar_url = r.get("profile_image_url", "")
-        avatar_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
 
         cat_html = ""
         if show_category:
-            cats = r.get("categories", "")
-            if cats:
-                cat_badges = ""
-                for c in cats.split(", "):
-                    label = CATEGORY_LABELS.get(c, c)
-                    cat_badges += f'<span class="badge badge-cat-{c}">{label}</span> '
-                cat_html = f'<td>{cat_badges}</td>'
-            else:
-                cat_html = '<td><span class="badge badge-cat-none">未分類</span></td>'
+            cat_html = f"<td>{build_channel_badges_html(r)}</td>"
 
+        user_cell = build_user_cell_html(
+            r["username"],
+            r.get("display_name", ""),
+            avatar_url,
+            r.get("url", ""),
+            extra_html=alt_html,
+        )
+        ch_attr = channels_data_attr(r)
         rows += f"""
-            <tr>
+            <tr data-channels="{ch_attr}">
                 <td class="rank">{medal}{i}</td>
-                <td class="user-cell">
-                    {avatar_html}
-                    <div class="user-info">
-                        <a href="{r['url']}" target="_blank" rel="noopener">@{r['username']}</a>
-                        {alt_html}
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r['display_name']}</td>
                 <td class="sokusuu">{r['sokusuu']:,}{"+" if r.get("approximate") else ""}{' <a href="' + r['evidence_url'] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get('evidence_url') else ''}</td>
                 <td>{source_badge}</td>
@@ -248,10 +449,10 @@ def generate_html(records: list[dict]) -> str:
     """ランキングHTMLを生成する"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    # カテゴリ別テーブルを生成
+    # チャネル別テーブルを生成
     tab_buttons = ""
     tab_contents = ""
-    categories = ["all", "street", "club", "online"]
+    categories = ["all", "street", "online", "club", "other", "unknown"]
     for idx, cat in enumerate(categories):
         label = CATEGORY_LABELS[cat]
         filtered = filter_by_category(records, cat)
@@ -261,7 +462,7 @@ def generate_html(records: list[dict]) -> str:
         tab_buttons += f'        <div class="tab{active}" onclick="switchTab(\'{cat}\')">{label} ({count})</div>\n'
 
         show_cat = cat == "all"
-        cat_header = '<th>カテゴリ</th>' if show_cat else ''
+        cat_header = '<th>チャネル</th>' if show_cat else ''
         rows = build_ranking_rows(filtered, show_category=show_cat)
 
         tab_contents += f"""
@@ -294,17 +495,15 @@ def generate_html(records: list[dict]) -> str:
             continue
         rank += 1
         medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(rank, "")
-        avatar_url = r.get("profile_image_url", "")
-        av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+        user_cell = build_user_cell_html(
+            r["username"],
+            r.get("display_name", ""),
+            r.get("profile_image_url", ""),
+        )
         followers_rows += f"""
             <tr>
                 <td class="rank">{medal}{rank}</td>
-                <td class="user-cell">
-                    {av_html}
-                    <div class="user-info">
-                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r['display_name']}</td>
                 <td class="followers">{followers:,}</td>
                 <td class="sokusuu">{r['sokusuu']:,}</td>
@@ -338,19 +537,17 @@ def generate_html(records: list[dict]) -> str:
         monthly_rows = ""
         for i, r in enumerate(monthly_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             achieved_m = r.get("achieved_date")
             date_str = f'<span style="color:#888">{achieved_m}</span>' if achieved_m else '<span style="color:#444">-</span>'
+            user_cell = build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             monthly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
-                <td class="user-cell">
-                    {av_html}
-                    <div class="user-info">
-                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{build_period_value_html(r, 'monthly_best')}</td>
                 <td>{date_str}</td>
@@ -384,19 +581,17 @@ def generate_html(records: list[dict]) -> str:
         yearly_rows = ""
         for i, r in enumerate(yearly, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             achieved = r.get("achieved_year")
             year_str = f'<span style="color:#888">{achieved}年</span>' if achieved else '<span style="color:#444">-</span>'
+            user_cell = build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             yearly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
-                <td class="user-cell">
-                    {av_html}
-                    <div class="user-info">
-                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
-                    </div>
-                </td>
+                {user_cell}
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{build_period_value_html(r, 'yearly_best')}</td>
                 <td>{year_str}</td>
@@ -453,28 +648,43 @@ def generate_html(records: list[dict]) -> str:
         y_rows = ""
         for i, r in enumerate(y_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
-            y_rows += '<tr>'
+            y_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
             y_rows += '<td class="rank">' + medal + str(i) + '</td>'
-            y_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
+            y_rows += build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             y_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             y_rows += '<td class="sokusuu">' + build_period_value_html(r, "yearly_count") + '</td>'
-            cats = r.get('categories', '')
-            cat_badges = ''
-            if cats:
-                for c in cats.split(', '):
-                    label = CATEGORY_LABELS.get(c, c)
-                    cat_badges += '<span class="badge badge-cat-' + c + '">' + label + '</span> '
-            else:
-                cat_badges = '<span class="badge badge-cat-none">未分類</span>'
-            y_rows += '<td>' + cat_badges + '</td>'
+            y_rows += '<td>' + build_channel_badges_html(r) + '</td>'
             y_rows += '</tr>'
 
         display = "block" if is_first else "none"
-        yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
+        yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
         selected = " selected" if is_first else ""
-        yearly_options += '<option value="' + year_id + '"' + selected + '>' + str(y_year) + '年 (' + str(len(y_data)) + '件・集計中)</option>'
+        # 月次合算の上半期などは period / period_label を優先して表示名を変える
+        period = (y_data[0].get("period") or "") if y_data else ""
+        period_label = (y_data[0].get("period_label") or "") if y_data else ""
+        if period == "h1" or period_label == "上半期":
+            year_title = f"{y_year}年上半期"
+            year_note = "月次合算"
+        else:
+            year_title = f"{y_year}年"
+            year_note = "集計中"
+        yearly_options += (
+            '<option value="'
+            + year_id
+            + '"'
+            + selected
+            + ">"
+            + year_title
+            + " ("
+            + str(len(y_data))
+            + "件・"
+            + year_note
+            + ")</option>"
+        )
 
     if yearly_divs:
         yearlyselect_active = active_class("yearlyselect")
@@ -519,31 +729,46 @@ def generate_html(records: list[dict]) -> str:
             first_month_id = month_id
         is_default_month = month_id == default_month_id if default_month_id else is_first
 
+        # 月間4即以下は月別表に載せない（5即以上のみ）
+        ranked_data = [
+            r for r in m_data if int(r.get("monthly_count") or 0) >= 5
+        ]
+        ranked_data = sorted(
+            ranked_data,
+            key=lambda r: (
+                -int(r.get("monthly_count") or 0),
+                (r.get("username") or "").lower(),
+            ),
+        )
+
         m_rows = ""
-        for i, r in enumerate(m_data, 1):
+        for i, r in enumerate(ranked_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
-            m_rows += '<tr>'
+            m_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
-            m_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
+            m_rows += build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
             m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             m_rows += '<td class="sokusuu">' + build_period_value_html(r, "monthly_count") + '</td>'
-            cats = r.get('categories', '')
-            cat_badges = ''
-            if cats:
-                for c in cats.split(', '):
-                    label = CATEGORY_LABELS.get(c, c)
-                    cat_badges += '<span class="badge badge-cat-' + c + '">' + label + '</span> '
-            else:
-                cat_badges = '<span class="badge badge-cat-none">未分類</span>'
-            m_rows += '<td>' + cat_badges + '</td>'
+            m_rows += '<td>' + build_channel_badges_html(r) + '</td>'
             m_rows += '</tr>'
 
         display = "block" if is_default_month else "none"
-        monthly_divs += '<div id="monthly-' + month_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + m_rows + '</tbody></table></div>'
+        monthly_divs += (
+            '<div id="monthly-' + month_id + '" style="display:' + display + '">'
+            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>'
+            + m_rows
+            + '</tbody></table></div>'
+        )
         selected = " selected" if is_default_month else ""
-        monthly_options += '<option value="' + month_id + '"' + selected + '>' + str(m_year) + '年' + str(m_month) + '月 (' + str(len(m_data)) + '件・集計中)</option>'
+        monthly_options += (
+            '<option value="' + month_id + '"' + selected + '>'
+            + str(m_year) + '年' + str(m_month) + '月 ('
+            + str(len(ranked_data)) + '件・5即以上・集計中)</option>'
+        )
 
     if monthly_divs:
         monthlyselect_active = active_class("monthlyselect")
@@ -597,10 +822,17 @@ def generate_html(records: list[dict]) -> str:
         </div>"""
 
     # カテゴリ別分布
-    cat_colors = {"street": "#60a5fa", "club": "#c084fc", "online": "#2dd4bf"}
+    cat_colors = {
+        "street": "#60a5fa",
+        "online": "#2dd4bf",
+        "club": "#c084fc",
+        "other": "#fbbf24",
+        "unknown": "#9ca3af",
+    }
     cat_dist = ""
-    for cat, cat_label in [("street", "ストリート"), ("club", "クラブ"), ("online", "オンライン")]:
-        cat_count = len([r for r in records if cat in (r.get("categories") or "")])
+    for cat in CHANNEL_ORDER:
+        cat_label = CATEGORY_LABELS[cat]
+        cat_count = len([r for r in records if cat in infer_channels(r)])
         cat_pct = (cat_count / len(records) * 100) if records else 0
         color = cat_colors[cat]
         cat_dist += f"""
@@ -610,17 +842,6 @@ def generate_html(records: list[dict]) -> str:
                 <div style="width:{cat_pct:.0f}%;background:{color};height:100%;border-radius:4px;min-width:2px"></div>
             </div>
             <div style="width:80px;color:#e0e0e0;font-size:0.9em">{cat_count}件 ({cat_pct:.0f}%)</div>
-        </div>"""
-    uncategorized = len([r for r in records if not r.get("categories")])
-    if uncategorized:
-        uncat_pct = (uncategorized / len(records) * 100) if records else 0
-        cat_dist += f"""
-        <div style="display:flex;align-items:center;gap:10px;margin:8px 0">
-            <div style="width:100px;text-align:right;color:#aaa;font-size:0.9em">未分類</div>
-            <div style="flex:1;background:#252525;border-radius:4px;overflow:hidden;height:28px">
-                <div style="width:{uncat_pct:.0f}%;background:#666;height:100%;border-radius:4px;min-width:2px"></div>
-            </div>
-            <div style="width:80px;color:#e0e0e0;font-size:0.9em">{uncategorized}件 ({uncat_pct:.0f}%)</div>
         </div>"""
 
     dist_active = active_class("dist")
@@ -632,7 +853,7 @@ def generate_html(records: list[dict]) -> str:
             {dist_bars}
         </div>
         <div style="background:#1a1a1a;border-radius:12px;padding:20px">
-            <h3 style="color:#fff;margin-bottom:15px">カテゴリ分布</h3>
+            <h3 style="color:#fff;margin-bottom:15px">チャネル分布（ストナン/ネトナン/箱/その他/謎）</h3>
             {cat_dist}
         </div>
     </div>
@@ -750,6 +971,13 @@ def generate_html(records: list[dict]) -> str:
         }}
         .user-info a {{ color: #1d9bf0; text-decoration: none; }}
         .user-info a:hover {{ text-decoration: underline; }}
+        .user-display-name {{
+            color: #ccc;
+            font-size: 0.85em;
+            margin-top: 2px;
+            line-height: 1.3;
+            word-break: break-word;
+        }}
         .display-name {{ color: #999; font-size: 0.9em; }}
         .sokusuu {{ font-weight: bold; color: #ff6b6b; font-size: 1.1em; }}
         .followers {{ font-weight: bold; color: #1d9bf0; }}
@@ -765,8 +993,10 @@ def generate_html(records: list[dict]) -> str:
         .badge-pinned {{ background: #3a2a1a; color: #fbbf24; }}
         .badge-review {{ background: #3a1f1f; color: #fca5a5; }}
         .badge-cat-street {{ background: #1a2a3a; color: #60a5fa; }}
-        .badge-cat-club {{ background: #2a1a3a; color: #c084fc; }}
         .badge-cat-online {{ background: #1a3a3a; color: #2dd4bf; }}
+        .badge-cat-club {{ background: #2a1a3a; color: #c084fc; }}
+        .badge-cat-other {{ background: #3a2f1a; color: #fbbf24; }}
+        .badge-cat-unknown {{ background: #2a2a2a; color: #9ca3af; }}
         .badge-cat-none {{ background: #2a2a2a; color: #666; }}
         .alt-badge {{
             display: block;
@@ -794,7 +1024,9 @@ def generate_html(records: list[dict]) -> str:
             body {{ padding: 10px; }}
             .stats {{ flex-direction: column; align-items: center; }}
             th, td {{ padding: 8px 10px; font-size: 0.85em; }}
-            .display-name {{ display: none; }}
+            /* 表示名カラムは狭いので隠すが、user-cell 内の表示名は残す */
+            th:nth-child(3),
+            td.display-name {{ display: none; }}
             .tabs {{ gap: 5px; }}
             .tab {{ padding: 6px 12px; font-size: 0.8em; }}
         }}
@@ -837,7 +1069,8 @@ def generate_html(records: list[dict]) -> str:
         <strong>注意事項:</strong>
         即数は全て自己申告ベースであり、正確性は保証されません。
         プロフィールおよび固定ツイートから自動抽出した値です。
-        カテゴリはプロフィール記載のキーワードから自動判定しています。
+        チャネル（ストナン / ネトナン / 箱 / その他 / 謎）はプロフィール・総括ツイートのキーワードから自動判定しています。
+        複数チャネルに当てはまる場合は複数表示されます。判定できない場合は「謎」です。
     </div>
 
     <div class="footer">
@@ -873,9 +1106,25 @@ def generate_html(records: list[dict]) -> str:
             const q = document.getElementById('searchBox').value.toLowerCase();
             const active = document.querySelector('.tab-content.active');
             if (!active) return;
-            active.querySelectorAll('tbody tr').forEach(tr => {{
-                const text = tr.textContent.toLowerCase();
-                tr.style.display = text.includes(q) ? '' : 'none';
+            // 表示中のテーブルだけ検索（月別/年別は visible な子テーブル）
+            const tables = [];
+            active.querySelectorAll('table').forEach(table => {{
+                const wrap = table.closest('[id^="monthly-"], [id^="yearly-"]');
+                if (wrap && wrap.style.display === 'none') return;
+                tables.push(table);
+            }});
+            if (!tables.length) {{
+                active.querySelectorAll('tbody tr').forEach(tr => {{
+                    const text = tr.textContent.toLowerCase();
+                    tr.style.display = text.includes(q) ? '' : 'none';
+                }});
+                return;
+            }}
+            tables.forEach(table => {{
+                table.querySelectorAll('tbody tr').forEach(tr => {{
+                    const text = tr.textContent.toLowerCase();
+                    tr.style.display = text.includes(q) ? '' : 'none';
+                }});
             }});
         }}
     </script>
@@ -895,13 +1144,18 @@ def main():
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
 
-    # カテゴリ別件数を表示
+    # チャネル別件数を表示
     all_count = len(records)
-    street = len([r for r in records if "street" in (r.get("categories") or "")])
-    club = len([r for r in records if "club" in (r.get("categories") or "")])
-    online = len([r for r in records if "online" in (r.get("categories") or "")])
+    counts = {c: len(filter_by_category(records, c)) for c in CHANNEL_ORDER}
     print(f"[OUTPUT] {OUTPUT_HTML} を生成しました")
-    print(f"  総合: {all_count} 名 / ストリート: {street} 名 / クラブ: {club} 名 / オンライン: {online} 名")
+    print(
+        f"  総合: {all_count} 名"
+        f" / ストナン: {counts['street']}"
+        f" / ネトナン: {counts['online']}"
+        f" / 箱: {counts['club']}"
+        f" / その他: {counts['other']}"
+        f" / 謎: {counts['unknown']}"
+    )
 
 
 if __name__ == "__main__":
