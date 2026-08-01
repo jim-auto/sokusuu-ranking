@@ -1,16 +1,16 @@
 # 即数ランキング PLAN
 
-最終更新: 2026-07-15
+最終更新: 2026-08-01
 
 ## 直近の目的
 
-2026年1〜6月の月間ランキングと、その合算による上半期ランキングを揃え、`docs/index.html` に反映する。
+2026年7月の月間ランキングを収集し、`docs/index.html` に反映してドラフト PR を出す。
 
-1. 欠けていた月次（1 / 4 / 5 月）を収集
-2. 6月は先行収集済みを利用
-3. 2 / 3 月は既存 local データを利用
-4. 1〜6月合算で 2026年上半期ランキングを生成
-5. 月別 / 年別タブ付きで HTML 再生成 → ドラフト PR
+（前提: 1〜6月 + 上半期は `feature/monthly-2026-06` / PR #1 で整備済み）
+
+1. 7月を `--global-search --prefetch-only` で収集
+2. 誤検出を人手修正（年累計・内訳合算・日次誤抽出）
+3. 月別タブ既定を 2026-07 にして HTML / 結果 MD 再生成 → ドラフト PR
 
 ## 2026 月次・年間 収集サマリ
 
@@ -40,6 +40,7 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2026-04 | `monthly_2026_04.json` | 28 | `@kukuru_nanpa` 32 |
 | 2026-05 | `monthly_2026_05.json` | 21 | `@tora_maru005` 35 |
 | 2026-06 | `monthly_2026_06.json` | 23 | `@tora_maru005` 51 |
+| 2026-07 | `monthly_2026_07.json` | 26（5即以上21） | `@kent_o_o` 50 |
 | 2026 上半期 | `yearly_2026.json` | 82（1〜6月合算） | `@tora_maru005` 125 |
 
 ### 上半期ランキング（月次合算）
@@ -111,12 +112,42 @@ python build_halfyear_ranking.py --year 2026
 HTML 再生成:
 
 ```bash
-SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=monthlyselect DEFAULT_MONTH=202606 python generate_html.py
+SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=monthlyselect DEFAULT_MONTH=202607 python generate_html.py
 ```
+
+### 7月収集 (2026-08-01)
+
+```bash
+python monthly_collect.py --mode monthly --year 2026 --month 7 --global-search --prefetch-only --checkpoint-every 10
+# -> data/monthly_2026_07.json（生 26件）
+```
+
+人手修正:
+
+| account | 抽出 → 修正 | 理由 |
+| --- | --- | --- |
+| `@cx_lm5` | 58 → **5** | 「合計58即」は年累計。7月は5即 |
+| `@bookmaker_2015` | 9 → **12** | 弾丸9+即2+準1 |
+| `@anshin_pua` | 2 → **10** | 同ツイ「7月10即」。2は当日の両即 |
+
+7月 Top（5即以上・修正後）:
+
+| rank | username | count |
+| ---: | --- | ---: |
+| 1 | `kent_o_o` | 50 |
+| 2 | `tora_maru005` | 43 |
+| 3 | `omamco_pua2` | 25 |
+| 4 | `kukuru_nanpa` | 23 |
+| 5 | `PUAINOKI` | 17 |
+
+成果物:
+
+- `docs/results_2026_07.md` … 7月ランキング + 根拠URL
+- `docs/index.html` … 月別タブ既定 `202607`
 
 補足:
 
-- 7月は途中月のため未収集
+- 7月は 2026-08-01 に初回収集（prefetch-only）。取りこぼしバックフィル余地あり
 - 2 / 3 月は過去収集のまま（再走査していない）
 - 年間 YTD は年末総括よりヒットが薄い（14件）。bio 由来も含むので merge 前レビュー推奨
 - `data/` は gitignore。PR は `docs/index.html` 埋め込み + スクリプト / PLAN
