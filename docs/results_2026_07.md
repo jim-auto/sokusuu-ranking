@@ -50,13 +50,3 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 19 | @MSKsecond | MSK | 6 | ストナン | [link](https://x.com/MSKsecond/status/2083251326901989845) |
 | 20 | @ak1_pua | あぴ | 5 | ストナン | [link](https://x.com/ak1_pua/status/2081439487230681118) |
 | 21 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) |
-
-### 非掲載（4即以下・参考）
-
-| account | 即数 | 根拠 |
-|---------|-----:|------|
-| @shin9suke | 3 | [link](https://x.com/shin9suke/status/2083471045831655640) |
-| @yarimokutoma2 | 2 | [link](https://x.com/yarimokutoma2/status/2083244513888481453) |
-| @daigakusei_pua | 1 | [link](https://x.com/daigakusei_pua/status/2081322737814114518) |
-| @ray_01347 | 1 | [link](https://x.com/ray_01347/status/2083184470128209997) |
-| @taka_DTnmp | 1 | [link](https://x.com/taka_DTnmp/status/2083422985520926872) |
