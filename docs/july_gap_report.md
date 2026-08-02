@@ -53,3 +53,28 @@
 1. 未登録常連を seed/accounts に追加してから再収集
 2. `@ot_aza` `@River_p823` `@taruchan100` は個別 deep scroll / 検索 `from:user 7月 総括`
 3. `extract_monthly_count` の「他月のN即を対象月に誤る」を硬化（taku 事例）
+
+
+## 2026-08-02 追加対応
+
+### 1. seed / accounts 登録
+未登録だった月次常連を追加:
+
+- `ot_aza`, `SFgzKAHifDvjfVu`, `17go_pua`, `chinpan870141`, `tsutsumi_ye4pe`, `qh0kum`, `kimu__himitsu2`
+- seed に上記 + `taruchan100` を追記（`River_p823` は seed 既存）
+- `data/sokusuu_accounts.json` は gitignore のためローカルのみ（391件）
+
+### 2. 優先3アカウント深掘り（UserTweets 最大8ページ）
+
+| account | 結果 |
+|---------|------|
+| `@ot_aza` | UID取得可。**TL 0件**（鍵/API非公開の可能性大）。7月総括は取得不可 |
+| `@River_p823` | 最終総括なし。途中報告の最大は **7月5即目**（7/26時点）。5即以上の下限は見えるが最終未確定のため未掲載 |
+| `@taruchan100` | 7月総括なし。6/30の上半期まとめのみ（誤抽出35は抽出器修正で抑止） |
+
+### 3. extract_monthly_count 修正
+- 複数月併記時は `N月はM即` を最優先（`6月は5即…7月は0即` → 7月は None）
+- 複数月文では裸の `合計/計` を使わない（年累計58誤爆防止）
+- マッチ範囲に他月が挟まるケースを除外
+- 対象月なしの上半期/下半期/年間サマリを月次抽出しない
+

@@ -105,3 +105,13 @@ HyndP2qxWq4n3Xb
 rei_app_pua
 tokumei_pua_
 task_pua
+
+# --- 月次常連バックフィル ---
+ot_aza
+SFgzKAHifDvjfVu
+17go_pua
+chinpan870141
+tsutsumi_ye4pe
+qh0kum
+kimu__himitsu2
+taruchan100

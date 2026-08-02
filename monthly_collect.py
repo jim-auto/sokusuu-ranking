@@ -734,6 +734,9 @@ def extract_monthly_count(text, year, month, strict=False):
         return None
     if strict and not has_explicit_month and re.search(rf"{next_month}月", cleaned):
         return None
+    # 上半期/下半期/年間サマリを月次として拾わない（対象月の明示が無いとき）
+    if re.search(r"(?:上半期|下半期|年間|年次)", cleaned) and not has_explicit_month:
+        return None
 
     if strict and not has_explicit_month and not has_report_keyword:
         return None
@@ -812,6 +815,56 @@ def extract_monthly_count(text, year, month, strict=False):
     has_multi_month_series = len(re.findall(r"\d{1,2}\s*月(?!間)", cleaned)) >= 2
     component_sum = None
 
+    def _explicit_month_count_map() -> dict[int, int]:
+        """「6月は5即」「2026/7月 5即」のような月ラベル直結カウントを集める。
+
+        複数月が並ぶ文で、他月の数字を対象月に流用しないための一次情報。
+        同じ月が複数回出たら最後の値を採用（後勝ち: 修正報告が多い）。
+        """
+        found: dict[int, int] = {}
+        pattern = (
+            rf"(?<!\d)(1[0-2]|[1-9])\s*月\s*"
+            rf"(?:[はがの=:：/／])?\s*"
+            rf"(?:計|合計)?\s*"
+            rf"(\d+)\s*{count_unit}"
+        )
+        for match in re.finditer(pattern, cleaned, re.IGNORECASE):
+            month_n = int(match.group(1))
+            value = int(match.group(2))
+            # 「7月3即目」のような序数は除外
+            tail = cleaned[match.end() : min(len(cleaned), match.end() + 2)]
+            if re.match(r"目(?!標)", tail):
+                continue
+            if 0 <= value <= 500:
+                found[month_n] = value
+        return found
+
+    def _number_crosses_other_month(match: re.Match) -> bool:
+        """マッチ範囲内に対象外の「N月」が挟まっていたら他月誤爆とみなす。"""
+        window = cleaned[match.start() : match.end()]
+        for token in re.findall(r"(?<!\d)(1[0-2]|[1-9])\s*月", window):
+            if int(token) != month:
+                return True
+        # 対象月トークンより後・数字より前に他月があるケース
+        # 例: 7月を振り返る…6月は5即
+        pre = cleaned[max(0, match.start() - 80) : match.start()]
+        # 直前の対象月から match 末尾までに他月があるか
+        target_hits = list(re.finditer(rf"(?<!\d){month}\s*月", cleaned[: match.end()]))
+        if not target_hits:
+            return has_multi_month_series
+        last_target = target_hits[-1].end()
+        between = cleaned[last_target : match.end()]
+        for token in re.findall(r"(?<!\d)(1[0-2]|[1-9])\s*月", between):
+            if int(token) != month:
+                return True
+        return False
+
+    # 複数月併記時は月ラベル直結を最優先（「6月は5即…7月は0即」）
+    explicit_month_counts = _explicit_month_count_map()
+    if month in explicit_month_counts:
+        bound = explicit_month_counts[month]
+        return bound if bound > 0 else None
+
     def _sum_labeled_components() -> int | None:
         """総括内の内訳（弾丸6 パス2 / スト3即 ネト1即 等）を合算する。"""
         component_values = []
@@ -870,7 +923,11 @@ def extract_monthly_count(text, year, month, strict=False):
 
     strong_patterns = []
     # 「計25即」は総括語が無くても月次合計として優先
-    if has_report_keyword or has_explicit_month or has_generic_month:
+    # ただし複数月併記（6月3即 / 7月5即 / 合計58即）では裸の合計を使わない
+    if (
+        (has_report_keyword or has_explicit_month or has_generic_month)
+        and not has_multi_month_series
+    ):
         explicit_total_patterns = [
             r"(?:結果|実績)\s*[】\]）」)]?\s*[=:：／/|・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
             + count_unit,
@@ -893,9 +950,17 @@ def extract_monthly_count(text, year, month, strict=False):
             [
                 rf"(?:{month_tokens})\s*[)）:：/／・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
                 + count_unit,
-                r"(?:総括|統括|まとめ|振り返り|振返り|報告|締め)\s*[】\]）」)]?\s*[=:：／/|・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
-                + count_unit,
-                rf"(?:{month_tokens}).{{0,40}}?(?:総括|統括|まとめ|振り返り|振返り|報告|締め).{{0,40}}?(\d+)\s*"
+                # 複数月文では「振り返り…他月の数字」誤爆を避けるため、対象月なしの緩い総括パターンは使わない
+                *(
+                    []
+                    if has_multi_month_series
+                    else [
+                        r"(?:総括|統括|まとめ|振り返り|振返り|報告|締め)\s*[】\]）」)]?\s*[=:：／/|・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*"
+                        + count_unit,
+                    ]
+                ),
+                # 対象月〜総括語〜数字のあいだに他月を挟まない（後段で再チェック）
+                rf"(?:{month_tokens}).{{0,40}}?(?:総括|統括|まとめ|振り返り|振返り|報告|締め).{{0,24}}?(\d+)\s*"
                 + count_unit,
             ]
         )
@@ -907,6 +972,8 @@ def extract_monthly_count(text, year, month, strict=False):
         match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
         # 「16即目」は序数（N回目）であり月間合計ではない
         if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+            continue
+        if _number_crosses_other_month(match):
             continue
         # 「完全自力即は1即だけ」など内訳の限定表現は、内訳合算があるなら無視
         tail = cleaned[match.end() : min(len(cleaned), match.end() + 4)]
@@ -943,6 +1010,8 @@ def extract_monthly_count(text, year, month, strict=False):
         match_text = cleaned[match.start() : min(len(cleaned), match.end() + 2)]
         # 「16即目」は序数（N回目）であり月間合計ではない
         if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", match_text):
+            continue
+        if _number_crosses_other_month(match):
             continue
         context = cleaned[max(0, match.start() - 18) : min(len(cleaned), match.end() + 18)]
         if strict and re.search(
