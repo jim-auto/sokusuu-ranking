@@ -22,12 +22,11 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 
 ## 方針メモ
 
-- 収集: prefetch + 取りこぼしTL補完
+- 収集: prefetch + 取りこぼしTL補完 + 人手URL
 - **5即以上のみ掲載**（見出しは「5即以上」のみ）
 - チャネル: 総括本文 + 絵文字内訳（**件数が多い順**）
-- `@kimu__himitsu2`: 7月統括 **16**（🐶5 🦐1 🔥10、パス3除外）→ **ネトナン/ストナン**
 - `@kent_o_o` / `@ak1_pua`: 本文にチャネル根拠なし → 謎
-- 補完: `@makoto__pua` **17・スト** / `@Tinder_god_2` 13 / `@147asdf764` 10 ネト/スト / 17go 17 / kimu 16 など
+- 補完: `@socool55555` **17・スト**（7/31「頑張った17即」、明示月ラベル無しのため人手） / `@makoto__pua` 17 / `@Tinder_god_2` 13 など
 
 ## 2026年7月（5即以上）
 
@@ -40,24 +39,25 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 5 | @17go_pua | 17号 | 17 | ストナン/箱 | [link](https://x.com/17go_pua/status/2083415220517843403) |
 | 6 | @makoto__pua | 伊藤誠@講習、note始めました | 17 | ストナン | [link](https://x.com/makoto__pua/status/2083210570925527333) |
 | 7 | @PUAINOKI | フランク | 17 | その他/ネトナン | [link](https://x.com/PUAINOKI/status/2083377255842234433) |
-| 8 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ネトナン/ストナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) |
-| 9 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) |
-| 10 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |
-| 11 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
-| 12 | @nakayamasoku | 中山@tips更新中（ジジネト） | 13 | ネトナン | [link](https://x.com/nakayamasoku/status/2083363000371794046) |
-| 13 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) |
-| 14 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) |
-| 15 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) |
-| 16 | @147asdf764 | ノア | 10 | ネトナン/ストナン | [link](https://x.com/147asdf764/status/2083211068340589000) |
-| 17 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) |
-| 18 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) |
-| 19 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) |
-| 20 | @Nano486273 | 🍏@雄華軍団 | 10 | 箱/その他/ネトナン | [link](https://x.com/Nano486273/status/2083522031740755998) |
-| 21 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) |
-| 22 | @tsutsumi_ye4pe | よしあき@wing長期 | 9 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2083479659505910175) |
-| 23 | @ururunpua | うるるん | 9 | 箱/ストナン/ネトナン | [link](https://x.com/ururunpua/status/2083350040832352442) |
-| 24 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2083235010656792658) |
-| 25 | @SFgzKAHifDvjfVu | Ren | 7 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) |
-| 26 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) |
-| 27 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) |
-| 28 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) |
+| 8 | @socool55555 | 味噌どガス | 17 | ストナン | [link](https://x.com/socool55555/status/2083337610295120258) |
+| 9 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ネトナン/ストナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) |
+| 10 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) |
+| 11 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |
+| 12 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
+| 13 | @nakayamasoku | 中山@tips更新中（ジジネト） | 13 | ネトナン | [link](https://x.com/nakayamasoku/status/2083363000371794046) |
+| 14 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) |
+| 15 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) |
+| 16 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) |
+| 17 | @147asdf764 | ノア | 10 | ネトナン/ストナン | [link](https://x.com/147asdf764/status/2083211068340589000) |
+| 18 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) |
+| 19 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) |
+| 20 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) |
+| 21 | @Nano486273 | 🍏@雄華軍団 | 10 | 箱/その他/ネトナン | [link](https://x.com/Nano486273/status/2083522031740755998) |
+| 22 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) |
+| 23 | @tsutsumi_ye4pe | よしあき@wing長期 | 9 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2083479659505910175) |
+| 24 | @ururunpua | うるるん | 9 | 箱/ストナン/ネトナン | [link](https://x.com/ururunpua/status/2083350040832352442) |
+| 25 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2083235010656792658) |
+| 26 | @SFgzKAHifDvjfVu | Ren | 7 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) |
+| 27 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) |
+| 28 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) |
+| 29 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) |
