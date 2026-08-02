@@ -56,13 +56,13 @@ CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
 # 「スト」は インスト 等に誤爆しやすいので前後を制限
 #
 # 界隈の絵文字チャネル（総括の内訳でよく使う）:
-#   street: 🐶 ライオン 🦉 店舗連れ 🏪 / GT系
+#   street: 🐶 ライオン 🦉 店舗連れ 🏪 / 🦐(エビス) / GT系
 #   online: 🗼(タプ) 🍛(ペアーズ) 🍎 🔥(with等) 🍐 東カレ系
 #   club:   🦾 🧚 📦 / 会場色 🟦⬛️⬜ 等 / Ⓜ系
 STREET_HINTS = re.compile(
     r"(?<![イアウ])スト(?:ナン|即|準|×|ｘ|x|\d|[\s　/／・・(（脚]|$)|"
     r"丘スト|完ソロスト|ソロスト|地方スト|ストリート|"
-    r"路上|[🐶🦁🦉🏪]|(?:SGT|MGT)|GTスト|"
+    r"路上|[🐶🦁🦉🏪🦐]|(?:SGT|MGT)|GTスト|"
     r"味噌(?:スト|1日|遠征)?|明太子|"
     r"弾丸(?:即|×|ｘ|x|\d|[\s　/／(（]|$)|店連れ",
     re.IGNORECASE,
@@ -195,7 +195,7 @@ def estimate_channel_counts(text: str) -> dict[str, int]:
     raw = str(text)
 
     # 絵文字（内訳リスト）
-    counts["street"] += len(re.findall(r"[🐶🦁🦉🏪]", raw))
+    counts["street"] += len(re.findall(r"[🐶🦁🦉🏪🦐]", raw))
     counts["online"] += len(re.findall(r"[🍐🍎🔥🗼🍛]", raw))
     counts["club"] += len(re.findall(r"[🦾🧚📦🪩🟦⬛⬜◼◾▪◻◽Ⓜ]", raw))
 
