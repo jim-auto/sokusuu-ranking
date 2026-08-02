@@ -194,20 +194,33 @@ def estimate_channel_counts(text: str) -> dict[str, int]:
         return counts
     raw = str(text)
 
-    # 絵文字（内訳リスト）
-    counts["street"] += len(re.findall(r"[🐶🦁🦉🏪🦐]", raw))
-    counts["online"] += len(re.findall(r"[🍐🍎🔥🗼🍛]", raw))
-    counts["club"] += len(re.findall(r"[🦾🧚📦🪩🟦⬛⬜◼◾▪◻◽Ⓜ]", raw))
+    def _add_emoji_qty(channel: str, emoji_class: str) -> None:
+        """🐶5 / 🔥10 / 🦾×3 のように絵文字+数量があれば数量を、なければ1を加点。"""
+        for m in re.finditer(
+            rf"([{emoji_class}])\s*[:：/／×xｘ*]?\s*(\d+)?",
+            raw,
+        ):
+            if m.group(2):
+                counts[channel] += int(m.group(2))
+            else:
+                counts[channel] += 1
 
-    # キーワード回数
-    counts["other"] += len(re.findall(r"パス(?!ワード)", raw))
+    # 絵文字（内訳リスト）— 数量付きを優先して合算
+    _add_emoji_qty("street", r"🐶🦁🦉🏪🦐")
+    _add_emoji_qty("online", r"🍐🍎🔥🗼🍛")
+    _add_emoji_qty("club", r"🦾🧚📦🪩🟦⬛⬜◼◾▪◻◽Ⓜ")
+
+    # キーワード回数（数量なしの単なる言及は弱く1）
+    # パスは「パス3」「パス×3」「(パス3)」を数量として
+    for m in re.finditer(r"パス(?!ワード)\s*[×xｘ*]?\s*(\d+)?", raw):
+        counts["other"] += int(m.group(1)) if m.group(1) else 1
     counts["street"] += len(re.findall(r"(?<![イアウ])スト(?:ナン|即|準|×|ｘ|x)", raw))
     counts["street"] += len(re.findall(r"弾丸|店連れ", raw))
     counts["online"] += len(re.findall(r"(?<![ア-ン])ネト(?:ナン|即|準|×|ｘ|x|新規)", raw))
     counts["online"] += len(re.findall(r"マチアプ|アプリ即|某\s*app|使用\s*APP", raw, re.I))
     counts["club"] += len(re.findall(r"(?<![ア-ン])箱(?:ナン|即|×|ｘ|x)|クラ(?:ブ|ナン)|相席", raw))
 
-    # 「スト 10即」「ネト×6」など数量付き
+    # 「スト 10即」「ネト×6」など数量付きは max で上書き寄りに
     for ch, pats in (
         ("street", [r"スト[^\d]{0,6}(\d+)\s*(?:即|節)", r"弾丸[^\d]{0,4}(\d+)"]),
         ("online", [r"ネト[^\d]{0,6}(\d+)\s*(?:即|節)"]),

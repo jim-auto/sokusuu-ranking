@@ -25,6 +25,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - 収集: prefetch + 取りこぼしTL補完
 - **5即以上のみ掲載**（見出しは「5即以上」のみ）
 - チャネル: 総括本文 + 絵文字内訳（**件数が多い順**）
+- `@kimu__himitsu2`: 7月統括 **16**（🐶5 🦐1 🔥10、パス3除外）→ **ネトナン/ストナン**
 - `@kent_o_o` / `@ak1_pua`: 本文にチャネル根拠なし → 謎
 - 補完: `@makoto__pua` **17・スト** / `@Tinder_god_2` 13 / `@147asdf764` 10 ネト/スト / 17go 17 / kimu 16 など
 
@@ -39,7 +40,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 5 | @17go_pua | 17号 | 17 | ストナン/箱 | [link](https://x.com/17go_pua/status/2083415220517843403) |
 | 6 | @makoto__pua | 伊藤誠@講習、note始めました | 17 | ストナン | [link](https://x.com/makoto__pua/status/2083210570925527333) |
 | 7 | @PUAINOKI | フランク | 17 | その他/ネトナン | [link](https://x.com/PUAINOKI/status/2083377255842234433) |
-| 8 | @kimu__himitsu2 | キム | 16 | ストナン/ネトナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) |
+| 8 | @kimu__himitsu2 | キム | 16 | ネトナン/ストナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) |
 | 9 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) |
 | 10 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |
 | 11 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
