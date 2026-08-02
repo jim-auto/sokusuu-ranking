@@ -988,6 +988,25 @@ def extract_monthly_count(text, year, month, strict=False):
     if component_sum is not None:
         return component_sum
 
+    # フェイタン型: 「7月総括」+ 🍐/🍎/🔥 1行1即のリスト（明示の「N即」が無い）
+    # clean_tweet_text が絵文字を落とすので、元本文 text で行数を数える
+    # 例: 🍐/店アポ/b/ol \n 🍎/直🏨/e/学生 ... キセヌク×7 は行として数えない
+    if has_explicit_month and (
+        has_report_keyword or re.search(rf"(?:{month_tokens})\s*総括", cleaned)
+    ):
+        app_case_lines = 0
+        raw_text = text or ""
+        for line in raw_text.splitlines():
+            s = line.strip()
+            if not s:
+                continue
+            if re.search(r"キセヌク|キスヌケ|最高|満足|渋い|来月|持ち直", s):
+                continue
+            if re.match(r"^[🍐🍎🔥🗼🍛]", s):
+                app_case_lines += 1
+        if app_case_lines >= 5:
+            return app_case_lines
+
     patterns = [
         rf"(?:{month_tokens})\s*(?:結果|実績|戦績|総括|統括|報告|着地|振り返り|振返り|まとめ|締め)\s*[】\]）」)]?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*{count_unit}",
         rf"[【\[]\s*(?:{month_tokens})\s*(?:結果|実績|戦績|総括|統括|報告|着地|振り返り|振返り|まとめ|締め)?\s*[】\]]\s*(?:計|合計)?\s*(\d+)\s*{count_unit}",
