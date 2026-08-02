@@ -391,7 +391,8 @@ def get_profile_source_label(record: dict) -> str:
     }.get(source_field, "profile")
 
 
-STREAK_THRESHOLDS = (5, 10, 15, 20)
+# 連続達成のしきい値（高いほど「すごい」側。同じ月数なら最大しきい値だけ表示）
+STREAK_THRESHOLDS = (5, 10, 15, 20, 30, 35, 40, 45, 50)
 
 
 def load_all_monthly_counts(data_dir: str = "data") -> dict[str, dict[tuple[int, int], int]]:
