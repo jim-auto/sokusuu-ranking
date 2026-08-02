@@ -38,7 +38,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 3 | @omamco_pua2 | える | 25 | 謎 | [link](https://x.com/omamco_pua2/status/2083388764559466621) |
 | 4 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) |
 | 5 | @17go_pua | 17号 | 17 | ストナン/箱 | [link](https://x.com/17go_pua/status/2083415220517843403) |
-| 6 | @PUAINOKI | フランク | 17 | その他 | [link](https://x.com/PUAINOKI/status/2083377255842234433) |
+| 6 | @PUAINOKI | フランク | 17 | ネトナン/その他 | [link](https://x.com/PUAINOKI/status/2083377255842234433) |
 | 7 | @kimu__himitsu2 | キム | 16 | ストナン/ネトナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) |
 | 8 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) |
 | 9 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |

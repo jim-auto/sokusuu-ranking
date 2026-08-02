@@ -195,8 +195,14 @@ def infer_channels(record: dict) -> list[str]:
       5. bio / display_name
       6. 謎
     """
-    def finalize(channels: list[str]) -> list[str]:
-        if "other" in channels and any(c in channels for c in ("street", "online", "club")):
+    def finalize(channels: list[str], *, drop_other_with_primary: bool = True) -> list[str]:
+        # 自動推定時: パス由来の other はメインチャネルがあるとき落とす
+        # 明示 channels 指定時は other 併記（例: その他/ネトナン）を尊重する
+        if (
+            drop_other_with_primary
+            and "other" in channels
+            and any(c in channels for c in ("street", "online", "club"))
+        ):
             channels = [c for c in channels if c != "other"]
         if not channels:
             channels = ["unknown"]
@@ -205,9 +211,9 @@ def infer_channels(record: dict) -> list[str]:
     # 1) 事前計算済み
     explicit = record.get("channels")
     if isinstance(explicit, list) and explicit:
-        return finalize(list(explicit))
+        return finalize(list(explicit), drop_other_with_primary=False)
     if isinstance(explicit, str) and explicit.strip():
-        return finalize(split_csv(explicit))
+        return finalize(split_csv(explicit), drop_other_with_primary=False)
 
     single = record.get("channel")
     if isinstance(single, str) and single in CHANNEL_ORDER:
