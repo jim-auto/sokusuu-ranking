@@ -16,9 +16,9 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 
 | 絵文字 | チャネル |
 |--------|----------|
-| 🐶🦁🦉🏪🦐(エビス) | ストナン |
-| 🗼🍛🍎🔥🍐 | ネトナン |
-| 🦾🧚📦🟦⬛️⬜ Ⓜ 🪩 | 箱 |
+| 🐶🦁🦉🏪🦐(エビス) Ⓜ/Ⓜ️(M) | ストナン |
+| 🗼🍛🍎🔥🍐 🪩(ミラーボール) | ネトナン |
+| 🦾🧚📦🟦⬛️⬜ | 箱 |
 
 ## 方針メモ
 
@@ -40,7 +40,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 6 | @makoto__pua | 伊藤誠@講習、note始めました | 17 | ストナン | [link](https://x.com/makoto__pua/status/2083210570925527333) | - |
 | 7 | @PUAINOKI | フランク | 17 | ネトナン/その他 | [link](https://x.com/PUAINOKI/status/2083377255842234433) | 10即7ヶ月 |
 | 8 | @socool55555 | 味噌どガス | 17 | ネトナン | [link](https://x.com/socool55555/status/2083337610295120258) | - |
-| 9 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ネトナン/ストナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) | 15即3ヶ月 / 10即4ヶ月 |
+| 9 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ストナン/ネトナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) | 15即3ヶ月 / 10即4ヶ月 |
 | 10 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) | 15即7ヶ月 |
 | 11 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネトナン | [link](https://x.com/nakayamasoku/status/2083364151645376682) | - |
 | 12 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) | 10即2ヶ月 / 5即5ヶ月 |
@@ -48,11 +48,11 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 14 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) | 10即2ヶ月 |
 | 15 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) | 5即7ヶ月 |
 | 16 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) | 10即2ヶ月 / 5即7ヶ月 |
-| 17 | @147asdf764 | ノア | 10 | ネトナン/ストナン | [link](https://x.com/147asdf764/status/2083211068340589000) | - |
+| 17 | @147asdf764 | ノア | 10 | ストナン/ネトナン | [link](https://x.com/147asdf764/status/2083211068340589000) | - |
 | 18 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) | - |
 | 19 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) | 5即2ヶ月 |
 | 20 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) | 10即3ヶ月 / 5即7ヶ月 |
-| 21 | @Nano486273 | 🍏@雄華軍団 | 10 | 箱/ネトナン/その他 | [link](https://x.com/Nano486273/status/2083522031740755998) | - |
+| 21 | @Nano486273 | 🍏@雄華軍団 | 10 | ネトナン/箱/その他 | [link](https://x.com/Nano486273/status/2083522031740755998) | - |
 | 22 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) | 5即5ヶ月 |
 | 23 | @tsutsumi_ye4pe | よしあき@wing長期 | 9 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2083479659505910175) | 5即2ヶ月 |
 | 24 | @ururunpua | うるるん | 9 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2083350040832352442) | 5即3ヶ月 |

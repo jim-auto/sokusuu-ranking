@@ -230,7 +230,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 14 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) |
 | 15 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) |
 | 16 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) |
-| 17 | @147asdf764 | ノア | 10 | ネトナン/ストナン | [link](https://x.com/147asdf764/status/2083211068340589000) |
+| 17 | @147asdf764 | ノア | 10 | ストナン/ネトナン | [link](https://x.com/147asdf764/status/2083211068340589000) |
 | 18 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) |
 | 19 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) |
 | 20 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) |

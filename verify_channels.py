@@ -46,18 +46,18 @@ SOFT_HINTS: dict[str, re.Pattern[str]] = {
     "street": re.compile(
         r"弾丸|弾(?:×|ｘ|x|/|即|\d)|準(?:即|×|ｘ|x|/|\d)|店連れ|路上|出撃|"
         r"声かけ|スト準|丘スト|完ソロ|SGT|MGT|脚馬|"
-        r"[🐶🦁🦉🏪]",
+        r"[🐶🦁🦉🏪ⓂⓂ️]",
         re.IGNORECASE,
     ),
     "online": re.compile(
         r"(?<![a-z])(?:APP|app)(?![a-z])|ネト新規|ネト改善|マチアプ|アプリ|"
         r"タプ|Tin|tinder|with|ペアーズ|東カレ|某app|"
-        r"[🗼🍛🍎🔥🍐]",
+        r"[🗼🍛🍎🔥🍐🪩]",
         re.IGNORECASE,
     ),
     "club": re.compile(
         r"箱|クラ(?:ブ|ナン)|はこ|相席|オリラジ|"
-        r"[🦾🧚📦🟦⬛⬜◼◾▪◻]|Ⓜ",
+        r"[🦾🧚📦🟦⬛⬜◼◾▪◻]",
         re.IGNORECASE,
     ),
     "other": re.compile(r"パス|代打|アテンド|くるくる|ハイエナ|指名|カップル", re.IGNORECASE),

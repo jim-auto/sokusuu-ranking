@@ -56,15 +56,17 @@ CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
 # 「スト」は インスト 等に誤爆しやすいので前後を制限
 #
 # 界隈の絵文字チャネル（総括の内訳でよく使う）:
-#   street: 🐶 ライオン 🦉 店舗連れ 🏪 / 🦐(エビス) / GT系
-#   online: 🗼(タプ) 🍛(ペアーズ) 🍎 🔥(with等) 🍐 東カレ系
-#   club:   🦾 🧚 📦 / 会場色 🟦⬛️⬜ 等 / Ⓜ系
+#   street: 🐶 ライオン 🦉 店舗連れ 🏪 / 🦐(エビス) / GT系 / Ⓜ(M)
+#   online: 🗼(タプ) 🍛(ペアーズ) 🍎 🔥(with等) 🍐 東カレ系 / 🪩(ミラーボール=ネト)
+#   club:   🦾 🧚 📦 / 会場色 🟦⬛️⬜ 等
 STREET_HINTS = re.compile(
     r"(?<![イアウ])スト(?:ナン|即|準|×|ｘ|x|\d|[\s　/／・・(（脚]|$)|"
     r"丘スト|完ソロスト|ソロスト|地方スト|ストリート|"
     r"路上|[🐶🦁🦉🏪🦐]|(?:SGT|MGT)|GTスト|"
     r"味噌(?:スト|1日|遠征)?|明太子|"
-    r"弾丸(?:即|×|ｘ|x|\d|[\s　/／(（]|$)|店連れ",
+    r"弾丸(?:即|×|ｘ|x|\d|[\s　/／(（]|$)|店連れ|"
+    # Ⓜ / Ⓜ️ / 🅜 / キーキャップM はストナン
+    r"[Mm]️\u20e3|Ⓜ|Ⓜ️|🅜",
     re.IGNORECASE,
 )
 ONLINE_HINTS = re.compile(
@@ -72,7 +74,7 @@ ONLINE_HINTS = re.compile(
     r"マチアプ|マッチングアプリ|東カレ|"
     r"with|ｳｨｽﾞ|ウィズ|wiz|"
     r"タップル?|タプ|tin|tinder|pairs|ペアーズ|"
-    r"[🗼🍛🍎🔥🍐]|"
+    r"[🗼🍛🍎🔥🍐🪩]|"
     r"ワクメ|アプリ即|ネトナン|イン⭐|"
     r"某\s*app|使用\s*APP",
     re.IGNORECASE,
@@ -81,8 +83,8 @@ CLUB_HINTS = re.compile(
     r"(?:^|[^ア-ン])箱(?:ナン|即|×|ｘ|x|\d|[\s　/／・(（]|$)|"
     r"クラブナン|クラナン|クラブ|"
     r"相席|オリラジ|ロマ絵|"
-    # 🦾箱 / 📦 / 会場タグの色四角・丸M（CRUBD・コマン部系の内訳）
-    r"[🦾🧚📦🪩🟦⬛⬜◼◾▪◻◽]|[Mm]️\u20e3|Ⓜ|🅜",
+    # 🦾箱 / 📦 / 会場タグの色四角（CRUBD・コマン部系の内訳）
+    r"[🦾🧚📦🟦⬛⬜◼◾▪◻◽]",
     re.IGNORECASE,
 )
 # パス/代打は「その他」（メインチャネルが無いときだけ）
@@ -194,21 +196,22 @@ def estimate_channel_counts(text: str) -> dict[str, int]:
         return counts
     raw = str(text)
 
-    def _add_emoji_qty(channel: str, emoji_class: str) -> None:
+    def _add_emoji_qty(channel: str, pattern: str) -> None:
         """🐶5 / 🔥10 / 🦾×3 のように絵文字+数量があれば数量を、なければ1を加点。"""
         for m in re.finditer(
-            rf"([{emoji_class}])\s*[:：/／×xｘ*]?\s*(\d+)?",
+            rf"(?:{pattern})\s*[:：/／×xｘ*]?\s*(\d+)?",
             raw,
         ):
-            if m.group(2):
-                counts[channel] += int(m.group(2))
+            if m.group(1):
+                counts[channel] += int(m.group(1))
             else:
                 counts[channel] += 1
 
     # 絵文字（内訳リスト）— 数量付きを優先して合算
-    _add_emoji_qty("street", r"🐶🦁🦉🏪🦐")
-    _add_emoji_qty("online", r"🍐🍎🔥🗼🍛")
-    _add_emoji_qty("club", r"🦾🧚📦🪩🟦⬛⬜◼◾▪◻◽Ⓜ")
+    # Ⓜ/Ⓜ️(M)→スト、🪩(ミラーボール)→ネト（箱ではない）
+    _add_emoji_qty("street", r"[🐶🦁🦉🏪🦐]|Ⓜ\uFE0F?|🅜")
+    _add_emoji_qty("online", r"[🍐🍎🔥🗼🍛🪩]")
+    _add_emoji_qty("club", r"[🦾🧚📦🟦⬛⬜◼◾▪◻◽]")
 
     # キーワード回数（数量なしの単なる言及は弱く1）
     # パスは「パス3」「パス×3」「(パス3)」を数量として
