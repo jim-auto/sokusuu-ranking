@@ -12,14 +12,22 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | `other` | その他 |
 | `unknown` | 謎 |
 
+### 絵文字チャネル（総括内訳）
+
+| 絵文字 | チャネル |
+|--------|----------|
+| 🐶🦁🦉🏪 | ストナン |
+| 🗼🍛🍎🔥🍐 | ネトナン |
+| 🦾🧚📦🟦⬛️⬜ Ⓜ | 箱 |
+
 ## 方針メモ
 
-- 収集: prefetch-only 初回 + 取りこぼし GraphQL タイムライン再走査
-- **本表は月間5即以上のみ（4即以下は掲載しない）**
-- 収集後修正: `@cx_lm5` 58→5 / `@bookmaker_2015` 9→12 / `@anshin_pua` 2→10
-- チャネル: 総括本文優先。`@kent_o_o` は本文根拠なし → **謎**（bio override 不使用）
-- 取りこぼし補完: `@17go_pua` 17 / `@kimu__himitsu2` 16 / `@tsutsumi_ye4pe` 9 / `@SFgzKAHifDvjfVu` 7
-- 根拠は **URLリンクのみ**
+- 収集: prefetch + 取りこぼしTL補完
+- **5即以上のみ掲載**
+- チャネル: 総括本文キーワード + **絵文字内訳**（上表）
+- `@kent_o_o` / `@ak1_pua`: 本文にチャネル根拠なし → 謎
+- 誤抽出修正: cx 58→5 / bookmaker 9→12 / anshin 2→10
+- 補完: 17go 17 / kimu 16 / tsutsumi 9 / Ren 7
 
 ## 2026年7月（25件・5即以上 / 非掲載5件）
 
@@ -36,7 +44,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 9 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |
 | 10 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
 | 11 | @nakayamasoku | 中山@tips更新中（ジジネト） | 13 | ネトナン | [link](https://x.com/nakayamasoku/status/2083363000371794046) |
-| 12 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2083310265932898545) |
+| 12 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) |
 | 13 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) |
 | 14 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) |
 | 15 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) |
@@ -47,6 +55,6 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 20 | @ururunpua | うるるん | 9 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2083350040832352442) |
 | 21 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2083235010656792658) |
 | 22 | @SFgzKAHifDvjfVu | Ren | 7 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) |
-| 23 | @MSKsecond | MSK | 6 | ストナン | [link](https://x.com/MSKsecond/status/2083251326901989845) |
+| 23 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) |
 | 24 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) |
 | 25 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) |
