@@ -184,6 +184,57 @@ def _scan_channel_text(text: str) -> list[str]:
     return found
 
 
+def estimate_channel_counts(text: str) -> dict[str, int]:
+    """総括本文からチャネル別の件数をざっくり数える（表示順用）。
+
+    絵文字1個・「パス」1回・「スト×N」などを加点する。
+    """
+    counts = {c: 0 for c in CHANNEL_ORDER}
+    if not text or not str(text).strip():
+        return counts
+    raw = str(text)
+
+    # 絵文字（内訳リスト）
+    counts["street"] += len(re.findall(r"[🐶🦁🦉🏪]", raw))
+    counts["online"] += len(re.findall(r"[🍐🍎🔥🗼🍛]", raw))
+    counts["club"] += len(re.findall(r"[🦾🧚📦🪩🟦⬛⬜◼◾▪◻◽Ⓜ]", raw))
+
+    # キーワード回数
+    counts["other"] += len(re.findall(r"パス(?!ワード)", raw))
+    counts["street"] += len(re.findall(r"(?<![イアウ])スト(?:ナン|即|準|×|ｘ|x)", raw))
+    counts["street"] += len(re.findall(r"弾丸|店連れ", raw))
+    counts["online"] += len(re.findall(r"(?<![ア-ン])ネト(?:ナン|即|準|×|ｘ|x|新規)", raw))
+    counts["online"] += len(re.findall(r"マチアプ|アプリ即|某\s*app|使用\s*APP", raw, re.I))
+    counts["club"] += len(re.findall(r"(?<![ア-ン])箱(?:ナン|即|×|ｘ|x)|クラ(?:ブ|ナン)|相席", raw))
+
+    # 「スト 10即」「ネト×6」など数量付き
+    for ch, pats in (
+        ("street", [r"スト[^\d]{0,6}(\d+)\s*(?:即|節)", r"弾丸[^\d]{0,4}(\d+)"]),
+        ("online", [r"ネト[^\d]{0,6}(\d+)\s*(?:即|節)"]),
+        ("club", [r"箱[^\d]{0,6}(\d+)\s*(?:即|節)", r"クラブ[^\d]{0,4}(\d+)"]),
+        ("other", [r"パス[^\d]{0,4}(\d+)"]),
+    ):
+        for pat in pats:
+            for m in re.finditer(pat, raw):
+                try:
+                    counts[ch] = max(counts[ch], int(m.group(1)))
+                except ValueError:
+                    pass
+    return counts
+
+
+def order_channels_by_count(channels: list[str], text: str = "") -> list[str]:
+    """チャネルを件数が多い順に並べる（同数は CHANNEL_ORDER）。"""
+    if not channels:
+        return []
+    counts = estimate_channel_counts(text)
+    order_index = {c: i for i, c in enumerate(CHANNEL_ORDER)}
+    return sorted(
+        channels,
+        key=lambda c: (-int(counts.get(c) or 0), order_index.get(c, 99)),
+    )
+
+
 def infer_channels(record: dict) -> list[str]:
     """ネト/スト/箱/その他/謎 を推定する。
 
@@ -194,10 +245,24 @@ def infer_channels(record: dict) -> list[str]:
       4. プロフィール categories（弱いフォールバック）
       5. bio / display_name
       6. 謎
+
+    並び順は本文の件数が多い順（同数は street→online→club→other→unknown）。
     """
-    def finalize(channels: list[str], *, drop_other_with_primary: bool = True) -> list[str]:
+    evidence = " ".join(
+        str(record.get(key) or "")
+        for key in ("channel_evidence", "tweet_text")
+    )
+    if re.search(r"上半期\s*合算", evidence):
+        evidence = str(record.get("channel_evidence") or "")
+
+    def finalize(
+        channels: list[str],
+        *,
+        drop_other_with_primary: bool = True,
+        sort_text: str = "",
+    ) -> list[str]:
         # 自動推定時: パス由来の other はメインチャネルがあるとき落とす
-        # 明示 channels 指定時は other 併記（例: その他/ネトナン）を尊重する
+        # 明示 channels 指定時は other 併記を尊重する
         if (
             drop_other_with_primary
             and "other" in channels
@@ -206,14 +271,21 @@ def infer_channels(record: dict) -> list[str]:
             channels = [c for c in channels if c != "other"]
         if not channels:
             channels = ["unknown"]
-        return [c for c in CHANNEL_ORDER if c in channels]
+        # 重複除去しつつ件数順
+        uniq = []
+        for c in channels:
+            if c in CHANNEL_ORDER and c not in uniq:
+                uniq.append(c)
+        if not uniq:
+            uniq = ["unknown"]
+        return order_channels_by_count(uniq, sort_text or evidence)
 
     # 1) 事前計算済み
     explicit = record.get("channels")
     if isinstance(explicit, list) and explicit:
-        return finalize(list(explicit), drop_other_with_primary=False)
+        return finalize(list(explicit), drop_other_with_primary=False, sort_text=evidence)
     if isinstance(explicit, str) and explicit.strip():
-        return finalize(split_csv(explicit), drop_other_with_primary=False)
+        return finalize(split_csv(explicit), drop_other_with_primary=False, sort_text=evidence)
 
     single = record.get("channel")
     if isinstance(single, str) and single in CHANNEL_ORDER:
@@ -226,13 +298,7 @@ def infer_channels(record: dict) -> list[str]:
             if channel not in found:
                 found.append(channel)
 
-    # 2) 総括本文（上半期合算のダミー文は無視）
-    evidence = " ".join(
-        str(record.get(key) or "")
-        for key in ("channel_evidence", "tweet_text")
-    )
-    if re.search(r"上半期\s*合算", evidence):
-        evidence = str(record.get("channel_evidence") or "")
+    # 2) 総括本文
     add_many(_scan_channel_text(evidence))
 
     # 3) 本文が薄いときだけ既知ユーザの上書き
@@ -254,7 +320,6 @@ def infer_channels(record: dict) -> list[str]:
         add_many(_scan_channel_text(profile_text))
 
     # 4b) 「パス」だけで other になった場合、categories / override を優先
-    # （絵文字落ちした総括で その他 誤爆するのを防ぐ）
     if found == ["other"]:
         cat_main = [
             item
@@ -268,12 +333,10 @@ def infer_channels(record: dict) -> list[str]:
 
     # 5) 既知ユーザは本文が path のみ等で other になった場合の補正
     if username in CHANNEL_OVERRIDES:
-        # 本文から取れたものがあればそれを優先し、足りない分を override で補わない
-        # ただし完全に other/unknown だけなら override を使う
         if not found or found == ["other"] or found == ["unknown"]:
             found = list(CHANNEL_OVERRIDES[username])
 
-    return finalize(found)
+    return finalize(found, sort_text=evidence)
 
 
 def build_channel_badges_html(record: dict) -> str:
