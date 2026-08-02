@@ -33,7 +33,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
 | 1 | @kent_o_o | 健人 | 50 | 謎 | [link](https://x.com/kent_o_o/status/2083541870182064575) |
-| 2 | @tora_maru005 | とらまる@ナンパ | 43 | ストナン/ネトナン | [link](https://x.com/tora_maru005/status/2083390707310764210) |
+| 2 | @tora_maru005 | とらまる@ナンパ | 43 | ストナン/ネトナン/箱 | [link](https://x.com/tora_maru005/status/2083390707310764210) |
 | 3 | @omamco_pua2 | える | 25 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2083388764559466621) |
 | 4 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) |
 | 5 | @17go_pua | 17号 | 17 | ストナン/箱 | [link](https://x.com/17go_pua/status/2083415220517843403) |
