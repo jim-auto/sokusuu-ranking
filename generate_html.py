@@ -391,6 +391,93 @@ def get_profile_source_label(record: dict) -> str:
     }.get(source_field, "profile")
 
 
+STREAK_THRESHOLDS = (5, 10, 15, 20)
+
+
+def load_all_monthly_counts(data_dir: str = "data") -> dict[str, dict[tuple[int, int], int]]:
+    """全 monthly_YYYY_MM.json から username -> {(y,m): count} を構築。"""
+    import glob
+
+    history: dict[str, dict[tuple[int, int], int]] = {}
+    for path in sorted(glob.glob(os.path.join(data_dir, "monthly_20*.json"))):
+        base = os.path.basename(path)
+        # monthly_2026_07.json
+        parts = base.replace("monthly_", "").replace(".json", "").split("_")
+        if len(parts) != 2:
+            continue
+        try:
+            year, month = int(parts[0]), int(parts[1])
+        except ValueError:
+            continue
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                rows = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            username = str(row.get("username") or "").lower()
+            if not username:
+                continue
+            count = int(row.get("monthly_count") or 0)
+            if count <= 0:
+                continue
+            bucket = history.setdefault(username, {})
+            key = (year, month)
+            prev = bucket.get(key, 0)
+            if count > prev:
+                bucket[key] = count
+    return history
+
+
+def consecutive_month_streaks(
+    month_counts: dict[tuple[int, int], int],
+    year: int,
+    month: int,
+    thresholds: tuple[int, ...] = STREAK_THRESHOLDS,
+) -> dict[int, int]:
+    """対象月を終点に、各しきい値以上を何ヶ月連続で達成しているか。
+
+    その月のデータが無い／しきい値未満で途切れる。
+    """
+    result: dict[int, int] = {}
+    for thr in thresholds:
+        streak = 0
+        y, m = year, month
+        for _ in range(240):  # 最大20年
+            if int(month_counts.get((y, m), 0)) < thr:
+                break
+            streak += 1
+            m -= 1
+            if m < 1:
+                m = 12
+                y -= 1
+        result[thr] = streak
+    return result
+
+
+def format_streak_label(streaks: dict[int, int]) -> str:
+    """表示用: 5即3ヶ月 / 10即2ヶ月 …（0は出さない）"""
+    parts = []
+    for thr in STREAK_THRESHOLDS:
+        n = int(streaks.get(thr) or 0)
+        if n > 0:
+            parts.append(f"{thr}即{n}ヶ月")
+    return " / ".join(parts) if parts else "-"
+
+
+def format_streak_html(streaks: dict[int, int]) -> str:
+    label = format_streak_label(streaks)
+    if label == "-":
+        return '<span style="color:#555">-</span>'
+    return (
+        '<span style="font-size:0.82em;color:#bbb;line-height:1.35;display:inline-block">'
+        + label.replace(" / ", "<br>")
+        + "</span>"
+    )
+
+
 def build_period_value_html(record: dict, count_key: str) -> str:
     evidence_html = ""
     evidence_url = get_period_evidence_url(record)
@@ -800,6 +887,7 @@ def generate_html(records: list[dict]) -> str:
     monthly_options = ""
     first_month_id = ""
     default_month_id = normalize_month_id(DEFAULT_MONTH)
+    monthly_history = load_all_monthly_counts("data")
 
     for mf in monthly_files:
         basename = os.path.basename(mf)
@@ -834,6 +922,12 @@ def generate_html(records: list[dict]) -> str:
         m_rows = ""
         for i, r in enumerate(ranked_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            username_key = str(r.get("username") or "").lower()
+            streaks = consecutive_month_streaks(
+                monthly_history.get(username_key, {}),
+                m_year,
+                m_month,
+            )
             m_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
             m_rows += build_user_cell_html(
@@ -844,12 +938,15 @@ def generate_html(records: list[dict]) -> str:
             m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             m_rows += '<td class="sokusuu">' + build_period_value_html(r, "monthly_count") + '</td>'
             m_rows += '<td>' + build_channel_badges_html(r) + '</td>'
+            m_rows += '<td class="streak">' + format_streak_html(streaks) + '</td>'
             m_rows += '</tr>'
 
         display = "block" if is_default_month else "none"
         monthly_divs += (
             '<div id="monthly-' + month_id + '" style="display:' + display + '">'
-            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>'
+            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>'
+            '<th>チャネル</th><th title="各しきい値以上を何ヶ月連続（当月終点）">'
+            "連続</th></tr></thead><tbody>"
             + m_rows
             + '</tbody></table></div>'
         )
