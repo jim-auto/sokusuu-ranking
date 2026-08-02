@@ -27,7 +27,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - チャネル: 総括本文キーワード + 絵文字内訳（**件数が多い順**に表示）
 - `@kent_o_o` / `@ak1_pua`: 本文にチャネル根拠なし → 謎
 - 補完: `@Tinder_god_2` 13 / `@147asdf764` **10** / 17go 17 / kimu 16 / tsutsumi 9 / Ren 7
-- `@147asdf764`: 7月総括10即（🦉🔥🍎🪩🦁）。同垢TL上の9節は `@rei_app_pua` と同内容のため不採用
+- `@147asdf764`: 7月総括10即 → **ネトナン/ストナン**（🔥🍎多め / 🦉🦁）。同垢TL上の9節は `@rei_app_pua` と同内容のため不採用
 
 ## 2026年7月（5即以上）
 
@@ -47,7 +47,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 12 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) |
 | 13 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) |
 | 14 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) |
-| 15 | @147asdf764 | ノア | 10 | ネトナン/ストナン/箱 | [link](https://x.com/147asdf764/status/2083211068340589000) |
+| 15 | @147asdf764 | ノア | 10 | ネトナン/ストナン | [link](https://x.com/147asdf764/status/2083211068340589000) |
 | 16 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) |
 | 17 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) |
 | 18 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) |
