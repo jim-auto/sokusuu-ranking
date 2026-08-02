@@ -52,7 +52,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 17 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) |
 | 18 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) |
 | 19 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) |
-| 20 | @Nano486273 | なの@雄華軍団 | 10 | ストナン | [link](https://x.com/Nano486273/status/2083522031740755998) |
+| 20 | @Nano486273 | 🍏@雄華軍団 | 10 | 箱/その他/ネトナン | [link](https://x.com/Nano486273/status/2083522031740755998) |
 | 21 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) |
 | 22 | @tsutsumi_ye4pe | よしあき@wing長期 | 9 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2083479659505910175) |
 | 23 | @ururunpua | うるるん | 9 | 箱/ストナン/ネトナン | [link](https://x.com/ururunpua/status/2083350040832352442) |
