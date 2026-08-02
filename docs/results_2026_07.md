@@ -38,13 +38,13 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 4 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) | 20即4ヶ月 |
 | 5 | @17go_pua | 17号 | 17 | ストナン/箱 | [link](https://x.com/17go_pua/status/2083415220517843403) | 5即4ヶ月 |
 | 6 | @makoto__pua | 伊藤誠@講習、note始めました | 17 | ストナン | [link](https://x.com/makoto__pua/status/2083210570925527333) | - |
-| 7 | @PUAINOKI | フランク | 17 | その他/ネトナン | [link](https://x.com/PUAINOKI/status/2083377255842234433) | 10即7ヶ月 |
+| 7 | @PUAINOKI | フランク | 17 | ネトナン/その他 | [link](https://x.com/PUAINOKI/status/2083377255842234433) | 10即7ヶ月 |
 | 8 | @socool55555 | 味噌どガス | 17 | ネトナン | [link](https://x.com/socool55555/status/2083337610295120258) | - |
-| 9 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ネトナン/ストナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) | - |
+| 9 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ネトナン/ストナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) | 15即3ヶ月 / 10即4ヶ月 |
 | 10 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) | 15即7ヶ月 |
-| 11 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) | 10即2ヶ月 / 5即5ヶ月 |
-| 12 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) | - |
-| 13 | @nakayamasoku | 中山@tips更新中（ジジネト） | 13 | ネトナン | [link](https://x.com/nakayamasoku/status/2083363000371794046) | - |
+| 11 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネトナン | [link](https://x.com/nakayamasoku/status/2083364151645376682) | - |
+| 12 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) | 10即2ヶ月 / 5即5ヶ月 |
+| 13 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) | - |
 | 14 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) | 10即2ヶ月 |
 | 15 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) | 5即7ヶ月 |
 | 16 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) | 10即2ヶ月 / 5即7ヶ月 |
@@ -52,12 +52,41 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 18 | @anshin_pua | あんしん🎀ナンパ師 | 10 | ストナン/ネトナン | [link](https://x.com/anshin_pua/status/2083169564255481872) | - |
 | 19 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) | 5即2ヶ月 |
 | 20 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) | 10即3ヶ月 / 5即7ヶ月 |
-| 21 | @Nano486273 | 🍏@雄華軍団 | 10 | 箱/その他/ネトナン | [link](https://x.com/Nano486273/status/2083522031740755998) | - |
-| 22 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) | 5即2ヶ月 |
+| 21 | @Nano486273 | 🍏@雄華軍団 | 10 | 箱/ネトナン/その他 | [link](https://x.com/Nano486273/status/2083522031740755998) | - |
+| 22 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) | 5即5ヶ月 |
 | 23 | @tsutsumi_ye4pe | よしあき@wing長期 | 9 | ストナン | [link](https://x.com/tsutsumi_ye4pe/status/2083479659505910175) | 5即2ヶ月 |
-| 24 | @ururunpua | うるるん | 9 | 箱/ストナン/ネトナン | [link](https://x.com/ururunpua/status/2083350040832352442) | 5即3ヶ月 |
+| 24 | @ururunpua | うるるん | 9 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2083350040832352442) | 5即3ヶ月 |
 | 25 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2083235010656792658) | 5即7ヶ月 |
 | 26 | @SFgzKAHifDvjfVu | Ren | 7 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) | 5即6ヶ月 |
 | 27 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) | - |
 | 28 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) | - |
 | 29 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) | - |
+
+
+## 深掘りメモ（連続）
+
+### @rei_app_pua
+| 月 | 即数 | 根拠 |
+|----|-----:|------|
+| 3月 | 5 | 暫定4 + 4/1 0:09を3月計上の本人言及 → 4月総括「2ヶ月連続5そ」 |
+| 4月 | 5 | [4月総括](https://x.com/rei_app_pua/status/2049878421678031060) |
+| 5月 | 5 | [5月総括](https://x.com/rei_app_pua/status/2061117981208588787) |
+| 6月 | 9 | [6月総括](https://x.com/rei_app_pua/status/2071177516103160003) |
+| 7月 | 9 | [7月総括](https://x.com/rei_app_pua/status/2083207900047278344) |
+| **連続** | | **5即5ヶ月** |
+
+### @kimu__himitsu2（ナンパ版デスドル）
+| 月 | 即数 | 根拠 |
+|----|-----:|------|
+| 4月 | 13 | [@pua_co コメント](https://x.com/pua_co/status/2083907208950292898)（4月から13─20─18即） |
+| 5月 | 20 | 同上 |
+| 6月 | 18 | 同上 |
+| 7月 | 16 | [７月統括](https://x.com/kimu__himitsu2/status/2083330629845094722) |
+| **連続** | | **15即3ヶ月 / 10即4ヶ月** |
+
+※4–6月は本人総括がTL上で取れないため、**@pua_co（こなんぱん）の指摘コメント**を第三者根拠として採用。
+
+### @nakayamasoku
+- 7月: **14即**（訂正ツイート） [14即だった](https://x.com/nakayamasoku/status/2083364151645376682)
+- 訂正前: [7月13即](https://x.com/nakayamasoku/status/2083363000371794046)
+
