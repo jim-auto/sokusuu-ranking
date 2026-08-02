@@ -775,7 +775,7 @@ def generate_html(records: list[dict]) -> str:
         monthly_options += (
             '<option value="' + month_id + '"' + selected + '>'
             + str(m_year) + '年' + str(m_month) + '月 ('
-            + str(len(ranked_data)) + '件・5即以上・集計中)</option>'
+            + "5即以上)</option>"
         )
 
     if monthly_divs:
