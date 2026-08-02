@@ -31,7 +31,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 |---|---------|--------|-----:|----------|------|
 | 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2083541870182064575) |
 | 2 | @tora_maru005 | とらまる@ナンパ | 43 | ストナン/ネトナン | [link](https://x.com/tora_maru005/status/2083390707310764210) |
-| 3 | @omamco_pua2 | える | 25 | ストナン/ネトナン/箱 | [link](https://x.com/omamco_pua2/status/2083388764559466621) |
+| 3 | @omamco_pua2 | える | 25 | 謎 | [link](https://x.com/omamco_pua2/status/2083388764559466621) |
 | 4 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) |
 | 5 | @PUAINOKI | フランク | 17 | その他 | [link](https://x.com/PUAINOKI/status/2083377255842234433) |
 | 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) |
@@ -44,9 +44,9 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 13 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | ストナン | [link](https://x.com/dick_duck_swing/status/2083455412704297323) |
 | 14 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネトナン | [link](https://x.com/motebody_pua/status/2083193715238240622) |
 | 15 | @Nano486273 | なの@雄華軍団 | 10 | ストナン | [link](https://x.com/Nano486273/status/2083522031740755998) |
-| 16 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン/ネトナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) |
+| 16 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | ストナン | [link](https://x.com/rei_app_pua/status/2083207900047278344) |
 | 17 | @ururunpua | うるるん | 9 | ストナン/ネトナン/箱 | [link](https://x.com/ururunpua/status/2083350040832352442) |
 | 18 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2083235010656792658) |
 | 19 | @MSKsecond | MSK | 6 | ストナン | [link](https://x.com/MSKsecond/status/2083251326901989845) |
-| 20 | @ak1_pua | あぴ | 5 | ストナン | [link](https://x.com/ak1_pua/status/2081439487230681118) |
+| 20 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) |
 | 21 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) |
