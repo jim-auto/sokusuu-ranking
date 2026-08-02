@@ -458,13 +458,32 @@ def consecutive_month_streaks(
 
 
 def format_streak_label(streaks: dict[int, int]) -> str:
-    """表示用: 5即3ヶ月 / 10即2ヶ月 …（0は出さない）"""
-    parts = []
+    """表示用の連続達成ラベル。
+
+    - 1ヶ月は出さない（2ヶ月以上のみ）
+    - 同じ連続月数なら最大しきい値だけ
+      例: 5/10/15/20 が全部4ヶ月 → 「20即4ヶ月」
+    """
+    # nヶ月 -> その月数を満たす最大しきい値
+    best_thr_for_months: dict[int, int] = {}
     for thr in STREAK_THRESHOLDS:
         n = int(streaks.get(thr) or 0)
-        if n > 0:
-            parts.append(f"{thr}即{n}ヶ月")
-    return " / ".join(parts) if parts else "-"
+        if n < 2:
+            continue
+        prev = best_thr_for_months.get(n, 0)
+        if thr > prev:
+            best_thr_for_months[n] = thr
+    if not best_thr_for_months:
+        return "-"
+    # しきい値が高い順（20 → 15 → 10 → 5）
+    parts = [
+        f"{thr}即{n}ヶ月"
+        for n, thr in sorted(
+            best_thr_for_months.items(),
+            key=lambda item: -item[1],
+        )
+    ]
+    return " / ".join(parts)
 
 
 def format_streak_html(streaks: dict[int, int]) -> str:
