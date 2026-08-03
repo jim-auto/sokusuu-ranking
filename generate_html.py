@@ -84,12 +84,14 @@ CLUB_HINTS = re.compile(
     r"クラブナン|クラナン|クラブ|"
     r"相席|オリラジ|ロマ絵|"
     # 🦾箱 / 📦 / 会場タグの色四角（CRUBD・コマン部系の内訳）
-    r"[🦾🧚📦🟦⬛⬜◼◾▪◻◽]",
+    # 🥂📦 はキャバ等のその他なので 📦 は🥂直後を除外
+    r"[🦾🧚🟦⬛⬜◼◾▪◻◽]|(?<!🥂)📦",
     re.IGNORECASE,
 )
-# パス/代打は「その他」（メインチャネルが無いときだけ）
+# パス/代打/🥂系は「その他」（メインチャネルが無いときだけ other 単独表示）
 OTHER_HINTS = re.compile(
-    r"(?:パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名)(?:即|×|\(|（|\d|[\s　]|$)|その他|オフライン",
+    r"(?:パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名)(?:即|×|\(|（|\d|[\s　]|$)|その他|オフライン|"
+    r"🥂",  # キャバ等。箱(クラブ)とは別枠
     re.IGNORECASE,
 )
 
@@ -115,6 +117,8 @@ CHANNEL_OVERRIDES = {
     "atannon_nampa": ["street"],
     "dick_duck_swing": ["street"],  # スト主（🐶🦁）+ パス多めでもその他にしない
     "yomaru_street": ["street", "club"],  # スト+箱メイン
+    # 🥂📦 等は箱ではなくその他寄り（スト1 + 🥂📦4）
+    "maya159r": ["other", "street"],
 }
 
 
@@ -179,10 +183,14 @@ def _scan_channel_text(text: str) -> list[str]:
         add("online")
     if CLUB_HINTS.search(text):
         add("club")
-    if OTHER_HINTS.search(text) and not any(
-        c in found for c in ("street", "online", "club")
-    ):
-        add("other")
+    # 🥂 / 🥂📦 は箱ではなくその他（キャバ等）
+    if re.search(r"🥂", text) or OTHER_HINTS.search(text):
+        if "other" not in found:
+            # パス等の OTHER_HINTS はメインがあるとき後段で落とされることがある
+            if re.search(r"🥂", text) or not any(
+                c in found for c in ("street", "online", "club")
+            ):
+                add("other")
     return found
 
 
@@ -208,10 +216,17 @@ def estimate_channel_counts(text: str) -> dict[str, int]:
                 counts[channel] += 1
 
     # 絵文字（内訳リスト）— 数量付きを優先して合算
-    # Ⓜ/Ⓜ️(M)→スト、🪩(ミラーボール)→ネト（箱ではない）
+    # Ⓜ/Ⓜ️(M)→スト、🪩(ミラーボール)→ネト
+    # 🥂 / 🥂📦 → その他（キャバ等。箱クラブとは別）
     _add_emoji_qty("street", r"[🐶🦁🦉🏪🦐]|Ⓜ\uFE0F?|🅜")
     _add_emoji_qty("online", r"[🍐🍎🔥🗼🍛🪩]")
+    # 🥂📦 数量（📦 単体の箱カウントより先に拾う）
+    for m in re.finditer(r"🥂\s*📦\s*[:：/／×xｘ*]?\s*(\d+)?", raw):
+        counts["other"] += int(m.group(1)) if m.group(1) else 1
+        # マッチ済み 📦 を潰して二重カウント防止
+        raw = raw[: m.start()] + (" " * (m.end() - m.start())) + raw[m.end() :]
     _add_emoji_qty("club", r"[🦾🧚📦🟦⬛⬜◼◾▪◻◽]")
+    _add_emoji_qty("other", r"[🥂]")
 
     # キーワード回数（数量なしの単なる言及は弱く1）
     # パスは「パス3」「パス×3」「(パス3)」を数量として
@@ -278,11 +293,13 @@ def infer_channels(record: dict) -> list[str]:
         sort_text: str = "",
     ) -> list[str]:
         # 自動推定時: パス由来の other はメインチャネルがあるとき落とす
+        # 🥂（キャバ等）由来の other はメインと併記する（箱ではない）
         # 明示 channels 指定時は other 併記を尊重する
         if (
             drop_other_with_primary
             and "other" in channels
             and any(c in channels for c in ("street", "online", "club"))
+            and not re.search(r"🥂", sort_text or evidence)
         ):
             channels = [c for c in channels if c != "other"]
         if not channels:

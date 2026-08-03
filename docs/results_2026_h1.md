@@ -247,7 +247,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 28 | @Niko_PUA | ニコ | 6 | ストナン | [link](https://x.com/Niko_PUA/status/2083389102792294728) |
 | 29 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) |
 | 30 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) |
-| 31 | @maya159r | まゃった | 5 | ストナン/箱 | [link](https://x.com/maya159r/status/2084031686434820450) |
+| 31 | @maya159r | まゃった | 5 | その他/ストナン | [link](https://x.com/maya159r/status/2084031686434820450) |
 
 ※ `@nakayamasoku` は訂正ツイートで **14即**（[14即だった](https://x.com/nakayamasoku/status/2083364151645376682)）。`@kimu__himitsu2` の4–6月根拠は [@pua_co](https://x.com/pua_co/status/2083907208950292898)。
 
