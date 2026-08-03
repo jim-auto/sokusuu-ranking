@@ -204,7 +204,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 5 | @kimu__himitsu2 | ナンパ版デスドル | 18 | ストナン/ネトナン | [link](https://x.com/pua_co/status/2083907208950292898) |
 | 6 | @okarun_pua | おかるん@りお講習 | 15 | 箱/ストナン/ネトナン | [link](https://x.com/okarun_pua/status/2072302504768090284) |
 | 7 | @puro_nanpa | M氏@ナンパ講師 | 15 | ストナン/箱 | [link](https://x.com/puro_nanpa/status/2072156791669170363) |
-| 8 | @Tt2tb | おはよぉ | 15 | 箱 | [link](https://x.com/Tt2tb/status/2071338301349630274) |
+| 8 | @Tt2tb | おはよぉ | 15 | 箱/ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2071338301349630274) |
 | 9 | @greed_pua | 強欲 | 14 | 謎 | [link](https://x.com/greed_pua/status/2070078324253261966) |
 | 10 | @bookmaker_2015 | とも | 13 | ストナン | [link](https://x.com/bookmaker_2015/status/2071298448721350899) |
 | 11 | @PUAINOKI | フランク | 13 | ストナン | [link](https://x.com/PUAINOKI/status/2071949161881071796) |
@@ -231,7 +231,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 |
 |---|---------|--------|-----:|----------|------|
-| 1 | @kent_o_o | 健人 | 50 | 謎 | [link](https://x.com/kent_o_o/status/2083541870182064575) |
+| 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2083541870182064575) |
 | 2 | @tora_maru005 | とらまる@ナンパ | 43 | ストナン/ネトナン/箱 | [link](https://x.com/tora_maru005/status/2083390707310764210) |
 | 3 | @omamco_pua2 | える | 25 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2083388764559466621) |
 | 4 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) |
@@ -244,7 +244,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 11 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネトナン | [link](https://x.com/nakayamasoku/status/2083364151645376682) |
 | 12 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |
 | 13 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
-| 14 | @Tt2tb | おはよぉ | 14 | 謎 | [link](https://x.com/Tt2tb/status/2081570289641803903) |
+| 14 | @Tt2tb | おはよぉ | 14 | ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2081570289641803903) |
 | 15 | @greed_pua | 強欲 | 13 | 謎 | [link](https://x.com/greed_pua/status/2082065443796496869) |
 | 16 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) |
 | 17 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) |
@@ -261,6 +261,6 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 28 | @SFgzKAHifDvjfVu | Ren | 7 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) |
 | 29 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) |
 | 30 | @Niko_PUA | ニコ | 6 | ストナン | [link](https://x.com/Niko_PUA/status/2083389102792294728) |
-| 31 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) |
+| 31 | @ak1_pua | あぴ | 5 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2081439487230681118) |
 | 32 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) |
 | 33 | @maya159r | まゃった | 5 | その他/ストナン | [link](https://x.com/maya159r/status/2084031686434820450) |

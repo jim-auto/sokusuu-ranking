@@ -60,11 +60,15 @@ CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
 #   online: 🗼(タプ) 🍛(ペアーズ) 🍎 🔥(with等) 🍐 東カレ系 / 🪩(ミラーボール=ネト)
 #   club:   🦾 🧚 📦 / 会場色 🟦⬛️⬜ 等
 STREET_HINTS = re.compile(
-    r"(?<![イアウ])スト(?:ナン|即|準|×|ｘ|x|\d|[\s　/／・・(（脚]|$)|"
+    r"(?<![イアウ])スト(?:ナン|即|準|コンビ|×|ｘ|x|\d|[\s　/／・・(（脚]|$)|"
+    # ひらがな月報: 「すと こんび」「すと?」
+    r"(?:^|[\s　/／|・])すと(?:ナン|即|コンビ|こんび|[\s　/／|・?？×ｘx\d]|$)|"
     r"丘スト|完ソロスト|ソロスト|地方スト|ストリート|"
     r"路上|[🐶🦁🦉🏪🦐]|(?:SGT|MGT)|GTスト|"
     r"味噌(?:スト|1日|遠征)?|明太子|"
     r"弾丸(?:即|×|ｘ|x|\d|[\s　/／(（]|$)|店連れ|"
+    # イベント系ストリート（ひらがな総括向け）
+    r"なつまつり|はなびたいかい|花火大会|夏祭り|うみ🌊|さわがに|"
     # Ⓜ / Ⓜ️ / 🅜 / キーキャップM はストナン
     r"[Mm]️\u20e3|Ⓜ|Ⓜ️|🅜",
     re.IGNORECASE,
@@ -74,9 +78,11 @@ ONLINE_HINTS = re.compile(
     r"マチアプ|マッチングアプリ|東カレ|"
     r"with|ｳｨｽﾞ|ウィズ|wiz|"
     r"タップル?|タプ|tin|tinder|pairs|ペアーズ|"
-    r"[🗼🍛🍎🔥🍐🪩]|"
-    r"ワクメ|アプリ即|ネトナン|イン⭐|"
-    r"某\s*app|使用\s*APP",
+    # ひらがな/崩し字アプリ名
+    r"てぃんだー|ティンダー|いんすた|インスタ|すれっず|スレッズ|threads?|"
+    r"た[🍎🔥]|[🗼🍛🍎🔥🍐🪩]|"
+    r"ワクメ|アプリ即|ネトナン|イン⭐|いん⭐|"
+    r"某\s*app|使用\s*APP|TikTok|ティックトック",
     re.IGNORECASE,
 )
 CLUB_HINTS = re.compile(
@@ -313,12 +319,20 @@ def infer_channels(record: dict) -> list[str]:
             uniq = ["unknown"]
         return order_channels_by_count(uniq, sort_text or evidence)
 
-    # 1) 事前計算済み
+    # 1) 事前計算済み（["unknown"] / "unknown" だけは未確定扱いで本文再推定）
     explicit = record.get("channels")
     if isinstance(explicit, list) and explicit:
-        return finalize(list(explicit), drop_other_with_primary=False, sort_text=evidence)
+        explicit_clean = [c for c in explicit if c in CHANNEL_ORDER and c != "unknown"]
+        if explicit_clean:
+            return finalize(
+                list(explicit_clean),
+                drop_other_with_primary=False,
+                sort_text=evidence,
+            )
     if isinstance(explicit, str) and explicit.strip():
-        return finalize(split_csv(explicit), drop_other_with_primary=False, sort_text=evidence)
+        parts = [c for c in split_csv(explicit) if c != "unknown"]
+        if parts:
+            return finalize(parts, drop_other_with_primary=False, sort_text=evidence)
 
     single = record.get("channel")
     if isinstance(single, str) and single in CHANNEL_ORDER:

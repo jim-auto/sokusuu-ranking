@@ -32,7 +32,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 
 | # | account | 表示名 | 即数 | チャネル | 根拠 | 連続 |
 |---|---------|--------|-----:|----------|------|------|
-| 1 | @kent_o_o | 健人 | 50 | 謎 | [link](https://x.com/kent_o_o/status/2083541870182064575) | 45即4ヶ月 |
+| 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2083541870182064575) | 45即4ヶ月 |
 | 2 | @tora_maru005 | とらまる@ナンパ | 43 | ストナン/ネトナン/箱 | [link](https://x.com/tora_maru005/status/2083390707310764210) | 40即2ヶ月 / 35即3ヶ月 |
 | 3 | @omamco_pua2 | える | 25 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2083388764559466621) | 10即4ヶ月 / 5即7ヶ月 |
 | 4 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) | 20即4ヶ月 |
@@ -45,7 +45,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 11 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネトナン | [link](https://x.com/nakayamasoku/status/2083364151645376682) | - |
 | 12 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) | 10即2ヶ月 / 5即5ヶ月 |
 | 13 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) | - |
-| 14 | @Tt2tb | おはよぉ | 14 | 謎 | [link](https://x.com/Tt2tb/status/2081570289641803903) | 10即7ヶ月 |
+| 14 | @Tt2tb | おはよぉ | 14 | ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2081570289641803903) | 10即7ヶ月 |
 | 15 | @greed_pua | 強欲 | 13 | 謎 | [link](https://x.com/greed_pua/status/2082065443796496869) | 10即7ヶ月 |
 | 16 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) | 10即2ヶ月 |
 | 17 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) | 5即7ヶ月 |
@@ -62,6 +62,6 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 28 | @SFgzKAHifDvjfVu | Ren | 7 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) | 5即6ヶ月 |
 | 29 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) | - |
 | 30 | @Niko_PUA | ニコ | 6 | ストナン | [link](https://x.com/Niko_PUA/status/2083389102792294728) | - |
-| 31 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) | - |
+| 31 | @ak1_pua | あぴ | 5 | ストナン/ネトナン | [link](https://x.com/ak1_pua/status/2081439487230681118) | - |
 | 32 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) | - |
 | 33 | @maya159r | まゃった | 5 | その他/ストナン | [link](https://x.com/maya159r/status/2084031686434820450) | - |
