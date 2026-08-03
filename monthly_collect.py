@@ -649,6 +649,9 @@ def clean_tweet_text(text):
     text = re.sub(r"[\U00010000-\U0010ffff]", " ", text)
     # 異体字を正規化（例: 「6 卽」→「6 即」）
     text = text.replace("卽", "即")
+    # ひらがな表記の月報（例: 「7がつ まとめ 14そく」→「7月 まとめ 14即」）
+    text = re.sub(r"(?<!\d)(1[0-2]|[1-9])\s*がつ", r"\1月", text)
+    text = re.sub(r"(?<=\d)\s*そく(?!\w)", "即", text)
     text = text.replace("\n", " ")
     return re.sub(r"\s+", " ", text).strip()
 
