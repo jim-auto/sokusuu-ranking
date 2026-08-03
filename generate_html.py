@@ -51,6 +51,12 @@ CATEGORY_LABELS = {
     "unknown": "謎",
 }
 CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
+# 表ヘッダ: 複数チャネル時は総括内訳の件数が多い順
+CHANNEL_COL_HEADER = "チャネル（即数が多い順）"
+CHANNEL_COL_TH = (
+    f'<th title="総括本文の内訳件数が多い順（同数はスト→ネト→箱）">'
+    f"{CHANNEL_COL_HEADER}</th>"
+)
 
 # ツイート本文向けのチャネル推定（誤爆しにくいパターン）
 # 「スト」は インスト 等に誤爆しやすいので前後を制限
@@ -693,7 +699,7 @@ def generate_html(records: list[dict]) -> str:
         tab_buttons += f'        <div class="tab{active}" onclick="switchTab(\'{cat}\')">{label} ({count})</div>\n'
 
         show_cat = cat == "all"
-        cat_header = '<th>チャネル</th>' if show_cat else ''
+        cat_header = CHANNEL_COL_TH if show_cat else ''
         rows = build_ranking_rows(filtered, show_category=show_cat)
 
         tab_contents += f"""
@@ -892,7 +898,12 @@ def generate_html(records: list[dict]) -> str:
             y_rows += '</tr>'
 
         display = "block" if is_first else "none"
-        yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
+        yearly_divs += (
+            '<div id="yearly-' + year_id + '" style="display:' + display + '">'
+            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>'
+            + CHANNEL_COL_TH
+            + '</tr></thead><tbody>' + y_rows + '</tbody></table></div>'
+        )
         selected = " selected" if is_first else ""
         # 月次合算の上半期などは period / period_label を優先して表示名を変える
         period = (y_data[0].get("period") or "") if y_data else ""
@@ -999,7 +1010,8 @@ def generate_html(records: list[dict]) -> str:
         monthly_divs += (
             '<div id="monthly-' + month_id + '" style="display:' + display + '">'
             '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>'
-            '<th>チャネル</th><th title="各しきい値以上を何ヶ月連続（当月終点）">'
+            + CHANNEL_COL_TH
+            + '<th title="各しきい値以上を何ヶ月連続（当月終点）">'
             "連続</th></tr></thead><tbody>"
             + m_rows
             + '</tbody></table></div>'
@@ -1311,7 +1323,7 @@ def generate_html(records: list[dict]) -> str:
         即数は全て自己申告ベースであり、正確性は保証されません。
         プロフィールおよび固定ツイートから自動抽出した値です。
         チャネル（ストナン / ネトナン / 箱 / その他 / 謎）はプロフィール・総括ツイートのキーワードから自動判定しています。
-        複数チャネルに当てはまる場合は複数表示されます。判定できない場合は「謎」です。
+        複数チャネルに当てはまる場合は複数表示され、総括内訳の件数が多い順に並べます。判定できない場合は「謎」です。
     </div>
 
     <div class="footer">
