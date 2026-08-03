@@ -131,6 +131,8 @@ CHANNEL_OVERRIDES = {
     "yomaru_street": ["street", "club"],  # スト+箱メイン
     # 🥂📦 等は箱ではなくその他寄り（スト1 + 🥂📦4）
     "maya159r": ["other", "street"],
+    # 強欲: 月次は「今月N即目」のみ。ネト＋パス（表示はネトナン/その他）
+    "greed_pua": ["online", "other"],
 }
 
 
@@ -355,9 +357,14 @@ def infer_channels(record: dict) -> list[str]:
     add_many(_scan_channel_text(evidence))
 
     # 3) 本文が薄いときだけ既知ユーザの上書き
+    #    （ネト+その他 のように other を意図的に併記するケースは drop しない）
     username = str(record.get("username") or "").lower()
     if not found and username in CHANNEL_OVERRIDES:
-        add_many(CHANNEL_OVERRIDES[username])
+        return finalize(
+            list(CHANNEL_OVERRIDES[username]),
+            drop_other_with_primary=False,
+            sort_text=evidence,
+        )
 
     # 4) categories → bio
     if not found:
@@ -382,12 +389,20 @@ def infer_channels(record: dict) -> list[str]:
         if cat_main:
             found = cat_main
         elif username in CHANNEL_OVERRIDES:
-            found = list(CHANNEL_OVERRIDES[username])
+            return finalize(
+                list(CHANNEL_OVERRIDES[username]),
+                drop_other_with_primary=False,
+                sort_text=evidence,
+            )
 
-    # 5) 既知ユーザは本文が path のみ等で other になった場合の補正
+    # 5) 既知ユーザは本文が薄い / unknown のときの補正
     if username in CHANNEL_OVERRIDES:
         if not found or found == ["other"] or found == ["unknown"]:
-            found = list(CHANNEL_OVERRIDES[username])
+            return finalize(
+                list(CHANNEL_OVERRIDES[username]),
+                drop_other_with_primary=False,
+                sort_text=evidence,
+            )
 
     return finalize(found, sort_text=evidence)
 

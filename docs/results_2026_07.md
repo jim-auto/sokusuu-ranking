@@ -46,7 +46,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 12 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) | 10即2ヶ月 / 5即5ヶ月 |
 | 13 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) | - |
 | 14 | @Tt2tb | おはよぉ | 14 | ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2081570289641803903) | 10即7ヶ月 |
-| 15 | @greed_pua | 強欲 | 13 | 謎 | [link](https://x.com/greed_pua/status/2082065443796496869) | 10即7ヶ月 |
+| 15 | @greed_pua | 強欲 | 13 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2082065443796496869) | 10即7ヶ月 |
 | 16 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) | 10即2ヶ月 |
 | 17 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) | 5即7ヶ月 |
 | 18 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) | 10即2ヶ月 / 5即7ヶ月 |

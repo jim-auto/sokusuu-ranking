@@ -30,7 +30,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 2 | @PUAINOKI | フランク | 37 | ストナン/ネトナン | [link](https://x.com/PUAINOKI/status/2017800334023008698) |
 | 3 | @shime_pua | しめ | 25 | ネトナン/ストナン | [link](https://x.com/shime_pua/status/2018182025614971305) |
 | 4 | @sandorafc | ジン@裏垢侍 | 24 | ネトナン/箱 | [link](https://x.com/sandorafc/status/2017934626514456839) |
-| 5 | @greed_pua | 強欲 | 22 | 謎 | [link](https://x.com/greed_pua/status/2017608513653252349) |
+| 5 | @greed_pua | 強欲 | 22 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2017608513653252349) |
 | 6 | @sub_chilll | あつ太郎の本音bot | 21 | 箱 | [link](https://x.com/sub_chilll/status/2018324278249460090) |
 | 7 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
 | 8 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 16 | ネトナン | [link](https://x.com/Tinder_god_2/status/2017565534649467108) |
@@ -59,7 +59,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 2 | @PUAINOKI | フランク | 19 | 謎 | [link](https://x.com/PUAINOKI/status/2028299880339574968) |
 | 3 | @kukuru_nanpa | くくる | 15 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2024709774731071813) |
 | 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 15 | 謎 | [link](https://x.com/mic_pua/status/2028037366959739333) |
-| 5 | @greed_pua | 強欲 | 14 | 謎 | [link](https://x.com/greed_pua/status/2025927291734565336) |
+| 5 | @greed_pua | 強欲 | 14 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2025927291734565336) |
 | 6 | @motebody_pua | エース@体刺し一門関東代表 | 14 | ネトナン | [link](https://x.com/motebody_pua/status/2027684313467408569) |
 | 7 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 13 | 箱 | [link](https://x.com/cx_lm5/status/2027947831307403661) |
 | 8 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2027732435258249323) |
@@ -91,7 +91,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 3 | @okarun_pua | おかるん@りお講習 | 26 | 箱/ネトナン/ストナン | [link](https://x.com/okarun_pua/status/2039311973834428508) |
 | 4 | @PUAINOKI | フランク | 22 | 謎 | [link](https://x.com/PUAINOKI/status/2038964703914008577) |
 | 5 | @Tt2tb | おはよぉ | 18 | ネトナン/箱/ストナン | [link](https://x.com/Tt2tb/status/2061787682615996639) |
-| 6 | @greed_pua | 強欲 | 17 | 謎 | [link](https://x.com/greed_pua/status/2039002756363821543) |
+| 6 | @greed_pua | 強欲 | 17 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2039002756363821543) |
 | 7 | @socool55555 | 味噌どガス | 17 | ネトナン | [link](https://x.com/socool55555/status/2038755306910687441) |
 | 8 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2039186941820989692) |
 | 9 | @sub_chilll | あつ太郎の本音bot | 16 | 箱 | [link](https://x.com/sub_chilll/status/2039302364310741414) |
@@ -127,7 +127,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 5 | @atannon_nampa | あたんのん@ナンパ講師 | 21 | ストナン/箱 | [link](https://x.com/atannon_nampa/status/2050158904630534264) |
 | 6 | @mic_pua | 『トーク刺しのまいく🎤』 | 21 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2050210287236849701) |
 | 7 | @17go_pua | 17号 | 18 | ストナン/箱 | [link](https://x.com/17go_pua/status/2049803710252064834) |
-| 8 | @greed_pua | 強欲 | 17 | 謎 | [link](https://x.com/greed_pua/status/2048602510651523520) |
+| 8 | @greed_pua | 強欲 | 17 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2048602510651523520) |
 | 9 | @mostkkweek | ウィークまりも | 17 | ストナン/ネトナン/箱 | [link](https://x.com/mostkkweek/status/2050146695091220679) |
 | 10 | @omamco_pua2 | える | 17 | 謎 | [link](https://x.com/omamco_pua2/status/2050089251388473636) |
 | 11 | @makoto__pua | 伊藤誠@講習、note始めました | 16 | ストナン | [link](https://x.com/makoto__pua/status/2049896004930207894) |
@@ -166,7 +166,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 6 | @17go_pua | 17号 | 20 | 箱/ストナン | [link](https://x.com/17go_pua/status/2061380476095615309) |
 | 7 | @kimu__himitsu2 | ナンパ版デスドル | 20 | ストナン/ネトナン | [link](https://x.com/pua_co/status/2083907208950292898) |
 | 8 | @makoto__pua | 伊藤誠@講習、note始めました | 20 | ストナン/箱 | [link](https://x.com/makoto__pua/status/2061110224455713106) |
-| 9 | @greed_pua | 強欲 | 18 | 謎 | [link](https://x.com/greed_pua/status/2059224037222727689) |
+| 9 | @greed_pua | 強欲 | 18 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2059224037222727689) |
 | 10 | @mic_pua | 『トーク刺しのまいく🎤』 | 17 | ネトナン/箱 | [link](https://x.com/mic_pua/status/2061697844273352975) |
 | 11 | @socool55555 | 味噌どガス | 15 | ネトナン | [link](https://x.com/socool55555/status/2060857821575721257) |
 | 12 | @yomaru_street | よまる@顔面淘汰男 | 15 | ストナン/箱/ネトナン | [link](https://x.com/yomaru_street/status/2061107630731637184) |
@@ -205,7 +205,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 6 | @okarun_pua | おかるん@りお講習 | 15 | 箱/ストナン/ネトナン | [link](https://x.com/okarun_pua/status/2072302504768090284) |
 | 7 | @puro_nanpa | M氏@ナンパ講師 | 15 | ストナン/箱 | [link](https://x.com/puro_nanpa/status/2072156791669170363) |
 | 8 | @Tt2tb | おはよぉ | 15 | 箱/ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2071338301349630274) |
-| 9 | @greed_pua | 強欲 | 14 | 謎 | [link](https://x.com/greed_pua/status/2070078324253261966) |
+| 9 | @greed_pua | 強欲 | 14 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2070078324253261966) |
 | 10 | @bookmaker_2015 | とも | 13 | ストナン | [link](https://x.com/bookmaker_2015/status/2071298448721350899) |
 | 11 | @PUAINOKI | フランク | 13 | ストナン | [link](https://x.com/PUAINOKI/status/2071949161881071796) |
 | 12 | @motebody_pua | エース@体刺し一門関東代表 | 12 | ネトナン | [link](https://x.com/motebody_pua/status/2071971901023379695) |
@@ -245,7 +245,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 12 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |
 | 13 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
 | 14 | @Tt2tb | おはよぉ | 14 | ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2081570289641803903) |
-| 15 | @greed_pua | 強欲 | 13 | 謎 | [link](https://x.com/greed_pua/status/2082065443796496869) |
+| 15 | @greed_pua | 強欲 | 13 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2082065443796496869) |
 | 16 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2083221841930576154) |
 | 17 | @yomaru_street | よまる@顔面淘汰男 | 13 | ストナン | [link](https://x.com/yomaru_street/status/2083310265932898545) |
 | 18 | @bookmaker_2015 | とも | 12 | ストナン | [link](https://x.com/bookmaker_2015/status/2083185644617203933) |
