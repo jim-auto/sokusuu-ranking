@@ -120,7 +120,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 
 | # | account | 表示名 | 即数 | チャネル（即数が多い順） | 根拠 |
 |---|---------|--------|-----:|----------|------|
-| 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2049917334043910354) |
+| 1 | @kent_o_o | 健人 | 50 | 謎 | [link](https://x.com/kent_o_o/status/2049917334043910354) |
 | 2 | @kukuru_nanpa | くくる | 32 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2049859854077186308) |
 | 3 | @PUAINOKI | フランク | 25 | その他 | [link](https://x.com/PUAINOKI/status/2050051593429754269) |
 | 4 | @oyasugaoo | たいが@ピーコック一門 | 22 | ストナン | [link](https://x.com/oyasugaoo/status/2050200140712190344) |
@@ -158,7 +158,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 
 | # | account | 表示名 | 即数 | チャネル（即数が多い順） | 根拠 |
 |---|---------|--------|-----:|----------|------|
-| 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2061412990239515069) |
+| 1 | @kent_o_o | 健人 | 50 | 謎 | [link](https://x.com/kent_o_o/status/2061412990239515069) |
 | 2 | @tora_maru005 | とらまる@ナンパ | 35 | ストナン/ネトナン | [link](https://x.com/tora_maru005/status/2061775728019169561) |
 | 3 | @kukuru_nanpa | くくる | 25 | ネトナン | [link](https://x.com/kukuru_nanpa/status/2062934212056166885) |
 | 4 | @PUAINOKI | フランク | 22 | その他 | [link](https://x.com/PUAINOKI/status/2061283382060101939) |
@@ -198,7 +198,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | # | account | 表示名 | 即数 | チャネル（即数が多い順） | 根拠 |
 |---|---------|--------|-----:|----------|------|
 | 1 | @tora_maru005 | とらまる@ナンパ | 51 | ストナン/ネトナン | [link](https://x.com/tora_maru005/status/2072680301743288578) |
-| 2 | @kent_o_o | 健人 | 45 | ストナン | [link](https://x.com/kent_o_o/status/2072960097110905072) |
+| 2 | @kent_o_o | 健人 | 45 | 謎 | [link](https://x.com/kent_o_o/status/2072960097110905072) |
 | 3 | @kukuru_nanpa | くくる | 25 | ネトナン/ストナン | [link](https://x.com/kukuru_nanpa/status/2071985839283040736) |
 | 4 | @mic_pua | 『トーク刺しのまいく🎤』 | 20 | ネトナン | [link](https://x.com/mic_pua/status/2072504113624187193) |
 | 5 | @kimu__himitsu2 | ナンパ版デスドル | 18 | ストナン/ネトナン | [link](https://x.com/pua_co/status/2083907208950292898) |
@@ -231,7 +231,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 
 | # | account | 表示名 | 即数 | チャネル（即数が多い順） | 根拠 |
 |---|---------|--------|-----:|----------|------|
-| 1 | @kent_o_o | 健人 | 50 | ストナン | [link](https://x.com/kent_o_o/status/2083541870182064575) |
+| 1 | @kent_o_o | 健人 | 50 | 謎 | [link](https://x.com/kent_o_o/status/2083541870182064575) |
 | 2 | @tora_maru005 | とらまる@ナンパ | 43 | ストナン/ネトナン/箱 | [link](https://x.com/tora_maru005/status/2083390707310764210) |
 | 3 | @omamco_pua2 | える | 25 | ストナン/ネトナン | [link](https://x.com/omamco_pua2/status/2083388764559466621) |
 | 4 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) |

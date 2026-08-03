@@ -109,7 +109,7 @@ OTHER_HINTS = re.compile(
 
 # よく分かっている人のチャネル上書き（プロフィールカテゴリより優先）
 CHANNEL_OVERRIDES = {
-    "kent_o_o": ["street"],
+    # kent_o_o: 総括が「N節/N即」のみでチャネル根拠なし → 本文推定に任せ謎にする
     "taruchan100": ["street"],
     "daigakusei_pua": ["street"],
     "nakayamasoku": ["online"],
