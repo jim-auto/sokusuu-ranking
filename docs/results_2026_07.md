@@ -39,7 +39,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 5 | @17go_pua | 17号 | 17 | ストナン/箱 | [link](https://x.com/17go_pua/status/2083415220517843403) | 5即4ヶ月 |
 | 6 | @makoto__pua | 伊藤誠@講習、note始めました | 17 | ストナン | [link](https://x.com/makoto__pua/status/2083210570925527333) | - |
 | 7 | @PUAINOKI | フランク | 17 | ネトナン/その他 | [link](https://x.com/PUAINOKI/status/2083377255842234433) | 10即7ヶ月 |
-| 8 | @socool55555 | 味噌どガス | 17 | ネトナン | [link](https://x.com/socool55555/status/2083337610295120258) | - |
+| 8 | @socool55555 | 味噌どガス | 17 | ネトナン | [link](https://x.com/socool55555/status/2083337610295120258) | 10即3ヶ月 |
 | 9 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ストナン/ネトナン | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) | 15即3ヶ月 / 10即4ヶ月 |
 | 10 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) | 15即7ヶ月 |
 | 11 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネトナン | [link](https://x.com/nakayamasoku/status/2083364151645376682) | - |
@@ -59,5 +59,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 25 | @chiroru_pua | チロル@帝都の雌猫 | 7 | ストナン | [link](https://x.com/chiroru_pua/status/2083235010656792658) | 5即7ヶ月 |
 | 26 | @SFgzKAHifDvjfVu | Ren | 7 | ストナン/ネトナン | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) | 5即6ヶ月 |
 | 27 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) | - |
-| 28 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) | - |
-| 29 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) | - |
+| 28 | @Niko_PUA | ニコ | 6 | ストナン | [link](https://x.com/Niko_PUA/status/2083389102792294728) | - |
+| 29 | @ak1_pua | あぴ | 5 | 謎 | [link](https://x.com/ak1_pua/status/2081439487230681118) | - |
+| 30 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱 | [link](https://x.com/cx_lm5/status/2083365251693891961) | - |
+| 31 | @maya159r | まゃった | 5 | ストナン/箱 | [link](https://x.com/maya159r/status/2084031686434820450) | - |

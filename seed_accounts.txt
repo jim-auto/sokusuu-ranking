@@ -13,7 +13,6 @@ magic_kaito3
 daredemosex
 streetkyo
 zero_N2
-
 # --- 追加シード ---
 cx_lm5
 River_p823
@@ -38,7 +37,6 @@ qrxt_a
 bokupaipan
 ryepua
 nanpa_pegasasu
-
 # --- ヒットからの追加シード ---
 sub_chilll
 MINE_chan_pua
@@ -55,7 +53,6 @@ pua_yossy
 dt_moteo
 envypua1
 daigakusei_pua
-
 # --- ヒットからの追加シード2 ---
 recoa_nanpa
 1X5r7ZR6nuFySWr
@@ -105,7 +102,6 @@ HyndP2qxWq4n3Xb
 rei_app_pua
 tokumei_pua_
 task_pua
-
 # --- 月次常連バックフィル ---
 ot_aza
 SFgzKAHifDvjfVu
@@ -117,3 +113,5 @@ kimu__himitsu2
 taruchan100
 147asdf764
 makoto__pua
+maya159r
+Niko_PUA
