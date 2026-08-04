@@ -37,7 +37,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 9 | @KDS2DGhK2E79657 | 伊藤ペケポン | 15 | 謎 | [link](https://x.com/KDS2DGhK2E79657/status/2017820458507506127) |
 | 10 | @motebody_pua | エース@体刺し一門関東代表 | 15 | ネトナン | [link](https://x.com/motebody_pua/status/2017527948266656124) |
 | 11 | @omamco_pua2 | える | 15 | ネトナン/ストナン/箱 | [link](https://x.com/omamco_pua2/status/2017803638845116605) |
-| 12 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 13 | ネトナン | [link](https://x.com/tomu_riddle/status/2017975525546012763) |
+| 12 | @tomu_riddle | とむりどる | 13 | ネトナン | [link](https://x.com/tomu_riddle/status/2017975525546012763) |
 | 13 | @dick_duck_swing | 狩るー@淘汰男🙏 | 12 | ストナン | [link](https://x.com/dick_duck_swing/status/2018169414353605025) |
 | 14 | @Tt2tb | おはよぉ | 12 | 謎 | [link](https://x.com/Tt2tb/status/2080153395479097650) |
 | 15 | @yomaru_street | よまる@顔面淘汰男 | 12 | ストナン/箱 | [link](https://x.com/yomaru_street/status/2017898001868665281) |
@@ -65,7 +65,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 7 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 13 | 箱 | [link](https://x.com/cx_lm5/status/2027947831307403661) |
 | 8 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネトナン | [link](https://x.com/Tinder_god_2/status/2027732435258249323) |
 | 9 | @outlook_sabo_4 | さぼ団長@クラナンサロン運営中【SSB】 | 12 | 箱 | [link](https://x.com/outlook_sabo_4/status/2027980319694197212) |
-| 10 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 12 | ネトナン | [link](https://x.com/tomu_riddle/status/2028135483193295205) |
+| 10 | @tomu_riddle | とむりどる | 12 | ネトナン | [link](https://x.com/tomu_riddle/status/2028135483193295205) |
 | 11 | @Tt2tb | おはよぉ | 12 | 謎 | [link](https://x.com/Tt2tb/status/2080153395479097650) |
 | 12 | @makoto__pua | 伊藤誠@講習、note始めました | 11 | ストナン/ネトナン | [link](https://x.com/makoto__pua/status/2027793533583954306) |
 | 13 | @bookmaker_2015 | とも | 9 | ストナン | [link](https://x.com/bookmaker_2015/status/2027744591257211377) |
@@ -248,7 +248,7 @@ PR 確認用スナップショット。月次ランキングのみ。根拠は�
 | 11 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) |
 | 12 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネトナン | [link](https://x.com/nakayamasoku/status/2083364151645376682) |
 | 13 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) |
-| 14 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
+| 14 | @tomu_riddle | とむりどる | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) |
 | 15 | @Tt2tb | おはよぉ | 14 | ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2081570289641803903) |
 | 16 | @greed_pua | 強欲 | 13 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2082065443796496869) |
 | 17 | @jiro11321 | でんじろ@黒岩コンサル | 13 | ネトナン | [link](https://x.com/jiro11321/status/2083888620977676475) |

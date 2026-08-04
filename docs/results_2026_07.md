@@ -45,7 +45,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 11 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) | 15即7ヶ月 |
 | 12 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネトナン | [link](https://x.com/nakayamasoku/status/2083364151645376682) | - |
 | 13 | @okarun_pua | おかるん@りお講習 | 14 | ストナン/ネトナン/箱 | [link](https://x.com/okarun_pua/status/2083390558547083356) | 10即2ヶ月 / 5即5ヶ月 |
-| 14 | @tomu_riddle | とむりどる@マッチングアプリ世界一位🌍 | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) | - |
+| 14 | @tomu_riddle | とむりどる | 14 | ネトナン | [link](https://x.com/tomu_riddle/status/2083477049273147574) | - |
 | 15 | @Tt2tb | おはよぉ | 14 | ストナン/ネトナン | [link](https://x.com/Tt2tb/status/2081570289641803903) | 10即7ヶ月 |
 | 16 | @greed_pua | 強欲 | 13 | ネトナン/その他 | [link](https://x.com/greed_pua/status/2082065443796496869) | 10即7ヶ月 |
 | 17 | @jiro11321 | でんじろ@黒岩コンサル | 13 | ネトナン | [link](https://x.com/jiro11321/status/2083888620977676475) | 10即2ヶ月 |
