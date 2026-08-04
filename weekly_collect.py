@@ -189,12 +189,24 @@ def is_live_soku_announce(text: str) -> bool:
       そ / そーーく / いーじーーそ
       2そ目 + しょのち
       🟦即NN体しこ
+
+    非ライブ（詳細レポート）:
+      即/スペ120 … / 準即/P活 … / 昨日2節 …
     """
     raw = text or ""
     if raw.startswith("RT @") or raw.startswith("RT@"):
         return False
     bare = _strip_urls_emoji(raw)
     if not bare or len(bare) > 90:
+        return False
+    # 明細レポート・日次まとめはライブ即ではない
+    if re.search(r"(?:即|節|準即)\s*/", raw):
+        return False
+    if re.search(r"昨日\s*\d|今日\s*\d|本日\s*\d", raw):
+        return False
+    if re.search(r"準即|パス即|満即|大満即|不満即|ノーグダ即", raw) and (
+        len(bare) > 25 or re.search(r"合致|値|杯|NN|搬", raw)
+    ):
         return False
     # しょのち / 搬送だけの投稿はライブ即ではない
     if re.fullmatch(r"(?:しょのち|詳細後|はんそう|搬送|もどる)+", bare.replace(" ", "")):
@@ -205,18 +217,18 @@ def is_live_soku_announce(text: str) -> bool:
     ):
         return False
 
-    # 即 / 節 短文
-    if re.match(r"^(?:即|節)\b", bare):
+    # 即 / 節 短文（「即 引退やな」程度は可。長文詳細は不可）
+    if re.match(r"^(?:即|節)\b", bare) and len(bare) <= 40:
         return True
-    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!‼️NＮ体])", bare) and len(bare) <= 40:
+    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!‼️NＮ体])", bare) and len(bare) <= 30:
         return True
 
     # Nそ目（2そ目 = 2件目の即）
-    if re.search(r"\d+\s*そ目", bare):
+    if re.search(r"\d+\s*そ目", bare) and len(bare) <= 40:
         return True
 
     # いーじーそ / いーじーーそ
-    if re.search(r"い[ー〜～]*じ[ー〜～]*そ", bare):
+    if re.search(r"い[ー〜～]*じ[ー〜～]*そ", bare) and len(bare) <= 40:
         return True
 
     # そ / そーく / そーーく（それ・そんな 等を除外）
@@ -225,7 +237,14 @@ def is_live_soku_announce(text: str) -> bool:
     if re.search(r"(?:^|[\s　])そ[ー〜～]*く?(?:\s|$|[！!‼️😄])", bare) and len(bare) <= 50:
         return True
     # 行頭のみの そ
-    if re.match(r"^そ[ー〜～]*く?\s*$", bare.split("\n")[0].strip() if "\n" in raw else bare):
+    first = bare.split("\n")[0].strip() if "\n" in raw else bare
+    if re.match(r"^そ[ー〜～]*く?\s*$", first):
+        return True
+
+    # 超短文の 準即（詳細なし）
+    if re.match(r"^(?:準即|パス即)\s*$", bare) or (
+        re.match(r"^(?:準即|パス即)\b", bare) and len(bare) <= 12
+    ):
         return True
 
     return False
@@ -267,7 +286,7 @@ def is_multi_case_recap(text: str) -> bool:
 
 
 def is_independent_case_report(text: str) -> bool:
-    """単独で1件以上数えられる確定ケース（ライブ即の後続詳細に潰さない）。"""
+    """単独で1件以上数えられる確定ケース報告。"""
     raw = text or ""
     if is_period_recap_tweet(raw):
         return False
@@ -281,6 +300,48 @@ def is_independent_case_report(text: str) -> bool:
     if is_multi_case_recap(raw):
         return True
     return False
+
+
+def is_quote_tweet(tweet: dict, text: str = "") -> bool:
+    """引用ツイート。他人の即報告のQTで二重に積み上げない。"""
+    if tweet.get("is_quote"):
+        return True
+    raw = text or tweet.get("text") or ""
+    if re.search(r"(?:^|\s)QT\s*@", raw, re.IGNORECASE):
+        return True
+    urls = re.findall(r"https?://(?:x|twitter)\.com/\w+/status/\d+", raw)
+    bare = _strip_urls_emoji(raw)
+    if urls and len(bare) <= 40:
+        return True
+    return False
+
+
+def extract_day_recap_n(text: str) -> tuple[str, int] | None:
+    """昨日N節 / 今日N即 の (kind, N)。kind は yesterday|today。"""
+    raw = text or ""
+    m = re.search(r"昨日\s*([1-9]\d?)\s*(?:即|節)", raw)
+    if m:
+        return ("yesterday", int(m.group(1)))
+    m = re.search(r"(?:今日|本日)\s*([1-9]\d?)\s*(?:即|節)", raw)
+    if m:
+        return ("today", int(m.group(1)))
+    return None
+
+
+def extract_mentioned_usernames(text: str) -> list[str]:
+    """本文から @user を抽出（芋づる用）。"""
+    found: list[str] = []
+    seen: set[str] = set()
+    for m in re.finditer(r"@([A-Za-z0-9_]{1,15})", text or ""):
+        u = m.group(1)
+        key = u.lower()
+        if key in seen:
+            continue
+        if key in {"x", "twitter", "youtube", "instagram", "tiktok"}:
+            continue
+        seen.add(key)
+        found.append(u)
+    return found
 
 
 def has_success_marker_in_raw(raw: str) -> bool:
@@ -316,6 +377,43 @@ def has_success_marker_in_raw(raw: str) -> bool:
     return False
 
 
+def is_meta_or_third_party_soku_talk(text: str) -> bool:
+    """他人の即ペース推定・マイルストーン雑談・理論トーク（本人ケースではない）。
+
+    例:
+      推定1即/半年
+      200即→300即の過程でもまだ学びある
+      数追いは必要性感じない
+    """
+    raw = text or ""
+    # レート推定（N即/半年・N即/月）
+    if re.search(
+        r"推定\s*\d+\s*(?:即|節)|"
+        r"\d+\s*(?:即|節)\s*/\s*(?:半年|年間|年|月|週|日)|"
+        r"(?:即|節)\s*/\s*(?:半年|年間|年|月)",
+        raw,
+    ):
+        return True
+    # 通算マイルストーン雑談（200即→300即 の過程）
+    if re.search(
+        r"\d{2,4}\s*(?:即|節)\s*[→➡➝]\s*\d{2,4}\s*(?:即|節)|"
+        r"(?:過程|学び|数追い|必要性|理論|マインド|モテ寄り)",
+        raw,
+    ) and re.search(r"\d+\s*(?:即|節)", raw):
+        # 短文ライブ即は除外しない
+        bare = _strip_urls_emoji(raw)
+        if len(bare) > 30 or not is_live_soku_announce(raw):
+            return True
+    # 他人観察（誰なんだろう / 代表格 / 糖質ナンパ師）
+    if re.search(
+        r"誰なんだろう|代表格|糖質|淘汰されて|ヒシヒシ|"
+        r"教えてもらったように|当日即とか|ナンパどうこう",
+        raw,
+    ):
+        return True
+    return False
+
+
 def count_stack_units(text: str) -> int:
     """1ツイート内の即/節報告を何件として積むか。
 
@@ -327,6 +425,8 @@ def count_stack_units(text: str) -> int:
     if raw.startswith("RT @") or raw.startswith("RT@"):
         return 0
     if is_period_recap_tweet(raw):
+        return 0
+    if is_meta_or_third_party_soku_talk(raw):
         return 0
 
     cleaned = clean_tweet_text(raw)
@@ -359,8 +459,13 @@ def count_stack_units(text: str) -> int:
     if not has_success_marker_in_raw(raw):
         return 0
 
-    # 明細付きケース: 即/24 節/22（raw 基準・合成のネト1即は使わない）
-    slash_n = len(re.findall(r"(?:即|節|準即)\s*/\s*[^\s]", raw))
+    # 明細付きケース: 即/24 節/22（半年・月ペース表記は除外）
+    slash_n = len(
+        re.findall(
+            r"(?:即|節|準即)\s*/\s*(?!半年|年間|年\b|月\b|週\b|日\b)[^\s]",
+            raw,
+        )
+    )
     if slash_n:
         return min(slash_n, 8)
 
@@ -442,19 +547,30 @@ def extract_setsu_milestone(text: str) -> int | None:
 def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> dict | None:
     """週内ツイートを積み上げて週間件数を作る。
 
-    ライブ即 → 後続詳細（しょのち / 搬 / 明細）は 1 ケースとして二重計上しない。
+    二重計上を抑える:
+    - ライブ即の後続詳細（即/明細・準即レポート含む）は 12h 以内なら詳細扱い
+    - 昨日N節 は「その日すでに積んだ件数」を差し引く
+    - 引用ツイートは原則スキップ
     """
     stack_total = 0
     evidence_items: list[dict] = []
     milestones: list[int] = []
     explicit_best = None
     # ライブ即の直後に詳細が続く窓（時間）
-    detail_window = timedelta(hours=12)
+    detail_window = timedelta(hours=14)
     pending_live_dt: datetime | None = None
+    # カレンダー日ごとの積算（昨日N節の重複除去用）
+    day_units: dict[date, int] = {}
+    discovered: list[str] = []
 
     def _sort_key(t: dict):
         dt = parse_tweet_dt(t.get("created_at", ""))
         return dt or datetime(1970, 1, 1, tzinfo=timezone.utc)
+
+    def _add_day(d: date | None, n: int) -> None:
+        if d is None or n <= 0:
+            return
+        day_units[d] = day_units.get(d, 0) + n
 
     # 古い→新しいでペアリング
     ordered = sorted(tweets, key=_sort_key)
@@ -462,16 +578,23 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
     for tweet in ordered:
         created_dt = parse_tweet_dt(tweet.get("created_at", ""))
         created = created_dt.date() if created_dt else None
+        text = tweet.get("text", "") or ""
+
+        # 芋づる: メンション回収（週外も含む）
+        for m in extract_mentioned_usernames(text):
+            if m.lower() != username.lower():
+                discovered.append(m)
+
         # 積み上げは週そのもの（start〜end）のみ
         if created and not (start <= created <= end):
             # 明示週間合計だけ報告窓+2日を許可
             if created <= end + timedelta(days=2):
-                total = extract_weekly_total(tweet.get("text", ""), start, end)
+                total = extract_weekly_total(text, start, end)
                 if total:
                     hit = {
                         "count": total,
                         "url": f"https://x.com/{username}/status/{tweet['id']}",
-                        "text": (tweet.get("text") or "")[:500],
+                        "text": text[:500],
                         "created_at": tweet.get("created_at", ""),
                         "method": "explicit",
                     }
@@ -479,7 +602,6 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
                         explicit_best = hit
             continue
 
-        text = tweet.get("text", "") or ""
         total = extract_weekly_total(text, start, end)
         if total:
             hit = {
@@ -495,6 +617,13 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
         ms = extract_setsu_milestone(text)
         if ms is not None:
             milestones.append(ms)
+
+        # 引用は原則スキップ（自分の成功報告のQT二重計上を防ぐ）
+        if is_quote_tweet(tweet, text):
+            # ただし短い「即」だけのQTコメントはライブ即として扱う余地あり
+            bare = _strip_urls_emoji(text)
+            if not (is_live_soku_announce(text) and len(bare) <= 20):
+                continue
 
         # しょのち単独は件数にしない（直前ライブのフラグ）
         if is_shousai_later_flag(text) and not has_success_marker_in_raw(text):
@@ -512,19 +641,55 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
                 )
             continue
 
+        # 昨日N節 / 今日N節 — 日次ですでに積んだ分を差し引く
+        day_recap = extract_day_recap_n(text)
+        if day_recap and created:
+            kind, n = day_recap
+            target = created - timedelta(days=1) if kind == "yesterday" else created
+            already = day_units.get(target, 0)
+            add = max(0, min(n, 8) - already)
+            tid = str(tweet.get("id") or "")
+            role = "day_recap" if add > 0 else "day_recap_dup"
+            if add > 0:
+                stack_total += add
+                _add_day(target, add)
+                pending_live_dt = None
+            evidence_items.append(
+                {
+                    "units": add,
+                    "tweet_id": tid,
+                    "url": f"https://x.com/{username}/status/{tid}",
+                    "created_at": tweet.get("created_at", ""),
+                    "text": text[:500],
+                    "role": role,
+                }
+            )
+            continue
+
         units = count_stack_units(text)
         role = "case_report"
         live = is_live_soku_announce(text)
 
-        # ライブ即の後続詳細 → 件数は足さず根拠だけ残す
-        # （準即/・即/明細など独立ケースは潰さない）
+        # ライブ即の後続詳細（フルケース含む）→ 件数は足さず根拠だけ
+        # 例: 「即」→ 数時間後「🗼🍛即/スペ…」は同一ケース
         if (
             pending_live_dt
             and created_dt
             and created_dt - pending_live_dt <= detail_window
             and not live
-            and not is_independent_case_report(text)
-            and (is_case_detail_tweet(text) or (units > 0 and not is_live_soku_announce(text)))
+            and units > 0
+            and not is_multi_case_recap(text)
+        ):
+            role = "case_detail"
+            units = 0
+            pending_live_dt = None
+        elif (
+            pending_live_dt
+            and created_dt
+            and created_dt - pending_live_dt <= detail_window
+            and not live
+            and units <= 0
+            and is_case_detail_tweet(text)
         ):
             role = "case_detail"
             units = 0
@@ -533,34 +698,23 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
             if live:
                 pending_live_dt = created_dt
             else:
-                # 独立ケース報告のあとは詳細待ちをクリア
                 pending_live_dt = None
-        elif is_case_detail_tweet(text) and pending_live_dt and created_dt:
-            if (
-                created_dt - pending_live_dt <= detail_window
-                and not is_independent_case_report(text)
-            ):
-                role = "case_detail"
-                units = 0
-                pending_live_dt = None
-            else:
-                continue
+            _add_day(created, units)
         else:
             continue
 
-        if units > 0 or role == "case_detail":
-            stack_total += units
-            tid = str(tweet.get("id") or "")
-            evidence_items.append(
-                {
-                    "units": units,
-                    "tweet_id": tid,
-                    "url": f"https://x.com/{username}/status/{tid}",
-                    "created_at": tweet.get("created_at", ""),
-                    "text": text[:500],
-                    "role": role,
-                }
-            )
+        stack_total += units
+        tid = str(tweet.get("id") or "")
+        evidence_items.append(
+            {
+                "units": units,
+                "tweet_id": tid,
+                "url": f"https://x.com/{username}/status/{tid}",
+                "created_at": tweet.get("created_at", ""),
+                "text": text[:500],
+                "role": role,
+            }
+        )
 
     # 節目の差分（週内で今月N節目が伸びた分）
     milestone_delta = 0
@@ -585,8 +739,17 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
                 "role": "explicit_total",
             }
         ]
+        explicit_best["discovered_usernames"] = sorted(set(discovered))
         return explicit_best
     if stack_count <= 0:
+        # 件数0でも芋づるメンションは返す
+        if discovered:
+            return {
+                "count": 0,
+                "method": "stack",
+                "discovered_usernames": sorted(set(discovered)),
+                "evidence_items": [],
+            }
         return None
 
     # 新しい順
@@ -599,10 +762,14 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
     scored = [e for e in evidence_items if int(e.get("units") or 0) > 0]
     ev = scored[0] if scored else evidence_items[0]
     case_n = sum(1 for e in evidence_items if int(e.get("units") or 0) > 0)
-    detail_n = sum(1 for e in evidence_items if e.get("role") == "case_detail")
+    detail_n = sum(
+        1
+        for e in evidence_items
+        if e.get("role") in {"case_detail", "day_recap_dup"}
+    )
     summary = f"積み上げ{stack_count}（報告{case_n}投稿"
     if detail_n:
-        summary += f" / 詳細{detail_n}"
+        summary += f" / 詳細・重複除外{detail_n}"
     if milestone_delta:
         summary += f" / 節目+{milestone_delta}"
     summary += "）"
@@ -616,6 +783,7 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
         "milestone_delta": milestone_delta,
         "stack_summary": summary,
         "evidence_items": evidence_items,
+        "discovered_usernames": sorted(set(discovered)),
     }
 
 
@@ -745,6 +913,10 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
                 role_ja = "週間合計"
             elif role == "case_detail":
                 role_ja = "詳細"
+            elif role == "day_recap":
+                role_ja = "日次まとめ"
+            elif role == "day_recap_dup":
+                role_ja = "日次重複除外"
             else:
                 role_ja = "ケース"
             elines.append(f"{j}. **+{units}**（{role_ja}） {created}")
@@ -860,6 +1032,18 @@ async def main_async() -> None:
         action="store_true",
         help="既存 weekly JSON にマージ（--only と併用向き）",
     )
+    parser.add_argument(
+        "--discover",
+        type=int,
+        default=1,
+        help="芋づる深さ（メンションから追加走査する段数, 0=なし, default=1）",
+    )
+    parser.add_argument(
+        "--discover-max",
+        type=int,
+        default=80,
+        help="芋づるで追加する最大人数（default 80）",
+    )
     parser.add_argument("--headful", action="store_true")
     args = parser.parse_args()
 
@@ -906,6 +1090,19 @@ async def main_async() -> None:
     sessions = create_sessions()
     session_idx = [0]
     cookie_sets = load_playwright_cookie_sets()
+    mention_scores: dict[str, int] = {}
+    scanned: set[str] = set()
+    # mention_scores の key は lower。表示用の元綴り
+    mention_canon: dict[str, str] = {}
+
+    def note_mentions2(names: list[str], weight: int = 1) -> None:
+        for n in names:
+            raw = (n or "").strip().lstrip("@")
+            key = raw.lower()
+            if not key or key in scanned:
+                continue
+            mention_scores[key] = mention_scores.get(key, 0) + weight
+            mention_canon.setdefault(key, raw)
 
     from playwright.async_api import async_playwright
 
@@ -915,27 +1112,43 @@ async def main_async() -> None:
         )
         ctx = contexts[0]["context"]
 
-        for i, username in enumerate(seeds, 1):
+        async def process_user(username: str, i: int, total_n: int, wave: str) -> None:
             tweets = await collect_user_tweets_for_week(
                 ctx, sessions, session_idx, username, start, end
             )
+            scanned.add(username.lower())
             hit = stack_weekly_from_tweets(tweets, username, start, end)
-            if not hit:
-                # 再収集で0件なら merge からも落とす
+            note_mentions2((hit or {}).get("discovered_usernames") or [], weight=2)
+            # ツイート全文からも軽く拾う
+            for t in tweets:
+                note_mentions2(extract_mentioned_usernames(t.get("text") or ""), weight=1)
+
+            if not hit or int(hit.get("count") or 0) <= 0:
                 key = username.lower()
                 if key in results_map:
                     print(f"  [drop] @{username} (recollect 0)")
                     results_map.pop(key, None)
                 if i % 20 == 0:
-                    print(f"  [{i}/{len(seeds)}] hits={len(results_map)}")
-                continue
+                    print(f"  [{wave} {i}/{total_n}] hits={len(results_map)}")
+                return
 
             account = dict(accounts_map.get(username.lower(), {}))
             account.setdefault("username", username)
             if username.lower() in display_overrides:
                 account["display_name"] = display_overrides[username.lower()]
             elif not account.get("display_name"):
-                account["display_name"] = username
+                account["display_name"] = (
+                    next(
+                        (
+                            t.get("display_name")
+                            for t in tweets
+                            if (t.get("username") or "").lower() == username.lower()
+                            and t.get("display_name")
+                        ),
+                        None,
+                    )
+                    or username
+                )
             method = hit.get("method", "stack")
             match_source = "stack" if method == "stack" else "search"
             row = build_period_result(account, hit, "weekly_count", match_source)
@@ -950,10 +1163,9 @@ async def main_async() -> None:
                 row["evidence_items"] = hit["evidence_items"]
 
             key = username.lower()
-            # 週次 trial は再収集で常に上書き（厳格化で件数が下がることも）
             results_map[key] = row
             print(
-                f"  [{method}] @{username}: {hit['count']}"
+                f"  [{wave}/{method}] @{username}: {hit['count']}"
                 + (
                     f" (posts={hit.get('stack_posts')})"
                     if method == "stack"
@@ -961,7 +1173,53 @@ async def main_async() -> None:
                 )
             )
 
+        # wave0: seed
+        for i, username in enumerate(seeds, 1):
+            await process_user(username, i, len(seeds), "seed")
+
+        # wave1+: メンション芋づる
+        for depth in range(1, max(0, args.discover) + 1):
+            candidates = [
+                (mention_canon.get(k, k), score)
+                for k, score in mention_scores.items()
+                if k not in scanned and score >= 1
+            ]
+            candidates.sort(key=lambda x: (-x[1], x[0].lower()))
+            wave_users = [u for u, _ in candidates[: args.discover_max]]
+            if not wave_users:
+                print(f"  [discover d{depth}] no new candidates")
+                break
+            print(
+                f"  [discover d{depth}] +{len(wave_users)} users "
+                f"(pool={len(candidates)}) e.g. {', '.join('@'+u for u in wave_users[:8])}"
+            )
+            # seed_accounts にも追記候補をメモ
+            for i, username in enumerate(wave_users, 1):
+                await process_user(username, i, len(wave_users), f"d{depth}")
+
         await browser.close()
+
+    # 芋づるで見つかった username を seed に追記（未登録のみ）
+    seed_path = Path("seed_accounts.txt")
+    if seed_path.exists() and mention_canon:
+        existing = {
+            ln.strip().lstrip("@").lower()
+            for ln in seed_path.read_text(encoding="utf-8").splitlines()
+            if ln.strip() and not ln.startswith("#")
+        }
+        new_lines = []
+        for k, score in sorted(mention_scores.items(), key=lambda x: -x[1]):
+            if k in existing or k in {s.lower() for s in seeds}:
+                continue
+            if score < 2:
+                continue
+            new_lines.append(mention_canon.get(k, k))
+        if new_lines:
+            with seed_path.open("a", encoding="utf-8") as f:
+                f.write("\n# --- 芋づる自動追加 ---\n")
+                for u in new_lines[:60]:
+                    f.write(u + "\n")
+            print(f"seed_accounts.txt += {min(len(new_lines), 60)} (mention>=2)")
 
     rows = [normalize_period_row(r) for r in results_map.values()]
     # evidence_items は normalize で落ちないよう再付与

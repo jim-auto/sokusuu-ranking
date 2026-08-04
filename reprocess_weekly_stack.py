@@ -5,7 +5,7 @@ import json
 from datetime import date
 from pathlib import Path
 
-from weekly_collect import count_stack_units, write_weekly_markdown
+from weekly_collect import stack_weekly_from_tweets, write_weekly_markdown
 
 PATH = Path("data/weekly_2026-07-27_2026-08-02.json")
 START, END = date(2026, 7, 27), date(2026, 8, 2)
@@ -18,40 +18,40 @@ def main() -> None:
 
     for r in rows:
         method = r.get("count_method") or r.get("match_source")
+        username = r.get("username") or ""
         if method == "explicit":
             new_rows.append(r)
             continue
 
         items = r.get("evidence_items") or []
-        kept = []
-        total = 0
-        username = r.get("username")
-        for e in items:
-            text = e.get("text") or ""
-            units = count_stack_units(text)
-            if units <= 0:
-                preview = text.replace("\n", " ")[:40]
-                print(f"  drop @{username}: {preview!r}")
-                continue
-            e2 = dict(e)
-            e2["units"] = units
-            kept.append(e2)
-            total += units
+        tweets = [
+            {
+                "id": e.get("tweet_id") or e.get("url", "").rsplit("/", 1)[-1],
+                "text": e.get("text") or "",
+                "created_at": e.get("created_at") or "",
+                "is_quote": e.get("is_quote", False),
+            }
+            for e in items
+            if e.get("text") or e.get("role") == "explicit_total"
+        ]
+        if not tweets:
+            continue
 
-        if total < MIN_COUNT:
-            print(f"  OUT @{username}: {r.get('weekly_count')} -> {total} (posts {len(kept)})")
+        hit = stack_weekly_from_tweets(tweets, username, START, END)
+        if not hit or int(hit.get("count") or 0) < MIN_COUNT:
+            print(f"  OUT @{username}: {r.get('weekly_count')} -> {hit.get('count') if hit else 0}")
             continue
 
         r2 = dict(r)
         old = r2.get("weekly_count")
-        r2["weekly_count"] = total
-        r2["count"] = total
-        r2["stack_posts"] = len(kept)
-        r2["evidence_items"] = kept
-        r2["stack_summary"] = f"積み上げ{total}（報告{len(kept)}投稿）"
+        r2["weekly_count"] = hit["count"]
+        r2["count"] = hit["count"]
+        r2["stack_posts"] = hit.get("stack_posts")
+        r2["evidence_items"] = hit.get("evidence_items") or []
+        r2["stack_summary"] = hit.get("stack_summary")
         r2["count_method"] = "stack"
-        if old != total:
-            print(f"  @{username}: {old} -> {total} (posts {len(kept)})")
+        if old != hit["count"]:
+            print(f"  @{username}: {old} -> {hit['count']}")
         new_rows.append(r2)
 
     new_rows.sort(

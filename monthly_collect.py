@@ -541,6 +541,12 @@ def parse_tweet_items(entries):
                     "created_at": created_at,
                     "username": username,
                     "display_name": display_name,
+                    "is_quote": bool(legacy.get("is_quote_status")),
+                    "quoted_status_id": legacy.get("quoted_status_id_str") or "",
+                    "in_reply_to_status_id": legacy.get("in_reply_to_status_id_str")
+                    or "",
+                    "in_reply_to_screen_name": legacy.get("in_reply_to_screen_name")
+                    or "",
                 }
             )
 
