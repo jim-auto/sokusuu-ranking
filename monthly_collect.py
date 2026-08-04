@@ -1029,13 +1029,16 @@ def extract_yearly_profile_count(text, year):
         return None
 
     short_year = str(year)[2:]
-    count_unit = r"(?:即|get|g\b)"
+    # 即 / 節 / g（界隈プロフで年間単位に使う）
+    count_unit = r"(?:即|節|get|g\b)"
     count_suffix = rf"(?:\([^)]{{0,30}}\))?\s*{count_unit}"
     patterns = [
         rf"(?:(?:{year}|{short_year})年)\s*(?:→|:|：|は|=)?\s*(\d+)(?:\(\+\d+\))?\s*{count_suffix}",
         rf"(?:(?:{year}|{short_year})年).{{0,14}}?(\d+)(?:\(\+\d+\))?\s*{count_suffix}",
-        rf"(?:(?:{year}|{short_year})年)\s*(\d+)(?=\s*(?:\([^)]{{0,30}}\))?\s*(?:即|get|g\b)|[/|,、 ])",
-        rf"(?<!\d)(?:{year}|{short_year})\s*[:：]\s*(\d+)(?:\(\+\d+\))?(?=\s*即|[/|,、 ])",
+        rf"(?:(?:{year}|{short_year})年)\s*(\d+)(?=\s*(?:\([^)]{{0,30}}\))?\s*(?:即|節|get|g\b)|[/|,、 ])",
+        rf"(?<!\d)(?:{year}|{short_year})\s*[:：]\s*(\d+)(?:\(\+\d+\))?(?=\s*(?:即|節)|[/|,、 ])",
+        # 25年95節 / 2025年154即
+        rf"(?:(?:{year}|{short_year})年)(\d+)(?:即|節|g\b)",
     ]
     exclude_pattern = re.compile(
         rf"(?:\d{{1,2}}月|\d{{1,2}}日|FY|年度|上半期|下半期|目標|予定|目指す|"
