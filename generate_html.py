@@ -445,6 +445,21 @@ def generate_html(records: list[dict]) -> str:
         if not y_data:
             continue
 
+        # 年間表は10即以上のみ掲載
+        y_data = [
+            r for r in y_data if int(r.get("yearly_count") or 0) >= 10
+        ]
+        y_data = sorted(
+            y_data,
+            key=lambda r: (
+                -int(r.get("yearly_count") or 0),
+                -(r.get("followers_count") or 0),
+                (r.get("username") or "").lower(),
+            ),
+        )
+        if not y_data:
+            continue
+
         year_id = "y" + str(y_year)
         is_first = not first_year_id
         if is_first:
@@ -474,7 +489,7 @@ def generate_html(records: list[dict]) -> str:
         display = "block" if is_first else "none"
         yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>カテゴリ</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
         selected = " selected" if is_first else ""
-        yearly_options += '<option value="' + year_id + '"' + selected + '>' + str(y_year) + '年 (' + str(len(y_data)) + '件・集計中)</option>'
+        yearly_options += '<option value="' + year_id + '"' + selected + '>' + str(y_year) + '年（10即以上）</option>'
 
     if yearly_divs:
         yearlyselect_active = active_class("yearlyselect")
