@@ -58,18 +58,42 @@ CHANNEL_SHORT_LABELS = {
     "other": "その他",
     "unknown": "謎",
 }
-# チャネル代表絵文字（凡例の先頭寄り）
-CHANNEL_REPRESENTATIVE_EMOJI = {
-    "street": "🐶",
-    "online": "🔥",
-    "club": "🦾",
-    "other": "🥂",
+# 絵文字 → チャネル（総括内訳）。表示は「実際に使われた絵文字」を優先する
+EMOJI_TO_CHANNEL: dict[str, str] = {
+    "🐶": "street",
+    "🦁": "street",
+    "🦉": "street",
+    "🏪": "street",
+    "🦐": "street",
+    "Ⓜ": "street",
+    "Ⓜ️": "street",
+    "🍐": "online",
+    "🍎": "online",
+    "🔥": "online",
+    "🗼": "online",
+    "🍛": "online",
+    "🪩": "online",
+    "🦾": "club",
+    "🧚": "club",
+    "📦": "club",
+    "🟦": "club",
+    "⬛": "club",
+    "⬛\ufe0f": "club",
+    "⬜": "club",
+    "⬜\ufe0f": "club",
+    "◼": "club",
+    "◾": "club",
+    "▪": "club",
+    "◻": "club",
+    "◽": "club",
+    "🥂": "other",
 }
 CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
 # 表ヘッダ: 複数チャネル時は総括内訳の件数が多い順
 CHANNEL_COL_HEADER = "チャネル（即数が多い順）"
 CHANNEL_COL_TH = (
-    f'<th title="総括本文の内訳件数が多い順。件数付きは スト（🐶N）、ネト（🔥M）形式">'
+    f'<th title="総括本文の内訳。件数付きは実際の絵文字ごと（例: ネト（🍐5・🍎6・🔥2））。'
+    f'キーワードのみのときは スト（9）">'
     f"{CHANNEL_COL_HEADER}</th>"
 )
 
@@ -223,63 +247,189 @@ def _scan_channel_text(text: str) -> list[str]:
     return found
 
 
-def estimate_channel_counts(text: str) -> dict[str, int]:
-    """総括本文からチャネル別の件数をざっくり数える（表示順用）。
+def _normalize_emoji_token(token: str) -> str:
+    """絵文字トークンをマップ照合用に正規化。"""
+    if not token:
+        return ""
+    # VS16 付き/なし両対応
+    bare = token.replace("\ufe0f", "")
+    if token in EMOJI_TO_CHANNEL:
+        return token
+    if bare in EMOJI_TO_CHANNEL:
+        return bare
+    if bare + "\ufe0f" in EMOJI_TO_CHANNEL:
+        return bare + "\ufe0f"
+    return token
 
-    絵文字1個・「パス」1回・「スト×N」などを加点する。
+
+def parse_channel_breakdown(text: str) -> dict[str, dict]:
+    """総括本文からチャネル内訳を解析する。
+
+    戻り値:
+      {
+        "street": {"total": 6, "emojis": {"🐶": 5, "🦐": 1}, "keyword": 0},
+        ...
+      }
+
+    ルール:
+      - 絵文字は「実際に使われたもの」ごとに集計
+      - 数量は 🐶5 / 🐶×3 / 🦾:7 のみ（🔥  18 のような年齢は数量にしない）
+      - 🐶&🏪:10 や 🗼🍛x2 はまとめて1回だけ加点
+      - 絵文字内訳があるチャネルはキーワード件数を足さない（二重計上防止）
     """
-    counts = {c: 0 for c in CHANNEL_ORDER}
+    empty = {
+        c: {"total": 0, "emojis": {}, "keyword": 0} for c in CHANNEL_ORDER if c != "unknown"
+    }
     if not text or not str(text).strip():
-        return counts
+        return empty
+
     raw = str(text)
-
-    def _add_emoji_qty(channel: str, pattern: str) -> None:
-        """🐶5 / 🔥10 / 🦾×3 のように絵文字+数量があれば数量を、なければ1を加点。"""
-        for m in re.finditer(
-            rf"(?:{pattern})\s*[:：/／×xｘ*]?\s*(\d+)?",
-            raw,
-        ):
-            if m.group(1):
-                counts[channel] += int(m.group(1))
-            else:
-                counts[channel] += 1
-
-    # 絵文字（内訳リスト）— 数量付きを優先して合算
-    # Ⓜ/Ⓜ️(M)→スト、🪩(ミラーボール)→ネト
-    # 🥂 / 🥂📦 → その他（キャバ等。箱クラブとは別）
-    _add_emoji_qty("street", r"[🐶🦁🦉🏪🦐]|Ⓜ\uFE0F?|🅜")
-    _add_emoji_qty("online", r"[🍐🍎🔥🗼🍛🪩]")
-    # 🥂📦 数量（📦 単体の箱カウントより先に拾う）
-    for m in re.finditer(r"🥂\s*📦\s*[:：/／×xｘ*]?\s*(\d+)?", raw):
-        counts["other"] += int(m.group(1)) if m.group(1) else 1
-        # マッチ済み 📦 を潰して二重カウント防止
+    # 🥂📦 は箱ではなくその他（キャバ等）
+    for m in list(re.finditer(r"🥂\s*📦\s*[：:／/×xｘ*]?\s*(\d+)?", raw)):
+        qty = int(m.group(1)) if m.group(1) else 1
+        empty["other"]["emojis"]["🥂📦"] = empty["other"]["emojis"].get("🥂📦", 0) + qty
+        empty["other"]["total"] += qty
         raw = raw[: m.start()] + (" " * (m.end() - m.start())) + raw[m.end() :]
-    _add_emoji_qty("club", r"[🦾🧚📦🟦⬛⬜◼◾▪◻◽]")
-    _add_emoji_qty("other", r"[🥂]")
 
-    # キーワード回数（数量なしの単なる言及は弱く1）
-    # パスは「パス3」「パス×3」「(パス3)」を数量として
-    for m in re.finditer(r"パス(?!ワード)\s*[×xｘ*]?\s*(\d+)?", raw):
-        counts["other"] += int(m.group(1)) if m.group(1) else 1
-    counts["street"] += len(re.findall(r"(?<![イアウ])スト(?:ナン|即|準|×|ｘ|x)", raw))
-    counts["street"] += len(re.findall(r"弾丸|店連れ", raw))
-    counts["online"] += len(re.findall(r"(?<![ア-ン])ネト(?:ナン|即|準|×|ｘ|x|新規)", raw))
-    counts["online"] += len(re.findall(r"マチアプ|アプリ即|某\s*app|使用\s*APP", raw, re.I))
-    counts["club"] += len(re.findall(r"(?<![ア-ン])箱(?:ナン|即|×|ｘ|x)|クラ(?:ブ|ナン)|相席", raw))
+    emoji_alts = sorted(EMOJI_TO_CHANNEL.keys(), key=len, reverse=True)
+    emoji_re = "|".join(re.escape(e) for e in emoji_alts)
+    consumed: list[tuple[int, int]] = []
 
-    # 「スト 10即」「ネト×6」など数量付きは max で上書き寄りに
+    def _overlap(a: int, b: int) -> bool:
+        return any(not (b <= s or a >= e) for s, e in consumed)
+
+    def _add_group(tokens: list[str], qty: int, start: int, end: int) -> None:
+        if _overlap(start, end) or qty <= 0:
+            return
+        norms: list[str] = []
+        channels_in_group: list[str] = []
+        for tok in tokens:
+            norm = _normalize_emoji_token(tok)
+            ch = EMOJI_TO_CHANNEL.get(norm) or EMOJI_TO_CHANNEL.get(tok)
+            if not ch:
+                continue
+            norms.append(norm)
+            if ch not in channels_in_group:
+                channels_in_group.append(ch)
+        if not norms or not channels_in_group:
+            return
+        primary = channels_in_group[0]
+        head = norms[0]
+        empty[primary]["emojis"][head] = empty[primary]["emojis"].get(head, 0) + qty
+        empty[primary]["total"] += qty
+        consumed.append((start, end))
+
+    # 1) 🐶&🏪:10 / 🐶＆🏪×10
+    for m in re.finditer(
+        rf"((?:{emoji_re})(?:\s*[&＆]\s*(?:{emoji_re}))+)\s*[:：×xｘ*]\s*(\d+)",
+        raw,
+    ):
+        tokens = re.findall(emoji_re, m.group(1))
+        _add_group(tokens, int(m.group(2)), m.start(), m.end())
+
+    # 2) 連続絵文字 + ×N（🗼🍛x2）
+    for m in re.finditer(rf"((?:{emoji_re}){{2,}})\s*[×xｘ*]\s*(\d+)", raw):
+        tokens = re.findall(emoji_re, m.group(1))
+        _add_group(tokens, int(m.group(2)), m.start(), m.end())
+
+    # 3) 単体絵文字 + 数量（直結 / × / :）or 数量なし=1
+    #    空白+数字は年齢なので数量にしない（🔥  18 売り子）
+    #    数量なしの単独絵文字は「リスト行」（行頭 or 直後が /）だけ数える
+    #    → 帰省🟦・🦾&🏪で 等の装飾を即数にしない
+    for m in re.finditer(
+        rf"({emoji_re})(?:(\d+)|(?:\s*[×xｘ*]\s*(\d+))|(?:\s*[:：]\s*(\d+)))?",
+        raw,
+    ):
+        if _overlap(m.start(), m.end()):
+            continue
+        qty_raw = m.group(2) or m.group(3) or m.group(4)
+        if qty_raw:
+            qty = int(qty_raw)
+        else:
+            prev = raw[m.start() - 1] if m.start() > 0 else "\n"
+            nxt = raw[m.end() : m.end() + 1]
+            after2 = raw[m.end() : m.end() + 2]
+            if nxt in {"&", "＆"}:
+                continue
+            # リスト行: 行頭 / 直後スラッシュ / 弾・準・即 など
+            line_prefix = raw[max(0, raw.rfind("\n", 0, m.start()) + 1) : m.start()]
+            at_line_start = line_prefix.strip() == ""
+            list_like = nxt in {"/", "／"} or after2.startswith(
+                ("弾", "準", "即", "そ", "節", "×", "ｘ", "x")
+            )
+            if not at_line_start and not list_like:
+                continue
+            qty = 1
+        _add_group([m.group(1)], qty, m.start(), m.end())
+
+    # キーワード件数
+    keyword = {c: 0 for c in empty}
+
     for ch, pats in (
-        ("street", [r"スト[^\d]{0,6}(\d+)\s*(?:即|節)", r"弾丸[^\d]{0,4}(\d+)"]),
-        ("online", [r"ネト[^\d]{0,6}(\d+)\s*(?:即|節)"]),
-        ("club", [r"箱[^\d]{0,6}(\d+)\s*(?:即|節)", r"クラブ[^\d]{0,4}(\d+)"]),
-        ("other", [r"パス[^\d]{0,4}(\d+)"]),
+        (
+            "street",
+            [
+                r"(?<![イアウ])スト\s*[×xｘ*：:／/]?\s*(\d+)\s*(?:即|節)?",
+                r"弾丸\s*[×xｘ*]?\s*(\d+)",
+            ],
+        ),
+        (
+            "online",
+            [
+                r"(?<![ア-ン])ネト\s*[×xｘ*：:／/]?\s*(\d+)\s*(?:即|節)?",
+            ],
+        ),
+        (
+            "club",
+            [
+                r"(?<![ア-ン])箱\s*[×xｘ*：:／/]?\s*(\d+)\s*(?:即|節)?",
+                r"クラブ\s*[×xｘ*]?\s*(\d+)",
+            ],
+        ),
+        (
+            "other",
+            [
+                r"パス(?!ワード)\s*[×xｘ*]?\s*(\d+)",
+            ],
+        ),
     ):
         for pat in pats:
             for m in re.finditer(pat, raw):
                 try:
-                    counts[ch] = max(counts[ch], int(m.group(1)))
+                    keyword[ch] = max(keyword[ch], int(m.group(1)))
                 except ValueError:
                     pass
+
+    # 数量なしパスの個数（「1.パス」「パス(強欲)」など）
+    if keyword["other"] == 0:
+        path_hits = len(re.findall(r"パス(?!ワード)", raw))
+        if path_hits:
+            keyword["other"] = path_hits
+
+    app_total = 0
+    for m in re.finditer(r"(?:某\s*app|使用\s*APP)\s*[×xｘ*]?\s*(\d+)", raw, re.I):
+        app_total += int(m.group(1))
+    if app_total:
+        keyword["online"] = max(keyword["online"], app_total)
+
+    for ch, data in empty.items():
+        data["keyword"] = int(keyword.get(ch) or 0)
+        # 明示キーワード（スト17即）が絵文字装飾より大きいときはキーワードを優先
+        if data["keyword"] > data["total"]:
+            data["emojis"] = {}
+            data["total"] = data["keyword"]
+        elif data["total"] <= 0 and data["keyword"] > 0:
+            data["total"] = data["keyword"]
+
+    return empty
+
+
+def estimate_channel_counts(text: str) -> dict[str, int]:
+    """総括本文からチャネル別の件数をざっくり数える（表示順用）。"""
+    breakdown = parse_channel_breakdown(text)
+    counts = {c: 0 for c in CHANNEL_ORDER}
+    for ch, data in breakdown.items():
+        counts[ch] = int(data.get("total") or 0)
     return counts
 
 
@@ -435,23 +585,33 @@ def get_channel_counts(record: dict) -> dict[str, int]:
     return estimate_channel_counts(channel_evidence_text(record))
 
 
+def get_channel_breakdown(record: dict) -> dict[str, dict]:
+    """レコードから絵文字単位の内訳を返す。"""
+    return parse_channel_breakdown(channel_evidence_text(record))
+
+
 def format_channel_parts(record: dict) -> list[tuple[str, str]]:
     """件数が多い順の (channel_key, 表示ラベル) を返す。
 
-    件数が取れるとき: スト（🐶9）、ネト（🔥7）
-    取れないとき: スト / ネト / 箱 / 謎
+    - 絵文字内訳あり: ネト（🍐5・🍎6・🔥2） / スト（🐶5・🦐1）
+    - キーワードのみ: スト（9）
+    - 件数なし: スト / ネト / 謎
     """
     channels = infer_channels(record)
-    counts = get_channel_counts(record)
+    breakdown = get_channel_breakdown(record)
     parts: list[tuple[str, str]] = []
     for channel in channels:
         short = CHANNEL_SHORT_LABELS.get(channel, CATEGORY_LABELS.get(channel, channel))
-        count = int(counts.get(channel) or 0)
-        emoji = CHANNEL_REPRESENTATIVE_EMOJI.get(channel, "")
-        if count > 0 and emoji:
-            label = f"{short}（{emoji}{count}）"
-        elif count > 0:
-            label = f"{short}（{count}）"
+        data = breakdown.get(channel) or {}
+        emojis: dict[str, int] = data.get("emojis") or {}
+        total = int(data.get("total") or 0)
+        if emojis:
+            # 件数多い絵文字順。同数は出現順維持
+            ordered = sorted(emojis.items(), key=lambda kv: (-int(kv[1]), kv[0]))
+            inner = "・".join(f"{emo}{cnt}" for emo, cnt in ordered if cnt > 0)
+            label = f"{short}（{inner}）" if inner else short
+        elif total > 0:
+            label = f"{short}（{total}）"
         else:
             label = short
         parts.append((channel, label))
