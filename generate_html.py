@@ -1300,6 +1300,101 @@ def generate_html(records: list[dict]) -> str:
     </div>
 """
 
+    # 週間ランキング（お試し）
+    weekly_files = (
+        sorted(glob.glob("data/weekly_20*.json"), reverse=True)
+        if SHOW_PERIOD_TABS and SHOW_PERIOD_DETAIL_TABS
+        else []
+    )
+    weekly_divs = ""
+    weekly_options = ""
+    first_week_id = ""
+    for wf in weekly_files:
+        basename = os.path.basename(wf)
+        # weekly_2026-07-27_2026-08-02.json
+        stem = basename.replace("weekly_", "").replace(".json", "")
+        with open(wf, "r", encoding="utf-8") as f:
+            w_data = json.load(f)
+        if not w_data:
+            continue
+        ranked = [
+            r for r in w_data if int(r.get("weekly_count") or 0) >= 3
+        ]
+        ranked = sorted(
+            ranked,
+            key=lambda r: (
+                -int(r.get("weekly_count") or 0),
+                -(r.get("followers_count") or 0),
+                (r.get("username") or "").lower(),
+            ),
+        )
+        if not ranked:
+            continue
+        week_id = "w" + re.sub(r"[^0-9]", "", stem)[:16]
+        is_first = not first_week_id
+        if is_first:
+            first_week_id = week_id
+        label = ranked[0].get("period_label") or stem.replace("_", "〜")
+        w_rows = ""
+        for i, r in enumerate(ranked, 1):
+            medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            w_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
+            w_rows += '<td class="rank">' + medal + str(i) + "</td>"
+            w_rows += build_user_cell_html(
+                r["username"],
+                r.get("display_name", ""),
+                r.get("profile_image_url", ""),
+            )
+            w_rows += (
+                '<td class="display-name">' + r.get("display_name", "") + "</td>"
+            )
+            w_rows += (
+                '<td class="sokusuu">'
+                + build_period_value_html(r, "weekly_count")
+                + "</td>"
+            )
+            w_rows += "<td>" + build_channel_badges_html(r) + "</td>"
+            w_rows += "</tr>"
+        display = "block" if is_first else "none"
+        weekly_divs += (
+            '<div id="weekly-' + week_id + '" style="display:' + display + '">'
+            '<p style="text-align:center;color:#888;font-size:0.85em;margin:0 0 12px">'
+            "お試し週間ランキング（明示の今週N即/週総括など）・3即以上"
+            "</p>"
+            "<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>"
+            + CHANNEL_COL_TH
+            + "</tr></thead><tbody>"
+            + w_rows
+            + "</tbody></table></div>"
+        )
+        selected = " selected" if is_first else ""
+        weekly_options += (
+            '<option value="'
+            + week_id
+            + '"'
+            + selected
+            + ">"
+            + label
+            + "（trial）</option>"
+        )
+
+    if weekly_divs:
+        weeklyselect_active = active_class("weeklyselect")
+        tab_buttons += (
+            f'        <div class="tab{weeklyselect_active}" '
+            f"onclick=\"switchTab('weeklyselect')\">週別(trial)</div>\n"
+        )
+        tab_contents += """
+    <div id="tab-weeklyselect" class="tab-content""" + weeklyselect_active + """">
+        <div style="text-align:center;margin-bottom:15px">
+            <select id="weeklySelect" onchange="switchWeekly()" style="padding:8px 16px;border:1px solid #333;border-radius:8px;background:#1a1a1a;color:#e0e0e0;font-size:0.95em">
+                """ + weekly_options + """
+            </select>
+        </div>
+        """ + weekly_divs + """
+    </div>
+"""
+
     # 統計
     max_sokusuu = records[0]['sokusuu'] if records else 0
     avg_sokusuu = sum(r['sokusuu'] for r in records) // len(records) if records else 0
@@ -1618,14 +1713,22 @@ def generate_html(records: list[dict]) -> str:
             const target = document.getElementById('yearly-' + val);
             if (target) target.style.display = 'block';
         }}
+        function switchWeekly() {{
+            const sel = document.getElementById('weeklySelect');
+            if (!sel) return;
+            const val = sel.value;
+            document.querySelectorAll('[id^="weekly-w"]').forEach(el => el.style.display = 'none');
+            const target = document.getElementById('weekly-' + val);
+            if (target) target.style.display = 'block';
+        }}
         function filterRows() {{
             const q = document.getElementById('searchBox').value.toLowerCase();
             const active = document.querySelector('.tab-content.active');
             if (!active) return;
-            // 表示中のテーブルだけ検索（月別/年別は visible な子テーブル）
+            // 表示中のテーブルだけ検索（月別/年別/週別は visible な子テーブル）
             const tables = [];
             active.querySelectorAll('table').forEach(table => {{
-                const wrap = table.closest('[id^="monthly-"], [id^="yearly-"]');
+                const wrap = table.closest('[id^="monthly-"], [id^="yearly-"], [id^="weekly-"]');
                 if (wrap && wrap.style.display === 'none') return;
                 tables.push(table);
             }});
