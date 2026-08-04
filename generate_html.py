@@ -50,11 +50,26 @@ CATEGORY_LABELS = {
     "other": "その他",
     "unknown": "謎",
 }
+# 表・バッジ用の短い表示名（件数付き内訳で使う）
+CHANNEL_SHORT_LABELS = {
+    "street": "スト",
+    "online": "ネト",
+    "club": "箱",
+    "other": "その他",
+    "unknown": "謎",
+}
+# チャネル代表絵文字（凡例の先頭寄り）
+CHANNEL_REPRESENTATIVE_EMOJI = {
+    "street": "🐶",
+    "online": "🔥",
+    "club": "🦾",
+    "other": "🥂",
+}
 CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
 # 表ヘッダ: 複数チャネル時は総括内訳の件数が多い順
 CHANNEL_COL_HEADER = "チャネル（即数が多い順）"
 CHANNEL_COL_TH = (
-    f'<th title="総括本文の内訳件数が多い順（同数はスト→ネト→箱）">'
+    f'<th title="総括本文の内訳件数が多い順。件数付きは スト（🐶N）、ネト（🔥M）形式">'
     f"{CHANNEL_COL_HEADER}</th>"
 )
 
@@ -407,11 +422,50 @@ def infer_channels(record: dict) -> list[str]:
     return finalize(found, sort_text=evidence)
 
 
-def build_channel_badges_html(record: dict) -> str:
+def channel_evidence_text(record: dict) -> str:
+    """チャネル件数推定用の本文（channel_evidence 優先）。"""
+    return " ".join(
+        str(record.get(key) or "")
+        for key in ("channel_evidence", "tweet_text")
+    ).strip()
+
+
+def get_channel_counts(record: dict) -> dict[str, int]:
+    """レコードからチャネル別即数内訳を推定する。"""
+    return estimate_channel_counts(channel_evidence_text(record))
+
+
+def format_channel_parts(record: dict) -> list[tuple[str, str]]:
+    """件数が多い順の (channel_key, 表示ラベル) を返す。
+
+    件数が取れるとき: スト（🐶9）、ネト（🔥7）
+    取れないとき: スト / ネト / 箱 / 謎
+    """
     channels = infer_channels(record)
-    badges = ""
+    counts = get_channel_counts(record)
+    parts: list[tuple[str, str]] = []
     for channel in channels:
-        label = CATEGORY_LABELS.get(channel, channel)
+        short = CHANNEL_SHORT_LABELS.get(channel, CATEGORY_LABELS.get(channel, channel))
+        count = int(counts.get(channel) or 0)
+        emoji = CHANNEL_REPRESENTATIVE_EMOJI.get(channel, "")
+        if count > 0 and emoji:
+            label = f"{short}（{emoji}{count}）"
+        elif count > 0:
+            label = f"{short}（{count}）"
+        else:
+            label = short
+        parts.append((channel, label))
+    return parts
+
+
+def format_channel_text(record: dict, sep: str = "、") -> str:
+    """Markdown / テキスト用のチャネル表示。"""
+    return sep.join(label for _, label in format_channel_parts(record))
+
+
+def build_channel_badges_html(record: dict) -> str:
+    badges = ""
+    for channel, label in format_channel_parts(record):
         badges += f'<span class="badge badge-cat-{channel}">{label}</span> '
     return badges.strip()
 
