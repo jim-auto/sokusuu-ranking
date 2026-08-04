@@ -17,7 +17,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import re
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from monthly_collect import (
@@ -61,24 +61,81 @@ def output_path(start: date, end: date) -> str:
     return f"data/weekly_{week_label(start, end)}.json"
 
 
-def parse_tweet_datetime(created_at: str) -> date | None:
+def parse_tweet_dt(created_at: str) -> datetime | None:
     if not created_at:
         return None
     try:
-        return datetime.strptime(created_at, "%a %b %d %H:%M:%S %z %Y").date()
+        return datetime.strptime(created_at, "%a %b %d %H:%M:%S %z %Y")
     except Exception:
         return None
+
+
+def parse_tweet_datetime(created_at: str) -> date | None:
+    dt = parse_tweet_dt(created_at)
+    return dt.date() if dt else None
+
+
+# 週次で優先して拾う常連（表示名メモ）
+WEEKLY_PRIORITY_SEEDS = [
+    "tonpamiso",  # チャージマン研
+    "nanpasei",  # ヤリっくま
+    "River_p823",  # フェニックス
+    "omamco_pua2",
+    "17go_pua",
+    "cx_lm5",
+    "sub_chilll",
+    "okarun_pua",
+    "ryepua",
+    "bookmaker_2015",
+    "kimu__himitsu2",
+    "shingen_pua",
+    "Lattie_pua",
+    "kukuru_nanpa",
+    "PUAINOKI",
+    "makoto__pua",
+    "rei_app_pua",
+    "greed_pua",
+    "yomaru_street",
+    "tora_maru005",
+    "2BWwC9xP3Vw1MUO",
+    "motebody_pua",
+    "Tinder_god_2",
+    "kuroiwa_45",
+    "socool55555",
+    "mic_pua",
+    "tomu_riddle",
+    "nakayamasoku",
+    "147asdf764",
+    "ot_aza",
+    "taruchan100",
+    "tsutsumi_ye4pe",
+    "Niko_PUA",
+    "knt17760",
+]
 
 
 def is_period_recap_tweet(text: str) -> bool:
     """月次・年間総括（積み上げに入れない）。"""
     cleaned = clean_tweet_text(text)
-    if re.search(r"(?:1[0-2]|[1-9])\s*月\s*総括|【\d{4}年\s*\d{1,2}月】", cleaned):
+    raw = text or ""
+    if re.search(
+        r"(?:1[0-2]|[1-9])\s*月\s*(?:総括|統括|まとめ|振り返り)|"
+        r"【\d{4}年\s*\d{1,2}月】",
+        cleaned,
+    ):
         return True
-    if re.search(r"年間総括|年総括|年報|年末総括", cleaned):
+    if re.search(r"[０-９0-9]+\s*月\s*(?:総括|統括|まとめ)", raw):
+        # 全角月など ７月統括
+        return True
+    if re.search(r"年間総括|年総括|年報|年末総括|月間総括|月間統括", cleaned):
         return True
     if re.search(r"\d{4}年\s*\d{1,2}月\s*(?:計|合計)?\s*\d+\s*(?:即|節)", cleaned):
         # 【2026年7月】10節 など
+        return True
+    # 合計16即 + チャネル内訳の月報
+    if re.search(r"合計\s*\d+\s*(?:即|節)", cleaned) and re.search(
+        r"(?:総括|統括|パス含めず|月間)", cleaned + raw
+    ):
         return True
     return False
 
@@ -118,6 +175,114 @@ def _strip_urls_emoji(text: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
+def is_shousai_later_flag(text: str) -> bool:
+    """「しょのち」「詳細後」— 詳細は後続投稿、それ自体は件数にしない。"""
+    bare = _strip_urls_emoji(text or "")
+    return bool(re.search(r"しょのち|詳細後|しょうさいあと|詳細あと", bare))
+
+
+def is_live_soku_announce(text: str) -> bool:
+    """ライブ即宣言（短文の 即/そ。詳細は後で出すパターン含む）。
+
+    例:
+      即 / 即‼️
+      そ / そーーく / いーじーーそ
+      2そ目 + しょのち
+      🟦即NN体しこ
+    """
+    raw = text or ""
+    if raw.startswith("RT @") or raw.startswith("RT@"):
+        return False
+    bare = _strip_urls_emoji(raw)
+    if not bare or len(bare) > 90:
+        return False
+    # しょのち / 搬送だけの投稿はライブ即ではない
+    if re.fullmatch(r"(?:しょのち|詳細後|はんそう|搬送|もどる)+", bare.replace(" ", "")):
+        return False
+    if re.search(
+        r"表示|ランキング|今週\s*\d|月総括|理論|目標|したい",
+        bare,
+    ):
+        return False
+
+    # 即 / 節 短文
+    if re.match(r"^(?:即|節)\b", bare):
+        return True
+    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!‼️NＮ体])", bare) and len(bare) <= 40:
+        return True
+
+    # Nそ目（2そ目 = 2件目の即）
+    if re.search(r"\d+\s*そ目", bare):
+        return True
+
+    # いーじーそ / いーじーーそ
+    if re.search(r"い[ー〜～]*じ[ー〜～]*そ", bare):
+        return True
+
+    # そ / そーく / そーーく（それ・そんな 等を除外）
+    if re.search(r"それ|そん|そう|そこ|そば|そろ|そそ|くそ", bare):
+        return False
+    if re.search(r"(?:^|[\s　])そ[ー〜～]*く?(?:\s|$|[！!‼️😄])", bare) and len(bare) <= 50:
+        return True
+    # 行頭のみの そ
+    if re.match(r"^そ[ー〜～]*く?\s*$", bare.split("\n")[0].strip() if "\n" in raw else bare):
+        return True
+
+    return False
+
+
+def is_case_detail_tweet(text: str) -> bool:
+    """即の詳細っぽい現場報告（搬・合致・明細など）。"""
+    raw = text or ""
+    if not raw or raw.startswith("RT @"):
+        return False
+    if is_period_recap_tweet(raw):
+        return False
+    if is_live_soku_announce(raw) and len(_strip_urls_emoji(raw)) <= 20:
+        return False
+    if re.search(
+        r"(?:パレ搬|ホテ搬|🏠搬|合致|値\d|杯|NS|瞳孔|押忍|"
+        r"NN|直家|タクシー|搬送|はんそう|連れ|満即|準即|不満即)",
+        raw,
+    ):
+        return True
+    # 絵文字ケース行
+    if re.search(r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦🍺🥂🧙]", raw) and re.search(
+        r"[/／]", raw
+    ):
+        return True
+    return False
+
+
+def is_multi_case_recap(text: str) -> bool:
+    """昨日2節・2即 など複数まとめ。ライブ即の詳細としては潰さない。"""
+    raw = text or ""
+    if re.search(r"(?:昨日|今日|本日)\s*[2-6]\s*(?:即|節)", raw):
+        return True
+    if re.search(r"(?:^|[\s　])[2-6]\s*(?:即|節)\b", _strip_urls_emoji(raw)):
+        return True
+    if re.search(r"[①②③]", raw) and re.search(r"(?:即|節|満即)", raw):
+        return True
+    return False
+
+
+def is_independent_case_report(text: str) -> bool:
+    """単独で1件以上数えられる確定ケース（ライブ即の後続詳細に潰さない）。"""
+    raw = text or ""
+    if is_period_recap_tweet(raw):
+        return False
+    if re.search(
+        r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即)\s*/|"
+        r"(?:即|節)\s*/\s*[^\s]|"
+        r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即)",
+        raw,
+    ):
+        return True
+    if is_multi_case_recap(raw):
+        return True
+    return False
+
+
 def has_success_marker_in_raw(raw: str) -> bool:
     """本文そのものに即/節の成功確定語があるか。
 
@@ -127,6 +292,8 @@ def has_success_marker_in_raw(raw: str) -> bool:
     """
     if not raw:
         return False
+    if is_live_soku_announce(raw):
+        return True
     if re.search(
         r"(?:"
         r"準即|パス即|満即|大満即|不満即|ノーグダ即|"
@@ -177,6 +344,16 @@ def count_stack_units(text: str) -> int:
         cleaned,
     ):
         return 0
+
+    # 未確定・願望は除外
+    if re.search(
+        r"即れ[ただ]?ら|即りたい|即したい|即れそう|即れるか|即ろう|片方即|"
+        r"即れたら|即れたらだいぶ|アツい$|締日なので",
+        raw,
+    ) and not re.search(r"(?:準即|満即|パス即|即/|即‼️|即った)", raw):
+        # 条件・願望のみ。確定ラベルがあれば通す
+        if not re.search(r"(?:準即|満即|パス即|ノーグダ即)\b|(?:即|節)\s*/", raw):
+            return 0
 
     # パレ搬/ホテ搬のみ・搬送報告のみは数えない（即確定語が raw に必要）
     if not has_success_marker_in_raw(raw):
@@ -234,6 +411,10 @@ def count_stack_units(text: str) -> int:
     if re.match(r"^(?:即|節)\b", bare) and len(bare) < 80:
         return 1
 
+    # ライブ即（そ / そーく / Nそ目 / いーじーそ など）
+    if is_live_soku_announce(raw):
+        return 1
+
     # raw に即/節があるケース報告（即った、即/明細以外の短文など）
     # clean の「ネト1即」合成 + パレ搬 ではここに来ない（上で return 0 済み）
     if re.search(r"即った|即れ[たとので]|即り|\d+\s*(?:即|節)\b", raw):
@@ -259,14 +440,28 @@ def extract_setsu_milestone(text: str) -> int | None:
 
 
 def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> dict | None:
-    """週内ツイートを積み上げて週間件数を作る。"""
+    """週内ツイートを積み上げて週間件数を作る。
+
+    ライブ即 → 後続詳細（しょのち / 搬 / 明細）は 1 ケースとして二重計上しない。
+    """
     stack_total = 0
-    evidence_tweets: list[tuple[int, dict]] = []
+    evidence_items: list[dict] = []
     milestones: list[int] = []
     explicit_best = None
+    # ライブ即の直後に詳細が続く窓（時間）
+    detail_window = timedelta(hours=12)
+    pending_live_dt: datetime | None = None
 
-    for tweet in tweets:
-        created = parse_tweet_datetime(tweet.get("created_at", ""))
+    def _sort_key(t: dict):
+        dt = parse_tweet_dt(t.get("created_at", ""))
+        return dt or datetime(1970, 1, 1, tzinfo=timezone.utc)
+
+    # 古い→新しいでペアリング
+    ordered = sorted(tweets, key=_sort_key)
+
+    for tweet in ordered:
+        created_dt = parse_tweet_dt(tweet.get("created_at", ""))
+        created = created_dt.date() if created_dt else None
         # 積み上げは週そのもの（start〜end）のみ
         if created and not (start <= created <= end):
             # 明示週間合計だけ報告窓+2日を許可
@@ -301,10 +496,71 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
         if ms is not None:
             milestones.append(ms)
 
+        # しょのち単独は件数にしない（直前ライブのフラグ）
+        if is_shousai_later_flag(text) and not has_success_marker_in_raw(text):
+            if pending_live_dt and created_dt:
+                tid = str(tweet.get("id") or "")
+                evidence_items.append(
+                    {
+                        "units": 0,
+                        "tweet_id": tid,
+                        "url": f"https://x.com/{username}/status/{tid}",
+                        "created_at": tweet.get("created_at", ""),
+                        "text": text[:500],
+                        "role": "case_detail",
+                    }
+                )
+            continue
+
         units = count_stack_units(text)
-        if units > 0:
+        role = "case_report"
+        live = is_live_soku_announce(text)
+
+        # ライブ即の後続詳細 → 件数は足さず根拠だけ残す
+        # （準即/・即/明細など独立ケースは潰さない）
+        if (
+            pending_live_dt
+            and created_dt
+            and created_dt - pending_live_dt <= detail_window
+            and not live
+            and not is_independent_case_report(text)
+            and (is_case_detail_tweet(text) or (units > 0 and not is_live_soku_announce(text)))
+        ):
+            role = "case_detail"
+            units = 0
+            pending_live_dt = None
+        elif units > 0:
+            if live:
+                pending_live_dt = created_dt
+            else:
+                # 独立ケース報告のあとは詳細待ちをクリア
+                pending_live_dt = None
+        elif is_case_detail_tweet(text) and pending_live_dt and created_dt:
+            if (
+                created_dt - pending_live_dt <= detail_window
+                and not is_independent_case_report(text)
+            ):
+                role = "case_detail"
+                units = 0
+                pending_live_dt = None
+            else:
+                continue
+        else:
+            continue
+
+        if units > 0 or role == "case_detail":
             stack_total += units
-            evidence_tweets.append((units, tweet))
+            tid = str(tweet.get("id") or "")
+            evidence_items.append(
+                {
+                    "units": units,
+                    "tweet_id": tid,
+                    "url": f"https://x.com/{username}/status/{tid}",
+                    "created_at": tweet.get("created_at", ""),
+                    "text": text[:500],
+                    "role": role,
+                }
+            )
 
     # 節目の差分（週内で今月N節目が伸びた分）
     milestone_delta = 0
@@ -313,7 +569,6 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
         if milestone_delta < 0:
             milestone_delta = 0
     elif len(milestones) == 1:
-        # 単発の節目報告は stack 側で 1 と数えていることが多い
         milestone_delta = 0
 
     stack_count = max(stack_total, milestone_delta)
@@ -334,29 +589,20 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
     if stack_count <= 0:
         return None
 
-    # 証拠リスト（時系列）
-    evidence_items = []
-    for units, tweet in evidence_tweets:
-        tid = str(tweet.get("id") or "")
-        evidence_items.append(
-            {
-                "units": units,
-                "tweet_id": tid,
-                "url": f"https://x.com/{username}/status/{tid}",
-                "created_at": tweet.get("created_at", ""),
-                "text": (tweet.get("text") or "")[:500],
-                "role": "case_report",
-            }
-        )
     # 新しい順
     evidence_items.sort(key=lambda x: x.get("created_at", ""), reverse=True)
 
     if not evidence_items:
         return None
 
-    # 代表リンクは最新のケース報告
-    ev = evidence_items[0]
-    summary = f"積み上げ{stack_count}（報告{len(evidence_items)}投稿"
+    # 代表リンクは件数付きの最新ケース
+    scored = [e for e in evidence_items if int(e.get("units") or 0) > 0]
+    ev = scored[0] if scored else evidence_items[0]
+    case_n = sum(1 for e in evidence_items if int(e.get("units") or 0) > 0)
+    detail_n = sum(1 for e in evidence_items if e.get("role") == "case_detail")
+    summary = f"積み上げ{stack_count}（報告{case_n}投稿"
+    if detail_n:
+        summary += f" / 詳細{detail_n}"
     if milestone_delta:
         summary += f" / 節目+{milestone_delta}"
     summary += "）"
@@ -366,7 +612,7 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
         "text": ev.get("text", ""),
         "created_at": ev.get("created_at", ""),
         "method": "stack",
-        "stack_posts": len(evidence_items),
+        "stack_posts": case_n,
         "milestone_delta": milestone_delta,
         "stack_summary": summary,
         "evidence_items": evidence_items,
@@ -405,6 +651,8 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
         "",
         "- あくまでお試し。本運用ではない",
         "- **方式: 週内の即/節ケース報告を積み上げ**（総括必須にしない）",
+        "- ライブ即（即 / そ / そーく / Nそ目）→ 後続詳細（しょのち・搬）は 1 ケース扱い",
+        "- パレ搬・ホテ搬だけでは即未確定（数えない）",
         "- 明示「今週N即」があれば優先",
         "- 月次・年間総括・ランキング雑談は除外",
         "- 掲載しきい値: デフォルト2〜3",
@@ -493,7 +741,12 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
             created = _format_created_at(item.get("created_at", ""))
             text = (item.get("text") or "").replace("\n", " ").strip()
             role = item.get("role") or "case_report"
-            role_ja = "週間合計" if role == "explicit_total" else "ケース"
+            if role == "explicit_total":
+                role_ja = "週間合計"
+            elif role == "case_detail":
+                role_ja = "詳細"
+            else:
+                role_ja = "ケース"
             elines.append(f"{j}. **+{units}**（{role_ja}） {created}")
             elines.append(f"   - {url}")
             if text:
@@ -511,12 +764,27 @@ def load_seed_usernames(limit: int = 0) -> list[str]:
     seen: set[str] = set()
 
     def add(u: str) -> None:
+        u = (u or "").strip().lstrip("@")
         key = u.lower()
         if not u or key in seen:
             return
         seen.add(key)
         usernames.append(u)
 
+    # 1) 優先常連（チャージマン研 / やりっくま / フェニックス など）
+    for u in WEEKLY_PRIORITY_SEEDS:
+        add(u)
+
+    # 2) seed_accounts.txt
+    seed_path = Path("seed_accounts.txt")
+    if seed_path.exists():
+        for line in seed_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            add(line)
+
+    # 3) 7月月間実績順
     july = load_json("data/monthly_2026_07.json", [])
     july_sorted = sorted(
         july, key=lambda r: -int(r.get("monthly_count") or 0)
@@ -524,12 +792,13 @@ def load_seed_usernames(limit: int = 0) -> list[str]:
     for row in july_sorted:
         add(row.get("username", ""))
 
+    # 4) 総合アカウント上位
     accounts = load_json(OUTPUT_ACCOUNTS, [])
     accounts = sorted(
         accounts,
         key=lambda r: -int(r.get("sokusuu") or r.get("followers_count") or 0),
     )
-    for row in accounts[:200]:
+    for row in accounts[:250]:
         add(row.get("username", ""))
 
     if limit > 0:
@@ -575,7 +844,22 @@ async def main_async() -> None:
     parser.add_argument("--start", help="YYYY-MM-DD")
     parser.add_argument("--end", help="YYYY-MM-DD")
     parser.add_argument("--min-count", type=int, default=2)
-    parser.add_argument("--limit", type=int, default=0, help="走査人数（0=seed全件・上限150）")
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=0,
+        help="走査人数（0=seed全件・上限300）",
+    )
+    parser.add_argument(
+        "--only",
+        default="",
+        help="カンマ区切り username のみ収集（例: tonpamiso,nanpasei,River_p823）",
+    )
+    parser.add_argument(
+        "--merge",
+        action="store_true",
+        help="既存 weekly JSON にマージ（--only と併用向き）",
+    )
     parser.add_argument("--headful", action="store_true")
     args = parser.parse_args()
 
@@ -587,17 +871,38 @@ async def main_async() -> None:
     out = output_path(start, end)
     print("=" * 60)
     print(f"週間即数ランキング（積み上げ trial） {start} 〜 {end}")
-    print("方式: 週内の即/節報告を積み上げ（今週N即があれば比較採用）")
+    print("方式: 週内の即/節報告を積み上げ（ライブ即→詳細は二重計上しない）")
     print(f"出力: {out}")
     print("=" * 60)
 
     accounts = load_json(OUTPUT_ACCOUNTS, [])
     accounts_map = {a["username"].lower(): a for a in accounts}
-    seed_limit = args.limit if args.limit > 0 else 150
-    seeds = load_seed_usernames(limit=seed_limit)
+    # 表示名だけ既知の優先ユーザー
+    display_overrides = {
+        "tonpamiso": "チャージマン研",
+        "nanpasei": "ヤリっくま@味噌代表",
+        "river_p823": "フェニックス@セクシーコマンドー部",
+    }
+
+    if args.only.strip():
+        seeds = [
+            u.strip().lstrip("@")
+            for u in args.only.split(",")
+            if u.strip()
+        ]
+    else:
+        seed_limit = args.limit if args.limit > 0 else 300
+        seeds = load_seed_usernames(limit=seed_limit)
     print(f"seed: {len(seeds)}")
 
     results_map: dict[str, dict] = {}
+    if args.merge and Path(out).exists():
+        for r in load_json(out, []):
+            key = (r.get("username") or "").lower()
+            if key:
+                results_map[key] = r
+        print(f"merge base: {len(results_map)} rows from {out}")
+
     sessions = create_sessions()
     session_idx = [0]
     cookie_sets = load_playwright_cookie_sets()
@@ -616,12 +921,21 @@ async def main_async() -> None:
             )
             hit = stack_weekly_from_tweets(tweets, username, start, end)
             if not hit:
+                # 再収集で0件なら merge からも落とす
+                key = username.lower()
+                if key in results_map:
+                    print(f"  [drop] @{username} (recollect 0)")
+                    results_map.pop(key, None)
                 if i % 20 == 0:
                     print(f"  [{i}/{len(seeds)}] hits={len(results_map)}")
                 continue
 
             account = dict(accounts_map.get(username.lower(), {}))
             account.setdefault("username", username)
+            if username.lower() in display_overrides:
+                account["display_name"] = display_overrides[username.lower()]
+            elif not account.get("display_name"):
+                account["display_name"] = username
             method = hit.get("method", "stack")
             match_source = "stack" if method == "stack" else "search"
             row = build_period_result(account, hit, "weekly_count", match_source)
@@ -636,16 +950,16 @@ async def main_async() -> None:
                 row["evidence_items"] = hit["evidence_items"]
 
             key = username.lower()
-            if should_replace_result(results_map.get(key), row, "weekly_count"):
-                results_map[key] = row
-                print(
-                    f"  [{method}] @{username}: {hit['count']}"
-                    + (
-                        f" (posts={hit.get('stack_posts')})"
-                        if method == "stack"
-                        else ""
-                    )
+            # 週次 trial は再収集で常に上書き（厳格化で件数が下がることも）
+            results_map[key] = row
+            print(
+                f"  [{method}] @{username}: {hit['count']}"
+                + (
+                    f" (posts={hit.get('stack_posts')})"
+                    if method == "stack"
+                    else ""
                 )
+            )
 
         await browser.close()
 
@@ -662,6 +976,8 @@ async def main_async() -> None:
             r["count_method"] = src["count_method"]
         if src.get("stack_posts") is not None:
             r["stack_posts"] = src["stack_posts"]
+        if src.get("display_name") and not r.get("display_name"):
+            r["display_name"] = src["display_name"]
 
     rows = [r for r in rows if int(r.get("weekly_count") or 0) >= args.min_count]
     rows.sort(
