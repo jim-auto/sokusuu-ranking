@@ -112,10 +112,48 @@ def extract_weekly_total(text: str, start: date, end: date) -> int | None:
     return None
 
 
+def _strip_urls_emoji(text: str) -> str:
+    t = re.sub(r"https?://\S+", " ", text or "")
+    t = re.sub(r"[\U00010000-\U0010ffff]", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def has_success_marker_in_raw(raw: str) -> bool:
+    """本文そのものに即/節の成功確定語があるか。
+
+    clean_tweet_text は絵文字行を「ネト1即」に合成するため、
+    パレ搬・ホテ搬だけの投稿が偽陽性になる。合成語は使わない。
+    パレ搬/ホテ搬だけでは即未確定。
+    """
+    if not raw:
+        return False
+    if re.search(
+        r"(?:"
+        r"準即|パス即|満即|大満即|不満即|ノーグダ即|"
+        r"(?:即|節)\s*/|"
+        r"(?:即|節)\s*[！!‼️]+|"
+        r"今月\s*\d+\s*節目|"
+        r"\d+\s*(?:即|節)\b|"
+        r"即った|即れ[たとので]|即り"
+        r")",
+        raw,
+    ):
+        return True
+    bare = _strip_urls_emoji(raw)
+    # 単独の「即」「節」投稿（短い成功報告）
+    if re.match(r"^(?:即|節)\b", bare) and len(bare) < 80:
+        return True
+    # 行頭・区切り後の 即/節（絵文字除去後）
+    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!/／])", bare):
+        return True
+    return False
+
+
 def count_stack_units(text: str) -> int:
     """1ツイート内の即/節報告を何件として積むか。
 
     厳しめ: 実ケース報告っぽいものだけ。
+    パレ搬・ホテ搬だけでは即未確定なので 0。
     「ノア（10節）」「表示はスト4即」みたいな言及は 0。
     """
     raw = text or ""
@@ -140,32 +178,49 @@ def count_stack_units(text: str) -> int:
     ):
         return 0
 
-    # 明細付きケース: 即/24 節/22
+    # パレ搬/ホテ搬のみ・搬送報告のみは数えない（即確定語が raw に必要）
+    if not has_success_marker_in_raw(raw):
+        return 0
+
+    # 明細付きケース: 即/24 節/22（raw 基準・合成のネト1即は使わない）
     slash_n = len(re.findall(r"(?:即|節|準即)\s*/\s*[^\s]", raw))
     if slash_n:
         return min(slash_n, 8)
 
+    def _multi_n() -> int | None:
+        """2即/3節 などの複数報告。clean の絵文字変換に依存しない。"""
+        bare = _strip_urls_emoji(raw)
+        for src in (bare, cleaned):
+            m = re.search(r"(?:^|[\s　])([2-6])\s*(?:即|節)\b", src)
+            if m:
+                return int(m.group(1))
+        # 絵文字直後「🦾2即」
+        m = re.search(r"([2-6])\s*(?:即|節)\b", raw[:50])
+        if m:
+            return int(m.group(1))
+        return None
+
+    multi_support = bool(
+        re.search(
+            r"(?:即|節)\s*/|NS|合致|満即|準即|パス即|値\d|杯|①|②",
+            raw,
+        )
+    )
+
     # 即‼️ / 節‼️（成功報告）
     if re.search(r"(?:即|節)\s*[！!‼️]+", raw):
-        # 複数 bang は稀なので 1 固定（連投は別ツイートで積む）
-        multi = re.search(r"^[\s　]*([2-6])\s*(?:即|節)\b", cleaned)
-        if multi and re.search(r"(?:即|節)\s*/|ホテ|搬|NS|合致|値", raw):
-            return int(multi.group(1))
+        n = _multi_n()
+        if n and multi_support:
+            return n
         return 1
 
-    # 冒頭「2即」「3節」+ ケース語
-    multi = re.search(r"^[\s　]*([2-6])\s*(?:即|節)\b", cleaned)
-    if multi and re.search(
-        r"(?:即|節)\s*/|ホテ|搬|NS|合致|満即|準即|パス即|値\d|杯",
-        raw,
-    ):
-        return int(multi.group(1))
+    # 「2即」「3節」+ ケース語（搬/ホテだけでは不可）
+    n = _multi_n()
+    if n and multi_support:
+        return n
 
-    # 準即・パス即・満即 + 現場語
-    if re.search(r"(?:準即|パス即|満即)", cleaned) and re.search(
-        r"(?:ホテ|搬|合致|値|杯|NS|即/|パスして|回収)",
-        raw,
-    ):
+    # 準即・パス即・満即など成功ラベル（現場語は不要。ラベル自体が確定）
+    if re.search(r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即)", raw):
         return 1
 
     # 今月N節目（成功後の節目報告）— 数値Nではなく 1 件
@@ -175,14 +230,15 @@ def count_stack_units(text: str) -> int:
         return 1
 
     # 単独「即」「節」行 or 短い成功報告
-    if re.match(r"^[\s　]*(?:即|節)\b", cleaned) and len(cleaned) < 80:
+    bare = _strip_urls_emoji(raw)
+    if re.match(r"^(?:即|節)\b", bare) and len(bare) < 80:
         return 1
 
-    # ネト1即 / スト1即 など短いチャネル付き成功（会話の例示は上で除外済み）
-    if re.search(r"(?:ネト|スト|箱)\s*1\s*(?:即|節)\b", cleaned) and re.search(
-        r"(?:合致|搬|ホテ|NS|値|即/|ノーグダ|グダ)",
-        raw,
-    ):
+    # raw に即/節があるケース報告（即った、即/明細以外の短文など）
+    # clean の「ネト1即」合成 + パレ搬 ではここに来ない（上で return 0 済み）
+    if re.search(r"即った|即れ[たとので]|即り|\d+\s*(?:即|節)\b", raw):
+        return 1
+    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!/／])", bare):
         return 1
 
     return 0
