@@ -112,7 +112,8 @@ python build_halfyear_ranking.py --year 2026
 HTML 再生成:
 
 ```bash
-SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=monthlyselect DEFAULT_MONTH=202607 python generate_html.py
+# 既定の初期表示は総合 (DEFAULT_TAB=all)。月別を開きたいときだけ DEFAULT_TAB を変える
+SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=all DEFAULT_MONTH=202607 python generate_html.py
 ```
 
 ### 7月収集 (2026-08-01)
