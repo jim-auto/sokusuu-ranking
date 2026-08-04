@@ -663,6 +663,11 @@ def clean_tweet_text(text):
         r" 箱\1即 ",
         text,
     )
+    # ヘッダ集計 🦉7 🐶1 💯1（x なし・絵文字直結数字）も即数ラベルへ
+    text = re.sub(r"[🐶🦁🦉🏪🦐]\s*(\d+)(?!\s*日)", r" スト\1即 ", text)
+    text = re.sub(r"[🗼🍛🍎🔥🍐🪩]\s*(\d+)(?!\s*日)", r" ネト\1即 ", text)
+    text = re.sub(r"[🦾🧚📦]\s*(\d+)(?!\s*日)", r" 箱\1即 ", text)
+    text = re.sub(r"[💯🍺🥂🧙]\s*(\d+)(?!\s*日)", r" パス\1即 ", text)
     text = re.sub(r"(?:明太子|古都|味噌)\s*[x×ｘ*]\s*(\d+)", r" スト\1即 ", text)
     text = re.sub(r"(?:合コン|[🍺🥂🧙])\s*[x×ｘ*]\s*(\d+)", r" パス\1即 ", text)
 
@@ -1661,7 +1666,8 @@ def pick_best_hit(tweets, username, mode, year, month=None, strict=False):
         hit = {
             "count": count,
             "url": f"https://x.com/{username}/status/{tweet['id']}",
-            "text": clean_tweet_text(tweet.get("text", ""))[:240],
+            # チャネル絵文字内訳用に原文を残す（件数抽出は extract_* 内で clean する）
+            "text": (tweet.get("text") or "")[:500],
             "created_at": tweet.get("created_at", ""),
         }
         if best_hit is None or count > best_hit["count"]:
@@ -1694,7 +1700,8 @@ def pick_best_hits_by_user(tweets, usernames, mode, year, month=None, strict=Fal
             "username": original_username,
             "count": count,
             "url": f"https://x.com/{original_username}/status/{tweet['id']}",
-            "text": clean_tweet_text(tweet.get("text", ""))[:240],
+            # チャネル絵文字内訳用に原文を残す
+            "text": (tweet.get("text") or "")[:500],
             "created_at": tweet.get("created_at", ""),
         }
         current = best_hits.get(original_username)

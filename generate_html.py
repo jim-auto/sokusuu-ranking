@@ -87,6 +87,7 @@ EMOJI_TO_CHANNEL: dict[str, str] = {
     "◻": "club",
     "◽": "club",
     "🥂": "other",
+    "💯": "other",  # 黎さん総括など（🦉/🐶 と並ぶ内訳）
 }
 CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
 # 表ヘッダ: 複数チャネル時は総括内訳の件数が多い順
@@ -294,11 +295,20 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
     emoji_alts = sorted(EMOJI_TO_CHANNEL.keys(), key=len, reverse=True)
     emoji_re = "|".join(re.escape(e) for e in emoji_alts)
     consumed: list[tuple[int, int]] = []
+    # 明示数量付きで確定した絵文字（🦉7 など）。ケース行の単独 🦉弾 は二重計上しない
+    explicit_emojis: set[str] = set()
 
     def _overlap(a: int, b: int) -> bool:
         return any(not (b <= s or a >= e) for s, e in consumed)
 
-    def _add_group(tokens: list[str], qty: int, start: int, end: int) -> None:
+    def _add_group(
+        tokens: list[str],
+        qty: int,
+        start: int,
+        end: int,
+        *,
+        explicit: bool = False,
+    ) -> None:
         if _overlap(start, end) or qty <= 0:
             return
         norms: list[str] = []
@@ -313,10 +323,17 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
                 channels_in_group.append(ch)
         if not norms or not channels_in_group:
             return
+        # ケース行の単独カウントは、同じ絵文字の明示集計があるときスキップ
+        if not explicit and any(n in explicit_emojis for n in norms):
+            consumed.append((start, end))
+            return
         primary = channels_in_group[0]
         head = norms[0]
         empty[primary]["emojis"][head] = empty[primary]["emojis"].get(head, 0) + qty
         empty[primary]["total"] += qty
+        if explicit:
+            for n in norms:
+                explicit_emojis.add(n)
         consumed.append((start, end))
 
     # 1) 🐶&🏪:10 / 🐶＆🏪×10
@@ -325,17 +342,18 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
         raw,
     ):
         tokens = re.findall(emoji_re, m.group(1))
-        _add_group(tokens, int(m.group(2)), m.start(), m.end())
+        _add_group(tokens, int(m.group(2)), m.start(), m.end(), explicit=True)
 
     # 2) 連続絵文字 + ×N（🗼🍛x2）
     for m in re.finditer(rf"((?:{emoji_re}){{2,}})\s*[×xｘ*]\s*(\d+)", raw):
         tokens = re.findall(emoji_re, m.group(1))
-        _add_group(tokens, int(m.group(2)), m.start(), m.end())
+        _add_group(tokens, int(m.group(2)), m.start(), m.end(), explicit=True)
 
     # 3) 単体絵文字 + 数量（直結 / × / :）or 数量なし=1
     #    空白+数字は年齢なので数量にしない（🔥  18 売り子）
     #    数量なしの単独絵文字は「リスト行」（行頭 or 直後が /）だけ数える
     #    → 帰省🟦・🦾&🏪で 等の装飾を即数にしない
+    #    ヘッダ集計 🦉7 🐶1 は explicit（ケース行 🦉弾 と二重計上しない）
     for m in re.finditer(
         rf"({emoji_re})(?:(\d+)|(?:\s*[×xｘ*]\s*(\d+))|(?:\s*[:：]\s*(\d+)))?",
         raw,
@@ -345,22 +363,21 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
         qty_raw = m.group(2) or m.group(3) or m.group(4)
         if qty_raw:
             qty = int(qty_raw)
-        else:
-            prev = raw[m.start() - 1] if m.start() > 0 else "\n"
-            nxt = raw[m.end() : m.end() + 1]
-            after2 = raw[m.end() : m.end() + 2]
-            if nxt in {"&", "＆"}:
-                continue
-            # リスト行: 行頭 / 直後スラッシュ / 弾・準・即 など
-            line_prefix = raw[max(0, raw.rfind("\n", 0, m.start()) + 1) : m.start()]
-            at_line_start = line_prefix.strip() == ""
-            list_like = nxt in {"/", "／"} or after2.startswith(
-                ("弾", "準", "即", "そ", "節", "×", "ｘ", "x")
-            )
-            if not at_line_start and not list_like:
-                continue
-            qty = 1
-        _add_group([m.group(1)], qty, m.start(), m.end())
+            _add_group([m.group(1)], qty, m.start(), m.end(), explicit=True)
+            continue
+        nxt = raw[m.end() : m.end() + 1]
+        after2 = raw[m.end() : m.end() + 2]
+        if nxt in {"&", "＆"}:
+            continue
+        # リスト行: 行頭 / 直後スラッシュ / 弾・準・即 など
+        line_prefix = raw[max(0, raw.rfind("\n", 0, m.start()) + 1) : m.start()]
+        at_line_start = line_prefix.strip() == ""
+        list_like = nxt in {"/", "／"} or after2.startswith(
+            ("弾", "準", "即", "そ", "節", "×", "ｘ", "x")
+        )
+        if not at_line_start and not list_like:
+            continue
+        _add_group([m.group(1)], 1, m.start(), m.end(), explicit=False)
 
     # キーワード件数
     keyword = {c: 0 for c in empty}
@@ -597,8 +614,25 @@ def format_channel_parts(record: dict) -> list[tuple[str, str]]:
     - キーワードのみ: スト（9）
     - 件数なし: スト / ネト / 謎
     """
-    channels = infer_channels(record)
+    evidence = channel_evidence_text(record)
+    channels = list(infer_channels(record))
     breakdown = get_channel_breakdown(record)
+    # 内訳件数があるチャネルは必ず出す（💯→その他 など infer 漏れ防止）
+    for ch, data in breakdown.items():
+        if ch == "unknown":
+            continue
+        if int(data.get("total") or 0) > 0 and ch not in channels:
+            channels.append(ch)
+    # 件数0のチャネルは内訳がある他チャネルがあるとき落とす（装飾ネト誤爆）
+    if any(int((breakdown.get(c) or {}).get("total") or 0) > 0 for c in channels):
+        channels = [
+            c
+            for c in channels
+            if c == "unknown"
+            or int((breakdown.get(c) or {}).get("total") or 0) > 0
+            or c not in breakdown
+        ]
+    channels = order_channels_by_count(channels, evidence)
     parts: list[tuple[str, str]] = []
     for channel in channels:
         short = CHANNEL_SHORT_LABELS.get(channel, CATEGORY_LABELS.get(channel, channel))

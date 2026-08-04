@@ -38,35 +38,35 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 4 | @kuroiwa_45 | 黒岩 | 23 | ネト | [link](https://x.com/kuroiwa_45/status/2083133174444609639) | - |
 | 5 | @kukuru_nanpa | くくる | 23 | 謎 | [link](https://x.com/kukuru_nanpa/status/2083314987188232481) | 20即4ヶ月 |
 | 6 | @Lattie_pua | らてぃ | 19 | スト（9）、ネト（7）、その他（1） | [link](https://x.com/Lattie_pua/status/2083122767210353004) | 15即2ヶ月 |
-| 7 | @PUAINOKI | フランク | 17 | その他（10）、ネト | [link](https://x.com/PUAINOKI/status/2083377255842234433) | 10即7ヶ月 |
+| 7 | @PUAINOKI | フランク | 17 | その他（10） | [link](https://x.com/PUAINOKI/status/2083377255842234433) | 10即7ヶ月 |
 | 8 | @makoto__pua | 伊藤誠@講習、note始めました | 17 | スト（17） | [link](https://x.com/makoto__pua/status/2083210570925527333) | 10即7ヶ月 |
 | 9 | @socool55555 | 味噌どガス | 17 | ネト | [link](https://x.com/socool55555/status/2083337610295120258) | 10即3ヶ月 |
 | 10 | @17go_pua | 17号 | 17 | スト（🐶10）、箱（🦾7） | [link](https://x.com/17go_pua/status/2083415220517843403) | 5即4ヶ月 |
 | 11 | @mic_pua | 『トーク刺しのまいく🎤』 | 16 | 謎 | [link](https://x.com/mic_pua/status/2083460570397986857) | 15即7ヶ月 |
-| 12 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ネト（🔥10）、スト（🐶5・🦐1） | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) | 15即3ヶ月 / 10即4ヶ月 |
+| 12 | @kimu__himitsu2 | ナンパ版デスドル | 16 | ネト（🔥10）、スト（🐶5・🦐1）、その他（3） | [link](https://x.com/kimu__himitsu2/status/2083330629845094722) | 15即3ヶ月 / 10即4ヶ月 |
 | 13 | @tomu_riddle | とむりどる | 14 | ネト（3） | [link](https://x.com/tomu_riddle/status/2083477049273147574) | - |
-| 14 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | ネト | [link](https://x.com/nakayamasoku/status/2083364151645376682) | - |
+| 14 | @nakayamasoku | 中山@tips更新中（ジジネト） | 14 | その他（4） | [link](https://x.com/nakayamasoku/status/2083364151645376682) | - |
 | 15 | @okarun_pua | おかるん@りお講習 | 14 | スト（10）、ネト（2）、箱（2） | [link](https://x.com/okarun_pua/status/2083390558547083356) | 10即2ヶ月 / 5即5ヶ月 |
 | 16 | @Tt2tb | おはよぉ | 14 | スト、ネト | [link](https://x.com/Tt2tb/status/2081570289641803903) | 10即7ヶ月 |
 | 17 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 13 | ネト（🍎6・🍐5・🔥2） | [link](https://x.com/Tinder_god_2/status/2083221841930576154) | 10即2ヶ月 |
-| 18 | @yomaru_street | よまる@顔面淘汰男 | 13 | スト（6） | [link](https://x.com/yomaru_street/status/2083310265932898545) | 5即7ヶ月 |
+| 18 | @yomaru_street | よまる@顔面淘汰男 | 13 | スト（6）、その他（4） | [link](https://x.com/yomaru_street/status/2083310265932898545) | 5即7ヶ月 |
 | 19 | @greed_pua | 強欲 | 13 | ネト、その他 | [link](https://x.com/greed_pua/status/2082065443796496869) | 10即7ヶ月 |
 | 20 | @jiro11321 | でんじろ@黒岩コンサル | 13 | ネト（🍐10・🍎3） | [link](https://x.com/jiro11321/status/2083888620977676475) | 10即2ヶ月 |
 | 21 | @bookmaker_2015 | とも | 12 | スト（9） | [link](https://x.com/bookmaker_2015/status/2083185644617203933) | 10即2ヶ月 / 5即7ヶ月 |
 | 22 | @2BWwC9xP3Vw1MUO | ぬまくろー@8/6-明太子 | 11 | スト（8）、ネト（2）、箱（1） | [link](https://x.com/2BWwC9xP3Vw1MUO/status/2083381959255106021) | - |
 | 23 | @anshin_pua | あんしん🎀ナンパ師 | 10 | スト、ネト | [link](https://x.com/anshin_pua/status/2083169564255481872) | - |
 | 24 | @motebody_pua | エース@体刺し一門副代表 | 10 | ネト（10） | [link](https://x.com/motebody_pua/status/2083193715238240622) | 10即3ヶ月 / 5即7ヶ月 |
-| 25 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | スト（2） | [link](https://x.com/dick_duck_swing/status/2083455412704297323) | 5即2ヶ月 |
+| 25 | @dick_duck_swing | 狩るー@淘汰男🙏 | 10 | その他（4）、スト（2） | [link](https://x.com/dick_duck_swing/status/2083455412704297323) | 5即2ヶ月 |
 | 26 | @Nano486273 | 🍏@雄華軍団 | 10 | 箱（📦6）、ネト（🍎2）、その他（2） | [link](https://x.com/Nano486273/status/2083522031740755998) | - |
 | 27 | @147asdf764 | ノア | 10 | ネト（🔥4・🍎2・🪩2）、スト（🦁1・🦉1） | [link](https://x.com/147asdf764/status/2083211068340589000) | - |
 | 28 | @ururunpua | うるるん | 9 | スト（6）、箱（2）、ネト（1） | [link](https://x.com/ururunpua/status/2083350040832352442) | 5即3ヶ月 |
-| 29 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | スト | [link](https://x.com/rei_app_pua/status/2083207900047278344) | 5即5ヶ月 |
+| 29 | @rei_app_pua | 黎@🦉事変/kk廻遊 | 9 | スト（🦉7・🐶1）、その他（💯1） | [link](https://x.com/rei_app_pua/status/2083207900047278344) | 5即5ヶ月 |
 | 30 | @tsutsumi_ye4pe | よしあき@wing長期 | 9 | スト（🐶2） | [link](https://x.com/tsutsumi_ye4pe/status/2083479659505910175) | 5即2ヶ月 |
 | 31 | @chiroru_pua | チロル@帝都の雌猫 | 7 | スト（7） | [link](https://x.com/chiroru_pua/status/2083235010656792658) | 5即7ヶ月 |
-| 32 | @SFgzKAHifDvjfVu | Ren | 7 | スト（🦉1）、ネト | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) | 5即6ヶ月 |
+| 32 | @SFgzKAHifDvjfVu | Ren | 7 | スト（🦉1） | [link](https://x.com/SFgzKAHifDvjfVu/status/2083438939726352601) | 5即6ヶ月 |
 | 33 | @Niko_PUA | ニコ | 6 | スト（🐶4） | [link](https://x.com/Niko_PUA/status/2083389102792294728) | - |
 | 34 | @MSKsecond | MSK | 6 | 謎 | [link](https://x.com/MSKsecond/status/2083251326901989845) | - |
 | 35 | @maya159r | まゃった | 5 | その他（🥂📦4）、スト（1） | [link](https://x.com/maya159r/status/2084031686434820450) | - |
 | 36 | @ak1_pua | あぴ | 5 | スト、ネト | [link](https://x.com/ak1_pua/status/2081439487230681118) | - |
-| 37 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | 箱（⬛️1） | [link](https://x.com/cx_lm5/status/2083365251693891961) | - |
+| 37 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 5 | スト（Ⓜ️1）、箱（⬛️1） | [link](https://x.com/cx_lm5/status/2083365251693891961) | - |
 | 38 | @knt17760 | キッチン | 5 | スト（🐶3）、ネト（🗼2） | [link](https://x.com/knt17760/status/2083382348268392864) | - |
