@@ -1359,7 +1359,7 @@ def generate_html(records: list[dict]) -> str:
         weekly_divs += (
             '<div id="weekly-' + week_id + '" style="display:' + display + '">'
             '<p style="text-align:center;color:#888;font-size:0.85em;margin:0 0 12px">'
-            "お試し週間ランキング（明示の今週N即/週総括など）・3即以上"
+            "お試し週間ランキング（週内の即/節報告を積み上げ）・3以上"
             "</p>"
             "<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>"
             + CHANNEL_COL_TH
