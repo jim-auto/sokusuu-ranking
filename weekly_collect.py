@@ -317,12 +317,28 @@ def is_quote_tweet(tweet: dict, text: str = "") -> bool:
 
 
 def extract_day_recap_n(text: str) -> tuple[str, int] | None:
-    """昨日N節 / 今日N即 の (kind, N)。kind は yesterday|today。"""
+    """昨日N節 / 今日N即 の (kind, N)。kind は yesterday|today。
+
+    「昨日はアプリで2即」「本日2即目」も拾う。
+    目標文中の「🦉で2即」は拾わない。
+    """
     raw = text or ""
-    m = re.search(r"昨日\s*([1-9]\d?)\s*(?:即|節)", raw)
+    if is_goal_or_progress_tracker(raw) or is_meta_or_third_party_soku_talk(raw):
+        return None
+    if re.search(r"目標|ぶち上げ|目指", raw) and not re.search(
+        r"(?:初即|即った|満即|準即/|合致|搬)", raw
+    ):
+        return None
+    m = re.search(
+        r"昨日(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?:目)?",
+        raw,
+    )
     if m:
         return ("yesterday", int(m.group(1)))
-    m = re.search(r"(?:今日|本日)\s*([1-9]\d?)\s*(?:即|節)", raw)
+    m = re.search(
+        r"(?:今日|本日)(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?:目)?",
+        raw,
+    )
     if m:
         return ("today", int(m.group(1)))
     return None
@@ -377,16 +393,51 @@ def has_success_marker_in_raw(raw: str) -> bool:
     return False
 
 
-def is_meta_or_third_party_soku_talk(text: str) -> bool:
-    """他人の即ペース推定・マイルストーン雑談・理論トーク（本人ケースではない）。
+def is_goal_or_progress_tracker(text: str) -> bool:
+    """目標・進捗ボード（実ケースではない）。
 
     例:
-      推定1即/半年
-      200即→300即の過程でもまだ学びある
-      数追いは必要性感じない
+      ・8月目標 1000k 1即 ぶち上げる
+      27/1000k 0/1即 まずまずのスタート
+      899/1000k 0/1即
+      【8月の目標】🦉で2即
     """
     raw = text or ""
-    # レート推定（N即/半年・N即/月）
+    # 月次目標宣言
+    if re.search(
+        r"(?:月)?目標|ぶち上げ|目指|死守|いくぞ|やりきる|"
+        r"維持目標|同程度維持",
+        raw,
+    ) and not re.search(
+        r"(?:初即|即った|即れ[たと]|復帰後初即|満即|準即/|即/|"
+        r"合致|パレ搬|ホテ搬|弾丸|パス即)",
+        raw,
+    ):
+        return True
+    # 声かけ進捗 + 0/N即（未達）
+    if re.search(r"0\s*/\s*\d+\s*(?:即|節)", raw):
+        return True
+    # N/Mk 進捗ボード（声かけ/目標k）だけ
+    if re.search(r"\d+\s*/\s*\d+\s*k\b", raw, re.IGNORECASE) and not re.search(
+        r"(?:初即|即った|復帰後初即|満即|準即|パス即|合致|搬|NN|NS)",
+        raw,
+    ):
+        return True
+    # M/N即 で M=0 以外でも、進捗更新のみ（現場語なし）
+    if re.search(r"\d+\s*/\s*\d+\s*(?:即|節)", raw) and not re.search(
+        r"(?:初即|即った|復帰後|満即|準即|パス即|合致|搬|値|杯|NN|NS|"
+        r"即‼️|即！)",
+        raw,
+    ):
+        # 1/1即 復帰後初即 は上で通す。進捗だけは弾く
+        if not re.search(r"(?:初即|即った|復帰後初即)", raw):
+            return True
+    return False
+
+
+def is_meta_or_third_party_soku_talk(text: str) -> bool:
+    """他人の即ペース推定・マイルストーン雑談・理論トーク（本人ケースではない）。"""
+    raw = text or ""
     if re.search(
         r"推定\s*\d+\s*(?:即|節)|"
         r"\d+\s*(?:即|節)\s*/\s*(?:半年|年間|年|月|週|日)|"
@@ -394,37 +445,69 @@ def is_meta_or_third_party_soku_talk(text: str) -> bool:
         raw,
     ):
         return True
-    # 通算マイルストーン雑談（200即→300即 の過程）
     if re.search(
         r"\d{2,4}\s*(?:即|節)\s*[→➡➝]\s*\d{2,4}\s*(?:即|節)|"
-        r"(?:過程|学び|数追い|必要性|理論|マインド|モテ寄り)",
+        r"(?:過程|学び|数追い|必要性|理論|マインド|モテ寄り|界隈新ルール|"
+        r"非泥|風俗±|泥-)",
         raw,
-    ) and re.search(r"\d+\s*(?:即|節)", raw):
-        # 短文ライブ即は除外しない
+    ) and re.search(r"(?:即|節)", raw):
         bare = _strip_urls_emoji(raw)
-        if len(bare) > 30 or not is_live_soku_announce(raw):
+        if len(bare) > 25 or not is_live_soku_announce(raw):
             return True
-    # 他人観察（誰なんだろう / 代表格 / 糖質ナンパ師）
     if re.search(
         r"誰なんだろう|代表格|糖質|淘汰されて|ヒシヒシ|"
-        r"教えてもらったように|当日即とか|ナンパどうこう",
+        r"教えてもらったように|当日即とか|ナンパどうこう|"
+        r"即りやすい|即れるようになりたい|次は絶対即|"
+        r"即りましょう|可能性は|望みは薄い|過度な期待|"
+        r"わんちゃん？|準即わんちゃん|準即できる可能性|"
+        r"2年前即|累計\s*\d+\s*即|通算\s*\d+\s*即|"
+        r"\d{2,4}\s*即達成|きっかけを作って|改めて周り",
+        raw,
+    ):
+        return True
+    # 負け・未遂のみ
+    if re.search(r"(?:パレ内負け|ホテ内負け|前負け|負け報|成果無し|連れパレ内負け)", raw) and not re.search(
+        r"(?:準即|満即|パス即|即った|即‼️|即！|即/)",
         raw,
     ):
         return True
     return False
 
 
+def has_case_field_evidence(text: str) -> bool:
+    """現場・ケース明細があるか（進捗ボード・絵文字雑談と区別）。"""
+    raw = text or ""
+    # チャンネル絵文字だけでは不十分（「🦁が一番即りやすい」等）
+    return bool(
+        re.search(
+            r"(?:"
+            r"準即|パス即|満即|大満即|不満即|ノーグダ即|弾丸即|ブメ即|"
+            r"(?:即|節)\s*/\s*(?!\d+\s*(?:即|節))"
+            r"|合致|瞳孔|パレ搬|ホテ搬|🏠搬|ネカ搬|直パレ|"
+            r"値\s*\d|スト値|[A-GＡ-Ｇ]杯|[A-G]🥧|NN|NS|押忍|"
+            r"初即|即った|即れ[たと]|復帰後初即|"
+            r"No\.\s*\d+[^\n]{0,30}(?:即|満即)|"
+            r"①|②|③|"
+            r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦]\s*(?:即|そ|準|/\d)|"
+            r"\d{2}\s*🦏"
+            r")",
+            raw,
+        )
+    )
+
+
 def count_stack_units(text: str) -> int:
     """1ツイート内の即/節報告を何件として積むか。
 
     厳しめ: 実ケース報告っぽいものだけ。
-    パレ搬・ホテ搬だけでは即未確定なので 0。
-    「ノア（10節）」「表示はスト4即」みたいな言及は 0。
+    目標・0/N即進捗・理論・他人話は 0。
     """
     raw = text or ""
     if raw.startswith("RT @") or raw.startswith("RT@"):
         return 0
     if is_period_recap_tweet(raw):
+        return 0
+    if is_goal_or_progress_tracker(raw):
         return 0
     if is_meta_or_third_party_soku_talk(raw):
         return 0
@@ -437,10 +520,10 @@ def count_stack_units(text: str) -> int:
     if re.search(r"今週\s*\d+\s*(?:即|節)|週総括|週まとめ|週間\s*\d+", cleaned):
         return 0
 
-    # メタ会話・ランキング話は除外（根拠にならない）
+    # メタ会話・ランキング話は除外
     if re.search(
         r"表示|ランキング|位あざ|比較したく|難しいですか|どうですか|"
-        r"風潮|予想|理論|マインド|界隈的",
+        r"風潮|予想|理論|マインド|界隈的|ルール",
         cleaned,
     ):
         return 0
@@ -448,83 +531,112 @@ def count_stack_units(text: str) -> int:
     # 未確定・願望は除外
     if re.search(
         r"即れ[ただ]?ら|即りたい|即したい|即れそう|即れるか|即ろう|片方即|"
-        r"即れたら|即れたらだいぶ|アツい$|締日なので",
+        r"即れたら|締日なので|即りやすい|なりたい",
         raw,
-    ) and not re.search(r"(?:準即|満即|パス即|即/|即‼️|即った)", raw):
-        # 条件・願望のみ。確定ラベルがあれば通す
+    ) and not re.search(r"(?:準即|満即|パス即|即った|即‼️|即！)", raw):
         if not re.search(r"(?:準即|満即|パス即|ノーグダ即)\b|(?:即|節)\s*/", raw):
             return 0
 
-    # パレ搬/ホテ搬のみ・搬送報告のみは数えない（即確定語が raw に必要）
-    if not has_success_marker_in_raw(raw):
+    # 進捗ボードの 1/1即 + 初即 は 1 件
+    if re.search(r"[1-9]\s*/\s*\d+\s*(?:即|節)", raw) and re.search(
+        r"(?:初即|復帰後初即|即った)", raw
+    ):
+        return 1
+
+    bare = _strip_urls_emoji(raw)
+
+    # --- 以下は「現場語 or 短文ライブ即」必須 ---
+    live = is_live_soku_announce(raw)
+    field = has_case_field_evidence(raw)
+
+    if not live and not field:
+        # 裸の「1即」「17即」だけは数えない（目標・総括・雑談が多い）
         return 0
 
-    # 明細付きケース: 即/24 節/22（半年・月ペース表記は除外）
+    # 明細付きケース: 即/24 節/22・準即/20（進捗 0/1即 は除外済み）
     slash_n = len(
         re.findall(
-            r"(?:即|節|準即)\s*/\s*(?!半年|年間|年\b|月\b|週\b|日\b)[^\s]",
+            r"(?:即|節|準即|パス即|弾丸即|ブメ即)\s*/\s*"
+            r"(?!半年|年間|年\b|月\b|週\b|日\b|\d+\s*(?:即|節))"
+            r"[^\s/]",
             raw,
         )
     )
     if slash_n:
         return min(slash_n, 8)
 
+    # socool 型: No.101 ... 即 の列挙
+    no_lines = re.findall(
+        r"No\.\s*\d+[^\n]{0,40}(?:即|満即|準即)",
+        raw,
+        flags=re.IGNORECASE,
+    )
+    if no_lines:
+        return min(len(no_lines), 12)
+
     def _multi_n() -> int | None:
-        """2即/3節 などの複数報告。clean の絵文字変換に依存しない。"""
-        bare = _strip_urls_emoji(raw)
-        for src in (bare, cleaned):
+        for src in (bare, cleaned, raw[:80]):
             m = re.search(r"(?:^|[\s　])([2-6])\s*(?:即|節)\b", src)
             if m:
                 return int(m.group(1))
-        # 絵文字直後「🦾2即」
         m = re.search(r"([2-6])\s*(?:即|節)\b", raw[:50])
         if m:
+            return int(m.group(1))
+        # 昨日はアプリで2即 / 本日2即目 は day_recap 側。ここはケース文中
+        m = re.search(r"(?:で|に)\s*([2-6])\s*(?:即|節)\b", raw)
+        if m and field:
             return int(m.group(1))
         return None
 
     multi_support = bool(
         re.search(
-            r"(?:即|節)\s*/|NS|合致|満即|準即|パス即|値\d|杯|①|②",
+            r"(?:即|節)\s*/|NS|合致|満即|準即|パス即|値\d|杯|①|②|NN|搬|即った",
             raw,
         )
     )
 
-    # 即‼️ / 節‼️（成功報告）
-    if re.search(r"(?:即|節)\s*[！!‼️]+", raw):
+    # 即‼️ / 節‼️（他人の肩書き即やルールは除外）
+    if re.search(r"(?:即|節|準即|パス即)\s*[！!‼️]+", raw):
+        if re.search(
+            r"TikToker即|インスタグラマー即|泥啜|フォロワー\d+万人",
+            raw,
+        ) and not re.search(r"値|杯|合致|搬|NN|NS|\d{2}\s*🦏", raw):
+            return 0
         n = _multi_n()
         if n and multi_support:
             return n
         return 1
 
-    # 「2即」「3節」+ ケース語（搬/ホテだけでは不可）
     n = _multi_n()
     if n and multi_support:
         return n
 
-    # 準即・パス即・満即など成功ラベル（現場語は不要。ラベル自体が確定）
-    if re.search(r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即)", raw):
+    # 準即・パス即・満即など（わんちゃん？は meta で除外済み）
+    if re.search(r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即|弾丸即|ブメ即)", raw):
+        # 疑問・理論は除外
+        if re.search(r"[？?]|可能性|理論|ルール", raw) and not field:
+            return 0
         return 1
 
-    # 今月N節目（成功後の節目報告）— 数値Nではなく 1 件
+    # 今月N節目
     if re.search(r"今月\s*\d+\s*節目", cleaned) and not re.search(
         r"表示|位|比較", cleaned
     ):
         return 1
 
-    # 単独「即」「節」行 or 短い成功報告
-    bare = _strip_urls_emoji(raw)
-    if re.match(r"^(?:即|節)\b", bare) and len(bare) < 80:
+    # 短文ライブ即
+    if live:
         return 1
 
-    # ライブ即（そ / そーく / Nそ目 / いーじーそ など）
-    if is_live_soku_announce(raw):
+    # 即った / 即れた の実報告
+    if re.search(r"即った|即れ[たと]|即りあっ|即れた[!！]", raw) and field:
         return 1
 
-    # raw に即/節があるケース報告（即った、即/明細以外の短文など）
-    # clean の「ネト1即」合成 + パレ搬 ではここに来ない（上で return 0 済み）
-    if re.search(r"即った|即れ[たとので]|即り|\d+\s*(?:即|節)\b", raw):
-        return 1
-    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!/／])", bare):
+    # 絵文字チャンネル + 即（🔥即　21 ...）
+    if re.search(
+        r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦]\s*(?:即|そ)\b",
+        raw,
+    ):
         return 1
 
     return 0

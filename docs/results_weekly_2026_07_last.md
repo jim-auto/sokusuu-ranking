@@ -11,37 +11,29 @@
 - 明示「今週N即」があれば優先
 - 月次・年間総括・ランキング雑談は除外
 - 掲載しきい値: デフォルト2〜3
-- 件数: 27（積み上げ 26 / 明示 1）
+- 件数: 19（積み上げ 18 / 明示 1）
 - **根拠ツイート一覧:** [`evidence_weekly_2026_07_last.md`](./evidence_weekly_2026_07_last.md)
 
 ## 結果
 
 | # | account | 表示名 | 即数 | 方式 | 報告数 | 根拠一覧 |
 |---|---------|--------|-----:|------|-------:|----------|
-| 1 | @omamco_pua2 | える | 7 | 積み上げ | 7 | [詳細](./evidence_weekly_2026_07_last.md#omamco_pua2) |
-| 2 | @17go_pua | 17号 | 7 | 積み上げ | 6 | [詳細](./evidence_weekly_2026_07_last.md#17go_pua) |
-| 3 | @makoto__pua | 伊藤誠@講習、note始めました | 6 | 積み上げ | 6 | [詳細](./evidence_weekly_2026_07_last.md#makoto__pua) |
-| 4 | @taka_DTnmp | たかはる@MBH | 5 | 積み上げ | 5 | [詳細](./evidence_weekly_2026_07_last.md#taka_dtnmp) |
-| 5 | @atannon_nampa | あたんのん@ナンパ講師 | 5 | 積み上げ | 5 | [詳細](./evidence_weekly_2026_07_last.md#atannon_nampa) |
-| 6 | @2BWwC9xP3Vw1MUO | ぬまくろー@8/6-明太子 | 5 | 明示 | - | [詳細](./evidence_weekly_2026_07_last.md#2bwwc9xp3vw1muo) |
-| 7 | @socool55555 | 味噌どガス | 5 | 積み上げ | 3 | [詳細](./evidence_weekly_2026_07_last.md#socool55555) |
-| 8 | @shingen_pua | 信玄 | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#shingen_pua) |
-| 9 | @ryepua | イヌピィ@淘汰男でも恋がしたい‼️ | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#ryepua) |
-| 10 | @tensai_nanpa4 | 統鈴木 | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#tensai_nanpa4) |
-| 11 | @kannen170 | かんねん | 4 | 積み上げ | 3 | [詳細](./evidence_weekly_2026_07_last.md#kannen170) |
-| 12 | @kimu__himitsu2 | キム | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#kimu__himitsu2) |
-| 13 | @ryeppua | イヌピィ@淘汰男でも恋がしたい‼️フォロバ100 | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#ryeppua) |
-| 14 | @suto_komari | こまり | 4 | 積み上げ | 3 | [詳細](./evidence_weekly_2026_07_last.md#suto_komari) |
-| 15 | @sub_chilll | あつ太郎の本音bot | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#sub_chilll) |
-| 16 | @tomu_riddle | とむりどる | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#tomu_riddle) |
-| 17 | @PUAINOKI | フランク | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#puainoki) |
-| 18 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#cx_lm5) |
-| 19 | @okarun_pua | おかるん@りお講習 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#okarun_pua) |
-| 20 | @pua_donut | ど ー な つ @ M B H | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#pua_donut) |
-| 21 | @River_p823 | フェニックス@セクシーコマンドー部 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#river_p823) |
-| 22 | @ray_01347 | レイ | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#ray_01347) |
-| 23 | @tonpamiso | チャージマン研 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#tonpamiso) |
-| 24 | @kukuru_nanpa | くくる | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#kukuru_nanpa) |
-| 25 | @knt17760 | キッチン | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#knt17760) |
-| 26 | @nanpasei | ヤリっくま@味噌代表 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#nanpasei) |
-| 27 | @Niko_PUA | ニコ | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#niko_pua) |
+| 1 | @socool55555 | 味噌どガス | 16 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#socool55555) |
+| 2 | @omamco_pua2 | える | 7 | 積み上げ | 7 | [詳細](./evidence_weekly_2026_07_last.md#omamco_pua2) |
+| 3 | @17go_pua | 17号 | 6 | 積み上げ | 5 | [詳細](./evidence_weekly_2026_07_last.md#17go_pua) |
+| 4 | @2BWwC9xP3Vw1MUO | ぬまくろー@8/6-明太子 | 5 | 明示 | - | [詳細](./evidence_weekly_2026_07_last.md#2bwwc9xp3vw1muo) |
+| 5 | @makoto__pua | 伊藤誠@講習、note始めました | 5 | 積み上げ | 5 | [詳細](./evidence_weekly_2026_07_last.md#makoto__pua) |
+| 6 | @shingen_pua | 信玄 | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#shingen_pua) |
+| 7 | @ryepua | イヌピィ@淘汰男でも恋がしたい‼️ | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#ryepua) |
+| 8 | @kimu__himitsu2 | キム | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#kimu__himitsu2) |
+| 9 | @ryeppua | イヌピィ@淘汰男でも恋がしたい‼️フォロバ100 | 4 | 積み上げ | 4 | [詳細](./evidence_weekly_2026_07_last.md#ryeppua) |
+| 10 | @kannen170 | かんねん | 3 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#kannen170) |
+| 11 | @sub_chilll | あつ太郎の本音bot | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#sub_chilll) |
+| 12 | @okarun_pua | おかるん@りお講習 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#okarun_pua) |
+| 13 | @pua_donut | ど ー な つ @ M B H | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#pua_donut) |
+| 14 | @River_p823 | フェニックス@セクシーコマンドー部 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#river_p823) |
+| 15 | @tonpamiso | チャージマン研 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#tonpamiso) |
+| 16 | @kukuru_nanpa | くくる | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#kukuru_nanpa) |
+| 17 | @nanpasei | ヤリっくま@味噌代表 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#nanpasei) |
+| 18 | @Niko_PUA | ニコ | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#niko_pua) |
+| 19 | @suto_komari | こまり | 2 | 積み上げ | 1 | [詳細](./evidence_weekly_2026_07_last.md#suto_komari) |
