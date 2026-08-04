@@ -18,18 +18,18 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 1 | @nakayamasoku | 中山@1600即プロマッチングアプラー | 501 | オンライン | プロフィール（要確認） | [link](https://x.com/nakayamasoku) |
 | 2 | @PUAINOKI | フランク | 239 | 未分類 | プロフィール（要確認） | [link](https://x.com/PUAINOKI) |
 | 3 | @kent_o_o | 健人 | 200 | ストリート | ツイート | [link](https://x.com/kent_o_o/status/2006335442157978046) |
-| 4 | @motebody_pua | エース@体刺し一門副代表 | 173 | オンライン | ツイート | [link](https://x.com/motebody_pua/status/2006323677651210664) |
-| 5 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 165 | オンライン | ツイート | [link](https://x.com/Tinder_god_2/status/2006299241443192933) |
-| 6 | @socool55555 | 味噌どガス | 154 | オンライン | プロフィール（要確認） | [link](https://x.com/socool55555) |
-| 7 | @momonga_tinder | ももんが【CoCome完全攻略Tips発売中🥥】 | 138 | オンライン | ツイート | [link](https://x.com/momonga_tinder/status/2006678290074054924) |
-| 8 | @River_p823 | フェニックス@セクシーコマンドー部 | 136 | クラブ | ツイート | [link](https://x.com/River_p823/status/2006724901231800705) |
-| 9 | @taruchan100 | たる | 128 | ストリート | ツイート | [link](https://x.com/taruchan100/status/1996453737653756347) |
-| 10 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 125 | クラブ | ツイート | [link](https://x.com/cx_lm5/status/2006701365058523545) |
-| 11 | @yomaru_street | よまる@顔面淘汰男 | 119 | ストリート/オンライン | ツイート | [link](https://x.com/yomaru_street/status/2006494824074195295) |
-| 12 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 119 | ストリート | ツイート | [link](https://x.com/tsuyumushi777/status/2006487874649354293) |
-| 13 | @dick_duck_swing | 狩るー@スカナン一家のマルチーズ(⭕️🩸の🧀🐮) | 95 | 未分類 | プロフィール（要確認） | [link](https://x.com/dick_duck_swing) |
-| 14 | @namenayone | ナメクニ | 82 | ストリート | プロフィール（要確認） | [link](https://x.com/namenayone) |
-| 15 | @bookmaker_2015 | とも | 80 | クラブ/オンライン | ツイート | [link](https://x.com/bookmaker_2015/status/2006034790906986780) |
+| 4 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 165 | オンライン | ツイート | [link](https://x.com/Tinder_god_2/status/2006299241443192933) |
+| 5 | @socool55555 | 味噌どガス | 154 | オンライン | プロフィール（要確認） | [link](https://x.com/socool55555) |
+| 6 | @momonga_tinder | ももんが【CoCome完全攻略Tips発売中🥥】 | 138 | オンライン | ツイート | [link](https://x.com/momonga_tinder/status/2006678290074054924) |
+| 7 | @River_p823 | フェニックス@セクシーコマンドー部 | 136 | クラブ | ツイート | [link](https://x.com/River_p823/status/2006724901231800705) |
+| 8 | @taruchan100 | たる | 128 | ストリート | ツイート | [link](https://x.com/taruchan100/status/1996453737653756347) |
+| 9 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 125 | クラブ | ツイート | [link](https://x.com/cx_lm5/status/2006701365058523545) |
+| 10 | @yomaru_street | よまる@顔面淘汰男 | 119 | ストリート/オンライン | ツイート | [link](https://x.com/yomaru_street/status/2006494824074195295) |
+| 11 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 119 | ストリート | ツイート | [link](https://x.com/tsuyumushi777/status/2006487874649354293) |
+| 12 | @dick_duck_swing | 狩るー@スカナン一家のマルチーズ(⭕️🩸の🧀🐮) | 95 | 未分類 | プロフィール（要確認） | [link](https://x.com/dick_duck_swing) |
+| 13 | @namenayone | ナメクニ | 82 | ストリート | プロフィール（要確認） | [link](https://x.com/namenayone) |
+| 14 | @bookmaker_2015 | とも | 80 | クラブ/オンライン | ツイート | [link](https://x.com/bookmaker_2015/status/2006034790906986780) |
+| 15 | @motebody_pua | エース@体刺し一門副代表 | 78 | オンライン | ツイート | [link](https://x.com/motebody_pua/status/2004471651044638811) |
 | 16 | @ak1_pua | あぴ | 71 | ストリート/オンライン | ツイート | [link](https://x.com/ak1_pua/status/2006173932483723536) |
 | 17 | @ponponpon142 | ポン@🦁路上の王 | 61 | ストリート | ツイート | [link](https://x.com/ponponpon142/status/2006307900587917368) |
 | 18 | @haraheri_sunobo | にん | 57 | 未分類 | ツイート | [link](https://x.com/haraheri_sunobo/status/2007146746074546467) |
