@@ -646,6 +646,46 @@ def extract_user_tweets_from_body(body):
 
 def clean_tweet_text(text):
     text = re.sub(r"https?://\S+", " ", text)
+    # 絵文字削除前に 🐶x3 / 🗼🍛x2 形式をラベル付き即数へ（キッチン型月報）
+    # 括弧内の（準2ブメ1）は内訳なので xN 本体に含めて捨てる
+    text = re.sub(
+        r"[🐶🦁🦉🏪🦐]\s*[x×ｘ*]\s*(\d+)(?:\s*[（(][^）)]*[）)])?",
+        r" スト\1即 ",
+        text,
+    )
+    text = re.sub(
+        r"(?:🗼🍛|[🗼🍛🍎🔥🍐🪩])\s*[x×ｘ*]\s*(\d+)(?:\s*[（(][^）)]*[）)])?",
+        r" ネト\1即 ",
+        text,
+    )
+    text = re.sub(
+        r"[🦾🧚📦]\s*[x×ｘ*]\s*(\d+)(?:\s*[（(][^）)]*[）)])?",
+        r" 箱\1即 ",
+        text,
+    )
+    text = re.sub(r"(?:明太子|古都|味噌)\s*[x×ｘ*]\s*(\d+)", r" スト\1即 ", text)
+    text = re.sub(r"(?:合コン|[🍺🥂🧙])\s*[x×ｘ*]\s*(\d+)", r" パス\1即 ", text)
+
+    # 🐶/22/職業 形式は1行1即（xN 形式は上で処理済み）
+    def _emoji_case_line(match: re.Match) -> str:
+        line = match.group(0)
+        if re.search(r"[x×ｘ*]\s*\d+", line):
+            return line
+        if re.search(r"[🗼🍛🍎🔥🍐🪩]", line):
+            label = "ネト"
+        elif re.search(r"[🦾🧚📦]", line):
+            label = "箱"
+        elif re.search(r"[🍺🥂🧙]", line):
+            label = "パス"
+        else:
+            label = "スト"
+        return f"{line} {label}1即 "
+
+    text = re.sub(
+        r"(?:^|[\n\r])[ \t]*[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦🍺🥂🧙][^\n\r]{0,60}",
+        _emoji_case_line,
+        text,
+    )
     text = re.sub(r"[\U00010000-\U0010ffff]", " ", text)
     # 異体字を正規化（例: 「6 卽」→「6 即」）
     text = text.replace("卽", "即")
