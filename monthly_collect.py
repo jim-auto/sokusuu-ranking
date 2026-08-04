@@ -1057,13 +1057,14 @@ def extract_monthly_count(text, year, month, strict=False):
         rf"(?:{month_tokens}).{{0,24}}?(?:計|合計|結果|実績|戦績|総括|統括|報告|着地|振り返り|振返り|まとめ|締め)?\s*(\d+)\s*{count_unit}",
     ]
 
-    if has_report_keyword:
+    # 「今月13節」「月間12即」は総括語が無くても月次合計として拾う
+    if has_report_keyword or has_generic_month:
         patterns.append(
             r"(?:今月|月間)\s*(?:は|の結果|の実績|の総括|の統括|の報告|の振り返り|の振返り|のまとめ|の着地)?\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*"
             + count_unit
         )
-    if has_explicit_month or has_report_keyword:
-        patterns.append(r"(\d+)\s*即\s*(?:でした|です|達成|着地)")
+    if has_explicit_month or has_report_keyword or has_generic_month:
+        patterns.append(r"(\d+)\s*(?:即|節)\s*(?:でした|です|達成|着地)")
 
     for pattern in patterns:
         match = re.search(pattern, cleaned, re.IGNORECASE)
