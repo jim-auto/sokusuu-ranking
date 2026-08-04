@@ -931,6 +931,47 @@ def extract_yearly_count(text, year, strict=False):
 
     if re.search(r"累計|通算|total|トータル", cleaned, re.IGNORECASE):
         return None
+    # 月次総括（1月総括 / 【12月総括】 / 12月 計24即）は年間に使わない
+    if re.search(
+        r"(?:【\s*)?(?:1[0-2]|[1-9])\s*月\s*(?:総括|計|合計|結果|実績)",
+        cleaned,
+    ):
+        if not re.search(
+            rf"(?:{year}年|{short_year}年|年間).{{0,24}}(?:総括|結果|着地|まとめ|計|合計)",
+            cleaned,
+        ):
+            return None
+    # 冒頭が「12月 計N即」で年次語が弱い
+    if re.match(
+        r"(?:【\s*)?(?:1[0-2]|[1-9])\s*月\b",
+        cleaned,
+    ) and not re.search(
+        rf"(?:{year}年|{short_year}年)\s*総括|年間総括|年末総括",
+        cleaned,
+    ):
+        return None
+    # 目標・未来形
+    if re.search(
+        r"(?:今年中に|までに).{0,16}(?:即|節).{0,10}(?:します|したい|する|目指)",
+        cleaned,
+    ):
+        return None
+    if re.search(r"応援して", cleaned) and re.search(r"年間\s*\d+\s*即", cleaned):
+        return None
+    # 遠征・合宿の短期合計
+    if re.search(
+        r"(?:遠征|年末年始|合宿|編完了).{0,40}?(?:合計|計)\s*\d+\s*(?:即|節)",
+        cleaned,
+    ) and not re.search(rf"(?:{year}年|{short_year}年)?\s*総括|年間総括", cleaned):
+        return None
+    if re.search(r"\d+\s*日\s*合計\s*\d+\s*(?:即|節)", cleaned):
+        return None
+    # 「年間60即程度を5年」など生活パターン話
+    if re.search(r"年間\s*\d+\s*即\s*程度", cleaned):
+        return None
+    # 「即目」は進捗・通算カウントであり年間総括ではない
+    if re.search(r"\d+\s*即目", cleaned):
+        return None
     if has_year_month_phrase and not has_strong_report_keyword:
         return None
     if strict and not has_explicit_year and not has_strong_report_keyword:
@@ -941,6 +982,18 @@ def extract_yearly_count(text, year, strict=False):
         return None
     if strict and re.search(r"(?:予感|見込み|予定|なりそう)", cleaned):
         return None
+
+    # 年次総括で「計41即」があるならそれを優先（先頭の部分数が先にマッチするのを防ぐ）
+    if has_explicit_year or re.search(rf"(?:{year}|{short_year})\s*総括", cleaned):
+        total_pref = re.search(
+            r"(?:計|合計|総計)\s*(\d+)\s*(?:即|節|get|g\b)",
+            cleaned,
+            re.IGNORECASE,
+        )
+        if total_pref:
+            value = int(total_pref.group(1))
+            if 0 < value <= 2000:
+                return value
 
     month_count_matches = list(
         re.finditer(
