@@ -18,6 +18,7 @@ import argparse
 import asyncio
 import re
 from datetime import date, datetime, timedelta
+from pathlib import Path
 
 from monthly_collect import (
     build_period_result,
@@ -112,7 +113,11 @@ def extract_weekly_total(text: str, start: date, end: date) -> int | None:
 
 
 def count_stack_units(text: str) -> int:
-    """1ツイート内の即/節報告を何件として積むか。"""
+    """1ツイート内の即/節報告を何件として積むか。
+
+    厳しめ: 実ケース報告っぽいものだけ。
+    「ノア（10節）」「表示はスト4即」みたいな言及は 0。
+    """
     raw = text or ""
     if raw.startswith("RT @") or raw.startswith("RT@"):
         return 0
@@ -127,61 +132,59 @@ def count_stack_units(text: str) -> int:
     if re.search(r"今週\s*\d+\s*(?:即|節)|週総括|週まとめ|週間\s*\d+", cleaned):
         return 0
 
-    # 純粋な雑談・理論は除外
-    case_markers = re.search(
-        r"(?:即|節)[！!‼️]|準即|即れ|節れ|満即|即/|節/|"
-        r"\d+\s*(?:即|節)|節目|パス即|NS\d?|ホテ搬|写生|ノーグダ|"
-        r"get|GET|搬(?!送会社)",
-        cleaned + raw,
-        re.IGNORECASE,
-    )
-    if not case_markers:
-        return 0
-
-    # 通算自慢だけ除外
-    if re.search(r"(?:通算|累計|総即数)\s*\d{2,}", cleaned) and not re.search(
-        r"(?:即|節)[！!/‼️]|準即|即/", cleaned + raw
+    # メタ会話・ランキング話は除外（根拠にならない）
+    if re.search(
+        r"表示|ランキング|位あざ|比較したく|難しいですか|どうですか|"
+        r"風潮|予想|理論|マインド|界隈的",
+        cleaned,
     ):
         return 0
 
-    # 1ツイート内の複数件: 「2即」「3節」（小さめの数のみ）
-    multi = re.search(
-        r"(?<![0-9月年今今通累総])([1-9]|1[0-5])\s*(?:即|節)(?!目)",
-        cleaned,
-    )
-    if multi:
-        n = int(multi.group(1))
-        # 「14即だった」月次振り返り口調は除外気味
-        if re.search(r"(?:だった|でした).{0,6}$", cleaned[-20:] if len(cleaned) > 20 else cleaned):
-            if re.search(r"(?:月|今年|昨年)", cleaned):
-                return 0
-        if n <= 10:
-            # 「2即 即/xx 即/yy」のような明細付きは multi を採用
-            return n
-
-    # 明細行: 即/ 節/
-    slash_n = len(re.findall(r"(?:即|節)\s*/", raw))
+    # 明細付きケース: 即/24 節/22
+    slash_n = len(re.findall(r"(?:即|節|準即)\s*/\s*[^\s]", raw))
     if slash_n:
-        return min(slash_n, 10)
+        return min(slash_n, 8)
 
-    # 即‼️ 節‼️
-    bang_n = len(re.findall(r"(?:即|節)\s*[！!‼️]+", raw))
-    if bang_n:
-        return min(bang_n, 10)
-
-    # 今月N節目 / N即目 → その日の成功報告として 1
-    if re.search(r"(?:今月\s*)?\d+\s*節目|\d+\s*即目", cleaned):
+    # 即‼️ / 節‼️（成功報告）
+    if re.search(r"(?:即|節)\s*[！!‼️]+", raw):
+        # 複数 bang は稀なので 1 固定（連投は別ツイートで積む）
+        multi = re.search(r"^[\s　]*([2-6])\s*(?:即|節)\b", cleaned)
+        if multi and re.search(r"(?:即|節)\s*/|ホテ|搬|NS|合致|値", raw):
+            return int(multi.group(1))
         return 1
 
-    if re.search(r"準即|パス即|満即|即れ|節れ|即完|節完", cleaned):
+    # 冒頭「2即」「3節」+ ケース語
+    multi = re.search(r"^[\s　]*([2-6])\s*(?:即|節)\b", cleaned)
+    if multi and re.search(
+        r"(?:即|節)\s*/|ホテ|搬|NS|合致|満即|準即|パス即|値\d|杯",
+        raw,
+    ):
+        return int(multi.group(1))
+
+    # 準即・パス即・満即 + 現場語
+    if re.search(r"(?:準即|パス即|満即)", cleaned) and re.search(
+        r"(?:ホテ|搬|合致|値|杯|NS|即/|パスして|回収)",
+        raw,
+    ):
         return 1
 
-    if re.search(r"(?:^|[\s　])(?:即|節)(?:[\s　]|$)", cleaned):
+    # 今月N節目（成功後の節目報告）— 数値Nではなく 1 件
+    if re.search(r"今月\s*\d+\s*節目", cleaned) and not re.search(
+        r"表示|位|比較", cleaned
+    ):
         return 1
 
-    # フォールバック: ケースっぽければ 1
-    if case_markers:
+    # 単独「即」「節」行 or 短い成功報告
+    if re.match(r"^[\s　]*(?:即|節)\b", cleaned) and len(cleaned) < 80:
         return 1
+
+    # ネト1即 / スト1即 など短いチャネル付き成功（会話の例示は上で除外済み）
+    if re.search(r"(?:ネト|スト|箱)\s*1\s*(?:即|節)\b", cleaned) and re.search(
+        r"(?:合致|搬|ホテ|NS|値|即/|ノーグダ|グダ)",
+        raw,
+    ):
+        return 1
+
     return 0
 
 
@@ -261,40 +264,190 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
 
     # 明示の「今週N即」があれば優先（積み上げは過大になりやすい）
     if explicit_best:
+        explicit_best["evidence_items"] = [
+            {
+                "units": explicit_best["count"],
+                "tweet_id": explicit_best["url"].rsplit("/", 1)[-1],
+                "url": explicit_best["url"],
+                "created_at": explicit_best.get("created_at", ""),
+                "text": explicit_best.get("text", ""),
+                "role": "explicit_total",
+            }
+        ]
         return explicit_best
     if stack_count <= 0:
         return None
 
-    # 証拠は最大単位のツイート、なければ最初
-    if evidence_tweets:
-        evidence_tweets.sort(key=lambda x: -x[0])
-        ev = evidence_tweets[0][1]
-    else:
-        # milestone only
-        ev = next(
-            (
-                t
-                for t in tweets
-                if extract_setsu_milestone(t.get("text", "") or "") is not None
-            ),
-            tweets[0] if tweets else None,
+    # 証拠リスト（時系列）
+    evidence_items = []
+    for units, tweet in evidence_tweets:
+        tid = str(tweet.get("id") or "")
+        evidence_items.append(
+            {
+                "units": units,
+                "tweet_id": tid,
+                "url": f"https://x.com/{username}/status/{tid}",
+                "created_at": tweet.get("created_at", ""),
+                "text": (tweet.get("text") or "")[:500],
+                "role": "case_report",
+            }
         )
-        if not ev:
-            return None
+    # 新しい順
+    evidence_items.sort(key=lambda x: x.get("created_at", ""), reverse=True)
 
-    summary = f"積み上げ{stack_count}件（報告{len(evidence_tweets)}投稿"
+    if not evidence_items:
+        return None
+
+    # 代表リンクは最新のケース報告
+    ev = evidence_items[0]
+    summary = f"積み上げ{stack_count}（報告{len(evidence_items)}投稿"
     if milestone_delta:
         summary += f" / 節目+{milestone_delta}"
     summary += "）"
     return {
         "count": stack_count,
-        "url": f"https://x.com/{username}/status/{ev['id']}",
-        "text": summary + "\n" + ((ev.get("text") or "")[:400]),
+        "url": ev["url"],
+        "text": ev.get("text", ""),
         "created_at": ev.get("created_at", ""),
         "method": "stack",
-        "stack_posts": len(evidence_tweets),
+        "stack_posts": len(evidence_items),
         "milestone_delta": milestone_delta,
+        "stack_summary": summary,
+        "evidence_items": evidence_items,
     }
+
+
+def _format_created_at(created_at: str) -> str:
+    if not created_at:
+        return ""
+    try:
+        dt = datetime.strptime(created_at, "%a %b %d %H:%M:%S %z %Y")
+        return dt.strftime("%Y-%m-%d %H:%M")
+    except Exception:
+        return created_at
+
+
+def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
+    """結果表 + ユーザー別根拠Markdownを生成。"""
+    label = f"{start.month}/{start.day}〜{end.month}/{end.day}"
+    slug = week_label(start, end).replace(":", "")
+    results_path = Path(f"docs/results_weekly_{start.year}_{start.month:02d}_last.md")
+    evidence_path = Path(
+        f"docs/evidence_weekly_{start.year}_{start.month:02d}_last.md"
+    )
+
+    stack_n = sum(1 for r in rows if r.get("count_method") == "stack")
+    exp_n = sum(1 for r in rows if r.get("count_method") == "explicit")
+
+    # --- 結果表 ---
+    lines = [
+        f"# 週間ランキング結果（お試し・積み上げ）",
+        "",
+        f"**期間:** {start.isoformat()} 〜 {end.isoformat()}（{label}）",
+        "",
+        "## 注意（trial）",
+        "",
+        "- あくまでお試し。本運用ではない",
+        "- **方式: 週内の即/節ケース報告を積み上げ**（総括必須にしない）",
+        "- 明示「今週N即」があれば優先",
+        "- 月次・年間総括・ランキング雑談は除外",
+        "- 掲載しきい値: デフォルト2〜3",
+        f"- 件数: {len(rows)}（積み上げ {stack_n} / 明示 {exp_n}）",
+        f"- **根拠ツイート一覧:** [`{evidence_path.name}`](./{evidence_path.name})",
+        "",
+        "## 結果",
+        "",
+        "| # | account | 表示名 | 即数 | 方式 | 報告数 | 根拠一覧 |",
+        "|---|---------|--------|-----:|------|-------:|----------|",
+    ]
+    for i, r in enumerate(rows, 1):
+        u = r.get("username") or ""
+        name = (r.get("display_name") or "").replace("|", "\\|")
+        c = int(r.get("weekly_count") or 0)
+        method = r.get("count_method") or r.get("match_source") or ""
+        method_label = (
+            "積み上げ"
+            if method == "stack"
+            else ("明示" if method == "explicit" else method)
+        )
+        posts = r.get("stack_posts")
+        posts_s = str(posts) if posts is not None else "-"
+        anchor = u.lower()
+        lines.append(
+            f"| {i} | @{u} | {name} | {c} | {method_label} | {posts_s} | "
+            f"[詳細](./{evidence_path.name}#{anchor}) |"
+        )
+
+    results_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    # --- 根拠（ユーザー別セクション） ---
+    elines = [
+        f"# 週間ランキング根拠（{label}）",
+        "",
+        f"期間: {start.isoformat()} 〜 {end.isoformat()}",
+        "",
+        "各ユーザーの積み上げに使ったツイートです。本文は短縮あり。",
+        "",
+        f"結果表: [`{results_path.name}`](./{results_path.name})",
+        "",
+        "---",
+        "",
+    ]
+    for i, r in enumerate(rows, 1):
+        u = r.get("username") or ""
+        name = r.get("display_name") or ""
+        c = int(r.get("weekly_count") or 0)
+        method = r.get("count_method") or ""
+        method_label = (
+            "積み上げ"
+            if method == "stack"
+            else ("明示" if method == "explicit" else method)
+        )
+        items = r.get("evidence_items") or []
+        elines.append(f"## @{u}")
+        elines.append("")
+        elines.append(f"- 表示名: {name}")
+        elines.append(f"- 週間: **{c}**（{method_label}）")
+        if r.get("stack_summary"):
+            elines.append(f"- サマリ: {r['stack_summary']}")
+        elines.append(f"- プロフィール: https://x.com/{u}")
+        elines.append("")
+        if not items:
+            # fallback single evidence
+            url = r.get("evidence_url") or r.get("tweet_url") or ""
+            text = (r.get("tweet_text") or "").replace("\n", " ")
+            elines.append("### 根拠ツイート")
+            elines.append("")
+            if url:
+                elines.append(f"1. {url}")
+                if text:
+                    elines.append(f"   - {text[:240]}")
+            else:
+                elines.append("_根拠ツイートなし_")
+            elines.append("")
+            elines.append("---")
+            elines.append("")
+            continue
+
+        elines.append(f"### 根拠ツイート（{len(items)}件）")
+        elines.append("")
+        for j, item in enumerate(items, 1):
+            url = item.get("url") or ""
+            units = item.get("units", 1)
+            created = _format_created_at(item.get("created_at", ""))
+            text = (item.get("text") or "").replace("\n", " ").strip()
+            role = item.get("role") or "case_report"
+            role_ja = "週間合計" if role == "explicit_total" else "ケース"
+            elines.append(f"{j}. **+{units}**（{role_ja}） {created}")
+            elines.append(f"   - {url}")
+            if text:
+                elines.append(f"   - `{text[:280]}`")
+            elines.append("")
+        elines.append("---")
+        elines.append("")
+
+    evidence_path.write_text("\n".join(elines) + "\n", encoding="utf-8")
+    print(f"docs: {results_path} / {evidence_path}")
 
 
 def load_seed_usernames(limit: int = 0) -> list[str]:
@@ -365,8 +518,8 @@ async def main_async() -> None:
     parser.add_argument("--week", choices=["last"], default="last")
     parser.add_argument("--start", help="YYYY-MM-DD")
     parser.add_argument("--end", help="YYYY-MM-DD")
-    parser.add_argument("--min-count", type=int, default=3)
-    parser.add_argument("--limit", type=int, default=80, help="走査人数（0=seed全件）")
+    parser.add_argument("--min-count", type=int, default=2)
+    parser.add_argument("--limit", type=int, default=0, help="走査人数（0=seed全件・上限150）")
     parser.add_argument("--headful", action="store_true")
     args = parser.parse_args()
 
@@ -384,7 +537,8 @@ async def main_async() -> None:
 
     accounts = load_json(OUTPUT_ACCOUNTS, [])
     accounts_map = {a["username"].lower(): a for a in accounts}
-    seeds = load_seed_usernames(limit=args.limit if args.limit > 0 else 0)
+    seed_limit = args.limit if args.limit > 0 else 150
+    seeds = load_seed_usernames(limit=seed_limit)
     print(f"seed: {len(seeds)}")
 
     results_map: dict[str, dict] = {}
@@ -420,6 +574,10 @@ async def main_async() -> None:
                 row["stack_posts"] = hit["stack_posts"]
             if hit.get("milestone_delta"):
                 row["milestone_delta"] = hit["milestone_delta"]
+            if hit.get("stack_summary"):
+                row["stack_summary"] = hit["stack_summary"]
+            if hit.get("evidence_items"):
+                row["evidence_items"] = hit["evidence_items"]
 
             key = username.lower()
             if should_replace_result(results_map.get(key), row, "weekly_count"):
@@ -436,6 +594,19 @@ async def main_async() -> None:
         await browser.close()
 
     rows = [normalize_period_row(r) for r in results_map.values()]
+    # evidence_items は normalize で落ちないよう再付与
+    for r in rows:
+        key = (r.get("username") or "").lower()
+        src = results_map.get(key) or {}
+        if src.get("evidence_items") and not r.get("evidence_items"):
+            r["evidence_items"] = src["evidence_items"]
+        if src.get("stack_summary"):
+            r["stack_summary"] = src["stack_summary"]
+        if src.get("count_method"):
+            r["count_method"] = src["count_method"]
+        if src.get("stack_posts") is not None:
+            r["stack_posts"] = src["stack_posts"]
+
     rows = [r for r in rows if int(r.get("weekly_count") or 0) >= args.min_count]
     rows.sort(
         key=lambda r: (
@@ -451,6 +622,7 @@ async def main_async() -> None:
         r.setdefault("count_method", r.get("match_source", "stack"))
 
     save_json(out, rows)
+    write_weekly_markdown(rows, start, end)
     print(f"\n{len(rows)}件 (>= {args.min_count}) -> {out}")
     for i, r in enumerate(rows[:25], 1):
         print(
