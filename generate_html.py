@@ -27,7 +27,7 @@ INPUT_JSON = "data/sokusuu_accounts.json"
 OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
 SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
-SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
+SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=True)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
 

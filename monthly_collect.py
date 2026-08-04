@@ -246,6 +246,12 @@ def build_period_result(account, hit, value_key, match_source):
 
     account_row = dict(account or {})
     account_row.setdefault("username", hit.get("username", ""))
+    if not account_row.get("display_name") and hit.get("display_name"):
+        account_row["display_name"] = hit.get("display_name", "")
+    if not account_row.get("followers_count") and hit.get("followers_count"):
+        account_row["followers_count"] = hit.get("followers_count", 0)
+    if not account_row.get("profile_image_url") and hit.get("profile_image_url"):
+        account_row["profile_image_url"] = hit.get("profile_image_url", "")
 
     return normalize_period_row(
         {
@@ -897,16 +903,26 @@ def extract_yearly_count(text, year, strict=False):
         return None
 
     short_year = str(year)[2:]
-    year_tokens = "|".join(re.escape(token) for token in (f"{year}年", f"{short_year}年"))
-    has_explicit_year = bool(re.search(rf"(?:{year_tokens})", cleaned, re.IGNORECASE))
+    has_explicit_year = bool(
+        re.search(
+            rf"(?:{year}年|{short_year}年|(?<!\d){year}(?!\d)|(?<!\d){short_year}年?)",
+            cleaned,
+        )
+    )
     has_year_month_phrase = bool(
-        re.search(rf"(?:{year_tokens})\s*(?:1[0-2]|[1-9])月", cleaned, re.IGNORECASE)
+        re.search(rf"(?:{year}年|{short_year}年)\s*(?:1[0-2]|[1-9])月", cleaned, re.IGNORECASE)
     )
     has_report_keyword = bool(
-        re.search(r"(?:年間|年最多|年最高|結果|実績|戦績|総括|振り返り|着地|まとめ)", cleaned)
+        re.search(
+            r"(?:年間|年最多|年最高|年間最多|年間最高|結果|実績|戦績|総括|統括|振り返り|振返り|着地|まとめ|年末|年報)",
+            cleaned,
+        )
     )
     has_strong_report_keyword = bool(
-        re.search(r"(?:結果|実績|戦績|総括|振り返り|着地|今年|本年|まとめ)", cleaned)
+        re.search(
+            r"(?:結果|実績|戦績|総括|統括|振り返り|振返り|着地|今年|本年|まとめ|年末|年報|年間)",
+            cleaned,
+        )
     )
     has_promo_keyword = bool(
         re.search(r"(?:tips?|TIPS|運用術|攻略|ノウハウ|講習|コンサル|教材|方法)", cleaned)
@@ -973,17 +989,26 @@ def extract_yearly_count(text, year, strict=False):
                 return summed
 
     patterns = [
-        rf"(?:{year_tokens})\s*(?:の)?\s*(?:結果|実績|戦績|総括|振り返り|着地|まとめ)?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
-        rf"(?:{year_tokens}).{{0,30}}?(?:計|合計|結果|実績|戦績|総括|振り返り|着地|まとめ)?\s*(\d+)\s*(?:即|get|g\b)",
-        r"(?:年間|年最多|年最高)\s*(?:は|の)?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
-        r"(?:今年|本年)\s*(?:は|の結果|の実績|の総括|の振り返り|の着地|のまとめ)?\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        rf"(?:{year}年|{short_year}年)\s*(?:の)?\s*(?:結果|実績|戦績|総括|統括|振り返り|振返り|着地|まとめ)?\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        rf"(?:{year}年|{short_year}年).{{0,30}}?(?:計|合計|結果|実績|戦績|総括|統括|振り返り|振返り|着地|まとめ)?\s*(\d+)\s*(?:即|get|g\b)",
+        rf"(?:(?<!\d){year}(?!\d)|(?<!\d){short_year}(?!\d))\s*(?:年)?\s*年間即\s*[=:：／/|は]?\s*(\d+)",
+        rf"(?:(?<!\d){year}(?!\d)|(?<!\d){short_year}(?!\d))\s*(?:年)?\s*(?:の)?\s*(?:年間)?\s*(?:結果|実績|戦績|総括|統括|振り返り|振返り|着地|まとめ|即)\s*[=:：／/|は]?\s*(?:計|合計)?\s*(\d+)(?:\s*(?:即|get|g\b))?",
+        r"(?:年間(?:最多|最高)?|年最多|年最高)\s*(?:は|の)?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        r"(?:今年|本年)\s*(?:は|の結果|の実績|の総括|の統括|の振り返り|の振返り|の着地|のまとめ|着地|結果|実績|総括|統括)?\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        r"(?:年末総括|年間総括|年末まとめ|年間まとめ|年報)\s*[=:：／/|]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        r"(?:年末総括|年間総括|年末まとめ|年間まとめ|年報).{0,20}?(\d+)\s*(?:即|get|g\b)",
+        # 報告窓内の短文総括（年トークン無しでも「総括/結果 + N即」）
+        r"(?:総括|統括|振り返り|振返り|着地|まとめ|結果|実績|戦績)\s*[】\]）」)]?\s*[=:：／/|は・\-ー]?\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        r"[【\[]\s*(?:総括|統括|振り返り|振返り|着地|まとめ|結果|実績|戦績)\s*[】\]]\s*(?:計|合計)?\s*(\d+)\s*(?:即|get|g\b)",
+        r"(?<![累通総])(?:計|合計|総計)\s*(\d+)\s*(?:即|get|g\b)",
+        r"(\d+)\s*(?:即|get|g\b)\s*(?:で)?(?:着地|締め|締めくくり|完走|終了)",
     ]
 
     year_month_pattern = re.compile(
-        rf"(?:{year_tokens})\s*(?:1[0-2]|[1-9])月", re.IGNORECASE
+        rf"(?:{year}年|{short_year}年)\s*(?:1[0-2]|[1-9])月", re.IGNORECASE
     )
     annual_context_pattern = re.compile(
-        r"(?:年間|年最多|年最高|今年|本年|総括|振り返り|着地|まとめ)"
+        r"(?:年間|年最多|年最高|今年|本年|総括|統括|振り返り|振返り|着地|まとめ|年末|年報)"
     )
 
     for pattern in patterns:
@@ -1274,8 +1299,9 @@ def find_yearly_profile_hit(account, year):
 
 def build_reporting_window(mode, year, month=None):
     if mode == "yearly":
-        start = datetime(year, 12, 20)
-        end = datetime(year + 1, 1, 15)
+        # 年末〜年始の総括ツイートを広く拾う（早めの振り返り〜遅めの着地）
+        start = datetime(year, 12, 1)
+        end = datetime(year + 1, 2, 7)
     else:
         if month is None:
             raise ValueError("monthly mode requires month")
@@ -1309,7 +1335,8 @@ def build_search_query(username, mode, year, month=None):
         short_year = str(year)[2:]
         keywords = (
             f'("{year}年" OR "{short_year}年" OR 年間 OR 年最多 OR 年最高 '
-            "OR 総括 OR 振り返り OR 着地 OR 戦績 OR 今年 OR 本年 OR まとめ)"
+            "OR 総括 OR 統括 OR 振り返り OR 着地 OR 戦績 OR 今年 OR 本年 "
+            "OR まとめ OR 年末 OR 年報 OR 即 OR get)"
         )
     else:
         keywords = (
@@ -1326,28 +1353,59 @@ def build_search_query(username, mode, year, month=None):
 def build_global_search_query_groups(mode, year, month=None):
     start_date, end_date = build_reporting_window(mode, year, month)
     until_date = end_date + timedelta(days=1)
+    win = f"since:{start_date.isoformat()} until:{until_date.isoformat()} lang:ja"
 
     if mode == "yearly":
         short_year = str(year)[2:]
-        base = (
-            f'since:{start_date.isoformat()} until:{until_date.isoformat()} '
-            f'("{year}年" OR "{short_year}年" OR 今年 OR 本年 OR 年間)'
-        )
-        return [
-            [
-                base + " (総括 OR 結果 OR 実績 OR 戦績 OR 振り返り OR 着地 OR まとめ)",
-                base + " (総括 OR 結果 OR 実績 OR まとめ)",
-                base + " (結果 OR 実績)",
-            ],
-            [
-                base + " (即 OR get)",
-                f'since:{start_date.isoformat()} until:{until_date.isoformat()} "{year}年" 即',
-                f'since:{start_date.isoformat()} until:{until_date.isoformat()} 今年 即',
-            ],
+        # 実測: 「総括」+(「即」OR「出撃」) がコミュニティ年報に刺さる。
+        # 広すぎる「今年 結果」系は一般TLに埋もれ、逆に「2025年 即」単体は0件になりやすい。
+        # 期間を分割して f=live の最新偏りを抑える。
+        unit = '("即" OR "出撃" OR "get")'
+        slices = [
+            (f"{year}-12-01", f"{year}-12-16"),
+            (f"{year}-12-16", f"{year}-12-28"),
+            (f"{year}-12-28", f"{year + 1}-01-08"),
+            (f"{year + 1}-01-08", f"{year + 1}-01-20"),
+            (f"{year + 1}-01-20", f"{year + 1}-02-08"),
         ]
 
+        def slice_win(start, end):
+            return f"since:{start} until:{end}"
+
+        groups = []
+        # 本命: 総括 + 即/出撃（期間スライスごと）
+        for start, end in slices:
+            w = slice_win(start, end)
+            groups.append(
+                [
+                    f'{w} "総括" {unit}',
+                    f"{w} 総括 {unit}",
+                ]
+            )
+        # 定型フレーズ
+        groups.append(
+            [
+                f'{win} ("{year}年総括" OR "{year}総括" OR "【{year}年総括】" OR "【{year}年 総括】")',
+                f'{win} ("{year}年 総括" OR "{short_year}年総括" OR "{short_year}年 総括")',
+            ]
+        )
+        groups.append(
+            [
+                f'{win} ("年間総括" OR "年末総括" OR "年総括") {unit}',
+                f'{win} ("今年の総括" OR "今年総括" OR "本年総括") {unit}',
+            ]
+        )
+        # 月別内訳つき年報っぽい文面
+        groups.append(
+            [
+                f'{win} "1月" "12月" {unit} ("総括" OR "結果" OR "年間")',
+                f'{win} "計" {unit} ("{year}年" OR 年間 OR 総括)',
+            ]
+        )
+        return groups
+
     base = (
-        f'since:{start_date.isoformat()} until:{until_date.isoformat()} '
+        f"{win} "
         f'("{month}月" OR "{month} 月" OR 月間 OR 今月)'
     )
     return [
@@ -1358,9 +1416,9 @@ def build_global_search_query_groups(mode, year, month=None):
         ],
         [
             base + " (即 OR get OR そ)",
-            f'since:{start_date.isoformat()} until:{until_date.isoformat()} "{month}月" 即',
-            f'since:{start_date.isoformat()} until:{until_date.isoformat()} 月間 即',
-            f'since:{start_date.isoformat()} until:{until_date.isoformat()} 今月 即',
+            f'{win} "{month}月" 即',
+            f"{win} 月間 即",
+            f"{win} 今月 即",
         ],
     ]
 
@@ -1396,15 +1454,27 @@ def pick_best_hit(tweets, username, mode, year, month=None, strict=False):
     return best_hit
 
 
-def pick_best_hits_by_user(tweets, usernames, mode, year, month=None, strict=False):
-    targets = {username.lower(): username for username in usernames}
+def pick_best_hits_by_user(
+    tweets, usernames, mode, year, month=None, strict=False, allow_unknown=False
+):
+    """ユーザー別の最良ヒットを選ぶ。
+
+    allow_unknown=True のとき、usernames に無い投稿者も総括ツイートとして採用する
+    （年間グローバル検索での新規発見用）。
+    """
+    targets = {username.lower(): username for username in (usernames or [])}
     best_hits = {}
 
     for tweet in tweets:
-        username = (tweet.get("username") or "").lower()
-        original_username = targets.get(username)
-        if not original_username:
+        raw_username = (tweet.get("username") or "").strip()
+        if not raw_username:
             continue
+        username_key = raw_username.lower()
+        original_username = targets.get(username_key)
+        if not original_username:
+            if not allow_unknown:
+                continue
+            original_username = raw_username
         if not is_in_reporting_window(tweet.get("created_at", ""), mode, year, month):
             continue
         if mode == "monthly":
@@ -1418,6 +1488,7 @@ def pick_best_hits_by_user(tweets, usernames, mode, year, month=None, strict=Fal
 
         hit = {
             "username": original_username,
+            "display_name": tweet.get("display_name", ""),
             "count": count,
             "url": f"https://x.com/{original_username}/status/{tweet['id']}",
             "text": clean_tweet_text(tweet.get("text", ""))[:240],
@@ -1655,8 +1726,9 @@ def build_batch_search_query(usernames, mode, year, month=None):
     if mode == "yearly":
         short_year = str(year)[2:]
         keywords = (
-            f'("{year}年" OR "{short_year}年" OR 今年 OR 本年 OR 年間 '
-            "OR 総括 OR 戦績 OR まとめ OR 振り返り OR 即 OR get)"
+            f'("{year}年" OR "{short_year}年" OR 今年 OR 本年 OR 年間 OR 年末 '
+            "OR 総括 OR 統括 OR 戦績 OR まとめ OR 振り返り OR 着地 OR 年報 "
+            "OR 即 OR get)"
         )
     else:
         keywords = (
@@ -1730,9 +1802,16 @@ async def search_user_batch_period(
 
 
 async def search_global_query_group(
-    playwright_contexts, context_idx, query_group, scrolls=5
+    playwright_contexts,
+    context_idx,
+    query_group,
+    scrolls=5,
+    merge_all_variants=False,
 ):
     last_captured = []
+    merged_captured = []
+    seen_ids = set()
+    any_response = False
     last_meta = {
         "response_seen": False,
         "search_mode": "no_response",
@@ -1748,22 +1827,38 @@ async def search_global_query_group(
             return_meta=True,
         )
         last_captured = captured
+        if meta["saw_response"]:
+            any_response = True
+        if merge_all_variants:
+            for tweet in captured:
+                tweet_id = tweet.get("id")
+                if not tweet_id or tweet_id in seen_ids:
+                    continue
+                seen_ids.add(tweet_id)
+                merged_captured.append(tweet)
         last_meta = {
-            "response_seen": meta["saw_response"],
+            "response_seen": any_response if merge_all_variants else meta["saw_response"],
             "search_mode": (
-                "direct"
-                if meta["saw_response"] and variant_index == 1
-                else f"variant:{variant_index}/{len(query_group)}"
-                if meta["saw_response"]
-                else "no_response"
+                "merge_all"
+                if merge_all_variants
+                else (
+                    "direct"
+                    if meta["saw_response"] and variant_index == 1
+                    else f"variant:{variant_index}/{len(query_group)}"
+                    if meta["saw_response"]
+                    else "no_response"
+                )
             ),
             "variant_index": variant_index,
             "variant_count": len(query_group),
             "contexts_tried": meta.get("contexts_tried", []),
             "response_count": meta.get("response_count", 0),
+            "merged_count": len(merged_captured) if merge_all_variants else len(captured),
         }
-        if meta["saw_response"]:
+        if meta["saw_response"] and not merge_all_variants:
             return captured, last_meta
+    if merge_all_variants:
+        return merged_captured, last_meta
     return last_captured, last_meta
 
 
@@ -1826,19 +1921,33 @@ async def search_global_period(
     best_hits=None,
     start_query_index=0,
     progress_callback=None,
+    scrolls=None,
+    allow_unknown=None,
 ):
     query_groups = build_global_search_query_groups(mode, year, month)
     best_hits = dict(best_hits or {})
+    if scrolls is None:
+        scrolls = 12 if mode == "yearly" else 5
+    if allow_unknown is None:
+        # 年間は総括ツイートからシード外も発見する
+        allow_unknown = mode == "yearly"
 
     for query_index in range(start_query_index, len(query_groups)):
         captured, search_meta = await search_global_query_group(
             playwright_contexts,
             context_idx,
             query_groups[query_index],
-            scrolls=5,
+            scrolls=scrolls,
+            merge_all_variants=(mode == "yearly"),
         )
         query_hits = pick_best_hits_by_user(
-            captured, usernames, mode, year, month, strict=True
+            captured,
+            usernames,
+            mode,
+            year,
+            month,
+            strict=True,
+            allow_unknown=allow_unknown,
         )
         best_hits = merge_best_hit_maps(best_hits, query_hits)
         if progress_callback:
@@ -1849,8 +1958,10 @@ async def search_global_period(
                     "query_index": query_index + 1,
                     "total_queries": len(query_groups),
                     "query_hits": len(query_hits),
+                    "captured": len(captured),
                     "response_seen": search_meta.get("response_seen", False),
                     "search_mode": search_meta.get("search_mode", "direct"),
+                    "allow_unknown": allow_unknown,
                 },
             )
 
@@ -2175,6 +2286,12 @@ async def main_async():
         help="batch Search 1回あたりのスクロール回数（既定: 6）",
     )
     parser.add_argument(
+        "--global-scrolls",
+        type=int,
+        default=0,
+        help="global Search 1クエリあたりのスクロール回数（0=モード既定: yearly=12 / monthly=5）",
+    )
+    parser.add_argument(
         "--headful",
         action="store_true",
         help="Playwright をブラウザ表示ありで起動する（Search が headless で弱い時用）",
@@ -2184,6 +2301,7 @@ async def main_async():
 
     accounts = load_json(OUTPUT_JSON, [])
     accounts_map = {row["username"]: row for row in accounts}
+    accounts_map_lower = {row["username"].lower(): row for row in accounts}
     output_file = build_output_file(args.mode, args.year, args.month)
     state_file = build_state_file(args.mode, args.year, args.month)
     if args.usernames_file:
@@ -2208,6 +2326,7 @@ async def main_async():
         targets = list(accounts)
     if args.limit > 0:
         targets = targets[: args.limit]
+    all_target_usernames = [account["username"] for account in targets]
     sessions = create_sessions()
     playwright_cookie_sets = load_playwright_cookie_sets()
     session_idx = [0]
@@ -2266,9 +2385,14 @@ async def main_async():
     if args.prefetch_only:
         print("個別タイムライン走査: スキップ (--prefetch-only)")
     if args.global_search:
+        global_scrolls = args.global_scrolls or (12 if args.mode == "yearly" else 5)
         print(
             f"batch Search 設定: batch_size={args.batch_size}, "
             f"batch_scrolls={args.batch_scrolls}"
+        )
+        print(
+            f"global Search 設定: scrolls={global_scrolls}, "
+            f"discover_unknown={'yes' if args.mode == 'yearly' else 'no'}"
         )
     print()
 
@@ -2279,6 +2403,14 @@ async def main_async():
             headless=not args.headful,
         )
         playwright_context_idx = [0]
+
+        def resolve_account(username):
+            account = accounts_map.get(username) or accounts_map_lower.get(
+                username.lower(), {}
+            )
+            account = dict(account or {})
+            account.setdefault("username", username)
+            return account
 
         def upsert_result(candidate):
             nonlocal results
@@ -2292,8 +2424,9 @@ async def main_async():
         def refresh_prefetched_results():
             nonlocal results
             for username, hit in prefetched_hits.items():
-                account = dict(accounts_map.get(username, {}))
-                account.setdefault("username", username)
+                account = resolve_account(username)
+                if not account.get("display_name") and hit.get("display_name"):
+                    account["display_name"] = hit["display_name"]
                 candidate = build_period_result(account, hit, value_key, "global_search")
                 if should_replace_result(results_map.get(username), candidate, value_key):
                     results_map[username] = candidate
@@ -2308,7 +2441,9 @@ async def main_async():
             )
 
         if args.global_search:
-            prefetch_usernames = [account["username"] for account in targets]
+            # resume で targets が減っても batch は全シード対象を使う
+            prefetch_usernames = list(all_target_usernames)
+            global_scrolls = args.global_scrolls or (12 if args.mode == "yearly" else 5)
 
             def on_prefetch_progress(best_hits, progress):
                 prefetched_hits.clear()
@@ -2319,11 +2454,14 @@ async def main_async():
                     search_mode_suffix = f" mode={progress['search_mode']}"
                 if progress["phase"] == "global":
                     prefetch_state["global_query_index"] = progress["query_index"]
+                    captured_suffix = ""
+                    if progress.get("captured") is not None:
+                        captured_suffix = f" captured={progress['captured']}"
                     print(
                         f"  [PREFETCH:global {progress['query_index']}/"
                         f"{progress['total_queries']}] "
                         f"query_hits={progress['query_hits']} total_hits={len(prefetched_hits)}"
-                        f"{search_mode_suffix}"
+                        f"{captured_suffix}{search_mode_suffix}"
                     )
                 else:
                     prefetch_state["batch_offset"] = progress["next_index"]
@@ -2359,6 +2497,8 @@ async def main_async():
                     best_hits=prefetched_hits,
                     start_query_index=prefetch_state["global_query_index"],
                     progress_callback=on_prefetch_progress,
+                    scrolls=global_scrolls,
+                    allow_unknown=(args.mode == "yearly"),
                 )
                 prefetch_state["global_query_index"] = total_global_queries
                 if 0 < prefetch_state["batch_offset"] < len(prefetch_usernames):
@@ -2385,7 +2525,16 @@ async def main_async():
                 if args.checkpoint_every > 0:
                     save_state()
             if prefetched_hits:
-                print(f"事前Searchヒット: {len(prefetched_hits)}件")
+                known = sum(
+                    1
+                    for u in prefetched_hits
+                    if u in accounts_map or u.lower() in accounts_map_lower
+                )
+                discovered = len(prefetched_hits) - known
+                print(
+                    f"事前Searchヒット: {len(prefetched_hits)}件 "
+                    f"(既知 {known} / 新規発見 {discovered})"
+                )
 
         for index, account in enumerate(targets, 1):
             username = account["username"]
