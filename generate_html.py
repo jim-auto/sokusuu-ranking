@@ -1317,55 +1317,83 @@ def generate_html(records: list[dict]) -> str:
             w_data = json.load(f)
         if not w_data:
             continue
-        ranked = [
-            r for r in w_data if int(r.get("weekly_count") or 0) >= 3
-        ]
-        ranked = sorted(
-            ranked,
-            key=lambda r: (
-                -int(r.get("weekly_count") or 0),
-                -(r.get("followers_count") or 0),
-                (r.get("username") or "").lower(),
-            ),
+        def _sort_weekly(rows):
+            return sorted(
+                rows,
+                key=lambda r: (
+                    -int(r.get("weekly_count") or 0),
+                    -(r.get("followers_count") or 0),
+                    (r.get("username") or "").lower(),
+                ),
+            )
+
+        ranked = _sort_weekly(
+            [r for r in w_data if int(r.get("weekly_count") or 0) >= 2]
         )
-        if not ranked:
+        ref_ranked = _sort_weekly(
+            [r for r in w_data if int(r.get("weekly_count") or 0) == 1]
+        )
+        if not ranked and not ref_ranked:
             continue
         week_id = "w" + re.sub(r"[^0-9]", "", stem)[:16]
         is_first = not first_week_id
         if is_first:
             first_week_id = week_id
-        label = ranked[0].get("period_label") or stem.replace("_", "〜")
-        w_rows = ""
-        for i, r in enumerate(ranked, 1):
-            medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            w_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
-            w_rows += '<td class="rank">' + medal + str(i) + "</td>"
-            w_rows += build_user_cell_html(
-                r["username"],
-                r.get("display_name", ""),
-                r.get("profile_image_url", ""),
+        label = (ranked or ref_ranked)[0].get("period_label") or stem.replace(
+            "_", "〜"
+        )
+
+        def _weekly_rows_html(items):
+            html = ""
+            for i, r in enumerate(items, 1):
+                medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+                html += '<tr data-channels="' + channels_data_attr(r) + '">'
+                html += '<td class="rank">' + medal + str(i) + "</td>"
+                html += build_user_cell_html(
+                    r["username"],
+                    r.get("display_name", ""),
+                    r.get("profile_image_url", ""),
+                )
+                html += (
+                    '<td class="display-name">'
+                    + r.get("display_name", "")
+                    + "</td>"
+                )
+                html += (
+                    '<td class="sokusuu">'
+                    + build_period_value_html(r, "weekly_count")
+                    + "</td>"
+                )
+                html += "<td>" + build_channel_badges_html(r) + "</td>"
+                html += "</tr>"
+            return html
+
+        w_rows = _weekly_rows_html(ranked)
+        ref_html = ""
+        if ref_ranked:
+            ref_html = (
+                '<p style="text-align:center;color:#888;font-size:0.85em;'
+                'margin:24px 0 12px">参考: 週1のみ（trial・誤検知に注意）</p>'
+                "<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th>"
+                "<th>即数</th>"
+                + CHANNEL_COL_TH
+                + "</tr></thead><tbody>"
+                + _weekly_rows_html(ref_ranked)
+                + "</tbody></table>"
             )
-            w_rows += (
-                '<td class="display-name">' + r.get("display_name", "") + "</td>"
-            )
-            w_rows += (
-                '<td class="sokusuu">'
-                + build_period_value_html(r, "weekly_count")
-                + "</td>"
-            )
-            w_rows += "<td>" + build_channel_badges_html(r) + "</td>"
-            w_rows += "</tr>"
         display = "block" if is_first else "none"
         weekly_divs += (
             '<div id="weekly-' + week_id + '" style="display:' + display + '">'
             '<p style="text-align:center;color:#888;font-size:0.85em;margin:0 0 12px">'
-            "お試し週間ランキング（週内の即/節報告を積み上げ）・3以上"
+            "お試し週間ランキング（週内ケース積み上げ）・本表2以上"
             "</p>"
             "<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>"
             + CHANNEL_COL_TH
             + "</tr></thead><tbody>"
             + w_rows
-            + "</tbody></table></div>"
+            + "</tbody></table>"
+            + ref_html
+            + "</div>"
         )
         selected = " selected" if is_first else ""
         weekly_options += (

@@ -13,7 +13,7 @@ from weekly_collect import (
 
 PATH = Path("data/weekly_2026-07-27_2026-08-02.json")
 START, END = date(2026, 7, 27), date(2026, 8, 2)
-MIN_COUNT = 2
+MIN_COUNT = 1
 
 
 def main() -> None:

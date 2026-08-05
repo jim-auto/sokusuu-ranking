@@ -247,10 +247,17 @@ def is_live_soku_announce(text: str) -> bool:
         return False
 
     # 即 / 節 短文（「即 引退やな」程度は可。長文詳細は不可）
-    if re.match(r"^(?:即|節)\b", bare) and len(bare) <= 40:
+    # 注意: 「即しょのち」は 即 と し の間に \b が立たない
+    if re.match(r"^(?:即|節)(?![りるれらっ])", bare) and len(bare) <= 50:
         return True
-    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!‼️NＮ体])", bare) and len(bare) <= 30:
+    if re.search(r"(?:^|[\s　])(?:即|節)(?:\s|$|[！!‼️NＮ体、,。])", bare) and len(bare) <= 40:
         return True
+    # 即しょのち / スト即しょのち / 直パレ即（クラスタ定型）
+    if re.search(r"(?:即|節)\s*[、,]?\s*しょ[ーのう]", raw) and len(bare) <= 100:
+        return True
+    if re.search(r"(?:スト|直パレ|パレ|箱)即", raw) and len(bare) <= 80:
+        if not re.search(r"負け|ホテ半|前負け|半やや", raw):
+            return True
 
     # Nそ目（2そ目 = 2件目の即）
     if re.search(r"\d+\s*そ目", bare) and len(bare) <= 40:
@@ -365,13 +372,13 @@ def extract_day_recap_n(text: str) -> tuple[str, int] | None:
     ):
         return None
     m = re.search(
-        r"昨日(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)\b",
+        r"昨日(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)(?=\s|$|[①②③④⑤⑥⑦⑧⑨⑩、。])",
         raw,
     )
     if m:
         return ("yesterday", int(m.group(1)))
     m = re.search(
-        r"(?:今日|本日)(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)\b",
+        r"(?:今日|本日)(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)(?=\s|$|[①②③④⑤⑥⑦⑧⑨⑩、。])",
         raw,
     )
     if m:
@@ -899,7 +906,12 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
     elif len(milestones) == 1:
         milestone_delta = 0
 
-    stack_count = max(stack_total, milestone_delta)
+    # 週間はケース積み上げを優先。月次「節目」差分は週次件数に混ぜない
+    # （例: 今月10節目→16節目 で +6 誤爆）
+    stack_count = stack_total
+    if stack_total <= 0 and milestone_delta > 0:
+        stack_count = min(milestone_delta, 2)
+
 
     # 明示の「今週N即」があれば優先（積み上げは過大になりやすい）
     if explicit_best:
@@ -997,8 +1009,8 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
         "- パレ搬・ホテ搬だけでは即未確定（数えない）",
         "- 明示「今週N即」があれば優先",
         "- 月次・年間総括・ランキング雑談は除外",
-        "- 掲載しきい値: デフォルト2〜3",
-        f"- 件数: {len(rows)}（積み上げ {stack_n} / 明示 {exp_n}）",
+        "- 本表: 2即以上 / **参考表: 週1**（trial・誤検知に注意）",
+        f"- 本表(>=2): {sum(1 for r in rows if int(r.get('weekly_count') or 0) >= 2)} / 参考(週1): {sum(1 for r in rows if int(r.get('weekly_count') or 0) == 1)} （積み上げ {stack_n} / 明示 {exp_n}）",
         f"- **根拠ツイート一覧:** [`{evidence_path.name}`](./{evidence_path.name})",
         "",
         "## 結果",
@@ -1006,7 +1018,7 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
         "| # | account | 表示名 | 即数 | 方式 | 報告数 | 根拠一覧 |",
         "|---|---------|--------|-----:|------|-------:|----------|",
     ]
-    for i, r in enumerate(rows, 1):
+    def _row_line(i: int, r: dict) -> str:
         u = r.get("username") or ""
         name = (r.get("display_name") or "").replace("|", "\\|")
         c = int(r.get("weekly_count") or 0)
@@ -1019,12 +1031,31 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
         posts = r.get("stack_posts")
         posts_s = str(posts) if posts is not None else "-"
         anchor = u.lower()
-        lines.append(
+        return (
             f"| {i} | @{u} | {name} | {c} | {method_label} | {posts_s} | "
             f"[詳細](./{evidence_path.name}#{anchor}) |"
         )
 
+    main_rows = [r for r in rows if int(r.get("weekly_count") or 0) >= 2]
+    ref_rows = [r for r in rows if int(r.get("weekly_count") or 0) == 1]
+    for i, r in enumerate(main_rows, 1):
+        lines.append(_row_line(i, r))
+
+    if ref_rows:
+        lines += [
+            "",
+            "## 参考: 週1（trial）",
+            "",
+            "- 本表には入れない **週1のみ** の実ケース候補。誤検知に注意。",
+            "",
+            "| # | account | 表示名 | 即数 | 方式 | 報告数 | 根拠一覧 |",
+            "|---|---------|--------|-----:|------|-------:|----------|",
+        ]
+        for i, r in enumerate(ref_rows, 1):
+            lines.append(_row_line(i, r))
+
     results_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
 
     # --- 根拠（ユーザー別セクション） ---
     elines = [
@@ -1219,6 +1250,32 @@ def dedupe_weekly_rows(rows: list[dict]) -> list[dict]:
     return keep
 
 
+
+def load_seed_pack_usernames(packs: list[str]) -> list[str]:
+    """seed_packs/<name>.txt から username を読む。"""
+    usernames: list[str] = []
+    seen: set[str] = set()
+    for pack in packs:
+        pack = (pack or "").strip()
+        if not pack:
+            continue
+        path = Path("seed_packs") / f"{pack}.txt"
+        if not path.exists():
+            print(f"  [pack] missing {path}")
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            u = line.lstrip("@")
+            key = u.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            usernames.append(u)
+    return usernames
+
+
 def load_seed_usernames(limit: int = 0) -> list[str]:
     usernames: list[str] = []
     seen: set[str] = set()
@@ -1322,7 +1379,7 @@ async def main_async() -> None:
     parser.add_argument("--week", choices=["last"], default="last")
     parser.add_argument("--start", help="YYYY-MM-DD")
     parser.add_argument("--end", help="YYYY-MM-DD")
-    parser.add_argument("--min-count", type=int, default=2)
+    parser.add_argument("--min-count", type=int, default=1, help="保存下限（本表表示は2、参考は1）")
     parser.add_argument(
         "--limit",
         type=int,
@@ -1338,6 +1395,11 @@ async def main_async() -> None:
         "--merge",
         action="store_true",
         help="既存 weekly JSON にマージ（--only と併用向き）",
+    )
+    parser.add_argument(
+        "--pack",
+        default="",
+        help="seed_packs 名をカンマ区切り (例: july_gap,mbh,miso,sc)",
     )
     parser.add_argument(
         "--deep",
@@ -1386,6 +1448,10 @@ async def main_async() -> None:
             for u in args.only.split(",")
             if u.strip()
         ]
+    elif getattr(args, "pack", "").strip():
+        packs = [p.strip() for p in args.pack.split(",") if p.strip()]
+        seeds = load_seed_pack_usernames(packs)
+        print(f"packs: {packs}")
     else:
         seed_limit = args.limit if args.limit > 0 else 300
         seeds = load_seed_usernames(limit=seed_limit)
@@ -1431,9 +1497,12 @@ async def main_async() -> None:
             scanned.add(username.lower())
             hit = stack_weekly_from_tweets(tweets, username, start, end)
             note_mentions2((hit or {}).get("discovered_usernames") or [], weight=2)
-            # ツイート全文からも軽く拾う
+            # ツイート全文・引用先・リプライ先からも芋づる
             for t in tweets:
                 note_mentions2(extract_mentioned_usernames(t.get("text") or ""), weight=1)
+                reply_u = (t.get("in_reply_to_screen_name") or "").strip()
+                if reply_u:
+                    note_mentions2([reply_u], weight=2)
 
             if not hit or int(hit.get("count") or 0) <= 0:
                 key = username.lower()
