@@ -348,8 +348,8 @@ def is_quote_tweet(tweet: dict, text: str = "") -> bool:
 def extract_day_recap_n(text: str) -> tuple[str, int] | None:
     """昨日N節 / 今日N即 の (kind, N)。kind は yesterday|today。
 
-    「昨日はアプリで2即」「本日2即目」も拾う。
-    目標文中の「🦉で2即」は拾わない。
+    「昨日はアプリで2即」「本日2即」は N 件。
+    「本日2即目」は序数なのでここでは拾わない（1件扱いは count 側）。
     """
     raw = text or ""
     if is_goal_or_progress_tracker(raw) or is_meta_or_third_party_soku_talk(raw):
@@ -358,14 +358,20 @@ def extract_day_recap_n(text: str) -> tuple[str, int] | None:
         r"(?:初即|即った|満即|準即/|合致|搬)", raw
     ):
         return None
+    # 序数「N即目」は day recap ではない
+    if re.search(r"\d+\s*(?:即|節)\s*目", raw) and not re.search(
+        r"(?:昨日|今日|本日)[^\n。]{0,20}?\d+\s*(?:即|節)(?!\s*目)",
+        raw,
+    ):
+        return None
     m = re.search(
-        r"昨日(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?:目)?",
+        r"昨日(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)\b",
         raw,
     )
     if m:
         return ("yesterday", int(m.group(1)))
     m = re.search(
-        r"(?:今日|本日)(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?:目)?",
+        r"(?:今日|本日)(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)\b",
         raw,
     )
     if m:
@@ -467,6 +473,14 @@ def is_goal_or_progress_tracker(text: str) -> bool:
 def is_meta_or_third_party_soku_talk(text: str) -> bool:
     """他人の即ペース推定・マイルストーン雑談・理論トーク（本人ケースではない）。"""
     raw = text or ""
+    # 明示的に数えない宣言
+    if re.search(r"ノーカウント|カウントしな|即数は.?ノー|ノーカン", raw):
+        return True
+    # 過去の回想のみ（この前/以前に即った）で現場明細がない
+    if re.search(r"(?:この前|以前|前に|昔|2年前).{0,12}即った", raw) and not re.search(
+        r"(?:本日|今日|昨日|準即/|即/|即‼️|合致|パレ搬|ホテ搬)", raw
+    ):
+        return True
     if re.search(
         r"推定\s*\d+\s*(?:即|節)|"
         r"\d+\s*(?:即|節)\s*/\s*(?:半年|年間|年|月|週|日)|"
@@ -580,6 +594,13 @@ def count_stack_units(text: str) -> int:
     live = is_live_soku_announce(raw)
     field = has_case_field_evidence(raw)
 
+    # 本日N即目 / N即目 は 1 件（「2即目いく」など未来形は除外）
+    if re.search(r"\d+\s*(?:即|節)\s*目", raw) and not re.search(
+        r"ノーカウント|カウントしな|即目\s*いく|目いく|したい|目指",
+        raw,
+    ):
+        return 1
+
     if not live and not field:
         # 裸の「1即」「17即」だけは数えない（目標・総括・雑談が多い）
         return 0
@@ -655,6 +676,10 @@ def count_stack_units(text: str) -> int:
     if re.search(r"今月\s*\d+\s*節目", cleaned) and not re.search(
         r"表示|位|比較", cleaned
     ):
+        return 1
+
+    # 本日N即目 / N即目 は 1 件
+    if re.search(r"\d+\s*(?:即|節)\s*目", raw):
         return 1
 
     # 短文ライブ即
@@ -1248,22 +1273,41 @@ async def collect_user_tweets_for_week(
     username: str,
     start: date,
     end: date,
+    deep: bool = False,
 ):
     """Search + API TL で週周辺の投稿を集める。"""
     until = end + timedelta(days=2)
     q = (
         f"from:{username} since:{start.isoformat()} until:{until.isoformat()}"
     )
+    scrolls = 8 if deep else 4
+    pages = 6 if deep else 3
+    count = 50 if deep else 40
     tweets = []
     try:
-        tweets = await search_query_tweets(context, q, scrolls=4)
+        tweets = await search_query_tweets(context, q, scrolls=scrolls)
     except Exception as e:
         print(f"  [search] @{username} ERR {e}")
+
+    if deep:
+        try:
+            from monthly_collect import browse_user_tweets
+
+            more = await browse_user_tweets(context, username, scrolls=6)
+            seen = {t.get("id") for t in tweets}
+            for t in more:
+                if t.get("id") not in seen:
+                    tweets.append(t)
+                    seen.add(t.get("id"))
+        except Exception as e:
+            print(f"  [browse] @{username} ERR {e}")
 
     if sessions:
         uid = get_user_id(sessions, session_idx, username)
         if uid:
-            tl = get_user_tweets(sessions, session_idx, uid, count=40, max_pages=3)
+            tl = get_user_tweets(
+                sessions, session_idx, uid, count=count, max_pages=pages
+            )
             seen = {t.get("id") for t in tweets}
             for t in tl:
                 if t.get("id") not in seen:
@@ -1294,6 +1338,11 @@ async def main_async() -> None:
         "--merge",
         action="store_true",
         help="既存 weekly JSON にマージ（--only と併用向き）",
+    )
+    parser.add_argument(
+        "--deep",
+        action="store_true",
+        help="検索scroll/TLページを増やし profile browse も併用",
     )
     parser.add_argument(
         "--discover",
@@ -1377,7 +1426,7 @@ async def main_async() -> None:
 
         async def process_user(username: str, i: int, total_n: int, wave: str) -> None:
             tweets = await collect_user_tweets_for_week(
-                ctx, sessions, session_idx, username, start, end
+                ctx, sessions, session_idx, username, start, end, deep=args.deep
             )
             scanned.add(username.lower())
             hit = stack_weekly_from_tweets(tweets, username, start, end)
@@ -1462,9 +1511,9 @@ async def main_async() -> None:
 
         await browser.close()
 
-    # 芋づるで見つかった username を seed に追記（未登録のみ）
+    # 芋づるで見つかった username を seed に追記（discover 時のみ）
     seed_path = Path("seed_accounts.txt")
-    if seed_path.exists() and mention_canon:
+    if args.discover > 0 and seed_path.exists() and mention_canon:
         existing = {
             ln.strip().lstrip("@").lower()
             for ln in seed_path.read_text(encoding="utf-8").splitlines()

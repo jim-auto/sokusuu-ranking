@@ -11,7 +11,7 @@
 - 明示「今週N即」があれば優先
 - 月次・年間総括・ランキング雑談は除外
 - 掲載しきい値: デフォルト2〜3
-- 件数: 16（積み上げ 15 / 明示 1）
+- 件数: 17（積み上げ 16 / 明示 1）
 - **根拠ツイート一覧:** [`evidence_weekly_2026_07_last.md`](./evidence_weekly_2026_07_last.md)
 
 ## 結果
@@ -34,3 +34,4 @@
 | 14 | @nanpasei | ヤリっくま@味噌代表 | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#nanpasei) |
 | 15 | @Niko_PUA | ニコ | 2 | 積み上げ | 2 | [詳細](./evidence_weekly_2026_07_last.md#niko_pua) |
 | 16 | @suto_komari | こまり | 2 | 積み上げ | 1 | [詳細](./evidence_weekly_2026_07_last.md#suto_komari) |
+| 17 | @Tt2tb | おはよぉ | 2 | 積み上げ | 1 | [詳細](./evidence_weekly_2026_07_last.md#tt2tb) |
