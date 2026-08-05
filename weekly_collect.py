@@ -75,6 +75,11 @@ def parse_tweet_datetime(created_at: str) -> date | None:
     return dt.date() if dt else None
 
 
+# 同一人物の複垢（キー=副垢 lower → 本垢）。結果は本垢に寄せる。
+KNOWN_ALT_ACCOUNTS = {
+    "ryeppua": "ryepua",  # イヌピィ
+}
+
 # 週次で優先して拾う常連（表示名メモ）
 WEEKLY_PRIORITY_SEEDS = [
     "tonpamiso",  # チャージマン研
@@ -114,10 +119,31 @@ WEEKLY_PRIORITY_SEEDS = [
 ]
 
 
+def is_no_serial_period_dump(text: str) -> bool:
+    """通番ケースの月次/期間ダンプ（週間積み上げに使わない）。
+
+    例: 味噌どガス No.88〜No.104 を一気に並べる月間ログ。
+    """
+    raw = text or ""
+    nos = [int(n) for n in re.findall(r"(?i)No\.?\s*(\d+)", raw)]
+    if len(nos) < 3:
+        return False
+    # 今週指定があれば週次ログとして許可
+    if re.search(r"今週|週総括|週間|週まとめ", raw):
+        return False
+    # 3件以上の No. 列挙、または番号の振れ幅が大きい
+    span = max(nos) - min(nos) if nos else 0
+    if len(nos) >= 3 or span >= 5:
+        return True
+    return False
+
+
 def is_period_recap_tweet(text: str) -> bool:
     """月次・年間総括（積み上げに入れない）。"""
     cleaned = clean_tweet_text(text)
     raw = text or ""
+    if is_no_serial_period_dump(raw):
+        return True
     if re.search(
         r"(?:1[0-2]|[1-9])\s*月\s*(?:総括|統括|まとめ|振り返り)|"
         r"【\d{4}年\s*\d{1,2}月】",
@@ -136,6 +162,9 @@ def is_period_recap_tweet(text: str) -> bool:
     if re.search(r"合計\s*\d+\s*(?:即|節)", cleaned) and re.search(
         r"(?:総括|統括|パス含めず|月間)", cleaned + raw
     ):
+        return True
+    # 「頑張った17即」「17即」だけの振り返り + 翌月目標
+    if re.search(r"頑張った\s*\d+\s*(?:即|節)|\d+\s*(?:即|節).{0,20}維持目標", raw):
         return True
     return False
 
@@ -461,7 +490,9 @@ def is_meta_or_third_party_soku_talk(text: str) -> bool:
         r"即りましょう|可能性は|望みは薄い|過度な期待|"
         r"わんちゃん？|準即わんちゃん|準即できる可能性|"
         r"2年前即|累計\s*\d+\s*即|通算\s*\d+\s*即|"
-        r"\d{2,4}\s*即達成|きっかけを作って|改めて周り",
+        r"\d{2,4}\s*即達成|きっかけを作って|改めて周り|"
+        r"個人的に一番好き|色々あるけど|ラジコン即|"
+        r"名前が草|合理的すぎる",
         raw,
     ):
         return True
@@ -565,14 +596,16 @@ def count_stack_units(text: str) -> int:
     if slash_n:
         return min(slash_n, 8)
 
-    # socool 型: No.101 ... 即 の列挙
-    no_lines = re.findall(
-        r"No\.\s*\d+[^\n]{0,40}(?:即|満即|準即)",
-        raw,
-        flags=re.IGNORECASE,
-    )
-    if no_lines:
-        return min(len(no_lines), 12)
+    # No.連番の期間ダンプは is_period_recap で除外済み。
+    # 週指定付きの短い No. 列挙だけ例外的に数える。
+    if re.search(r"今週|週総括|週間", raw):
+        no_lines = re.findall(
+            r"No\.\s*\d+[^\n]{0,40}(?:即|満即|準即)",
+            raw,
+            flags=re.IGNORECASE,
+        )
+        if no_lines:
+            return min(len(no_lines), 8)
 
     def _multi_n() -> int | None:
         for src in (bare, cleaned, raw[:80]):
@@ -765,7 +798,11 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
             if add > 0:
                 stack_total += add
                 _add_day(target, add)
-                pending_live_dt = None
+                # 「本日2即」後の詳細レポートを二重計上しない
+                if kind == "today":
+                    pending_live_dt = created_dt
+                else:
+                    pending_live_dt = None
             evidence_items.append(
                 {
                     "units": add,
@@ -1041,6 +1078,120 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
 
     evidence_path.write_text("\n".join(elines) + "\n", encoding="utf-8")
     print(f"docs: {results_path} / {evidence_path}")
+
+
+def _evidence_tweet_ids(row: dict) -> set[str]:
+    ids: set[str] = set()
+    for e in row.get("evidence_items") or []:
+        tid = str(e.get("tweet_id") or "")
+        if not tid and e.get("url"):
+            tid = str(e["url"]).rstrip("/").rsplit("/", 1)[-1]
+        if tid and tid.isdigit():
+            ids.add(tid)
+    return ids
+
+
+def _display_core(name: str) -> str:
+    """表示名のコア（@以降・フォロバ文言を落として比較）。"""
+    n = name or ""
+    n = re.split(r"[@＠]", n, maxsplit=1)[0]
+    n = re.sub(r"フォロバ\d*", "", n)
+    n = re.sub(r"\s+", "", n)
+    return n.strip().lower()
+
+
+def dedupe_weekly_rows(rows: list[dict]) -> list[dict]:
+    """複垢・同一ツイート根拠の二重掲載を除去。
+
+    - KNOWN_ALT_ACCOUNTS で副垢を本垢にマージ
+    - 根拠 tweet_id が 50%+ 重なる行は同一人物とみなす
+    - 表示名コアが同一で件数が同じなら片方を落とす
+    """
+    if not rows:
+        return rows
+
+    # 1) 既知アルトを本垢へ寄せる
+    by_user: dict[str, dict] = {}
+    for r in rows:
+        u = (r.get("username") or "").lower()
+        if not u:
+            continue
+        primary = KNOWN_ALT_ACCOUNTS.get(u, u)
+        if primary not in by_user:
+            r2 = dict(r)
+            if primary != u:
+                r2["username"] = next(
+                    (
+                        x.get("username")
+                        for x in rows
+                        if (x.get("username") or "").lower() == primary
+                    ),
+                    r.get("username"),
+                )
+                # 本垢が無い場合は副垢のまま残すが username は primary 表記に
+                if (r2.get("username") or "").lower() != primary:
+                    r2["username"] = primary
+            by_user[primary] = r2
+        else:
+            # 件数が多い方 / 根拠が多い方を採用
+            cur = by_user[primary]
+            if int(r.get("weekly_count") or 0) > int(cur.get("weekly_count") or 0):
+                by_user[primary] = dict(r)
+                by_user[primary]["username"] = cur.get("username") or r.get("username")
+            elif int(r.get("weekly_count") or 0) == int(cur.get("weekly_count") or 0):
+                # 同じ件数なら根拠 tweet が多い方
+                if len(_evidence_tweet_ids(r)) > len(_evidence_tweet_ids(cur)):
+                    by_user[primary] = dict(r)
+
+    merged = list(by_user.values())
+
+    # 2) 根拠 tweet_id の重複でクラスタ
+    keep: list[dict] = []
+    used: set[int] = set()
+    for i, a in enumerate(merged):
+        if i in used:
+            continue
+        ids_a = _evidence_tweet_ids(a)
+        best = a
+        for j, b in enumerate(merged):
+            if j <= i or j in used:
+                continue
+            ids_b = _evidence_tweet_ids(b)
+            if not ids_a or not ids_b:
+                # 表示名コア一致
+                if _display_core(a.get("display_name") or "") and _display_core(
+                    a.get("display_name") or ""
+                ) == _display_core(b.get("display_name") or ""):
+                    if int(b.get("weekly_count") or 0) > int(best.get("weekly_count") or 0):
+                        best = b
+                    used.add(j)
+                    print(
+                        f"  [dedupe-name] @{b.get('username')} -> @{best.get('username')}"
+                    )
+                continue
+            inter = ids_a & ids_b
+            union = ids_a | ids_b
+            overlap = len(inter) / max(len(union), 1)
+            if overlap >= 0.5 or len(inter) >= 2:
+                # 同一根拠 → 件数多い方 / 本垢優先
+                bu = (b.get("username") or "").lower()
+                au = (best.get("username") or "").lower()
+                if int(b.get("weekly_count") or 0) > int(best.get("weekly_count") or 0):
+                    best = b
+                elif int(b.get("weekly_count") or 0) == int(best.get("weekly_count") or 0):
+                    # フォロワー多い方
+                    if (b.get("followers_count") or 0) > (best.get("followers_count") or 0):
+                        best = b
+                used.add(j)
+                print(
+                    f"  [dedupe-tweets] @{bu} ~ @{au} overlap={overlap:.0%} "
+                    f"keep=@{best.get('username')}"
+                )
+                ids_a = _evidence_tweet_ids(best)
+        keep.append(best)
+        used.add(i)
+
+    return keep
 
 
 def load_seed_usernames(limit: int = 0) -> list[str]:
@@ -1338,6 +1489,12 @@ async def main_async() -> None:
     for r in rows:
         key = (r.get("username") or "").lower()
         src = results_map.get(key) or {}
+        # alt 本垢キーでも探す
+        if not src:
+            for alt, primary in KNOWN_ALT_ACCOUNTS.items():
+                if primary == key and alt in results_map:
+                    src = results_map[alt]
+                    break
         if src.get("evidence_items") and not r.get("evidence_items"):
             r["evidence_items"] = src["evidence_items"]
         if src.get("stack_summary"):
@@ -1348,6 +1505,12 @@ async def main_async() -> None:
             r["stack_posts"] = src["stack_posts"]
         if src.get("display_name") and not r.get("display_name"):
             r["display_name"] = src["display_name"]
+
+    # 複垢・同一根拠の二重掲載を除去
+    before = len(rows)
+    rows = dedupe_weekly_rows(rows)
+    if len(rows) != before:
+        print(f"dedupe: {before} -> {len(rows)}")
 
     rows = [r for r in rows if int(r.get("weekly_count") or 0) >= args.min_count]
     rows.sort(

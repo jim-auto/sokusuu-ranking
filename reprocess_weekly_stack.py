@@ -5,7 +5,11 @@ import json
 from datetime import date
 from pathlib import Path
 
-from weekly_collect import stack_weekly_from_tweets, write_weekly_markdown
+from weekly_collect import (
+    dedupe_weekly_rows,
+    stack_weekly_from_tweets,
+    write_weekly_markdown,
+)
 
 PATH = Path("data/weekly_2026-07-27_2026-08-02.json")
 START, END = date(2026, 7, 27), date(2026, 8, 2)
@@ -39,7 +43,10 @@ def main() -> None:
 
         hit = stack_weekly_from_tweets(tweets, username, START, END)
         if not hit or int(hit.get("count") or 0) < MIN_COUNT:
-            print(f"  OUT @{username}: {r.get('weekly_count')} -> {hit.get('count') if hit else 0}")
+            print(
+                f"  OUT @{username}: {r.get('weekly_count')} -> "
+                f"{hit.get('count') if hit else 0}"
+            )
             continue
 
         r2 = dict(r)
@@ -54,6 +61,12 @@ def main() -> None:
             print(f"  @{username}: {old} -> {hit['count']}")
         new_rows.append(r2)
 
+    before = len(new_rows)
+    new_rows = dedupe_weekly_rows(new_rows)
+    if len(new_rows) != before:
+        print(f"  dedupe: {before} -> {len(new_rows)}")
+
+    new_rows = [r for r in new_rows if int(r.get("weekly_count") or 0) >= MIN_COUNT]
     new_rows.sort(
         key=lambda x: (
             -int(x.get("weekly_count") or 0),
