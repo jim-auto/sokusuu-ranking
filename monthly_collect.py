@@ -972,6 +972,11 @@ def extract_yearly_count(text, year, strict=False):
     # 「即目」は進捗・通算カウントであり年間総括ではない
     if re.search(r"\d+\s*即目", cleaned):
         return None
+    # 一部期間のみ・ノーカウント明示の部分年総括は年間に使わない
+    if re.search(r"(?:のみ|ノーカウント|不明なので|垢消)", cleaned) and re.search(
+        r"(?:総括|統括|振り返り)", cleaned
+    ):
+        return None
     if has_year_month_phrase and not has_strong_report_keyword:
         return None
     if strict and not has_explicit_year and not has_strong_report_keyword:
