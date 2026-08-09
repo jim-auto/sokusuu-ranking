@@ -263,6 +263,7 @@ def build_period_result(account, hit, value_key, match_source):
         "match_source": match_source,
         "profile_source_field": hit.get("source_field", "") if is_profile_source else "",
         "needs_review": is_profile_source,
+        "approximate": bool(hit.get("approximate")),
         }
     )
 
@@ -1593,7 +1594,7 @@ def build_search_query(username, mode, year, month=None):
     else:
         keywords = (
             f'("{month}月" OR 月間 OR 今月 OR 結果 OR 実績 OR 総括 '
-            "OR 戦績 OR 着地 OR 報告 OR 振り返り OR まとめ OR 即 OR get OR そ)"
+            "OR 戦績 OR 着地 OR 報告 OR 振り返り OR まとめ OR 即 OR get OR そ OR 節 OR 以上)"
         )
 
     return (
@@ -1636,8 +1637,9 @@ def build_global_search_query_groups(mode, year, month=None):
             base + " (結果 OR 実績)",
         ],
         [
-            base + " (即 OR get OR そ)",
+            base + " (即 OR get OR そ OR 節 OR 以上)",
             f'since:{start_date.isoformat()} until:{until_date.isoformat()} "{month}月" 即',
+            f'since:{start_date.isoformat()} until:{until_date.isoformat()} "{month}月" 節',
             f'since:{start_date.isoformat()} until:{until_date.isoformat()} 月間 即',
             f'since:{start_date.isoformat()} until:{until_date.isoformat()} 今月 即',
         ],
@@ -1646,6 +1648,46 @@ def build_global_search_query_groups(mode, year, month=None):
 
 def build_global_search_queries(mode, year, month=None):
     return [group[0] for group in build_global_search_query_groups(mode, year, month)]
+
+
+def is_monthly_floor_statement(text, year, month):
+    """「7月は10節以上」「6.7月それぞれ10節以上」のような下限（以上）表記を検出する。
+
+    累計/通算（通算 279即以上）や 月間以外のカウントをフロア扱いにしない。
+    """
+    cleaned = clean_tweet_text(text)
+    if not cleaned:
+        return False
+    if re.search(r"(?:累計|通算|total|トータル)", cleaned, re.IGNORECASE):
+        return False
+    month_names = {
+        1: ["1月", "一月", "jan"],
+        2: ["2月", "二月", "feb"],
+        3: ["3月", "三月", "mar"],
+        4: ["4月", "四月", "apr"],
+        5: ["5月", "五月", "may"],
+        6: ["6月", "六月", "jun"],
+        7: ["7月", "七月", "jul"],
+        8: ["8月", "八月", "aug"],
+        9: ["9月", "九月", "sep"],
+        10: ["10月", "十月", "oct"],
+        11: ["11月", "十一月", "nov"],
+        12: ["12月", "十二月", "dec"],
+    }
+    month_tokens = "|".join(re.escape(name) for name in month_names.get(month, []))
+    # 例: 「7月それぞれ10節以上」 / 「7月は10節以上」 / 「今月10節以上」
+    pattern = re.compile(
+        rf"(?:{month_tokens}|月間|今月)\s*[^\d]{{0,10}}(\d+)\s*(?:節|即)\s*以上",
+        re.IGNORECASE,
+    )
+    match = pattern.search(cleaned)
+    if not match:
+        return False
+    context = cleaned[max(0, match.start() - 10) : min(len(cleaned), match.end() + 10)]
+    if re.search(r"(?:昨年|去年|目標|予定|チャレ)", context):
+        return False
+    value = int(match.group(1))
+    return 0 < value <= 500
 
 
 def pick_best_hit(tweets, username, mode, year, month=None, strict=False):
@@ -1669,6 +1711,10 @@ def pick_best_hit(tweets, username, mode, year, month=None, strict=False):
             # チャネル絵文字内訳用に原文を残す（件数抽出は extract_* 内で clean する）
             "text": (tweet.get("text") or "")[:500],
             "created_at": tweet.get("created_at", ""),
+            "approximate": bool(
+                mode == "monthly"
+                and is_monthly_floor_statement(tweet.get("text", ""), year, month)
+            ),
         }
         if best_hit is None or count > best_hit["count"]:
             best_hit = hit
@@ -1703,6 +1749,10 @@ def pick_best_hits_by_user(tweets, usernames, mode, year, month=None, strict=Fal
             # チャネル絵文字内訳用に原文を残す
             "text": (tweet.get("text") or "")[:500],
             "created_at": tweet.get("created_at", ""),
+            "approximate": bool(
+                mode == "monthly"
+                and is_monthly_floor_statement(tweet.get("text", ""), year, month)
+            ),
         }
         current = best_hits.get(original_username)
         if current is None or count > current["count"]:
@@ -1962,7 +2012,7 @@ def build_batch_search_query(usernames, mode, year, month=None):
     else:
         keywords = (
             f'("{month}月" OR 月間 OR 今月 OR 総括 OR 戦績 OR まとめ '
-            "OR 振り返り OR 即 OR get)"
+            "OR 振り返り OR 即 OR get OR 節 OR 以上)"
         )
     return (
         f"({from_clause}) {keywords} "
