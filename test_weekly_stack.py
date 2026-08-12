@@ -68,6 +68,33 @@ def test_greed_week_stack():
 
 def test_today_two_bang():
     assert extract_day_recap_n("本日2即！ 🎩いくぜ！") == ("today", 2)
+    assert extract_day_recap_n("本日\nスト準アポ1\nネト新規アポ1\n\nどっちも即") == (
+        "today",
+        2,
+    )
+
+
+def test_feitan_emoji_lines():
+    text = "🍎/直🏨/デリヘル\n多分みんきせ。\n\n🍐/直🏨/看護\n入れ墨\n\n🍎/直🏨/ol\n写真より\n7月ラスト駆け込んだ"
+    assert count_stack_units(text) == 3
+    assert count_stack_units("7月総括\n\n🍐/店アポ/b/ol\n🍎/直🏨/e/キャバ") == 0
+
+
+def test_chiroru_two_cases():
+    tweets = [
+        {
+            "id": "1",
+            "text": "節\n帰るわ🥱",
+            "created_at": "Sat Aug 01 16:53:59 +0000 2026",
+        },
+        {
+            "id": "2",
+            "text": "弾/🟩つ/値3.0/gg/f🥧/111節目\n満節だった😇",
+            "created_at": "Sun Aug 02 01:16:02 +0000 2026",
+        },
+    ]
+    hit = stack_weekly_from_tweets(tweets, "chiroru_pua", START, END)
+    assert hit and hit["count"] == 2, hit
 
 
 def test_mic_week_stack():

@@ -338,9 +338,9 @@ def is_independent_case_report(text: str) -> bool:
     if is_period_recap_tweet(raw):
         return False
     if re.search(
-        r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即)\s*/|"
+        r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即|満節)\s*/|"
         r"(?:即|節)\s*/\s*[^\s]|"
-        r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即)",
+        r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即|満節)",
         raw,
     ):
         return True
@@ -394,6 +394,9 @@ def extract_day_recap_n(text: str) -> tuple[str, int] | None:
     )
     if m:
         return ("today", int(m.group(1)))
+    if re.search(r"(?:昨日|今日|本日)[\s\S]{0,80}?(?:どっちも|どちらも|両方)\s*即", raw):
+        kind = "yesterday" if re.match(r"昨日", raw.strip()) else "today"
+        return (kind, 2)
     # 本日🗼🍛即×2 / 昨日そx2
     m = re.search(
         r"(昨日|今日|本日).{0,16}?(?:即|節|そ)\s*[×xX*＊]\s*([1-9]\d?)",
@@ -511,6 +514,11 @@ def is_meta_or_third_party_soku_talk(text: str) -> bool:
         r"(?:本日|今日|昨日|準即/|即/|即‼️|合致|パレ搬|ホテ搬)", raw
     ):
         return True
+    # 過去の即子の一般論（ケース報告ではない）
+    if re.search(r"即った子とは|即った子は沢山|会っていく中で話を聞くと", raw) and not re.search(
+        r"(?:本日|今日|昨日|準即/|即‼️|即/)", raw
+    ):
+        return True
     if re.search(
         r"推定\s*\d+\s*(?:即|節)|"
         r"\d+\s*(?:即|節)\s*/\s*(?:半年|年間|年|月|週|日)|"
@@ -573,7 +581,7 @@ def has_case_field_evidence(text: str) -> bool:
             r"(?:パス|ちょん)そ|(?:NN|NS|写生完)\s*即|"
             r"No\.\s*\d+[^\n]{0,30}(?:即|満即)|"
             r"①|②|③|"
-            r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦]\s*(?:即|そ|準|/\d)|"
+            r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦☀️]\s*(?:即|そ|準|/)|"
             r"\d{2}\s*🦏"
             r")",
             raw,
@@ -641,6 +649,17 @@ def count_stack_units(text: str) -> int:
     ):
         return 1
 
+    # フェイタン型: 🍐/直🏨/看護 を1行1ケース（月次総括は recap で除外済み）
+    emoji_lines = 0
+    for line in raw.splitlines():
+        if re.match(
+            r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦☀️]\s*/",
+            line.strip(),
+        ):
+            emoji_lines += 1
+    if emoji_lines >= 2:
+        return min(emoji_lines, 8)
+
     if not live and not field:
         # 裸の「1即」「17即」だけは数えない（目標・総括・雑談が多い）
         return 0
@@ -704,6 +723,12 @@ def count_stack_units(text: str) -> int:
     n = _multi_n()
     if n and multi_support:
         return n
+
+    # どっちも即 / 両方即
+    if re.search(r"(?:どっちも|どちらも|両方)\s*即", raw) and not re.search(
+        r"ノーカウント|したい|目指", raw
+    ):
+        return 2
 
     # 即×2 / そx2（本日即×2 は day_recap 側。ここはケース文中）
     m_times = re.search(r"(?:即|節|そ)\s*[×xX*＊]\s*([1-9]\d?)", raw)
@@ -905,6 +930,12 @@ def stack_weekly_from_tweets(tweets, username: str, start: date, end: date) -> d
             and not live
             and units > 0
             and not is_multi_case_recap(text)
+            # 数時間後の別ケース（満節/準即明細）は同一視しない
+            and not (
+                is_independent_case_report(text)
+                and created_dt - pending_live_dt > timedelta(hours=3)
+                and not (created and day_units.get(created, 0) > 0)
+            )
         ):
             role = "case_detail"
             units = 0
