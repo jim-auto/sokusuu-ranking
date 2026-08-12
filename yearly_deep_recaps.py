@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import re
+from datetime import datetime
 from pathlib import Path
 
 from monthly_collect import (
@@ -24,20 +26,34 @@ from monthly_collect import (
 
 YEAR = 2025
 
-def tweet_in_year_window(created_at: str, year: int = YEAR) -> bool:
-    """Accept recap posts from year-12-01 through year+1-02-15, or created year == year."""
+def tweet_in_year_window(created_at: str, year: int = YEAR, text: str = "") -> bool:
+    """Accept recap posts from the calendar year through late next-year recaps.
+
+    遅延総括（例: 2026年6月の「2025年総括 57即」）を落とさない。
+    前年以前の古い年報は除外する。
+    """
     if not created_at:
-        return False
+        # 日付不明でも対象年の明示総括なら通す
+        return bool(re.search(rf"{year}年|{str(year)[2:]}年", text or ""))
     try:
         dt = datetime.strptime(created_at, "%a %b %d %H:%M:%S %z %Y")
     except Exception:
+        return bool(re.search(rf"{year}年|{str(year)[2:]}年", text or ""))
+
+    start = datetime(year, 1, 1, tzinfo=dt.tzinfo)
+    late_end = datetime(year + 1, 12, 31, 23, 59, tzinfo=dt.tzinfo)
+    if dt < start or dt > late_end:
         return False
-    start = datetime(year, 12, 1, tzinfo=dt.tzinfo)
-    end = datetime(year + 1, 2, 15, tzinfo=dt.tzinfo)
-    # also allow any tweet in calendar year (rare mid-year annual recaps)
     if dt.year == year:
         return True
-    return start <= dt <= end
+    # 翌年投稿は対象年の明示が必要
+    short = str(year)[2:]
+    return bool(
+        re.search(
+            rf"(?:{year}年|{short}年|{year}総括|{short}年総括)",
+            text or "",
+        )
+    )
 
 YEARLY_PATH = "data/yearly_2025.json"
 ACCOUNTS = "data/sokusuu_accounts.json"
@@ -79,6 +95,17 @@ MISSING_REGULARS = [
     "kuroiwa_45",
     "Niko_PUA",
     "tsutsumi_ye4pe",
+    "Tt2tb",
+    "ot_aza",
+    "SFgzKAHifDvjfVu",
+    "rei_app_pua",
+    "knt17760",
+    "sugi_ichiban",
+    "tomu_riddle",
+    "ururunpua",
+    "jiro11321",
+    "shin9suke",
+    "atannon_nampa",
 ]
 
 
@@ -90,6 +117,8 @@ async def find_yearly_for_user(context, sessions, session_idx, username: str) ->
         f"from:{username} since:2025-12-01 until:2026-02-15 (総括 OR 統括 OR 振り返り OR まとめ OR 年報 OR 着地)",
         f"from:{username} since:2025-12-01 until:2026-02-15 (2025年 OR 25年 OR 年間)",
         f"from:{username} since:2025-01-01 until:2026-01-31 2025年",
+        # 遅延総括（年明け以降に出す人）
+        f"from:{username} since:2026-02-01 until:2026-12-31 (2025年総括 OR 25年総括 OR 2025年)",
         f"from:{username} (2025年総括 OR 25年総括 OR 年末総括 OR 年間総括)",
     ]
     seen = set()
@@ -127,7 +156,7 @@ async def find_yearly_for_user(context, sessions, session_idx, username: str) ->
         # skip pure RT
         if text.startswith("RT @") or text.startswith("RT@"):
             continue
-        if not tweet_in_year_window(t.get("created_at") or "", YEAR):
+        if not tweet_in_year_window(t.get("created_at") or "", YEAR, text):
             continue
         count = extract_yearly_count(text, YEAR, strict=True)
         if not count:
@@ -175,7 +204,8 @@ def write_results_md(rows: list[dict]) -> None:
         "- **年間10即以上のみ掲載**",
         "- 探索: ツイート由来（総括 Search / timeline）+ プロフィール由来",
         "- 同一アカウントはツイート証拠を優先。プロフィールのみは要確認",
-        "- 除外: 月次総括・遠征短期合計・目標ツイート・即目カウント・応援リプ等",
+        "- 除外: 月次総括・遠征短期合計・目標ツイート・即目カウント・部分年ノーカウント総括等",
+        "- 遅延総括（翌年に出た「2025年総括」）も対象年の明示があれば採用",
         "- プロフィール: ライブbio再取得。節/g 単位も年間として採用",
         f"- ツイート由来 {tweet_n} / プロフィール由来 {prof_n}",
         "",

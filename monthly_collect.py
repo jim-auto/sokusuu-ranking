@@ -1360,9 +1360,9 @@ def find_yearly_profile_hit(account, year):
 
 def build_reporting_window(mode, year, month=None):
     if mode == "yearly":
-        # 年末〜年始の総括ツイートを広く拾う（早めの振り返り〜遅めの着地）
+        # 年末〜年始の総括 + 年明けすぐの着地。遅延総括は is_in_reporting_window 側で年明示を見て通す
         start = datetime(year, 12, 1)
-        end = datetime(year + 1, 2, 7)
+        end = datetime(year + 1, 3, 31)
     else:
         if month is None:
             raise ValueError("monthly mode requires month")
@@ -1374,7 +1374,7 @@ def build_reporting_window(mode, year, month=None):
     return start.date(), end.date()
 
 
-def is_in_reporting_window(created_at, mode, year, month=None):
+def is_in_reporting_window(created_at, mode, year, month=None, text=""):
     if not created_at:
         return True
 
@@ -1385,7 +1385,17 @@ def is_in_reporting_window(created_at, mode, year, month=None):
 
     start_date, end_date = build_reporting_window(mode, year, month)
     tweet_date = dt.date()
-    return start_date <= tweet_date <= end_date
+    if start_date <= tweet_date <= end_date:
+        return True
+    # 年間: 対象年の明示総括なら翌年内の遅延投稿も許可
+    if mode == "yearly":
+        short_year = str(year)[2:]
+        if dt.year in {year, year + 1} and re.search(
+            rf"(?:{year}年|{short_year}年|{year}総括|{short_year}年総括)",
+            text or "",
+        ):
+            return True
+    return False
 
 
 def build_search_query(username, mode, year, month=None):
@@ -1492,7 +1502,9 @@ def pick_best_hit(tweets, username, mode, year, month=None, strict=False):
     best_hit = None
 
     for tweet in tweets:
-        if not is_in_reporting_window(tweet.get("created_at", ""), mode, year, month):
+        if not is_in_reporting_window(
+            tweet.get("created_at", ""), mode, year, month, tweet.get("text", "")
+        ):
             continue
         if mode == "monthly":
             count = extract_monthly_count(
@@ -1536,7 +1548,9 @@ def pick_best_hits_by_user(
             if not allow_unknown:
                 continue
             original_username = raw_username
-        if not is_in_reporting_window(tweet.get("created_at", ""), mode, year, month):
+        if not is_in_reporting_window(
+            tweet.get("created_at", ""), mode, year, month, tweet.get("text", "")
+        ):
             continue
         if mode == "monthly":
             count = extract_monthly_count(
