@@ -10,7 +10,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - 除外: 月次総括・遠征短期合計・目標ツイート・即目カウント・部分年ノーカウント総括等
 - 遅延総括（翌年に出た「2025年総括」）も対象年の明示があれば採用
 - プロフィール: ライブbio再取得。節/g 単位も年間として採用
-- ツイート由来 35 / プロフィール由来 18
+- ツイート由来 37 / プロフィール由来 18
 
 ## 2025年（10即以上）
 
@@ -21,51 +21,53 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 3 | @PUAINOKI | フランク | 239 | プロフィール（要確認） | [link](https://x.com/PUAINOKI) |
 | 4 | @kent_o_o | 健人 | 200 | ツイート | [link](https://x.com/kent_o_o/status/2006335442157978046) |
 | 5 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 165 | ツイート | [link](https://x.com/Tinder_god_2/status/2006299241443192933) |
-| 6 | @socool55555 | 味噌どガス | 154 | プロフィール（要確認） | [link](https://x.com/socool55555) |
-| 7 | @momonga_tinder | ももんが【CoCome完全攻略Tips発売中🥥】 | 138 | ツイート | [link](https://x.com/momonga_tinder/status/2006678290074054924) |
-| 8 | @River_p823 | フェニックス@セクシーコマンドー部 | 136 | ツイート | [link](https://x.com/River_p823/status/2006724901231800705) |
-| 9 | @taruchan100 | たる | 128 | ツイート | [link](https://x.com/taruchan100/status/1996453737653756347) |
-| 10 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 125 | ツイート | [link](https://x.com/cx_lm5/status/2006701365058523545) |
-| 11 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 119 | ツイート | [link](https://x.com/tsuyumushi777/status/2006487874649354293) |
-| 12 | @yomaru_street | よまる@顔面淘汰男 | 119 | ツイート | [link](https://x.com/yomaru_street/status/2006494824074195295) |
-| 13 | @dick_duck_swing | 狩るー@スカナン一家のマルチーズ(⭕️🩸の🧀🐮) | 95 | プロフィール（要確認） | [link](https://x.com/dick_duck_swing) |
-| 14 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 92 | ツイート | [link](https://x.com/sugi_ichiban/status/2006286163762679905) |
-| 15 | @namenayone | ナメクニ | 82 | プロフィール（要確認） | [link](https://x.com/namenayone) |
-| 16 | @bookmaker_2015 | とも | 80 | ツイート | [link](https://x.com/bookmaker_2015/status/2006034790906986780) |
-| 17 | @motebody_pua | エース@体刺し一門副代表 | 78 | ツイート | [link](https://x.com/motebody_pua/status/2004471651044638811) |
-| 18 | @ak1_pua | あぴ | 71 | ツイート | [link](https://x.com/ak1_pua/status/2006173932483723536) |
-| 19 | @ponponpon142 | ポン@🦁路上の王 | 61 | ツイート | [link](https://x.com/ponponpon142/status/2006307900587917368) |
-| 20 | @haraheri_sunobo | にん | 57 | ツイート | [link](https://x.com/haraheri_sunobo/status/2007146746074546467) |
-| 21 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 57 | ツイート | [link](https://x.com/shin9suke/status/2062574409320374313) |
-| 22 | @ohta_desu02 | 太田 | 55 | ツイート | [link](https://x.com/ohta_desu02/status/2006287944097919005) |
-| 23 | @qh0kum | いくらpua | 54 | ツイート | [link](https://x.com/qh0kum/status/2006003735647150376) |
-| 24 | @Nano486273 | なの@雄華軍団 | 51 | ツイート | [link](https://x.com/Nano486273/status/2006351131996561880) |
-| 25 | @_springfox_ | 春野キツネ@ピカ講習 | 49 | ツイート | [link](https://x.com/_springfox_/status/2006044319359328681) |
-| 26 | @tansioasyura | たん塩 | 48 | ツイート | [link](https://x.com/tansioasyura/status/2006291822839304596) |
-| 27 | @entpxxxxxx | もらく→ | 45 | ツイート | [link](https://x.com/entpxxxxxx/status/2006976406350418218) |
-| 28 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 45 | プロフィール（要確認） | [link](https://x.com/RobertPowerJ) |
-| 29 | @heshi_omonaga | へし | 41 | ツイート | [link](https://x.com/heshi_omonaga/status/2007797468399038659) |
-| 30 | @midori_nanpa | みどり | 39 | ツイート | [link](https://x.com/midori_nanpa/status/2005481324061343907) |
-| 31 | @1jEvvc | 7月師範いずちん | 37 | プロフィール（要確認） | [link](https://x.com/1jEvvc) |
-| 32 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 37 | プロフィール（要確認） | [link](https://x.com/hirohirorenai) |
-| 33 | @megane_pua | ねこ(かたまり) | 37 | プロフィール（要確認） | [link](https://x.com/megane_pua) |
-| 34 | @omamco_pua2 | える | 37 | ツイート | [link](https://x.com/omamco_pua2/status/2006962249769038138) |
-| 35 | @yszk1624 | ちゃの@MBH | 36 | プロフィール（要確認） | [link](https://x.com/yszk1624) |
-| 36 | @yutty_pua | 低身長ナンパ師ゆってぃ\|Rising | 36 | ツイート | [link](https://x.com/yutty_pua/status/2002385032326021592) |
-| 37 | @bYiNieJVI17Hk2M | いだち＠弄び人 | 33 | プロフィール（要確認） | [link](https://x.com/bYiNieJVI17Hk2M) |
-| 38 | @nampa_poke | ゆうき | 33 | ツイート | [link](https://x.com/nampa_poke/status/2006923863859540092) |
-| 39 | @around60g | 吉田衰作 ＠還暦超えスト＆ネトナン師 | 28 | プロフィール（要確認） | [link](https://x.com/around60g) |
-| 40 | @saku_pua | 桜井@東京ストナン会 | 28 | ツイート | [link](https://x.com/saku_pua/status/2003880754745692290) |
-| 41 | @allen_pua_ | あれん | 24 | プロフィール（要確認） | [link](https://x.com/allen_pua_) |
-| 42 | @greed_pua | 強欲 | 22 | ツイート | [link](https://x.com/greed_pua/status/1995317035895849127) |
-| 43 | @street_Fami | ファミチキ🍗弾丸即マシン | 22 | プロフィール（要確認） | [link](https://x.com/street_Fami) |
-| 44 | @airpu_over_four | ユウシ | 21 | ツイート | [link](https://x.com/airpu_over_four/status/2004053796541088184) |
-| 45 | @yutayuta_pua | ユウタ@体刺し一門×アツストサロン | 21 | プロフィール（要確認） | [link](https://x.com/yutayuta_pua) |
-| 46 | @ak166121 | とき | 20 | プロフィール（要確認） | [link](https://x.com/ak166121) |
-| 47 | @pipiwa1221571 | ぴぴLV55@ゆってぃ長期の伝説）アラフィフ入り40代の星(ゆってぃさん命名)2期組 | 13 | ツイート | [link](https://x.com/pipiwa1221571/status/2007003752608444535) |
-| 48 | @satoshi5991 | サトシ（むし） | 13 | ツイート | [link](https://x.com/satoshi5991/status/2006652843470823701) |
-| 49 | @Suisu_pua | 儀式やりません | 13 | ツイート | [link](https://x.com/Suisu_pua/status/2006323110371602491) |
-| 50 | @gofugofu5252 | ゼリー@アツスト×wing長期 | 11 | プロフィール（要確認） | [link](https://x.com/gofugofu5252) |
-| 51 | @salmon_nnp | サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長 | 11 | ツイート | [link](https://x.com/salmon_nnp/status/2006416343000858736) |
-| 52 | @komanyan28 | K0MA@ｹﾝﾁﾝの意思を継ぐもの | 10 | プロフィール（要確認） | [link](https://x.com/komanyan28) |
-| 53 | @smile_app7 | スマイル | 10 | ツイート | [link](https://x.com/smile_app7/status/1996194068641288361) |
+| 6 | @okarun_pua | おかるん@りお講習 | 155 | ツイート | [link](https://x.com/okarun_pua/status/2006307712574070954) |
+| 7 | @socool55555 | 味噌どガス | 154 | プロフィール（要確認） | [link](https://x.com/socool55555) |
+| 8 | @momonga_tinder | ももんが【CoCome完全攻略Tips発売中🥥】 | 138 | ツイート | [link](https://x.com/momonga_tinder/status/2006678290074054924) |
+| 9 | @River_p823 | フェニックス@セクシーコマンドー部 | 136 | ツイート | [link](https://x.com/River_p823/status/2006724901231800705) |
+| 10 | @taruchan100 | たる | 128 | ツイート | [link](https://x.com/taruchan100/status/1996453737653756347) |
+| 11 | @cx_lm5 | CRUBD 💎 / セクシーコマンドー部 | 125 | ツイート | [link](https://x.com/cx_lm5/status/2006701365058523545) |
+| 12 | @tsuyumushi777 | 蟹虫｜MBH@33ボズ貯金 | 119 | ツイート | [link](https://x.com/tsuyumushi777/status/2006487874649354293) |
+| 13 | @yomaru_street | よまる@顔面淘汰男 | 119 | ツイート | [link](https://x.com/yomaru_street/status/2006494824074195295) |
+| 14 | @dick_duck_swing | 狩るー@スカナン一家のマルチーズ(⭕️🩸の🧀🐮) | 95 | プロフィール（要確認） | [link](https://x.com/dick_duck_swing) |
+| 15 | @sugi_ichiban | 杉山先生@一番星プロジェクト | 92 | ツイート | [link](https://x.com/sugi_ichiban/status/2006286163762679905) |
+| 16 | @namenayone | ナメクニ | 82 | プロフィール（要確認） | [link](https://x.com/namenayone) |
+| 17 | @bookmaker_2015 | とも | 80 | ツイート | [link](https://x.com/bookmaker_2015/status/2006034790906986780) |
+| 18 | @motebody_pua | エース@体刺し一門副代表 | 78 | ツイート | [link](https://x.com/motebody_pua/status/2004471651044638811) |
+| 19 | @ak1_pua | あぴ | 71 | ツイート | [link](https://x.com/ak1_pua/status/2006173932483723536) |
+| 20 | @ponponpon142 | ポン@🦁路上の王 | 61 | ツイート | [link](https://x.com/ponponpon142/status/2006307900587917368) |
+| 21 | @haraheri_sunobo | にん | 57 | ツイート | [link](https://x.com/haraheri_sunobo/status/2007146746074546467) |
+| 22 | @shin9suke | しんすけ@侍長期(受講済)×おぢのほおぷ | 57 | ツイート | [link](https://x.com/shin9suke/status/2062574409320374313) |
+| 23 | @ohta_desu02 | 太田 | 55 | ツイート | [link](https://x.com/ohta_desu02/status/2006287944097919005) |
+| 24 | @qh0kum | いくらpua | 54 | ツイート | [link](https://x.com/qh0kum/status/2006003735647150376) |
+| 25 | @Nano486273 | なの@雄華軍団 | 51 | ツイート | [link](https://x.com/Nano486273/status/2006351131996561880) |
+| 26 | @_springfox_ | 春野キツネ@ピカ講習 | 49 | ツイート | [link](https://x.com/_springfox_/status/2006044319359328681) |
+| 27 | @tansioasyura | たん塩 | 48 | ツイート | [link](https://x.com/tansioasyura/status/2006291822839304596) |
+| 28 | @entpxxxxxx | もらく→ | 45 | ツイート | [link](https://x.com/entpxxxxxx/status/2006976406350418218) |
+| 29 | @RobertPowerJ | ロバート＠中性童貞メンチカMBH | 45 | プロフィール（要確認） | [link](https://x.com/RobertPowerJ) |
+| 30 | @heshi_omonaga | へし | 41 | ツイート | [link](https://x.com/heshi_omonaga/status/2007797468399038659) |
+| 31 | @midori_nanpa | みどり | 39 | ツイート | [link](https://x.com/midori_nanpa/status/2005481324061343907) |
+| 32 | @1jEvvc | 7月師範いずちん | 37 | プロフィール（要確認） | [link](https://x.com/1jEvvc) |
+| 33 | @hirohirorenai | ひろ@MBH 底辺ジジイ一門 | 37 | プロフィール（要確認） | [link](https://x.com/hirohirorenai) |
+| 34 | @megane_pua | ねこ(かたまり) | 37 | プロフィール（要確認） | [link](https://x.com/megane_pua) |
+| 35 | @omamco_pua2 | える | 37 | ツイート | [link](https://x.com/omamco_pua2/status/2006962249769038138) |
+| 36 | @yszk1624 | ちゃの@MBH | 36 | プロフィール（要確認） | [link](https://x.com/yszk1624) |
+| 37 | @yutty_pua | 低身長ナンパ師ゆってぃ\|Rising | 36 | ツイート | [link](https://x.com/yutty_pua/status/2002385032326021592) |
+| 38 | @bYiNieJVI17Hk2M | いだち＠弄び人 | 33 | プロフィール（要確認） | [link](https://x.com/bYiNieJVI17Hk2M) |
+| 39 | @nampa_poke | ゆうき | 33 | ツイート | [link](https://x.com/nampa_poke/status/2006923863859540092) |
+| 40 | @makoto__pua | 伊藤誠@講習、note始めました | 30 | ツイート | [link](https://x.com/makoto__pua/status/2006386354196971778) |
+| 41 | @around60g | 吉田衰作 ＠還暦超えスト＆ネトナン師 | 28 | プロフィール（要確認） | [link](https://x.com/around60g) |
+| 42 | @saku_pua | 桜井@東京ストナン会 | 28 | ツイート | [link](https://x.com/saku_pua/status/2003880754745692290) |
+| 43 | @allen_pua_ | あれん | 24 | プロフィール（要確認） | [link](https://x.com/allen_pua_) |
+| 44 | @greed_pua | 強欲 | 22 | ツイート | [link](https://x.com/greed_pua/status/1995317035895849127) |
+| 45 | @street_Fami | ファミチキ🍗弾丸即マシン | 22 | プロフィール（要確認） | [link](https://x.com/street_Fami) |
+| 46 | @airpu_over_four | ユウシ | 21 | ツイート | [link](https://x.com/airpu_over_four/status/2004053796541088184) |
+| 47 | @yutayuta_pua | ユウタ@体刺し一門×アツストサロン | 21 | プロフィール（要確認） | [link](https://x.com/yutayuta_pua) |
+| 48 | @ak166121 | とき | 20 | プロフィール（要確認） | [link](https://x.com/ak166121) |
+| 49 | @pipiwa1221571 | ぴぴLV55@ゆってぃ長期の伝説）アラフィフ入り40代の星(ゆってぃさん命名)2期組 | 13 | ツイート | [link](https://x.com/pipiwa1221571/status/2007003752608444535) |
+| 50 | @satoshi5991 | サトシ（むし） | 13 | ツイート | [link](https://x.com/satoshi5991/status/2006652843470823701) |
+| 51 | @Suisu_pua | 儀式やりません | 13 | ツイート | [link](https://x.com/Suisu_pua/status/2006323110371602491) |
+| 52 | @gofugofu5252 | ゼリー@アツスト×wing長期 | 11 | プロフィール（要確認） | [link](https://x.com/gofugofu5252) |
+| 53 | @salmon_nnp | サ モLv72@MBH相談役/底辺ジジイ一門の長、麺平良一門の長 | 11 | ツイート | [link](https://x.com/salmon_nnp/status/2006416343000858736) |
+| 54 | @komanyan28 | K0MA@ｹﾝﾁﾝの意思を継ぐもの | 10 | プロフィール（要確認） | [link](https://x.com/komanyan28) |
+| 55 | @smile_app7 | スマイル | 10 | ツイート | [link](https://x.com/smile_app7/status/1996194068641288361) |

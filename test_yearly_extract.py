@@ -22,6 +22,15 @@ def test_reject_december_monthly():
     assert extract_yearly_count(text, 2025) is None
 
 
+def test_makoto_year_month_series():
+    text = (
+        "2025年スト開始からのトータル\n"
+        "3月 2即\n4月 2即\n5月 0即\n6月 0即\n7月 3即\n"
+        "8月 4即\n9月 2即\n10月 5即\n11月 2即\n12月 10即"
+    )
+    assert extract_yearly_count(text, 2025) == 30
+
+
 def test_reject_old_year_without_2025():
     assert not tweet_in_year_window(
         "Mon Jan 01 00:00:00 +0000 2024", 2025, "2023年総括 100即"

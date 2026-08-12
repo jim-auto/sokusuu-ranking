@@ -930,7 +930,10 @@ def extract_yearly_count(text, year, strict=False):
     has_goal_keyword = bool(re.search(r"(?:目標|予定|目指す|狙う|達成したい)", cleaned))
 
     if re.search(r"累計|通算|total|トータル", cleaned, re.IGNORECASE):
-        return None
+        # 「2025年スト開始からのトータル」+ 月別内訳は年間として許可
+        month_hits = re.findall(r"(?:1[0-2]|[1-9])\s*月", cleaned)
+        if not (has_explicit_year and len(month_hits) >= 3):
+            return None
     # 月次総括（1月総括 / 【12月総括】 / 12月 計24即）は年間に使わない
     if re.search(
         r"(?:【\s*)?(?:1[0-2]|[1-9])\s*月\s*(?:総括|計|合計|結果|実績)",

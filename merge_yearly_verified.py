@@ -34,6 +34,22 @@ VERIFIED = [
         "text": "【2025年総括】\n57即(🐶19🦁8🦉3📦17遠征10(パス1))\n※今更ですが",
         "created_at": "Thu Jun 04 16:37:14 +0000 2026",
     },
+    {
+        "username": "okarun_pua",
+        "display_name": "おかるん@りお講習",
+        "count": 155,
+        "url": "https://x.com/okarun_pua/status/2006307712574070954",
+        "text": "【2025年総括】\n\nスト　🦉🦁　64即\nネト　🍎🔥　10即\n箱　　🧚‍♂️🦾　81即\n計　　　　　　155即",
+        "created_at": "Wed Dec 31 10:13:28 +0000 2025",
+    },
+    {
+        "username": "makoto__pua",
+        "display_name": "伊藤誠@講習、note始めました",
+        "count": 30,
+        "url": "https://x.com/makoto__pua/status/2006386354196971778",
+        "text": "2025年スト開始からのトータル\n3月 2即\n4月 2即\n5月 0即\n6月 0即\n7月 3即\n8月 4即\n9月 2即\n10月 5即\n11月 2即\n12月 10即",
+        "created_at": "Wed Dec 31 15:25:58 +0000 2025",
+    },
 ]
 
 
@@ -64,7 +80,9 @@ def main() -> None:
             "text": item["text"],
             "created_at": item["created_at"],
         }
-        row = build_period_result(account, hit, "yearly_count", "search")
+        row = build_period_result(
+            account, hit, "yearly_count", item.get("match_source") or "search"
+        )
         old = results_map.get(username.lower())
         if old and not should_replace_result(old, row, "yearly_count"):
             # still upgrade if old is lower or profile-only
