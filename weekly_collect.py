@@ -258,6 +258,17 @@ def is_live_soku_announce(text: str) -> bool:
     if re.search(r"(?:スト|直パレ|パレ|箱)即", raw) and len(bare) <= 80:
         if not re.search(r"負け|ホテ半|前負け|半やや", raw):
             return True
+    # パスそ / ちょんそ / app即（短文ライブ）
+    if re.search(r"(?:パス|ちょん)そ", raw) and len(bare) <= 80:
+        return True
+    if re.search(r"(?:app|アプリ)即", raw, re.IGNORECASE) and len(bare) <= 80:
+        return True
+    # 🍐そ21 / 🪩そ / 🗼🍛即×2 の短文
+    if re.search(
+        r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦]\s*(?:即|そ)(?:\s|[×xX*＊]|\d|🦏|$)",
+        raw,
+    ) and len(bare) <= 80:
+        return True
 
     # Nそ目（2そ目 = 2件目の即）
     if re.search(r"\d+\s*そ目", bare) and len(bare) <= 40:
@@ -372,17 +383,26 @@ def extract_day_recap_n(text: str) -> tuple[str, int] | None:
     ):
         return None
     m = re.search(
-        r"昨日(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)(?=\s|$|[①②③④⑤⑥⑦⑧⑨⑩、。])",
+        r"昨日(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)",
         raw,
     )
     if m:
         return ("yesterday", int(m.group(1)))
     m = re.search(
-        r"(?:今日|本日)(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)(?=\s|$|[①②③④⑤⑥⑦⑧⑨⑩、。])",
+        r"(?:今日|本日)(?:は|の)?[^\n。]{0,12}?([1-9]\d?)\s*(?:即|節)(?!\s*目)",
         raw,
     )
     if m:
         return ("today", int(m.group(1)))
+    # 本日🗼🍛即×2 / 昨日そx2
+    m = re.search(
+        r"(昨日|今日|本日).{0,16}?(?:即|節|そ)\s*[×xX*＊]\s*([1-9]\d?)",
+        raw,
+    )
+    if m:
+        n = int(m.group(2))
+        if 1 <= n <= 8:
+            return ("yesterday" if m.group(1) == "昨日" else "today", n)
     return None
 
 
@@ -418,6 +438,9 @@ def has_success_marker_in_raw(raw: str) -> bool:
         r"準即|パス即|満即|大満即|不満即|ノーグダ即|"
         r"(?:即|節)\s*/|"
         r"(?:即|節)\s*[！!‼️]+|"
+        r"(?:即|節|そ)\s*[×xX*＊]\s*[1-9]|"
+        r"(?:パス|ちょん)そ|"
+        r"(?:NN|NS|写生完)\s*即|"
         r"今月\s*\d+\s*節目|"
         r"\d+\s*(?:即|節)\b|"
         r"即った|即れ[たとので]|即り"
@@ -501,9 +524,18 @@ def is_meta_or_third_party_soku_talk(text: str) -> bool:
         r"非泥|風俗±|泥-)",
         raw,
     ) and re.search(r"(?:即|節)", raw):
-        bare = _strip_urls_emoji(raw)
-        if len(bare) > 25 or not is_live_soku_announce(raw):
-            return True
+        # 実ケース（即×2 / 準即/ / パスそ）が本文にある理論語は除外しない
+        if re.search(
+            r"(?:即|節|そ)\s*[×xX*＊]\s*[1-9]|"
+            r"(?:準即|パス即|満即|ノーグダ即)\s*/|"
+            r"(?:パス|ちょん)そ",
+            raw,
+        ):
+            pass
+        else:
+            bare = _strip_urls_emoji(raw)
+            if len(bare) > 25 or not is_live_soku_announce(raw):
+                return True
     if re.search(
         r"誰なんだろう|代表格|糖質|淘汰されて|ヒシヒシ|"
         r"教えてもらったように|当日即とか|ナンパどうこう|"
@@ -538,6 +570,7 @@ def has_case_field_evidence(text: str) -> bool:
             r"|合致|瞳孔|パレ搬|ホテ搬|🏠搬|ネカ搬|直パレ|"
             r"値\s*\d|スト値|[A-GＡ-Ｇ]杯|[A-G]🥧|NN|NS|押忍|"
             r"初即|即った|即れ[たと]|復帰後初即|"
+            r"(?:パス|ちょん)そ|(?:NN|NS|写生完)\s*即|"
             r"No\.\s*\d+[^\n]{0,30}(?:即|満即)|"
             r"①|②|③|"
             r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦]\s*(?:即|そ|準|/\d)|"
@@ -585,8 +618,8 @@ def count_stack_units(text: str) -> int:
         r"即れ[ただ]?ら|即りたい|即したい|即れそう|即れるか|即ろう|片方即|"
         r"即れたら|締日なので|即りやすい|なりたい",
         raw,
-    ) and not re.search(r"(?:準即|満即|パス即|即った|即‼️|即！)", raw):
-        if not re.search(r"(?:準即|満即|パス即|ノーグダ即)\b|(?:即|節)\s*/", raw):
+    ) and not re.search(r"(?:準即|満即|パス即|即った|即‼️|即！|パスそ|ちょんそ)", raw):
+        if not re.search(r"(?:準即|満即|パス即|ノーグダ即)\b|(?:即|節)\s*/|(?:パス|ちょん)そ", raw):
             return 0
 
     # 進捗ボードの 1/1即 + 初即 は 1 件
@@ -672,8 +705,19 @@ def count_stack_units(text: str) -> int:
     if n and multi_support:
         return n
 
+    # 即×2 / そx2（本日即×2 は day_recap 側。ここはケース文中）
+    m_times = re.search(r"(?:即|節|そ)\s*[×xX*＊]\s*([1-9]\d?)", raw)
+    if m_times and not re.search(r"ノーカウント|カウントしな", raw):
+        n = int(m_times.group(1))
+        if 1 <= n <= 8:
+            return n
+
     # 準即・パス即・満即など（わんちゃん？は meta で除外済み）
-    if re.search(r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即|弾丸即|ブメ即)", raw):
+    if re.search(
+        r"(?:準即|パス即|満即|大満即|不満即|ノーグダ即|弾丸即|ブメ即|"
+        r"パスそ|ちょんそ|(?:NN|NS|写生完)\s*即)",
+        raw,
+    ):
         # 疑問・理論は除外
         if re.search(r"[？?]|可能性|理論|ルール", raw) and not field:
             return 0
@@ -697,9 +741,10 @@ def count_stack_units(text: str) -> int:
     if re.search(r"即った|即れ[たと]|即りあっ|即れた[!！]", raw) and field:
         return 1
 
-    # 絵文字チャンネル + 即（🔥即　21 ...）
+    # 絵文字チャンネル + 即/そ（🔥即 / 🍐そ21🦏）
+    # そ の直後が数字でも拾う（\b だと そ21 が落ちる）
     if re.search(
-        r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦]\s*(?:即|そ)\b",
+        r"[🐶🦁🦉🏪🦐🗼🍛🍎🔥🍐🪩🦾🧚📦]\s*(?:即|そ)",
         raw,
     ):
         return 1
@@ -1005,7 +1050,7 @@ def write_weekly_markdown(rows: list[dict], start: date, end: date) -> None:
         "",
         "- あくまでお試し。本運用ではない",
         "- **方式: 週内の即/節ケース報告を積み上げ**（総括必須にしない）",
-        "- ライブ即（即 / そ / そーく / Nそ目）→ 後続詳細（しょのち・搬）は 1 ケース扱い",
+        "- ライブ即（即 / そ / そーく / Nそ目 / 絵文字そ21 / パスそ / ちょんそ / 即×N）→ 後続詳細（しょのち・搬）は 1 ケース扱い",
         "- パレ搬・ホテ搬だけでは即未確定（数えない）",
         "- 明示「今週N即」があれば優先",
         "- 月次・年間総括・ランキング雑談は除外",
