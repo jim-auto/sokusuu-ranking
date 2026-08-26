@@ -28,9 +28,14 @@ INPUT_JSON = "data/sokusuu_accounts.json"
 OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
 SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
-SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=True)
+# 年別 / 月別タブは集計がまだ薄いので公開しない。戻すときは True。
+SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
+
+# 年別 / 月別を一時的に戻す場合でも、この年は出さない。
+HIDDEN_YEARLY_YEARS = {2025}
+HIDDEN_MONTHLY_YEARS = {2026}
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -1134,6 +1139,8 @@ def generate_html(records: list[dict]) -> str:
             y_year = int(basename.replace("yearly_", "").replace(".json", ""))
         except ValueError:
             continue
+        if y_year in HIDDEN_YEARLY_YEARS:
+            continue
 
         with open(yf, "r", encoding="utf-8") as f:
             y_data = json.load(f)
@@ -1223,6 +1230,8 @@ def generate_html(records: list[dict]) -> str:
         if len(parts) != 2:
             continue
         m_year, m_month = int(parts[0]), int(parts[1])
+        if m_year in HIDDEN_MONTHLY_YEARS:
+            continue
 
         with open(mf, "r", encoding="utf-8") as f:
             m_data = json.load(f)
