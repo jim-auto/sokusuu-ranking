@@ -28,9 +28,14 @@ INPUT_JSON = "data/sokusuu_accounts.json"
 OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
 SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
+# 年別 / 月別タブは集計がまだ薄いので公開しない。戻すときは True。
 SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
+
+# 年別 / 月別を一時的に戻す場合でも、この年は出さない。
+HIDDEN_YEARLY_YEARS = {2025}
+HIDDEN_MONTHLY_YEARS = {2026}
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -50,42 +55,106 @@ CATEGORY_LABELS = {
     "other": "その他",
     "unknown": "謎",
 }
+# 表・バッジ用の短い表示名（件数付き内訳で使う）
+CHANNEL_SHORT_LABELS = {
+    "street": "スト",
+    "online": "ネト",
+    "club": "箱",
+    "other": "その他",
+    "unknown": "謎",
+}
+# 絵文字 → チャネル（総括内訳）。表示は「実際に使われた絵文字」を優先する
+EMOJI_TO_CHANNEL: dict[str, str] = {
+    "🐶": "street",
+    "🦁": "street",
+    "🦉": "street",
+    "🏪": "street",
+    "🦐": "street",
+    "Ⓜ": "street",
+    "Ⓜ️": "street",
+    "🍐": "online",
+    "🍎": "online",
+    "🔥": "online",
+    "🗼": "online",
+    "🍛": "online",
+    "🪩": "online",
+    "🦾": "club",
+    "🧚": "club",
+    "📦": "club",
+    "🟦": "club",
+    "⬛": "club",
+    "⬛\ufe0f": "club",
+    "⬜": "club",
+    "⬜\ufe0f": "club",
+    "◼": "club",
+    "◾": "club",
+    "▪": "club",
+    "◻": "club",
+    "◽": "club",
+    "🥂": "other",
+    "💯": "other",  # 黎さん総括など（🦉/🐶 と並ぶ内訳）
+}
 CHANNEL_ORDER = ["street", "online", "club", "other", "unknown"]
+# 表ヘッダ: 複数チャネル時は総括内訳の件数が多い順
+CHANNEL_COL_HEADER = "チャネル（即数が多い順）"
+CHANNEL_COL_TH = (
+    f'<th title="総括本文の内訳。件数付きは実際の絵文字ごと（例: ネト（🍐5・🍎6・🔥2））。'
+    f'キーワードのみのときは スト（9）">'
+    f"{CHANNEL_COL_HEADER}</th>"
+)
 
 # ツイート本文向けのチャネル推定（誤爆しにくいパターン）
 # 「スト」は インスト 等に誤爆しやすいので前後を制限
+#
+# 界隈の絵文字チャネル（総括の内訳でよく使う）:
+#   street: 🐶 ライオン 🦉 店舗連れ 🏪 / 🦐(エビス) / GT系 / Ⓜ(M)
+#   online: 🗼(タプ) 🍛(ペアーズ) 🍎 🔥(with等) 🍐 東カレ系 / 🪩(ミラーボール=ネト)
+#   club:   🦾 🧚 📦 / 会場色 🟦⬛️⬜ 等
 STREET_HINTS = re.compile(
-    r"(?<![イアウ])スト(?:ナン|即|×|ｘ|x|\d|[\s　/／・・]|$)|"
-    r"完ソロスト|ソロスト|地方スト|ストリート|"
-    r"路上|[🐶🦁🦉]|(?:SGT|MGT)|GTスト|"
-    r"味噌(?:スト|1日|遠征)?|明太子",
+    r"(?<![イアウ])スト(?:ナン|即|準|コンビ|×|ｘ|x|\d|[\s　/／・・(（脚]|$)|"
+    # ひらがな月報: 「すと こんび」「すと?」
+    r"(?:^|[\s　/／|・])すと(?:ナン|即|コンビ|こんび|[\s　/／|・?？×ｘx\d]|$)|"
+    r"丘スト|完ソロスト|ソロスト|地方スト|ストリート|"
+    r"路上|[🐶🦁🦉🏪🦐]|(?:SGT|MGT)|GTスト|"
+    r"味噌(?:スト|1日|遠征)?|明太子|"
+    r"弾丸(?:即|×|ｘ|x|\d|[\s　/／(（]|$)|店連れ|"
+    # イベント系ストリート（ひらがな総括向け）
+    r"なつまつり|はなびたいかい|花火大会|夏祭り|うみ🌊|さわがに|"
+    # Ⓜ / Ⓜ️ / 🅜 / キーキャップM はストナン
+    r"[Mm]️\u20e3|Ⓜ|Ⓜ️|🅜",
     re.IGNORECASE,
 )
 ONLINE_HINTS = re.compile(
-    r"(?:^|[^ア-ン])ネト(?:ナン|即|×|ｘ|x|ヘルプ|\d|[\s　/／・]|$)|"
+    r"(?:^|[^ア-ン])ネト(?:ナン|即|準|新規|ヘルプ|×|ｘ|x|\d|[\s　/／・(（]|$)|"
     r"マチアプ|マッチングアプリ|東カレ|"
     r"with|ｳｨｽﾞ|ウィズ|wiz|"
     r"タップル?|タプ|tin|tinder|pairs|ペアーズ|"
-    r"[🗼🍛🍎🔥🍐]|"
-    r"ワクメ|アプリ即|ネトナン|イン⭐",
+    # ひらがな/崩し字アプリ名
+    r"てぃんだー|ティンダー|いんすた|インスタ|すれっず|スレッズ|threads?|"
+    r"た[🍎🔥]|[🗼🍛🍎🔥🍐🪩]|"
+    r"ワクメ|アプリ即|ネトナン|イン⭐|いん⭐|"
+    r"某\s*app|使用\s*APP|TikTok|ティックトック",
     re.IGNORECASE,
 )
 CLUB_HINTS = re.compile(
-    r"(?:^|[^ア-ン])箱(?:ナン|即|×|ｘ|x|\d|[\s　/／・]|$)|"
+    r"(?:^|[^ア-ン])箱(?:ナン|即|×|ｘ|x|\d|[\s　/／・(（]|$)|"
     r"クラブナン|クラナン|クラブ|"
     r"相席|オリラジ|ロマ絵|"
-    r"[🦾🧚📦]",
+    # 🦾箱 / 📦 / 会場タグの色四角（CRUBD・コマン部系の内訳）
+    # 🥂📦 はキャバ等のその他なので 📦 は🥂直後を除外
+    r"[🦾🧚🟦⬛⬜◼◾▪◻◽]|(?<!🥂)📦",
     re.IGNORECASE,
 )
-# パス/代打は「その他」（メインチャネルが無いときだけ）
+# パス/代打/🥂系は「その他」（メインチャネルが無いときだけ other 単独表示）
 OTHER_HINTS = re.compile(
-    r"(?:パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名)(?:即|×|\(|（|\d|[\s　]|$)|その他|オフライン",
+    r"(?:パス(?!ワード)|代打|アテンド|くるくる|ハイエナ|指名)(?:即|×|\(|（|\d|[\s　]|$)|その他|オフライン|"
+    r"🥂",  # キャバ等。箱(クラブ)とは別枠
     re.IGNORECASE,
 )
 
 # よく分かっている人のチャネル上書き（プロフィールカテゴリより優先）
 CHANNEL_OVERRIDES = {
-    "kent_o_o": ["street"],
+    # kent_o_o: 総括が「N節/N即」のみでチャネル根拠なし → 本文推定に任せ謎にする
     "taruchan100": ["street"],
     "daigakusei_pua": ["street"],
     "nakayamasoku": ["online"],
@@ -105,6 +174,10 @@ CHANNEL_OVERRIDES = {
     "atannon_nampa": ["street"],
     "dick_duck_swing": ["street"],  # スト主（🐶🦁）+ パス多めでもその他にしない
     "yomaru_street": ["street", "club"],  # スト+箱メイン
+    # 🥂📦 等は箱ではなくその他寄り（スト1 + 🥂📦4）
+    "maya159r": ["other", "street"],
+    # 強欲: 月次は「今月N即目」のみ。ネト＋パス（表示はネトナン/その他）
+    "greed_pua": ["online", "other"],
 }
 
 
@@ -169,11 +242,229 @@ def _scan_channel_text(text: str) -> list[str]:
         add("online")
     if CLUB_HINTS.search(text):
         add("club")
-    if OTHER_HINTS.search(text) and not any(
-        c in found for c in ("street", "online", "club")
-    ):
-        add("other")
+    # 🥂 / 🥂📦 は箱ではなくその他（キャバ等）
+    if re.search(r"🥂", text) or OTHER_HINTS.search(text):
+        if "other" not in found:
+            # パス等の OTHER_HINTS はメインがあるとき後段で落とされることがある
+            if re.search(r"🥂", text) or not any(
+                c in found for c in ("street", "online", "club")
+            ):
+                add("other")
     return found
+
+
+def _normalize_emoji_token(token: str) -> str:
+    """絵文字トークンをマップ照合用に正規化。"""
+    if not token:
+        return ""
+    # VS16 付き/なし両対応
+    bare = token.replace("\ufe0f", "")
+    if token in EMOJI_TO_CHANNEL:
+        return token
+    if bare in EMOJI_TO_CHANNEL:
+        return bare
+    if bare + "\ufe0f" in EMOJI_TO_CHANNEL:
+        return bare + "\ufe0f"
+    return token
+
+
+def parse_channel_breakdown(text: str) -> dict[str, dict]:
+    """総括本文からチャネル内訳を解析する。
+
+    戻り値:
+      {
+        "street": {"total": 6, "emojis": {"🐶": 5, "🦐": 1}, "keyword": 0},
+        ...
+      }
+
+    ルール:
+      - 絵文字は「実際に使われたもの」ごとに集計
+      - 数量は 🐶5 / 🐶×3 / 🦾:7 のみ（🔥  18 のような年齢は数量にしない）
+      - 🐶&🏪:10 や 🗼🍛x2 はまとめて1回だけ加点
+      - 絵文字内訳があるチャネルはキーワード件数を足さない（二重計上防止）
+    """
+    empty = {
+        c: {"total": 0, "emojis": {}, "keyword": 0} for c in CHANNEL_ORDER if c != "unknown"
+    }
+    if not text or not str(text).strip():
+        return empty
+
+    raw = str(text)
+    # 🥂📦 は箱ではなくその他（キャバ等）
+    for m in list(re.finditer(r"🥂\s*📦\s*[：:／/×xｘ*]?\s*(\d+)?", raw)):
+        qty = int(m.group(1)) if m.group(1) else 1
+        empty["other"]["emojis"]["🥂📦"] = empty["other"]["emojis"].get("🥂📦", 0) + qty
+        empty["other"]["total"] += qty
+        raw = raw[: m.start()] + (" " * (m.end() - m.start())) + raw[m.end() :]
+
+    emoji_alts = sorted(EMOJI_TO_CHANNEL.keys(), key=len, reverse=True)
+    emoji_re = "|".join(re.escape(e) for e in emoji_alts)
+    consumed: list[tuple[int, int]] = []
+    # 明示数量付きで確定した絵文字（🦉7 など）。ケース行の単独 🦉弾 は二重計上しない
+    explicit_emojis: set[str] = set()
+
+    def _overlap(a: int, b: int) -> bool:
+        return any(not (b <= s or a >= e) for s, e in consumed)
+
+    def _add_group(
+        tokens: list[str],
+        qty: int,
+        start: int,
+        end: int,
+        *,
+        explicit: bool = False,
+    ) -> None:
+        if _overlap(start, end) or qty <= 0:
+            return
+        norms: list[str] = []
+        channels_in_group: list[str] = []
+        for tok in tokens:
+            norm = _normalize_emoji_token(tok)
+            ch = EMOJI_TO_CHANNEL.get(norm) or EMOJI_TO_CHANNEL.get(tok)
+            if not ch:
+                continue
+            norms.append(norm)
+            if ch not in channels_in_group:
+                channels_in_group.append(ch)
+        if not norms or not channels_in_group:
+            return
+        # ケース行の単独カウントは、同じ絵文字の明示集計があるときスキップ
+        if not explicit and any(n in explicit_emojis for n in norms):
+            consumed.append((start, end))
+            return
+        primary = channels_in_group[0]
+        head = norms[0]
+        empty[primary]["emojis"][head] = empty[primary]["emojis"].get(head, 0) + qty
+        empty[primary]["total"] += qty
+        if explicit:
+            for n in norms:
+                explicit_emojis.add(n)
+        consumed.append((start, end))
+
+    # 1) 🐶&🏪:10 / 🐶＆🏪×10
+    for m in re.finditer(
+        rf"((?:{emoji_re})(?:\s*[&＆]\s*(?:{emoji_re}))+)\s*[:：×xｘ*]\s*(\d+)",
+        raw,
+    ):
+        tokens = re.findall(emoji_re, m.group(1))
+        _add_group(tokens, int(m.group(2)), m.start(), m.end(), explicit=True)
+
+    # 2) 連続絵文字 + ×N（🗼🍛x2）
+    for m in re.finditer(rf"((?:{emoji_re}){{2,}})\s*[×xｘ*]\s*(\d+)", raw):
+        tokens = re.findall(emoji_re, m.group(1))
+        _add_group(tokens, int(m.group(2)), m.start(), m.end(), explicit=True)
+
+    # 3) 単体絵文字 + 数量（直結 / × / :）or 数量なし=1
+    #    空白+数字は年齢なので数量にしない（🔥  18 売り子）
+    #    数量なしの単独絵文字は「リスト行」（行頭 or 直後が /）だけ数える
+    #    → 帰省🟦・🦾&🏪で 等の装飾を即数にしない
+    #    ヘッダ集計 🦉7 🐶1 は explicit（ケース行 🦉弾 と二重計上しない）
+    for m in re.finditer(
+        rf"({emoji_re})(?:(\d+)|(?:\s*[×xｘ*]\s*(\d+))|(?:\s*[:：]\s*(\d+)))?",
+        raw,
+    ):
+        if _overlap(m.start(), m.end()):
+            continue
+        qty_raw = m.group(2) or m.group(3) or m.group(4)
+        if qty_raw:
+            qty = int(qty_raw)
+            _add_group([m.group(1)], qty, m.start(), m.end(), explicit=True)
+            continue
+        nxt = raw[m.end() : m.end() + 1]
+        after2 = raw[m.end() : m.end() + 2]
+        if nxt in {"&", "＆"}:
+            continue
+        # リスト行: 行頭 / 直後スラッシュ / 弾・準・即 など
+        line_prefix = raw[max(0, raw.rfind("\n", 0, m.start()) + 1) : m.start()]
+        at_line_start = line_prefix.strip() == ""
+        list_like = nxt in {"/", "／"} or after2.startswith(
+            ("弾", "準", "即", "そ", "節", "×", "ｘ", "x")
+        )
+        if not at_line_start and not list_like:
+            continue
+        _add_group([m.group(1)], 1, m.start(), m.end(), explicit=False)
+
+    # キーワード件数
+    keyword = {c: 0 for c in empty}
+
+    for ch, pats in (
+        (
+            "street",
+            [
+                r"(?<![イアウ])スト\s*[×xｘ*：:／/]?\s*(\d+)\s*(?:即|節)?",
+                r"弾丸\s*[×xｘ*]?\s*(\d+)",
+            ],
+        ),
+        (
+            "online",
+            [
+                r"(?<![ア-ン])ネト\s*[×xｘ*：:／/]?\s*(\d+)\s*(?:即|節)?",
+            ],
+        ),
+        (
+            "club",
+            [
+                r"(?<![ア-ン])箱\s*[×xｘ*：:／/]?\s*(\d+)\s*(?:即|節)?",
+                r"クラブ\s*[×xｘ*]?\s*(\d+)",
+            ],
+        ),
+        (
+            "other",
+            [
+                r"パス(?!ワード)\s*[×xｘ*]?\s*(\d+)",
+            ],
+        ),
+    ):
+        for pat in pats:
+            for m in re.finditer(pat, raw):
+                try:
+                    keyword[ch] = max(keyword[ch], int(m.group(1)))
+                except ValueError:
+                    pass
+
+    # 数量なしパスの個数（「1.パス」「パス(強欲)」など）
+    if keyword["other"] == 0:
+        path_hits = len(re.findall(r"パス(?!ワード)", raw))
+        if path_hits:
+            keyword["other"] = path_hits
+
+    app_total = 0
+    for m in re.finditer(r"(?:某\s*app|使用\s*APP)\s*[×xｘ*]?\s*(\d+)", raw, re.I):
+        app_total += int(m.group(1))
+    if app_total:
+        keyword["online"] = max(keyword["online"], app_total)
+
+    for ch, data in empty.items():
+        data["keyword"] = int(keyword.get(ch) or 0)
+        # 明示キーワード（スト17即）が絵文字装飾より大きいときはキーワードを優先
+        if data["keyword"] > data["total"]:
+            data["emojis"] = {}
+            data["total"] = data["keyword"]
+        elif data["total"] <= 0 and data["keyword"] > 0:
+            data["total"] = data["keyword"]
+
+    return empty
+
+
+def estimate_channel_counts(text: str) -> dict[str, int]:
+    """総括本文からチャネル別の件数をざっくり数える（表示順用）。"""
+    breakdown = parse_channel_breakdown(text)
+    counts = {c: 0 for c in CHANNEL_ORDER}
+    for ch, data in breakdown.items():
+        counts[ch] = int(data.get("total") or 0)
+    return counts
+
+
+def order_channels_by_count(channels: list[str], text: str = "") -> list[str]:
+    """チャネルを件数が多い順に並べる（同数は CHANNEL_ORDER）。"""
+    if not channels:
+        return []
+    counts = estimate_channel_counts(text)
+    order_index = {c: i for i, c in enumerate(CHANNEL_ORDER)}
+    return sorted(
+        channels,
+        key=lambda c: (-int(counts.get(c) or 0), order_index.get(c, 99)),
+    )
 
 
 def infer_channels(record: dict) -> list[str]:
@@ -186,20 +477,57 @@ def infer_channels(record: dict) -> list[str]:
       4. プロフィール categories（弱いフォールバック）
       5. bio / display_name
       6. 謎
+
+    並び順は本文の件数が多い順（同数は street→online→club→other→unknown）。
     """
-    def finalize(channels: list[str]) -> list[str]:
-        if "other" in channels and any(c in channels for c in ("street", "online", "club")):
+    evidence = " ".join(
+        str(record.get(key) or "")
+        for key in ("channel_evidence", "tweet_text")
+    )
+    if re.search(r"上半期\s*合算", evidence):
+        evidence = str(record.get("channel_evidence") or "")
+
+    def finalize(
+        channels: list[str],
+        *,
+        drop_other_with_primary: bool = True,
+        sort_text: str = "",
+    ) -> list[str]:
+        # 自動推定時: パス由来の other はメインチャネルがあるとき落とす
+        # 🥂（キャバ等）由来の other はメインと併記する（箱ではない）
+        # 明示 channels 指定時は other 併記を尊重する
+        if (
+            drop_other_with_primary
+            and "other" in channels
+            and any(c in channels for c in ("street", "online", "club"))
+            and not re.search(r"🥂", sort_text or evidence)
+        ):
             channels = [c for c in channels if c != "other"]
         if not channels:
             channels = ["unknown"]
-        return [c for c in CHANNEL_ORDER if c in channels]
+        # 重複除去しつつ件数順
+        uniq = []
+        for c in channels:
+            if c in CHANNEL_ORDER and c not in uniq:
+                uniq.append(c)
+        if not uniq:
+            uniq = ["unknown"]
+        return order_channels_by_count(uniq, sort_text or evidence)
 
-    # 1) 事前計算済み
+    # 1) 事前計算済み（["unknown"] / "unknown" だけは未確定扱いで本文再推定）
     explicit = record.get("channels")
     if isinstance(explicit, list) and explicit:
-        return finalize(list(explicit))
+        explicit_clean = [c for c in explicit if c in CHANNEL_ORDER and c != "unknown"]
+        if explicit_clean:
+            return finalize(
+                list(explicit_clean),
+                drop_other_with_primary=False,
+                sort_text=evidence,
+            )
     if isinstance(explicit, str) and explicit.strip():
-        return finalize(split_csv(explicit))
+        parts = [c for c in split_csv(explicit) if c != "unknown"]
+        if parts:
+            return finalize(parts, drop_other_with_primary=False, sort_text=evidence)
 
     single = record.get("channel")
     if isinstance(single, str) and single in CHANNEL_ORDER:
@@ -212,19 +540,18 @@ def infer_channels(record: dict) -> list[str]:
             if channel not in found:
                 found.append(channel)
 
-    # 2) 総括本文（上半期合算のダミー文は無視）
-    evidence = " ".join(
-        str(record.get(key) or "")
-        for key in ("channel_evidence", "tweet_text")
-    )
-    if re.search(r"上半期\s*合算", evidence):
-        evidence = str(record.get("channel_evidence") or "")
+    # 2) 総括本文
     add_many(_scan_channel_text(evidence))
 
     # 3) 本文が薄いときだけ既知ユーザの上書き
+    #    （ネト+その他 のように other を意図的に併記するケースは drop しない）
     username = str(record.get("username") or "").lower()
     if not found and username in CHANNEL_OVERRIDES:
-        add_many(CHANNEL_OVERRIDES[username])
+        return finalize(
+            list(CHANNEL_OVERRIDES[username]),
+            drop_other_with_primary=False,
+            sort_text=evidence,
+        )
 
     # 4) categories → bio
     if not found:
@@ -240,7 +567,6 @@ def infer_channels(record: dict) -> list[str]:
         add_many(_scan_channel_text(profile_text))
 
     # 4b) 「パス」だけで other になった場合、categories / override を優先
-    # （絵文字落ちした総括で その他 誤爆するのを防ぐ）
     if found == ["other"]:
         cat_main = [
             item
@@ -250,23 +576,95 @@ def infer_channels(record: dict) -> list[str]:
         if cat_main:
             found = cat_main
         elif username in CHANNEL_OVERRIDES:
-            found = list(CHANNEL_OVERRIDES[username])
+            return finalize(
+                list(CHANNEL_OVERRIDES[username]),
+                drop_other_with_primary=False,
+                sort_text=evidence,
+            )
 
-    # 5) 既知ユーザは本文が path のみ等で other になった場合の補正
+    # 5) 既知ユーザは本文が薄い / unknown のときの補正
     if username in CHANNEL_OVERRIDES:
-        # 本文から取れたものがあればそれを優先し、足りない分を override で補わない
-        # ただし完全に other/unknown だけなら override を使う
         if not found or found == ["other"] or found == ["unknown"]:
-            found = list(CHANNEL_OVERRIDES[username])
+            return finalize(
+                list(CHANNEL_OVERRIDES[username]),
+                drop_other_with_primary=False,
+                sort_text=evidence,
+            )
 
-    return finalize(found)
+    return finalize(found, sort_text=evidence)
+
+
+def channel_evidence_text(record: dict) -> str:
+    """チャネル件数推定用の本文（channel_evidence 優先）。"""
+    return " ".join(
+        str(record.get(key) or "")
+        for key in ("channel_evidence", "tweet_text")
+    ).strip()
+
+
+def get_channel_counts(record: dict) -> dict[str, int]:
+    """レコードからチャネル別即数内訳を推定する。"""
+    return estimate_channel_counts(channel_evidence_text(record))
+
+
+def get_channel_breakdown(record: dict) -> dict[str, dict]:
+    """レコードから絵文字単位の内訳を返す。"""
+    return parse_channel_breakdown(channel_evidence_text(record))
+
+
+def format_channel_parts(record: dict) -> list[tuple[str, str]]:
+    """件数が多い順の (channel_key, 表示ラベル) を返す。
+
+    - 絵文字内訳あり: ネト（🍐5・🍎6・🔥2） / スト（🐶5・🦐1）
+    - キーワードのみ: スト（9）
+    - 件数なし: スト / ネト / 謎
+    """
+    evidence = channel_evidence_text(record)
+    channels = list(infer_channels(record))
+    breakdown = get_channel_breakdown(record)
+    # 内訳件数があるチャネルは必ず出す（💯→その他 など infer 漏れ防止）
+    for ch, data in breakdown.items():
+        if ch == "unknown":
+            continue
+        if int(data.get("total") or 0) > 0 and ch not in channels:
+            channels.append(ch)
+    # 件数0のチャネルは内訳がある他チャネルがあるとき落とす（装飾ネト誤爆）
+    if any(int((breakdown.get(c) or {}).get("total") or 0) > 0 for c in channels):
+        channels = [
+            c
+            for c in channels
+            if c == "unknown"
+            or int((breakdown.get(c) or {}).get("total") or 0) > 0
+            or c not in breakdown
+        ]
+    channels = order_channels_by_count(channels, evidence)
+    parts: list[tuple[str, str]] = []
+    for channel in channels:
+        short = CHANNEL_SHORT_LABELS.get(channel, CATEGORY_LABELS.get(channel, channel))
+        data = breakdown.get(channel) or {}
+        emojis: dict[str, int] = data.get("emojis") or {}
+        total = int(data.get("total") or 0)
+        if emojis:
+            # 件数多い絵文字順。同数は出現順維持
+            ordered = sorted(emojis.items(), key=lambda kv: (-int(kv[1]), kv[0]))
+            inner = "・".join(f"{emo}{cnt}" for emo, cnt in ordered if cnt > 0)
+            label = f"{short}（{inner}）" if inner else short
+        elif total > 0:
+            label = f"{short}（{total}）"
+        else:
+            label = short
+        parts.append((channel, label))
+    return parts
+
+
+def format_channel_text(record: dict, sep: str = "、") -> str:
+    """Markdown / テキスト用のチャネル表示。"""
+    return sep.join(label for _, label in format_channel_parts(record))
 
 
 def build_channel_badges_html(record: dict) -> str:
-    channels = infer_channels(record)
     badges = ""
-    for channel in channels:
-        label = CATEGORY_LABELS.get(channel, channel)
+    for channel, label in format_channel_parts(record):
         badges += f'<span class="badge badge-cat-{channel}">{label}</span> '
     return badges.strip()
 
@@ -299,6 +697,113 @@ def get_profile_source_label(record: dict) -> str:
         "location": "location",
         "display_name": "display_name",
     }.get(source_field, "profile")
+
+
+# 連続達成のしきい値（高いほど「すごい」側。同じ月数なら最大しきい値だけ表示）
+STREAK_THRESHOLDS = (5, 10, 15, 20, 30, 35, 40, 45, 50)
+
+
+def load_all_monthly_counts(data_dir: str = "data") -> dict[str, dict[tuple[int, int], int]]:
+    """全 monthly_YYYY_MM.json から username -> {(y,m): count} を構築。"""
+    import glob
+
+    history: dict[str, dict[tuple[int, int], int]] = {}
+    for path in sorted(glob.glob(os.path.join(data_dir, "monthly_20*.json"))):
+        base = os.path.basename(path)
+        # monthly_2026_07.json
+        parts = base.replace("monthly_", "").replace(".json", "").split("_")
+        if len(parts) != 2:
+            continue
+        try:
+            year, month = int(parts[0]), int(parts[1])
+        except ValueError:
+            continue
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                rows = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            username = str(row.get("username") or "").lower()
+            if not username:
+                continue
+            count = int(row.get("monthly_count") or 0)
+            if count <= 0:
+                continue
+            bucket = history.setdefault(username, {})
+            key = (year, month)
+            prev = bucket.get(key, 0)
+            if count > prev:
+                bucket[key] = count
+    return history
+
+
+def consecutive_month_streaks(
+    month_counts: dict[tuple[int, int], int],
+    year: int,
+    month: int,
+    thresholds: tuple[int, ...] = STREAK_THRESHOLDS,
+) -> dict[int, int]:
+    """対象月を終点に、各しきい値以上を何ヶ月連続で達成しているか。
+
+    その月のデータが無い／しきい値未満で途切れる。
+    """
+    result: dict[int, int] = {}
+    for thr in thresholds:
+        streak = 0
+        y, m = year, month
+        for _ in range(240):  # 最大20年
+            if int(month_counts.get((y, m), 0)) < thr:
+                break
+            streak += 1
+            m -= 1
+            if m < 1:
+                m = 12
+                y -= 1
+        result[thr] = streak
+    return result
+
+
+def format_streak_label(streaks: dict[int, int]) -> str:
+    """表示用の連続達成ラベル。
+
+    - 1ヶ月は出さない（2ヶ月以上のみ）
+    - 同じ連続月数なら最大しきい値だけ
+      例: 5/10/15/20 が全部4ヶ月 → 「20即4ヶ月」
+    """
+    # nヶ月 -> その月数を満たす最大しきい値
+    best_thr_for_months: dict[int, int] = {}
+    for thr in STREAK_THRESHOLDS:
+        n = int(streaks.get(thr) or 0)
+        if n < 2:
+            continue
+        prev = best_thr_for_months.get(n, 0)
+        if thr > prev:
+            best_thr_for_months[n] = thr
+    if not best_thr_for_months:
+        return "-"
+    # しきい値が高い順（20 → 15 → 10 → 5）
+    parts = [
+        f"{thr}即{n}ヶ月"
+        for n, thr in sorted(
+            best_thr_for_months.items(),
+            key=lambda item: -item[1],
+        )
+    ]
+    return " / ".join(parts)
+
+
+def format_streak_html(streaks: dict[int, int]) -> str:
+    label = format_streak_label(streaks)
+    if label == "-":
+        return '<span style="color:#555">-</span>'
+    return (
+        '<span style="font-size:0.82em;color:#bbb;line-height:1.35;display:inline-block">'
+        + label.replace(" / ", "<br>")
+        + "</span>"
+    )
 
 
 def build_period_value_html(record: dict, count_key: str) -> str:
@@ -462,7 +967,7 @@ def generate_html(records: list[dict]) -> str:
         tab_buttons += f'        <div class="tab{active}" onclick="switchTab(\'{cat}\')">{label} ({count})</div>\n'
 
         show_cat = cat == "all"
-        cat_header = '<th>チャネル</th>' if show_cat else ''
+        cat_header = CHANNEL_COL_TH if show_cat else ''
         rows = build_ranking_rows(filtered, show_category=show_cat)
 
         tab_contents += f"""
@@ -634,6 +1139,8 @@ def generate_html(records: list[dict]) -> str:
             y_year = int(basename.replace("yearly_", "").replace(".json", ""))
         except ValueError:
             continue
+        if y_year in HIDDEN_YEARLY_YEARS:
+            continue
 
         with open(yf, "r", encoding="utf-8") as f:
             y_data = json.load(f)
@@ -661,7 +1168,12 @@ def generate_html(records: list[dict]) -> str:
             y_rows += '</tr>'
 
         display = "block" if is_first else "none"
-        yearly_divs += '<div id="yearly-' + year_id + '" style="display:' + display + '"><table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>' + y_rows + '</tbody></table></div>'
+        yearly_divs += (
+            '<div id="yearly-' + year_id + '" style="display:' + display + '">'
+            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>'
+            + CHANNEL_COL_TH
+            + '</tr></thead><tbody>' + y_rows + '</tbody></table></div>'
+        )
         selected = " selected" if is_first else ""
         # 月次合算の上半期などは period / period_label を優先して表示名を変える
         period = (y_data[0].get("period") or "") if y_data else ""
@@ -710,6 +1222,7 @@ def generate_html(records: list[dict]) -> str:
     monthly_options = ""
     first_month_id = ""
     default_month_id = normalize_month_id(DEFAULT_MONTH)
+    monthly_history = load_all_monthly_counts("data")
 
     for mf in monthly_files:
         basename = os.path.basename(mf)
@@ -717,6 +1230,8 @@ def generate_html(records: list[dict]) -> str:
         if len(parts) != 2:
             continue
         m_year, m_month = int(parts[0]), int(parts[1])
+        if m_year in HIDDEN_MONTHLY_YEARS:
+            continue
 
         with open(mf, "r", encoding="utf-8") as f:
             m_data = json.load(f)
@@ -744,6 +1259,12 @@ def generate_html(records: list[dict]) -> str:
         m_rows = ""
         for i, r in enumerate(ranked_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            username_key = str(r.get("username") or "").lower()
+            streaks = consecutive_month_streaks(
+                monthly_history.get(username_key, {}),
+                m_year,
+                m_month,
+            )
             m_rows += '<tr data-channels="' + channels_data_attr(r) + '">'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
             m_rows += build_user_cell_html(
@@ -754,12 +1275,16 @@ def generate_html(records: list[dict]) -> str:
             m_rows += '<td class="display-name">' + r.get('display_name', '') + '</td>'
             m_rows += '<td class="sokusuu">' + build_period_value_html(r, "monthly_count") + '</td>'
             m_rows += '<td>' + build_channel_badges_html(r) + '</td>'
+            m_rows += '<td class="streak">' + format_streak_html(streaks) + '</td>'
             m_rows += '</tr>'
 
         display = "block" if is_default_month else "none"
         monthly_divs += (
             '<div id="monthly-' + month_id + '" style="display:' + display + '">'
-            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th><th>チャネル</th></tr></thead><tbody>'
+            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>'
+            + CHANNEL_COL_TH
+            + '<th title="各しきい値以上を何ヶ月連続（当月終点）">'
+            "連続</th></tr></thead><tbody>"
             + m_rows
             + '</tbody></table></div>'
         )
@@ -767,7 +1292,7 @@ def generate_html(records: list[dict]) -> str:
         monthly_options += (
             '<option value="' + month_id + '"' + selected + '>'
             + str(m_year) + '年' + str(m_month) + '月 ('
-            + str(len(ranked_data)) + '件・5即以上・集計中)</option>'
+            + "5即以上)</option>"
         )
 
     if monthly_divs:
@@ -1070,7 +1595,7 @@ def generate_html(records: list[dict]) -> str:
         即数は全て自己申告ベースであり、正確性は保証されません。
         プロフィールおよび固定ツイートから自動抽出した値です。
         チャネル（ストナン / ネトナン / 箱 / その他 / 謎）はプロフィール・総括ツイートのキーワードから自動判定しています。
-        複数チャネルに当てはまる場合は複数表示されます。判定できない場合は「謎」です。
+        複数チャネルに当てはまる場合は複数表示され、総括内訳の件数が多い順に並べます。判定できない場合は「謎」です。
     </div>
 
     <div class="footer">
