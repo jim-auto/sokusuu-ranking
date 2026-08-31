@@ -926,6 +926,8 @@ def extract_yearly_count(text, year, strict=False):
         return None
     if strict and re.search(r"(?:予感|見込み|予定|なりそう)", cleaned):
         return None
+    if re.search(r"(?:応援して(?:ます|る)|頑張ろう|目指していこう)", cleaned):
+        return None
 
     month_count_matches = list(
         re.finditer(
