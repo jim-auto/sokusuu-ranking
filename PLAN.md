@@ -133,6 +133,8 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@rei_app_pua` | なし → **11** | `@rei_street_pua` に改名後の総括 |
 | `@homura_tin` | なし → **12** | 母集団外。総括は明確なので掲載 |
 | `@Y2xyH` | 7 → **8** | 総括後に本人が「🟦5の8即」と訂正 |
+| `@kimu__himitsu2` | なし → **10** | 「8月KPI 🐶8 🦁1 麻布1」。表示名は夜神月 |
+| `@2R2pN1EQLmB6k03` | なし → **7** | 首領パッチ。「今月7🚀」（8/28時点、以降はボズ） |
 
 8月 Top（5即以上・修正後）:
 
