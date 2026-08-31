@@ -143,9 +143,12 @@ def extract_sokusuu(text: str) -> Optional[int]:
 
 def detect_categories(bio: str, username: str) -> list[str]:
     text = f"{bio} {username}"
+    # 「スト以外」「ストリート以外」はストリート否定。部分一致で street にしない
+    street_text = re.sub(r"スト(?:ナン|リート)?以外", "", text, flags=re.IGNORECASE)
     cats = []
     for cat_name, pattern in CATEGORY_PATTERNS.items():
-        if pattern.search(text):
+        haystack = street_text if cat_name == "street" else text
+        if pattern.search(haystack):
             cats.append(cat_name)
     return cats
 

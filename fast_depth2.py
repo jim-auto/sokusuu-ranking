@@ -111,7 +111,14 @@ def extract_sokusuu(text):
 
 def detect_categories(bio, username):
     text = f"{bio} {username}"
-    return [cat for cat, pat in CATEGORY_PATTERNS.items() if pat.search(text)]
+    # 「スト以外」「ストリート以外」はストリート否定。部分一致で street にしない
+    street_text = re.sub(r"スト(?:ナン|リート)?以外", "", text, flags=re.IGNORECASE)
+    cats = []
+    for cat, pat in CATEGORY_PATTERNS.items():
+        haystack = street_text if cat == "street" else text
+        if pat.search(haystack):
+            cats.append(cat)
+    return cats
 
 
 class TwitterGraphQL:
