@@ -31,7 +31,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@rei_app_pua` は `@rei_street_pua` に改名。連続計算のため username は旧名を維持
 - `@Y2xyH` は総括7即のあと本人が「🟦5の8即」と訂正
 - `@kimu__himitsu2` の表示名は現行の「夜神月」
-- `@ryepua`（イヌピィ、現行 `@ryeppua`）は8月総括なし。節報を人手合算して **12即**（おかわり同一人は除外）
+- `@ryepua`（イヌピィ）は8月総括なし＋ツイ消し体質のため **非掲載**（節報合算は根拠が持たない）
 
 ## 2026年8月（5即以上）
 
@@ -42,15 +42,14 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 3 | @SFgzKAHifDvjfVu | Ren | 17 | ネト（9）、スト（🦁7） | [link](https://x.com/SFgzKAHifDvjfVu/status/2094063291995922709) | 5即7ヶ月 |
 | 4 | @misamisa_mo | 弥海砂 | 14 | ネト（🍐9・🔥2・🪩1） | [link](https://x.com/misamisa_mo/status/2094393901805351342) | 10即2ヶ月 |
 | 5 | @homura_tin | ほむら🔥 | 12 | ネト（🔥6・🍐2）、その他（4） | [link](https://x.com/homura_tin/status/2094377753223323737) | - |
-| 6 | @ryepua | イヌピィ | 12 | ネト（8）、その他（3） | [link](https://x.com/ryeppua/status/2093886877904605527) | - |
-| 7 | @rei_app_pua | れい@kk廻遊_後編 | 11 | スト（🦉8）、その他（1） | [link](https://x.com/rei_street_pua/status/2094407473168032210) | 5即6ヶ月 |
-| 8 | @chiroru_pua | チロル@帝都の雌猫 | 10 | スト | [link](https://x.com/chiroru_pua/status/2094032248794415185) | 5即8ヶ月 |
-| 9 | @kimu__himitsu2 | 夜神月 | 10 | スト（🐶8・🦁1） | [link](https://x.com/kimu__himitsu2/status/2094356874426737031) | 10即5ヶ月 |
-| 10 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネト（6）、スト（2） | [link](https://x.com/motebody_pua/status/2094411381374378491) | 5即8ヶ月 |
-| 11 | @PUAINOKI | フランク | 8 | ネト（🍐5）、その他（3） | [link](https://x.com/PUAINOKI/status/2094260541808414813) | 5即8ヶ月 |
-| 12 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
-| 13 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
-| 14 | @2R2pN1EQLmB6k03 | 首領パッチ | 7 | 箱（⬛️1） | [link](https://x.com/2R2pN1EQLmB6k03/status/2093409068224593992) | - |
-| 15 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
-| 16 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
-| 17 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（4） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
+| 6 | @rei_app_pua | れい@kk廻遊_後編 | 11 | スト（🦉8）、その他（1） | [link](https://x.com/rei_street_pua/status/2094407473168032210) | 5即6ヶ月 |
+| 7 | @chiroru_pua | チロル@帝都の雌猫 | 10 | スト | [link](https://x.com/chiroru_pua/status/2094032248794415185) | 5即8ヶ月 |
+| 8 | @kimu__himitsu2 | 夜神月 | 10 | スト（🐶8・🦁1） | [link](https://x.com/kimu__himitsu2/status/2094356874426737031) | 10即5ヶ月 |
+| 9 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネト（6）、スト（2） | [link](https://x.com/motebody_pua/status/2094411381374378491) | 5即8ヶ月 |
+| 10 | @PUAINOKI | フランク | 8 | ネト（🍐5）、その他（3） | [link](https://x.com/PUAINOKI/status/2094260541808414813) | 5即8ヶ月 |
+| 11 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
+| 12 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
+| 13 | @2R2pN1EQLmB6k03 | 首領パッチ | 7 | 箱（⬛️1） | [link](https://x.com/2R2pN1EQLmB6k03/status/2093409068224593992) | - |
+| 14 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
+| 15 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
+| 16 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（4） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
