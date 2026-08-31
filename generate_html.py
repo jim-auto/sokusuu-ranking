@@ -43,6 +43,7 @@ SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
 SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
+MIN_MONTHLY_BEST = 6
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -170,6 +171,34 @@ def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
         key=lambda r: (r.get("sokusuu", 0), r.get("followers_count", 0)),
         reverse=True,
     )
+
+
+def canonical_username(username: str) -> str:
+    return DUPLICATE_ACCOUNT_CANONICALS.get(username, username)
+
+
+def collapse_period_records(
+    records: list[dict],
+    count_key: str,
+    profiles: dict[str, dict] | None = None,
+) -> list[dict]:
+    merged: dict[str, dict] = {}
+    profiles = profiles or {}
+    for raw in records:
+        rec = dict(raw)
+        username = canonical_username(rec.get("username") or "")
+        rec["username"] = username
+        profile = profiles.get(username)
+        if profile:
+            rec["display_name"] = profile.get("display_name") or rec.get("display_name", "")
+            if profile.get("profile_image_url") and not rec.get("profile_image_url"):
+                rec["profile_image_url"] = profile["profile_image_url"]
+        existing = merged.get(username)
+        if existing is None or rec.get(count_key, 0) > existing.get(count_key, 0):
+            merged[username] = rec
+        elif rec.get(count_key, 0) == existing.get(count_key, 0) and get_period_evidence_url(rec) and not get_period_evidence_url(existing):
+            merged[username] = rec
+    return sorted(merged.values(), key=lambda r: r.get(count_key, 0), reverse=True)
 
 
 def filter_by_category(records: list[dict], category: str) -> list[dict]:
@@ -321,9 +350,14 @@ def generate_html(records: list[dict]) -> str:
 
     # 月間ランキング
     monthly_file = "data/monthly_ranking.json"
+    profiles = {r["username"]: r for r in records}
     if SHOW_PERIOD_TABS and os.path.exists(monthly_file):
         with open(monthly_file, "r", encoding="utf-8") as f:
             monthly_data = json.load(f)
+        monthly_data = collapse_period_records(monthly_data, "monthly_best", profiles)
+        monthly_data = [
+            r for r in monthly_data if r.get("monthly_best", 0) >= MIN_MONTHLY_BEST
+        ]
         monthly_rows = ""
         for i, r in enumerate(monthly_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
@@ -370,6 +404,7 @@ def generate_html(records: list[dict]) -> str:
     if SHOW_PERIOD_TABS and os.path.exists(yearly_file):
         with open(yearly_file, "r", encoding="utf-8") as f:
             yearly = json.load(f)
+        yearly = collapse_period_records(yearly, "yearly_best", profiles)
         yearly_rows = ""
         for i, r in enumerate(yearly, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
