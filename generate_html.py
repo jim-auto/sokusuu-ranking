@@ -117,24 +117,6 @@ def get_period_evidence_url(record: dict) -> str:
     return ""
 
 
-def is_profile_derived_record(record: dict) -> bool:
-    if record.get("source_type") == "profile_derived":
-        return True
-    match_source = record.get("match_source", "")
-    if isinstance(match_source, str) and match_source.startswith("profile_"):
-        return True
-    return bool(record.get("needs_review"))
-
-
-def get_profile_source_label(record: dict) -> str:
-    source_field = record.get("profile_source_field", "")
-    return {
-        "bio": "bio",
-        "location": "location",
-        "display_name": "display_name",
-    }.get(source_field, "profile")
-
-
 def build_period_value_html(record: dict, count_key: str) -> str:
     evidence_html = ""
     evidence_url = get_period_evidence_url(record)
@@ -145,17 +127,8 @@ def build_period_value_html(record: dict, count_key: str) -> str:
             + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>'
         )
 
-    review_html = ""
-    if is_profile_derived_record(record):
-        source_label = get_profile_source_label(record)
-        review_html = (
-            ' <span class="badge badge-review" title="プロフィール由来の推定値'
-            + f" ({source_label})"
-            + '。公開前に要確認">要確認</span>'
-        )
-
     approximate_suffix = "+" if record.get("approximate") else ""
-    return f"{record[count_key]:,}{approximate_suffix}{evidence_html}{review_html}"
+    return f"{record[count_key]:,}{approximate_suffix}{evidence_html}"
 
 
 def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
@@ -779,7 +752,6 @@ def generate_html(records: list[dict]) -> str:
         }}
         .badge-profile {{ background: #1a3a2a; color: #4ade80; }}
         .badge-pinned {{ background: #3a2a1a; color: #fbbf24; }}
-        .badge-review {{ background: #3a1f1f; color: #fca5a5; }}
         .badge-cat-street {{ background: #1a2a3a; color: #60a5fa; }}
         .badge-cat-club {{ background: #2a1a3a; color: #c084fc; }}
         .badge-cat-online {{ background: #1a3a3a; color: #2dd4bf; }}
