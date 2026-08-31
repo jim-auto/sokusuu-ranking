@@ -123,6 +123,9 @@ def extract_sokusuu(text: str) -> Optional[int]:
     # 年号・日付を除去して誤検出を防ぐ
     cleaned = re.sub(r'(20[12]\d)\s*[年./]', 'YEAR_', text)
     cleaned = re.sub(r'20[12]\d/\d{1,2}/\d{1,2}', 'DATE_', cleaned)
+    # 累計(372/1000即) は進捗/目標。目標側を落とす
+    cleaned = re.sub(r'(\d+)\s*/\s*\d+\s*即', r'\1即', cleaned)
+    cleaned = re.sub(r'(\d+)\s*即で\s*\d+\s*即カウントダウン', r'\1即', cleaned)
     # 絵文字をスペースに置換（数字の連結を防ぐ）
     cleaned = re.sub(r'[\U00010000-\U0010ffff]', ' ', cleaned)
 
