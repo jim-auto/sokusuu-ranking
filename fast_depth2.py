@@ -113,9 +113,16 @@ def detect_categories(bio, username):
     text = f"{bio} {username}"
     # 「スト以外」「ストリート以外」はストリート否定。部分一致で street にしない
     street_text = re.sub(r"スト(?:ナン|リート)?以外", "", text, flags=re.IGNORECASE)
+    # 「質問箱」の箱はクラブ（箱ナン）ではない
+    club_text = re.sub(r"質問箱", "", text)
     cats = []
     for cat, pat in CATEGORY_PATTERNS.items():
-        haystack = street_text if cat == "street" else text
+        if cat == "street":
+            haystack = street_text
+        elif cat == "club":
+            haystack = club_text
+        else:
+            haystack = text
         if pat.search(haystack):
             cats.append(cat)
     return cats
