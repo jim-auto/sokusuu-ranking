@@ -136,16 +136,20 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@kimu__himitsu2` | なし → **10** | 「8月KPI 🐶8 🦁1 麻布1」。表示名は夜神月 |
 | `@2R2pN1EQLmB6k03` | なし → **7** | 首領パッチ。「今月7🚀」（8/28時点、以降はボズ） |
 | `@ryepua` | 12 → **非掲載** | イヌピィ。8月総括なし＋ツイ消し体質のため節報合算は根拠にしない |
+| `@sub_chilll` | なし → **23** | 8月総括 23即（タプ11・東カレ5・箱4・オリラジ1・スト3） |
+| `@Tinder_god_2` | なし → **15** | 8月総括の新規15。キセヌク×8は別記のため含めず |
+| `@Niko_PUA` | なし → **10** | 8月総括 10即 |
+| `@SIYK_Hage` | なし → **7** | 【8月 総括】計7即 |
 
 8月 Top（5即以上・修正後）:
 
 | rank | username | count |
 | ---: | --- | ---: |
-| 1 | `bookmaker_2015` | 19 |
-| 2 | `omamco_pua2` | 18 |
-| 3 | `SFgzKAHifDvjfVu` | 17 |
-| 4 | `misamisa_mo` | 14 |
-| 5 | `homura_tin` | 12 |
+| 1 | `sub_chilll` | 23 |
+| 2 | `bookmaker_2015` | 19 |
+| 3 | `omamco_pua2` | 18 |
+| 4 | `SFgzKAHifDvjfVu` | 17 |
+| 5 | `Tinder_god_2` | 15 |
 
 成果物:
 
