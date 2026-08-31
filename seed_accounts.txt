@@ -15,6 +15,7 @@ streetkyo
 zero_N2
 
 # --- 追加シード ---
+dogenzaka_pua
 cx_lm5
 River_p823
 shme_pua
