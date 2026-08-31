@@ -13,7 +13,20 @@ index.html を docs/ に生成する。
 
 import json
 import os
+import re
 from datetime import datetime
+
+
+def resolve_avatar_url(username: str, stored: str = "") -> str:
+    safe = re.sub(r"[^A-Za-z0-9_]", "_", username or "")
+    local = os.path.join("docs", "avatars", f"{safe}.jpg")
+    if safe and os.path.exists(local) and os.path.getsize(local) > 0:
+        return f"avatars/{safe}.jpg"
+    if stored and "default_profile" not in stored:
+        return stored
+    if safe:
+        return f"https://unavatar.io/x/{safe}"
+    return stored or ""
 
 
 def env_flag(name: str, default: bool = True) -> bool:
@@ -210,7 +223,7 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
         if alt:
             alt_html = f'<span class="alt-badge">= {alt}</span>'
 
-        avatar_url = r.get("profile_image_url", "")
+        avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
         avatar_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
 
         cat_html = ""
@@ -294,7 +307,7 @@ def generate_html(records: list[dict]) -> str:
             continue
         rank += 1
         medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(rank, "")
-        avatar_url = r.get("profile_image_url", "")
+        avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
         av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
         followers_rows += f"""
             <tr>
@@ -338,7 +351,7 @@ def generate_html(records: list[dict]) -> str:
         monthly_rows = ""
         for i, r in enumerate(monthly_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
+            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
             av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             achieved_m = r.get("achieved_date")
             date_str = f'<span style="color:#888">{achieved_m}</span>' if achieved_m else '<span style="color:#444">-</span>'
@@ -384,7 +397,7 @@ def generate_html(records: list[dict]) -> str:
         yearly_rows = ""
         for i, r in enumerate(yearly, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
+            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
             av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             achieved = r.get("achieved_year")
             year_str = f'<span style="color:#888">{achieved}年</span>' if achieved else '<span style="color:#444">-</span>'
@@ -453,7 +466,7 @@ def generate_html(records: list[dict]) -> str:
         y_rows = ""
         for i, r in enumerate(y_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
+            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
             av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             y_rows += '<tr>'
             y_rows += '<td class="rank">' + medal + str(i) + '</td>'
@@ -522,7 +535,7 @@ def generate_html(records: list[dict]) -> str:
         m_rows = ""
         for i, r in enumerate(m_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
+            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
             av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
             m_rows += '<tr>'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
