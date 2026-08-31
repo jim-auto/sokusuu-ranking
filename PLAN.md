@@ -1,16 +1,16 @@
 # 即数ランキング PLAN
 
-最終更新: 2026-08-01
+最終更新: 2026-08-31
 
 ## 直近の目的
 
-2026年7月の月間ランキングを収集し、`docs/index.html` に反映してドラフト PR を出す。
+2026年8月の月間ランキングを収集し、`docs/index.html` に反映してドラフト PR を出す。
 
-（前提: 1〜6月 + 上半期は `feature/monthly-2026-06` / PR #1 で整備済み）
+（前提: 1〜7月 + 上半期は `feature/monthly-2026-07` / PR #2 で整備済み）
 
-1. 7月を `--global-search --prefetch-only` で収集
-2. 誤検出を人手修正（年累計・内訳合算・日次誤抽出）
-3. 月別タブ既定を 2026-07 にして HTML / 結果 MD 再生成 → ドラフト PR
+1. 8月を `--global-search --prefetch-only` で収集
+2. 誤検出を人手修正（内訳合算の取りこぼし）＋既知総括の人手URL
+3. 月別タブ既定を 2026-08 にして HTML / 結果 MD 再生成 → ドラフト PR
 
 ## 2026 月次・年間 収集サマリ
 
@@ -41,6 +41,7 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2026-05 | `monthly_2026_05.json` | 21 | `@tora_maru005` 35 |
 | 2026-06 | `monthly_2026_06.json` | 23 | `@tora_maru005` 51 |
 | 2026-07 | `monthly_2026_07.json` | 26（5即以上21） | `@kent_o_o` 50 |
+| 2026-08 | `monthly_2026_08.json` | 22（5即以上14） | `@bookmaker_2015` 19 |
 | 2026 上半期 | `yearly_2026.json` | 82（1〜6月合算） | `@tora_maru005` 125 |
 
 ### 上半期ランキング（月次合算）
@@ -115,6 +116,42 @@ HTML 再生成:
 # 既定の初期表示は総合 (DEFAULT_TAB=all)。月別を開きたいときだけ DEFAULT_TAB を変える
 SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=all DEFAULT_MONTH=202607 python generate_html.py
 ```
+
+### 8月収集 (2026-08-31)
+
+```bash
+python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search --prefetch-only --checkpoint-every 10
+# -> data/monthly_2026_08.json（生 19件）
+```
+
+人手修正 / 補完:
+
+| account | 抽出 → 修正 | 理由 |
+| --- | --- | --- |
+| `@SFgzKAHifDvjfVu` | 7 → **17** | 「🦁計7即」を拾い、合計17即を取りこぼし |
+| `@omamco_pua2` | なし → **18** | 現行垢 `@omamco_pua3` の総括 |
+| `@rei_app_pua` | なし → **11** | `@rei_street_pua` に改名後の総括 |
+| `@homura_tin` | なし → **12** | 母集団外。総括は明確なので掲載 |
+
+8月 Top（5即以上・修正後）:
+
+| rank | username | count |
+| ---: | --- | ---: |
+| 1 | `bookmaker_2015` | 19 |
+| 2 | `omamco_pua2` | 18 |
+| 3 | `SFgzKAHifDvjfVu` | 17 |
+| 4 | `misamisa_mo` | 14 |
+| 5 | `homura_tin` | 12 |
+
+成果物:
+
+- `docs/results_2026_08.md` … 8月ランキング + 根拠URL
+- `docs/index.html` … 月別タブ既定 `202608`
+
+補足:
+
+- 8月は 2026-08-31（月末日）に初回収集。7月上位の多くはまだ総括未投稿（kent / とらまる 等）
+- 取りこぼしバックフィル余地あり（9月上旬の総括を追記する）
 
 ### 7月収集 (2026-08-01)
 
