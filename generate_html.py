@@ -52,6 +52,7 @@ DUPLICATE_ACCOUNT_CANONICALS = {
     "gureran_m3": "gureran_m",
     "inpsub": "ryepua",
     "zegen_a": "ChuChubanana_",
+    "Feitan_sub": "Tinder_god_2",
 }
 
 CATEGORY_LABELS = {
