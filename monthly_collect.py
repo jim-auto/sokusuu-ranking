@@ -10,6 +10,7 @@
 
 import argparse
 import asyncio
+import glob
 import json
 import os
 import re
@@ -1236,6 +1237,139 @@ def extract_monthly_profile_count(text, year, month):
         if 0 < value <= 500:
             return value
     return None
+
+
+def extract_career_monthly_best(text: str) -> int | None:
+    """bio から歴代の月間即数（月最高/月間N即）を取る。"""
+    if not text:
+        return None
+    cleaned = unicodedata.normalize("NFKC", clean_tweet_text(text))
+    cleaned = re.sub(r"\d+\s*(?:ヶ月|カ月|か月|ヵ月)[^。/｜|]{0,12}\d+\s*即", " ", cleaned)
+    cleaned = re.sub(r"\d+\s*年\d+\s*[～~\-ー]\d+\s*月\s*\d+\s*即", " ", cleaned)
+    cleaned = re.sub(r"(?:年内)?目標[^。]{0,16}\d+\s*即", " ", cleaned)
+    values = []
+    for match in re.finditer(
+        r"(?<!今)(?<!\d)月(?:間)?(?:最高|最多|ベスト)?\s*(\d+)\s*即",
+        cleaned,
+    ):
+        ctx = cleaned[max(0, match.start() - 8) : min(len(cleaned), match.end() + 8)]
+        if re.search(r"節", ctx):
+            continue
+        value = int(match.group(1))
+        if 6 <= value <= 150:
+            values.append(value)
+    for match in re.finditer(r"(?:完ソロ)?スト月\s*(\d+)\s*即", cleaned):
+        value = int(match.group(1))
+        if 6 <= value <= 150:
+            values.append(value)
+    return max(values) if values else None
+
+
+def is_valid_monthly_best_row(row: dict) -> bool:
+    count = row.get("monthly_count") or row.get("monthly_best") or 0
+    if not isinstance(count, int) or count < 6:
+        return False
+    source_type = row.get("source_type") or ""
+    if source_type in {"third_party_comment"}:
+        return False
+    text = row.get("tweet_text") or ""
+    cleaned = clean_tweet_text(text)
+    if re.search(r"(?:即現金|月間データ|HANABI|スロット|パチスロ)", cleaned, re.IGNORECASE):
+        return False
+    if re.search(rf"{count}\s*節", cleaned) and not re.search(rf"{count}\s*即", cleaned):
+        return False
+    if "節" in cleaned and "即" not in cleaned:
+        return False
+    return True
+
+
+def iter_canonical_monthly_files():
+    for path in sorted(glob.glob("data/monthly_20*.json")):
+        name = os.path.basename(path).replace("monthly_", "").replace(".json", "")
+        parts = name.split("_")
+        if len(parts) != 2 or not parts[0].isdigit() or not parts[1].isdigit():
+            continue
+        yield path, f"{parts[0]}-{parts[1].zfill(2)}"
+
+
+def rebuild_all_time_monthly_ranking() -> list[dict]:
+    """月次総括ファイルと bio の月最高から歴代月間を組み直す。"""
+    accounts = load_json(OUTPUT_JSON, [])
+    accounts_map = {row["username"]: row for row in accounts}
+    merged: dict[str, dict] = {}
+
+    def apply_account_fields(row: dict, username: str) -> dict:
+        account = accounts_map.get(username, {})
+        row["username"] = username
+        row["display_name"] = account.get("display_name") or row.get("display_name", "")
+        row["sokusuu"] = account.get("sokusuu", row.get("sokusuu", 0))
+        row["followers_count"] = (
+            account.get("followers_count") or row.get("followers_count") or 0
+        )
+        row["categories"] = account.get("categories", row.get("categories", ""))
+        row["profile_image_url"] = (
+            account.get("profile_image_url") or row.get("profile_image_url") or ""
+        )
+        return row
+
+    for account in accounts:
+        username = account.get("username") or ""
+        bio_best = extract_career_monthly_best(account.get("bio") or "")
+        if not bio_best:
+            continue
+        period = None
+        bio = account.get("bio") or ""
+        date_match = re.search(
+            r"最高月\s*\d+\s*即\s*[\(（]\s*(20\d{2})\s*年\s*(\d{1,2})\s*月",
+            unicodedata.normalize("NFKC", bio),
+        )
+        if date_match:
+            period = f"{date_match.group(1)}-{int(date_match.group(2)):02d}"
+        row = apply_account_fields(
+            {
+                "monthly_best": bio_best,
+                "achieved_date": period,
+                "source_type": "profile_derived",
+                "match_source": "profile_bio",
+                "evidence_url": f"https://x.com/{username}",
+                "needs_review": False,
+            },
+            username,
+        )
+        merged[username] = row
+
+    for path, period in iter_canonical_monthly_files():
+        rows = load_json(path, [])
+        if not isinstance(rows, list):
+            continue
+        for raw in rows:
+            username = raw.get("username") or ""
+            if not username or not is_valid_monthly_best_row(raw):
+                continue
+            count = raw.get("monthly_count") or raw.get("monthly_best") or 0
+            current = merged.get(username)
+            if current and count < current.get("monthly_best", 0):
+                continue
+            if current and count == current.get("monthly_best", 0) and get_evidence_url(current):
+                continue
+            row = apply_account_fields(dict(raw), username)
+            row["monthly_best"] = count
+            row["achieved_date"] = period
+            row["source_type"] = raw.get("source_type") or "tweet_evidence"
+            row["match_source"] = raw.get("match_source") or ""
+            evidence = get_evidence_url(raw)
+            if evidence:
+                row["evidence_url"] = evidence
+            merged[username] = row
+
+    ranking = sorted(
+        merged.values(),
+        key=lambda r: (r.get("monthly_best", 0), r.get("followers_count", 0)),
+        reverse=True,
+    )
+    save_json(MONTHLY_RANKING_JSON, ranking)
+    print(f"[OUTPUT] {MONTHLY_RANKING_JSON} を再構築しました ({len(ranking)}件)")
+    return ranking
 
 
 def find_monthly_profile_hit(account, year, month):
