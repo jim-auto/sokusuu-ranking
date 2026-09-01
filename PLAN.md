@@ -143,16 +143,18 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@nakayamasoku` | なし → **16** | 9/1「8月16即」。マチアプ。7月14即に続く |
 | `@kuroiwa_45` | なし → **23** | サブ `@kuroiwa_sub` の 9/1「8月23」🍎15 🍐4 🦾4 |
 | `@puro_nanpa` | なし → **17** | 9/1「8月総括 17節」（スト10・箱4・相席3） |
+| `@knt17760` | なし → **20** | 9/1「8月 🐶x9 北国x5 🗼🍛x3 🦁x1 🦉x1 代〇木x1」 |
+| `@kent_o_o` | なし → **48** | 9/1「〜8月総括〜 48即」。チャネル根拠なし → 謎 |
 
 8月 Top（5即以上・修正後）:
 
 | rank | username | count |
 | ---: | --- | ---: |
-| 1 | `kuroiwa_45` | 23 |
-| 2 | `sub_chilll` | 23 |
-| 3 | `bookmaker_2015` | 19 |
-| 4 | `omamco_pua2` | 18 |
-| 5 | `SFgzKAHifDvjfVu` | 17 |
+| 1 | `kent_o_o` | 48 |
+| 2 | `kuroiwa_45` | 23 |
+| 3 | `sub_chilll` | 23 |
+| 4 | `knt17760` | 20 |
+| 5 | `bookmaker_2015` | 19 |
 
 成果物:
 
