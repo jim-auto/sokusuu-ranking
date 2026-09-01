@@ -59,4 +59,4 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 18 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
 | 19 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（7） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
 | 20 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
-| 21 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（4） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
+| 21 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（5） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |

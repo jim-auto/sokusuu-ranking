@@ -392,6 +392,7 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
             "street",
             [
                 r"(?<![イアウ])スト\s*[×xｘ*：:／/]?\s*(\d+)\s*(?:即|節)?",
+                r"弾丸\s*(\d+)\s*準(?:即)?\s*(\d+)",
                 r"弾丸\s*[×xｘ*]?\s*(\d+)",
             ],
         ),
@@ -418,7 +419,9 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
         for pat in pats:
             for m in re.finditer(pat, raw):
                 try:
-                    keyword[ch] = max(keyword[ch], int(m.group(1)))
+                    vals = [int(g) for g in m.groups() if g is not None]
+                    if vals:
+                        keyword[ch] = max(keyword[ch], sum(vals))
                 except ValueError:
                     pass
 
