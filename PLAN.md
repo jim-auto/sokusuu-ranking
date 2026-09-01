@@ -142,6 +142,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@SIYK_Hage` | なし → **7** | 【8月 総括】計7即 |
 | `@nakayamasoku` | なし → **16** | 9/1「8月16即」。マチアプ。7月14即に続く |
 | `@kuroiwa_45` | なし → **23** | サブ `@kuroiwa_sub` の 9/1「8月23」🍎15 🍐4 🦾4 |
+| `@puro_nanpa` | なし → **17** | 9/1「8月総括 17節」（スト10・箱4・相席3） |
 
 8月 Top（5即以上・修正後）:
 
