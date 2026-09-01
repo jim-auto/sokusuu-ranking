@@ -140,6 +140,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@Tinder_god_2` | なし → **15** | 8月総括の新規15。キセヌク×8は別記のため含めず |
 | `@Niko_PUA` | なし → **10** | 8月総括 10即 |
 | `@SIYK_Hage` | なし → **7** | 【8月 総括】計7即 |
+| `@nakayamasoku` | なし → **16** | 9/1「8月16即」。マチアプ。7月14即に続く |
 
 8月 Top（5即以上・修正後）:
 
@@ -149,7 +150,8 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | 2 | `bookmaker_2015` | 19 |
 | 3 | `omamco_pua2` | 18 |
 | 4 | `SFgzKAHifDvjfVu` | 17 |
-| 5 | `Tinder_god_2` | 15 |
+| 5 | `nakayamasoku` | 16 |
+| 6 | `Tinder_god_2` | 15 |
 
 成果物:
 
