@@ -31,7 +31,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@rei_app_pua` は `@rei_street_pua` に改名。連続計算のため username は旧名を維持
 - `@Y2xyH` は総括7即のあと本人が「🟦5の8即」と訂正
 - `@kimu__himitsu2` の表示名は現行の「夜神月」
-- `@ryepua`（イヌピィ）は8月総括なし＋ツイ消し体質のため **非掲載**
+- `@ryeppua`（イヌピィ、旧 `@ryepua`）は 9/1「8月総括 16節」で掲載（某App11、パス・代打5）
 - `@Tinder_god_2` は新規15件を採用（キセヌク×8は別記のため合計に含めない）
 - `@nakayamasoku` は 9/1 投稿の「8月16即」（マチアプ）
 - `@kuroiwa_45` の根拠はサブ `@kuroiwa_sub` の「8月23」（🍎15・🍐4・🦾4）
@@ -48,19 +48,20 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 5 | @SFgzKAHifDvjfVu | Ren | 17 | ネト（9）、スト（🦁7） | [link](https://x.com/SFgzKAHifDvjfVu/status/2094063291995922709) | 5即7ヶ月 |
 | 6 | @puro_nanpa | M氏@ナンパ講師 | 17 | スト（10）、箱（4） | [link](https://x.com/puro_nanpa/status/2094728094414442539) | - |
 | 7 | @nakayamasoku | 中山@乳ガキ | 16 | ネト | [link](https://x.com/nakayamasoku/status/2094588294931833186) | 10即2ヶ月 |
-| 8 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 15 | ネト（🍐13・🍎2） | [link](https://x.com/Tinder_god_2/status/2094451982413320441) | 10即3ヶ月 |
-| 9 | @misamisa_mo | 弥海砂 | 14 | ネト（🍐9・🔥2・🪩1） | [link](https://x.com/misamisa_mo/status/2094393901805351342) | 10即2ヶ月 |
-| 10 | @homura_tin | ほむら🔥 | 12 | ネト（🔥6・🍐2）、その他（4） | [link](https://x.com/homura_tin/status/2094377753223323737) | - |
-| 11 | @rei_app_pua | れい@kk廻遊_後編 | 11 | スト（🦉8）、その他（1） | [link](https://x.com/rei_street_pua/status/2094407473168032210) | 5即6ヶ月 |
-| 12 | @chiroru_pua | チロル@帝都の雌猫 | 10 | スト | [link](https://x.com/chiroru_pua/status/2094032248794415185) | 5即8ヶ月 |
-| 13 | @kimu__himitsu2 | 夜神月 | 10 | スト（🐶8・🦁1） | [link](https://x.com/kimu__himitsu2/status/2094356874426737031) | 10即5ヶ月 |
-| 14 | @Niko_PUA | ニコ | 10 | スト、箱 | [link](https://x.com/Niko_PUA/status/2094444223588336109) | 5即2ヶ月 |
-| 15 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネト（6）、スト（2） | [link](https://x.com/motebody_pua/status/2094411381374378491) | 5即8ヶ月 |
-| 16 | @PUAINOKI | フランク | 8 | ネト（🍐5）、その他（3） | [link](https://x.com/PUAINOKI/status/2094260541808414813) | 5即8ヶ月 |
-| 17 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
-| 18 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
-| 19 | @2R2pN1EQLmB6k03 | 首領パッチ | 7 | 箱（⬛️1） | [link](https://x.com/2R2pN1EQLmB6k03/status/2093409068224593992) | - |
-| 20 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
-| 21 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（7） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
-| 22 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
-| 23 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（5） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
+| 8 | @ryeppua | イヌピィ | 16 | ネト（11）、その他（5） | [link](https://x.com/ryeppua/status/2094731093362852162) | - |
+| 9 | @Tinder_god_2 | フェイタン@ペアーズ完全攻略tips発売 | 15 | ネト（🍐13・🍎2） | [link](https://x.com/Tinder_god_2/status/2094451982413320441) | 10即3ヶ月 |
+| 10 | @misamisa_mo | 弥海砂 | 14 | ネト（🍐9・🔥2・🪩1） | [link](https://x.com/misamisa_mo/status/2094393901805351342) | 10即2ヶ月 |
+| 11 | @homura_tin | ほむら🔥 | 12 | ネト（🔥6・🍐2）、その他（4） | [link](https://x.com/homura_tin/status/2094377753223323737) | - |
+| 12 | @rei_app_pua | れい@kk廻遊_後編 | 11 | スト（🦉8）、その他（1） | [link](https://x.com/rei_street_pua/status/2094407473168032210) | 5即6ヶ月 |
+| 13 | @chiroru_pua | チロル@帝都の雌猫 | 10 | スト | [link](https://x.com/chiroru_pua/status/2094032248794415185) | 5即8ヶ月 |
+| 14 | @kimu__himitsu2 | 夜神月 | 10 | スト（🐶8・🦁1） | [link](https://x.com/kimu__himitsu2/status/2094356874426737031) | 10即5ヶ月 |
+| 15 | @Niko_PUA | ニコ | 10 | スト、箱 | [link](https://x.com/Niko_PUA/status/2094444223588336109) | 5即2ヶ月 |
+| 16 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネト（6）、スト（2） | [link](https://x.com/motebody_pua/status/2094411381374378491) | 5即8ヶ月 |
+| 17 | @PUAINOKI | フランク | 8 | ネト（🍐5）、その他（3） | [link](https://x.com/PUAINOKI/status/2094260541808414813) | 5即8ヶ月 |
+| 18 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
+| 19 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
+| 20 | @2R2pN1EQLmB6k03 | 首領パッチ | 7 | 箱（⬛️1） | [link](https://x.com/2R2pN1EQLmB6k03/status/2093409068224593992) | - |
+| 21 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
+| 22 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（7） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
+| 23 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
+| 24 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（5） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
