@@ -141,17 +141,17 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@Niko_PUA` | なし → **10** | 8月総括 10即 |
 | `@SIYK_Hage` | なし → **7** | 【8月 総括】計7即 |
 | `@nakayamasoku` | なし → **16** | 9/1「8月16即」。マチアプ。7月14即に続く |
+| `@kuroiwa_45` | なし → **23** | サブ `@kuroiwa_sub` の 9/1「8月23」🍎15 🍐4 🦾4 |
 
 8月 Top（5即以上・修正後）:
 
 | rank | username | count |
 | ---: | --- | ---: |
-| 1 | `sub_chilll` | 23 |
-| 2 | `bookmaker_2015` | 19 |
-| 3 | `omamco_pua2` | 18 |
-| 4 | `SFgzKAHifDvjfVu` | 17 |
-| 5 | `nakayamasoku` | 16 |
-| 6 | `Tinder_god_2` | 15 |
+| 1 | `kuroiwa_45` | 23 |
+| 2 | `sub_chilll` | 23 |
+| 3 | `bookmaker_2015` | 19 |
+| 4 | `omamco_pua2` | 18 |
+| 5 | `SFgzKAHifDvjfVu` | 17 |
 
 成果物:
 
