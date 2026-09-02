@@ -44,6 +44,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@e6_bk61` は 8/31「8月総括：14」（🐶1・🦉1・🐼5・🛳️2・🎆1・🏮1・🈴🦊1・パス2）。🐼/🛳️/🎆/🏮/🈴🦊・パスは絵文字チャネルなしのためその他12。7月は4即なので連続なし
 - `@roku6in_palis` は 8/29「【26.08】6即（M🚶×1・M🚶準×1・🟦×1・🔥×3）」。所要で8月fin。7月は9即なので 5即2ヶ月
 - `@anus_asterisk` は 8/31「8月 🌉🏊3即 📱3即 合計6即」。ストも📦も0。🌉🏊は絵文字チャネルなしのためその他。7月総括なし
+- `@nonjin_ntst` は 8/31「🌻8月総括🌻 新規7節」（🔥1・🍎5・某app1）。キセヌク×2は含めず。某appは絵文字なしネトのため内訳絵文字に出していない。7月総括なし
 - 9/2 バックフィル: `@afRdYt8p5C75089` 19 / `@mic_pua` 14 / `@Tt2tb` 15 / `@yomaru_street` 12 / `@dick_duck_swing` 8 / `@tsutsumi_ye4pe` 7 / `@ot_aza` 10 / `@rupo_candy` 7 / `@entpxxxxxx` 8 / `@kannen170` 15 / `@ZqtfwZBx9490665` 14 / `@yutopua0807` 7 / `@shouri_ikb` 6 / `@ohta_desu02` 5 / `@e6_bk61` 14
 - `@afRdYt8p5C75089` は「8月19即➕1NH」。NHは含めず19。某席・某ラジ等は絵文字チャネルなしのため内訳に含めていない
 - `@2R2pN1EQLmB6k03` の根拠は 8/30「８月 7卽 【⬛️2、🟦1、M🚶2、📱2】」。8/28「今月7🚀」は途中報告なので使わない。表示名は現行の「くらぶでぃ」
@@ -93,13 +94,14 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 34 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
 | 35 | @2R2pN1EQLmB6k03 | くらぶでぃ | 7 | 箱（⬛2・🟦1）、スト（2）、ネト（2） | [link](https://x.com/2R2pN1EQLmB6k03/status/2094077306306523246) | - |
 | 36 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
-| 37 | @rupo_candy | るぽ | 7 | 箱（🦾4）、スト（🦁1）、ネト（🍎1） | [link](https://x.com/rupo_candy/status/2094765551566610700) | - |
-| 38 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（🔥3）、スト（1）、箱（🟦1） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
-| 39 | @tsutsumi_ye4pe | よしあき@wing長期 | 7 | スト（🐶7） | [link](https://x.com/tsutsumi_ye4pe/status/2094472878695883043) | 5即3ヶ月 |
-| 40 | @yutopua0807 | ゆうと | 7 | ネト（🔥4） | [link](https://x.com/yutopua0807/status/2094454475641733288) | - |
-| 41 | @anus_asterisk | がまぐっちー🐸@味噌の別格 | 6 | ネト（3）、その他（3） | [link](https://x.com/anus_asterisk/status/2094403938263196005) | - |
-| 42 | @roku6in_palis | ろくすっぽ仏@🍪一門 | 6 | ネト（🔥3）、スト（2）、箱（🟦1） | [link](https://x.com/roku6in_palis/status/2093660010949849598) | 5即2ヶ月 |
-| 43 | @shouri_ikb | こあ太郎@🦉の天才 | 6 | スト（🦉5）、その他（1） | [link](https://x.com/shouri_ikb/status/2094457181311762438) | - |
-| 44 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1）、その他（1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
-| 45 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（5） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
-| 46 | @ohta_desu02 | 太田 | 5 | スト（5） | [link](https://x.com/ohta_desu02/status/2094031502099308645) | - |
+| 37 | @nonjin_ntst | ノンジン | 7 | ネト（🍎5・🔥1） | [link](https://x.com/nonjin_ntst/status/2094444964419940783) | - |
+| 38 | @rupo_candy | るぽ | 7 | 箱（🦾4）、スト（🦁1）、ネト（🍎1） | [link](https://x.com/rupo_candy/status/2094765551566610700) | - |
+| 39 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（🔥3）、スト（1）、箱（🟦1） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
+| 40 | @tsutsumi_ye4pe | よしあき@wing長期 | 7 | スト（🐶7） | [link](https://x.com/tsutsumi_ye4pe/status/2094472878695883043) | 5即3ヶ月 |
+| 41 | @yutopua0807 | ゆうと | 7 | ネト（🔥4） | [link](https://x.com/yutopua0807/status/2094454475641733288) | - |
+| 42 | @anus_asterisk | がまぐっちー🐸@味噌の別格 | 6 | ネト（3）、その他（3） | [link](https://x.com/anus_asterisk/status/2094403938263196005) | - |
+| 43 | @roku6in_palis | ろくすっぽ仏@🍪一門 | 6 | ネト（🔥3）、スト（2）、箱（🟦1） | [link](https://x.com/roku6in_palis/status/2093660010949849598) | 5即2ヶ月 |
+| 44 | @shouri_ikb | こあ太郎@🦉の天才 | 6 | スト（🦉5）、その他（1） | [link](https://x.com/shouri_ikb/status/2094457181311762438) | - |
+| 45 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1）、その他（1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
+| 46 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（5） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
+| 47 | @ohta_desu02 | 太田 | 5 | スト（5） | [link](https://x.com/ohta_desu02/status/2094031502099308645) | - |
