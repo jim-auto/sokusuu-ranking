@@ -43,6 +43,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@makoto__pua` は `@itoumakoto_pua` に改名（前垢凍結）。連続計算のため username は旧名を維持。8/31「先月は月間最高即数を更新」+ bio 月間最高21即。明示の「8月総括 N即」はなし。チャネルは「🦁ばっか」→ スト
 - 9/2 バックフィル: `@afRdYt8p5C75089` 19 / `@mic_pua` 14 / `@Tt2tb` 15 / `@yomaru_street` 12 / `@dick_duck_swing` 8 / `@tsutsumi_ye4pe` 7 / `@ot_aza` 10 / `@rupo_candy` 7 / `@entpxxxxxx` 8 / `@kannen170` 15 / `@ZqtfwZBx9490665` 14 / `@yutopua0807` 7 / `@shouri_ikb` 6 / `@ohta_desu02` 5
 - `@afRdYt8p5C75089` は「8月19即➕1NH」。NHは含めず19。某席・某ラジ等は絵文字チャネルなしのため内訳に含めていない
+- `@2R2pN1EQLmB6k03` の根拠は 8/30「８月 7卽 【⬛️2、🟦1、M🚶2、📱2】」。8/28「今月7🚀」は途中報告なので使わない。表示名は現行の「くらぶでぃ」
 - `@SIYK_Hage` のチャネルは総括画像の内訳（🔥3・mスト準1・🟦準1）。紹介1・合コン1は絵文字チャネルなしのため内訳に含めていない。本文の🔥だけでネト7にはしない
 - チャネル再確認: `@bookmaker_2015` 🎑×6はその他。`@omamco_pua2` は本人訂正で🐶×3→🐶1+パス2（🌉🏊・❄️・🍻は未分類のため内訳除外）。`@torajiro_pua` 紹介2はその他。`@rei_app_pua` 🛳️/🪾/🤝はその他3。`@Niko_PUA` は絵文字内訳（🏝️・🍑は未分類でその他4）。`@misamisa_mo` パス1はその他（インスタ⭐️1は絵文字なしネトのため内訳絵文字に出していない）
 - `@yutopua0807` の 🪑×3 は相席扱いでチャネル内訳に含めていない（計7は本体）
@@ -86,7 +87,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 31 | @PUAINOKI | フランク | 8 | ネト（🍐5）、その他（3） | [link](https://x.com/PUAINOKI/status/2094260541808414813) | 5即8ヶ月 |
 | 32 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2）、その他（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
 | 33 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
-| 34 | @2R2pN1EQLmB6k03 | 首領パッチ | 7 | 箱（⬛️1） | [link](https://x.com/2R2pN1EQLmB6k03/status/2093409068224593992) | - |
+| 34 | @2R2pN1EQLmB6k03 | くらぶでぃ | 7 | 箱（⬛2・🟦1）、スト（2）、ネト（2） | [link](https://x.com/2R2pN1EQLmB6k03/status/2094077306306523246) | - |
 | 35 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
 | 36 | @rupo_candy | るぽ | 7 | 箱（🦾4）、スト（🦁1）、ネト（🍎1） | [link](https://x.com/rupo_candy/status/2094765551566610700) | - |
 | 37 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（🔥3）、スト（1）、箱（🟦1） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
