@@ -129,7 +129,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | account | 抽出 → 修正 | 理由 |
 | --- | --- | --- |
 | `@SFgzKAHifDvjfVu` | 7 → **17** | 「🦁計7即」を拾い、合計17即を取りこぼし |
-| `@omamco_pua2` | なし → **18** | 現行垢 `@omamco_pua3` の総括 |
+| `@omamco_pua2` | なし → **18** | 現行垢 `@omamco_pua3` の総括。🐶×3は本人訂正で🐶1+パス2 |
 | `@rei_app_pua` | なし → **11** | `@rei_street_pua` に改名後の総括 |
 | `@homura_tin` | なし → **12** | 母集団外。総括は明確なので掲載 |
 | `@Y2xyH` | 7 → **8** | 総括後に本人が「🟦5の8即」と訂正 |

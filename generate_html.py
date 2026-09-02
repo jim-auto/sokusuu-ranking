@@ -413,6 +413,9 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
             "other",
             [
                 r"パス(?!ワード)\s*[×xｘ*]?\s*(\d+)",
+                r"紹介\s*[×xｘ*]?\s*(\d+)\s*(?:節|即)?",
+                r"その他\s*[×xｘ*：:／/]?\s*(\d+)",
+                r"合コン\s*[×xｘ*]?\s*(\d+)",
             ],
         ),
     ):
