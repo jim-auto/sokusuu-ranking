@@ -43,6 +43,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@makoto__pua` は `@itoumakoto_pua` に改名（前垢凍結）。連続計算のため username は旧名を維持。8/31「先月は月間最高即数を更新」+ bio 月間最高21即。明示の「8月総括 N即」はなし。チャネルは「🦁ばっか」→ スト
 - 9/2 バックフィル: `@afRdYt8p5C75089` 19 / `@mic_pua` 14 / `@Tt2tb` 15 / `@yomaru_street` 12 / `@dick_duck_swing` 8 / `@tsutsumi_ye4pe` 7 / `@ot_aza` 10 / `@rupo_candy` 7 / `@entpxxxxxx` 8 / `@kannen170` 15 / `@ZqtfwZBx9490665` 14 / `@yutopua0807` 7 / `@shouri_ikb` 6 / `@ohta_desu02` 5
 - `@afRdYt8p5C75089` は「8月19即➕1NH」。NHは含めず19。某席・某ラジ等は絵文字チャネルなしのため内訳に含めていない
+- `@SIYK_Hage` のチャネルは総括画像の内訳（🔥3・mスト準1・🟦準1）。紹介1・合コン1は絵文字チャネルなしのため内訳に含めていない。本文の🔥だけでネト7にはしない
 - `@yutopua0807` の 🪑×3 は相席扱いでチャネル内訳に含めていない（計7は本体）
 - `@Tt2tb` の いん⭐️・てぃんだー・🌊・🐙 は絵文字チャネルなしのため内訳に含めていない
 - `@kukuru_nanpa` 「今月14即しかしてない」は総括ではないので未掲載。`@River_p823` は 8/30「8月7即目」までで最終総括なし。`@tora_maru005` / `@Lattie_pua` / `@17go_pua` は8月総括なし（鍵/TL空含む）
@@ -87,7 +88,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 34 | @2R2pN1EQLmB6k03 | 首領パッチ | 7 | 箱（⬛️1） | [link](https://x.com/2R2pN1EQLmB6k03/status/2093409068224593992) | - |
 | 35 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
 | 36 | @rupo_candy | るぽ | 7 | 箱（🦾4）、スト（🦁1）、ネト（🍎1） | [link](https://x.com/rupo_candy/status/2094765551566610700) | - |
-| 37 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（7） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
+| 37 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（🔥3）、スト（1）、箱（🟦1） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
 | 38 | @tsutsumi_ye4pe | よしあき@wing長期 | 7 | スト（🐶7） | [link](https://x.com/tsutsumi_ye4pe/status/2094472878695883043) | 5即3ヶ月 |
 | 39 | @yutopua0807 | ゆうと | 7 | ネト（🔥4） | [link](https://x.com/yutopua0807/status/2094454475641733288) | - |
 | 40 | @shouri_ikb | こあ太郎@🦉の天才 | 6 | スト（🦉5）、その他（1） | [link](https://x.com/shouri_ikb/status/2094457181311762438) | - |
