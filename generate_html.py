@@ -912,6 +912,7 @@ def main():
     if not records:
         return
     records = collapse_duplicate_accounts(records)
+    records = [r for r in records if int(r.get("sokusuu") or 0) > 0]
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     html = generate_html(records)
