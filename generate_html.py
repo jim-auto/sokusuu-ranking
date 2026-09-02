@@ -44,6 +44,7 @@ SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
 MIN_MONTHLY_BEST = 6
+MIN_YEARLY_BEST = 6
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -405,6 +406,9 @@ def generate_html(records: list[dict]) -> str:
         with open(yearly_file, "r", encoding="utf-8") as f:
             yearly = json.load(f)
         yearly = collapse_period_records(yearly, "yearly_best", profiles)
+        yearly = [
+            r for r in yearly if int(r.get("yearly_best") or 0) >= MIN_YEARLY_BEST
+        ]
         yearly_rows = ""
         for i, r in enumerate(yearly, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
