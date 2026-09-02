@@ -147,6 +147,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@kent_o_o` | なし → **48** | 9/1「〜8月総括〜 48即」。チャネル根拠なし → 謎 |
 | `@Sanyotyu1` | なし → **18** | 9/1「8月総括 18即（🦁14🐶2ぐらい+パス2）」 |
 | `@socool55555` | なし → **13** | 9/2「8月は計13即」 |
+| `@makoto__pua` | なし → **21** | 現行垢 `@itoumakoto_pua`。8/31「先月は月間最高即数を更新」+ bio 月間最高21。明示の8月総括なし。🦁ばっか → スト |
 
 8月 Top（5即以上・修正後）:
 
@@ -155,8 +156,8 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | 1 | `kent_o_o` | 48 |
 | 2 | `kuroiwa_45` | 23 |
 | 3 | `sub_chilll` | 23 |
-| 4 | `knt17760` | 20 |
-| 5 | `bookmaker_2015` | 19 |
+| 4 | `makoto__pua` | 21 |
+| 5 | `knt17760` | 20 |
 
 成果物:
 
