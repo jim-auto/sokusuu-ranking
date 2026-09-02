@@ -40,7 +40,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@kent_o_o` は 9/1「〜8月総括〜 48即」。チャネル根拠なし → 謎
 - `@Sanyotyu1` は 9/1「8月総括 18即（🦁14🐶2ぐらい+パス2）」
 - `@socool55555` は 9/2「8月は計13即」
-- `@makoto__pua` は `@itoumakoto_pua` に改名（前垢凍結）。連続計算のため username は旧名を維持。8/31「先月は月間最高即数を更新」+ bio 月間最高21即。明示の「8月総括 N即」はなし。チャネルは「🦁ばっか」→ スト
+- `@makoto__pua` は `@itoumakoto_pua` に改名（前垢凍結）。連続計算のため username は旧名を維持。根拠は 8/31「8月総括 累計21即 スト19即 📮ザオラル1即 パス1即」（9月の目標ツイは使わない）
 - 9/2 バックフィル: `@afRdYt8p5C75089` 19 / `@mic_pua` 14 / `@Tt2tb` 15 / `@yomaru_street` 12 / `@dick_duck_swing` 8 / `@tsutsumi_ye4pe` 7 / `@ot_aza` 10 / `@rupo_candy` 7 / `@entpxxxxxx` 8 / `@kannen170` 15 / `@ZqtfwZBx9490665` 14 / `@yutopua0807` 7 / `@shouri_ikb` 6 / `@ohta_desu02` 5
 - `@afRdYt8p5C75089` は「8月19即➕1NH」。NHは含めず19。某席・某ラジ等は絵文字チャネルなしのため内訳に含めていない
 - `@2R2pN1EQLmB6k03` の根拠は 8/30「８月 7卽 【⬛️2、🟦1、M🚶2、📱2】」。8/28「今月7🚀」は途中報告なので使わない。表示名は現行の「くらぶでぃ」
@@ -57,7 +57,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 1 | @kent_o_o | 健人 | 48 | 謎 | [link](https://x.com/kent_o_o/status/2094750699645218984) | 45即5ヶ月 |
 | 2 | @kuroiwa_45 | 黒岩 | 23 | ネト（🍎15・🍐4）、箱（🦾4） | [link](https://x.com/kuroiwa_sub/status/2094687633121378338) | 20即2ヶ月 |
 | 3 | @sub_chilll | あつ太郎の本音bot | 23 | ネト（16）、箱（4）、スト（3） | [link](https://x.com/sub_chilll/status/2094462891567268266) | - |
-| 4 | @makoto__pua | 伊藤誠@前垢🧊った | 21 | スト | [link](https://x.com/itoumakoto_pua/status/2094464013916831883) | 15即2ヶ月 / 10即8ヶ月 |
+| 4 | @makoto__pua | 伊藤誠@前垢🧊った | 21 | スト（19）、その他（2） | [link](https://x.com/itoumakoto_pua/status/2094463364403806356) | 15即2ヶ月 / 10即8ヶ月 |
 | 5 | @knt17760 | キッチン | 20 | スト（🐶9・🦁1・🦉1）、ネト（🗼3） | [link](https://x.com/knt17760/status/2094751478271676861) | 5即2ヶ月 |
 | 6 | @afRdYt8p5C75089 | ヨシムラ@ノンアル | 19 | ネト（🔥3・🍎1）、スト（🐶1）、箱（🦾1） | [link](https://x.com/afRdYt8p5C75089/status/2094705129534763222) | - |
 | 7 | @bookmaker_2015 | とも | 19 | スト（🐶13）、その他（6） | [link](https://x.com/bookmaker_2015/status/2094422143295803758) | 10即3ヶ月 / 5即8ヶ月 |
