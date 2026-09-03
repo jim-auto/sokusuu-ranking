@@ -26,6 +26,27 @@ COOKIE_FILE = "data/.twitter_cookies.json"
 DISCOVERED_FILE = "data/discovered_accounts.json"
 SEED_FILE = "seed_accounts.txt"
 
+# 手動精査済みの通算固定値（自動抽出より優先）
+LOCKED_TOTALS: dict[str, int] = {
+    "NRTq5ihqEpYCy0N": 234,  # 場所欄「234足(スト167)(Mスト112)」を通算234と解釈
+    "ryo_mindup": 400,  # 「500〜1000即」は範囲表記。過去の明示値400即↑を維持
+    "gogo_nishino": 100,  # note販売部数5000ではなく、明記されたネト100即
+    "gofugofu5252": 16,  # 2024年0即 + 2025年11即 + 2026年5即。3468KKは即数ではない
+    "harper0512": 300,  # 経験人数300人over。tips販売数1300部は即数ではない
+    "yutty_pua": 300,  # 経験人数300人↑。note累計1000部超えは即数ではない
+    "_springfox_": 65,  # 現プロフィールの「オフライン65即」
+}
+
+# 手動精査済みの追加カテゴリ（プロフに表記がなくても付与。リフレッシュで消えない）
+MANUAL_CATEGORIES: dict[str, list[str]] = {
+    "kent_o_o": ["club"],
+}
+
+
+def apply_manual_categories(username: str, cats: list[str]) -> list[str]:
+    extra = MANUAL_CATEGORIES.get(username, [])
+    return cats + [c for c in extra if c not in cats]
+
 BEARER_TOKEN = "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
 
 GRAPHQL_USER_BY_SCREEN_NAME = "https://x.com/i/api/graphql/G3KGOASz96M-Qu0nwmGXNg/UserByScreenName"
@@ -77,6 +98,7 @@ SOKUSUU_PATTERNS = [
     re.compile(r"通算\s*即\s*(\d+)"),
     re.compile(r"即数\s*(\d+)"),
     re.compile(r"経験人数\s*(\d+)"),
+    re.compile(r"経験\s*(\d+)\s*(?:over|以上|\+|＋|~|～|〜|人)", re.IGNORECASE),
     re.compile(r"体験人数\s*(\d+)"),
     re.compile(r"(\d+)\s*人斬り"),
     re.compile(r"人斬り\s*(\d+)"),
@@ -84,6 +106,12 @@ SOKUSUU_PATTERNS = [
     re.compile(r"(\d+)\s*斬り"),
     re.compile(r"斬り\s*(\d+)"),
     re.compile(r"total\s*(\d+)\s*即", re.IGNORECASE),
+    re.compile(r"(?:通算|累計|合計|総計|即数|total)\s*(\d+)\s*[↑+＋～〜~]", re.IGNORECASE),
+    re.compile(r"(?:通算|累計|合計|総計|トータル|total)\s*(\d{2,4})(?![\d年月日/.\-])", re.IGNORECASE),
+    re.compile(r"累計\s*(\d+)\s*節"),
+    re.compile(r"通算\s*(\d+)\s*節"),
+    re.compile(r"合計\s*(\d+)\s*節"),
+    re.compile(r"(\d+)\s*節"),
     re.compile(r"(\d+)\s*即"),
     re.compile(r"(\d+)\s*get", re.IGNORECASE),
     re.compile(r"ゲット数\s*(\d+)"),
@@ -119,26 +147,88 @@ class SokusuuRecord:
     alt_accounts: str = ""
     categories: str = ""
     profile_image_url: str = ""
+    approximate: bool = False
+
+
+def is_approximate(text: str, value: int) -> bool:
+    """数値の直後に↑/+/over/以上などが付いていれば概数扱い"""
+    if not text:
+        return False
+    return bool(
+        re.search(
+            rf"{value}\s*(?:即|節)?\s*(?:[↑+＋~～〜]|over|以上|くらい|ぐらい|ほど|弱|強)",
+            text,
+            re.IGNORECASE,
+        )
+    )
 
 
 def extract_sokusuu(text: str) -> Optional[int]:
     if not text:
         return None
-    # 年号・日付を除去して誤検出を防ぐ
-    cleaned = re.sub(r'(20[12]\d)\s*[年./]', 'YEAR_', text)
-    cleaned = re.sub(r'20[12]\d/\d{1,2}/\d{1,2}', 'DATE_', cleaned)
+    # 未来年の「20XX年…N即」は目標なので除外（例: 2028年内に1000即）
+    this_year = int(time.strftime("%Y"))
+    def _future_goal(m: re.Match) -> str:
+        return "目標記録" if int(m.group(1)) > this_year else m.group(0)
+    # 年別記録の合計を通算候補に（例: 2021年27即…2024年3即 → 76）。当年以前のみ
+    yearly_pairs: dict[str, list[int]] = {}
+    for _yy, _nn in re.findall(r"(20[12]\d)年\s*(\d+)\s*[即節]", text):
+        if int(_yy) <= this_year:
+            yearly_pairs.setdefault(_yy, []).append(int(_nn))
+    yearly_sum = sum(max(v) for v in yearly_pairs.values()) if len(yearly_pairs) >= 2 else None
+    cleaned = re.sub(r"(20[12]\d)年[^|｜\n/]*?(\d+)\s*[即節]", _future_goal, text)
+    cleaned = re.sub(r"来年[^|｜\n/]*?\d+\s*[即節]", "目標記録", cleaned)
+    # 年号・日付を除去して誤検出を防ぐ（数値日付を先に）
+    cleaned = re.sub(r'20[12]\d[./]\d{1,2}([./]\d{1,2})?', 'DATE_', cleaned)
+    cleaned = re.sub(r'(20[12]\d)\s*年', 'YEAR_', cleaned)
+    # 202507 のような年月連結も除去（スト202507〜 → 日付扱い）
+    cleaned = re.sub(r'20[12]\d(?:0[1-9]|1[0-2])', '年月', cleaned)
     # 累計(372/1000即) は進捗/目標。目標側を落とす
     cleaned = re.sub(r'(\d+)\s*/\s*\d+\s*即', r'\1即', cleaned)
     cleaned = re.sub(r'(\d+)\s*即で\s*\d+\s*即カウントダウン', r'\1即', cleaned)
+    # 月間記録・目標は通算ではないので除外（例: 月間25出撃31即 / 月最大28即 / 年内目標200即）
+    cleaned = re.sub(r'月間[^|｜\n/]*?\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'月\s*最大[^|｜\n/]*?\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'(今月|先月)[^|｜\n/]*?\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'\d{1,2}月\s*\d*出撃\s*\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'月\s*\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'(目標|目指)[^|｜\n/]*?\d+\s*[即節]', '目標記録', cleaned)
+    # 「500〜1000即」のような範囲表記は確定数ではないので除外
+    cleaned = re.sub(r"\d+\s*[〜~～\-－]\s*\d+\s*[即節]", "範囲記録", cleaned)
+    cleaned = re.sub(r"\d+\s*から\s*\d+\s*[即節]", "範囲記録", cleaned)
     # 絵文字をスペースに置換（数字の連結を防ぐ）
     cleaned = re.sub(r'[\U00010000-\U0010ffff]', ' ', cleaned)
     values = []
     for pattern in SOKUSUU_PATTERNS:
         matches = pattern.findall(cleaned)
         values.extend(int(m) for m in matches)
-    if not values:
+    candidates = list(values)
+    if yearly_sum:
+        candidates.append(yearly_sum)
+    # カテゴリ内訳の合計（例: スト79箱125ネト69 → 273）。
+    # 「月最大28即」のような期間値は除外して集計する
+    breakdown_text = re.sub(r"月\s*最大\s*\d+\s*[即節]", "", cleaned)
+    breakdown_text = re.sub(r"月間\s*最大\s*\d+\s*[即節]", "", breakdown_text)
+    breakdown_nums = re.findall(
+        r"(?:スト|箱|ネト|オフライン|オフ|クラブ|アポ|声かけ|路上|アプリ)\s*(\d{1,4})",
+        breakdown_text,
+    )
+    if len(breakdown_nums) >= 2:
+        candidates.append(sum(int(n) for n in breakdown_nums))
+    if not candidates:
+        # 「アプリスト半々100↑」のような単位なし概数。場所欄は文脈なしでも見る
+        loc_extra = text.split("【場所】", 1)[1] if "【場所】" in text else ""
+        cands: list[int] = []
+        if re.search(r"(スト|ネト|箱|ナンパ|アプリ|出撃|講習|即|節)", cleaned):
+            tmp = re.sub(r"20[12]\d", "", cleaned)
+            cands += [int(n) for n in re.findall(r"(\d{2,4})\s*[↑+＋~～〜]", tmp)]
+        if loc_extra:
+            tmp2 = re.sub(r"20[12]\d", "", loc_extra)
+            cands += [int(n) for n in re.findall(r"(\d{2,4})\s*[↑+＋~～〜]", tmp2)]
+        if cands:
+            return max(cands)
         return None
-    return max(values)
+    return max(candidates)
 
 
 def detect_categories(bio: str, username: str) -> list[str]:
@@ -229,6 +319,7 @@ class TwitterGraphQL:
                     "screen_name": legacy.get("screen_name", screen_name),
                     "name": legacy.get("name", screen_name),
                     "description": legacy.get("description", ""),
+                    "location": legacy.get("location", ""),
                     "followers_count": legacy.get("followers_count", 0),
                     "profile_image_url": img,
                     "pinned_tweet_ids": legacy.get("pinned_tweet_ids_str", []),
@@ -312,17 +403,44 @@ class TwitterGraphQL:
 
 def collect_one(api: TwitterGraphQL, username: str) -> Optional[SokusuuRecord]:
     """1ユーザーの即数を収集"""
+    # 手動精査済みの固定値（自動抽出より優先）。
+    # NRTq5ihqEpYCy0N: 場所欄「234足(スト167)(Mスト112)」は通算234と解釈（内訳は重複あり）。
+    if username in LOCKED_TOTALS:
+        user = api.get_user(username)
+        if not user:
+            return None
+        location = user.get("location", "")
+        bio = user["description"]
+        if location and location not in bio:
+            bio = bio + (f"\n【場所】{location}" if bio else f"【場所】{location}")
+        cats_str = ", ".join(apply_manual_categories(username, detect_categories(bio, username)))
+        return SokusuuRecord(
+            username=username,
+            display_name=user["name"],
+            sokusuu=LOCKED_TOTALS[username],
+            source="profile",
+            url=f"https://twitter.com/{username}",
+            followers_count=user["followers_count"],
+            bio=bio,
+            categories=cats_str,
+            profile_image_url=user["profile_image_url"],
+            approximate=is_approximate(bio, LOCKED_TOTALS[username]),
+        )
     user = api.get_user(username)
     if not user:
         return None
 
     bio = user["description"]
+    location = user.get("location", "")
     display_name = user["name"]
     followers_count = user["followers_count"]
     profile_image_url = user["profile_image_url"]
 
-    # bioから即数を抽出
-    profile_sokusuu = extract_sokusuu(bio)
+    # bio + 場所欄から即数を抽出（場所欄に通算を書く人もいる）
+    profile_text = bio + ("\n" + location if location else "")
+    if location and location not in bio:
+        bio = bio + (f"\n【場所】{location}" if bio else f"【場所】{location}")
+    profile_sokusuu = extract_sokusuu(profile_text)
     profile_url = f"https://twitter.com/{username}"
 
     # bioになければ固定ツイートをチェック
@@ -352,7 +470,8 @@ def collect_one(api: TwitterGraphQL, username: str) -> Optional[SokusuuRecord]:
         return None
 
     cats = detect_categories(bio, username)
-    cats_str = ", ".join(cats) if cats else ""
+    cats_str = ", ".join(apply_manual_categories(username, cats)) if cats or username in MANUAL_CATEGORIES else ""
+    approx_text = tweet_text if source == "pinned_tweet" and tweet_text else profile_text
     print(f"  [OK] @{username}: 即{sokusuu} (source: {source}, followers: {followers_count}, cats: {cats_str or 'none'})")
     return SokusuuRecord(
         username=username,
@@ -364,6 +483,7 @@ def collect_one(api: TwitterGraphQL, username: str) -> Optional[SokusuuRecord]:
         bio=bio,
         categories=cats_str,
         profile_image_url=profile_image_url,
+        approximate=is_approximate(approx_text, sokusuu),
     )
 
 

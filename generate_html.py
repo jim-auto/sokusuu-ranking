@@ -69,8 +69,8 @@ SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
 MIN_CAREER_TOTAL = 10
-MIN_MONTHLY_BEST = 6
-MIN_YEARLY_BEST = 6
+MIN_MONTHLY_BEST = 11
+MIN_YEARLY_BEST = 31
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.

@@ -64,10 +64,14 @@ FOLLOW_FEATURES = json.dumps({
 
 SOKUSUU_PATTERNS = [
     re.compile(r"通算\s*即\s*(\d+)"), re.compile(r"即数\s*(\d+)"),
-    re.compile(r"経験人数\s*(\d+)"), re.compile(r"体験人数\s*(\d+)"),
+    re.compile(r"経験人数\s*(\d+)"), re.compile(r"経験\s*(\d+)\s*(?:over|以上|\+|＋|~|～|〜|人)", re.IGNORECASE), re.compile(r"体験人数\s*(\d+)"),
     re.compile(r"(\d+)\s*人斬り"), re.compile(r"人斬り\s*(\d+)"),
     re.compile(r"斬り数\s*(\d+)"), re.compile(r"(\d+)\s*斬り"),
     re.compile(r"斬り\s*(\d+)"), re.compile(r"total\s*(\d+)\s*即", re.IGNORECASE),
+    re.compile(r"(?:通算|累計|合計|総計|即数|total)\s*(\d+)\s*[↑+＋～〜~]", re.IGNORECASE),
+    re.compile(r"(?:通算|累計|合計|総計|トータル|total)\s*(\d{2,4})(?![\d年月日/.\-])", re.IGNORECASE),
+    re.compile(r"累計\s*(\d+)\s*節"), re.compile(r"通算\s*(\d+)\s*節"),
+    re.compile(r"合計\s*(\d+)\s*節"), re.compile(r"(\d+)\s*節"),
     re.compile(r"(\d+)\s*即"), re.compile(r"(\d+)\s*get", re.IGNORECASE),
     re.compile(r"ゲット数\s*(\d+)"), re.compile(r"GET\s*(\d+)", re.IGNORECASE),
     re.compile(r"GN\s*(\d+)", re.IGNORECASE), re.compile(r"S数\s*(\d+)"),
@@ -103,15 +107,59 @@ class SokusuuRecord:
 def extract_sokusuu(text):
     if not text:
         return None
-    # 年号・日付を除去して誤検出を防ぐ
-    cleaned = re.sub(r'(20[12]\d)\s*[年./]', 'YEAR_', text)
-    cleaned = re.sub(r'20[12]\d/\d{1,2}/\d{1,2}', 'DATE_', cleaned)
+    # 年号・日付を除去して誤検出を防ぐ（数値日付を先に）
+    cleaned = re.sub(r'20[12]\d[./]\d{1,2}([./]\d{1,2})?', 'DATE_', text)
+    cleaned = re.sub(r'(20[12]\d)\s*年', 'YEAR_', cleaned)
     # 絵文字をスペースに置換（数字の連結を防ぐ）
     cleaned = re.sub(r'[\U00010000-\U0010ffff]', ' ', cleaned)
+    # 月間記録・目標は通算ではないので除外
+    this_year = int(time.strftime("%Y"))
+    def _future_goal(m):
+        return "目標記録" if int(m.group(1)) > this_year else m.group(0)
+    # 年別記録の合計を通算候補に。当年以前のみ
+    yearly_pairs = {}
+    for _yy, _nn in re.findall(r"(20[12]\d)年\s*(\d+)\s*[即節]", text):
+        if int(_yy) <= this_year:
+            yearly_pairs.setdefault(_yy, []).append(int(_nn))
+    yearly_sum = sum(max(v) for v in yearly_pairs.values()) if len(yearly_pairs) >= 2 else None
+    cleaned = re.sub(r"(20[12]\d)年[^|｜\n/]*?(\d+)\s*[即節]", _future_goal, cleaned)
+    cleaned = re.sub(r"来年[^|｜\n/]*?\d+\s*[即節]", "目標記録", cleaned)
+    cleaned = re.sub(r'月間[^|｜\n/]*?\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'月\s*最大[^|｜\n/]*?\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'(今月|先月)[^|｜\n/]*?\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'\d{1,2}月\s*\d*出撃\s*\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'月\s*\d+\s*[即節]', '月記録', cleaned)
+    cleaned = re.sub(r'(目標|目指)[^|｜\n/]*?\d+\s*[即節]', '目標記録', cleaned)
+    # 「500〜1000即」のような範囲表記は確定数ではないので除外
+    cleaned = re.sub(r"\d+\s*[〜~～\-－]\s*\d+\s*[即節]", "範囲記録", cleaned)
+    cleaned = re.sub(r"\d+\s*から\s*\d+\s*[即節]", "範囲記録", cleaned)
     values = []
     for p in SOKUSUU_PATTERNS:
         values.extend(int(m) for m in p.findall(cleaned))
-    return max(values) if values else None
+    candidates = list(values)
+    if yearly_sum:
+        candidates.append(yearly_sum)
+    breakdown_text = re.sub(r"月\s*最大\s*\d+\s*[即節]", "", cleaned)
+    breakdown_text = re.sub(r"月間\s*最大\s*\d+\s*[即節]", "", breakdown_text)
+    breakdown_nums = re.findall(
+        r"(?:スト|箱|ネト|オフライン|オフ|クラブ|アポ|声かけ|路上|アプリ)\s*(\d{1,4})",
+        breakdown_text,
+    )
+    if len(breakdown_nums) >= 2:
+        candidates.append(sum(int(n) for n in breakdown_nums))
+    if not candidates:
+        loc_extra = text.split("【場所】", 1)[1] if "【場所】" in text else ""
+        cands = []
+        if re.search(r"(スト|ネト|箱|ナンパ|アプリ|出撃|講習|即|節)", cleaned):
+            tmp = re.sub(r"20[12]\d", "", cleaned)
+            cands += [int(n) for n in re.findall(r"(\d{2,4})\s*[↑+＋~～〜]", tmp)]
+        if loc_extra:
+            tmp2 = re.sub(r"20[12]\d", "", loc_extra)
+            cands += [int(n) for n in re.findall(r"(\d{2,4})\s*[↑+＋~～〜]", tmp2)]
+        if cands:
+            return max(cands)
+        return None
+    return max(candidates)
 
 
 def detect_categories(bio, username):
@@ -252,6 +300,14 @@ async def scrape_profile(context, username):
         display_name = await username_el.first.text_content() or username
         bio_el = page.locator('[data-testid="UserDescription"]')
         bio = await bio_el.text_content() if await bio_el.count() > 0 else ""
+        # 場所・リンク欄（通算を書く人もいる）
+        header_text = ""
+        try:
+            header_el = page.locator('[data-testid="UserProfileHeader_Items"]')
+            if await header_el.count() > 0:
+                header_text = await header_el.first.text_content() or ""
+        except Exception:
+            pass
 
         followers_count = 0
         try:
@@ -280,7 +336,7 @@ async def scrape_profile(context, username):
         except Exception:
             pass
 
-        profile_sokusuu = extract_sokusuu(bio)
+        profile_sokusuu = extract_sokusuu(bio + ("\n" + header_text if header_text else ""))
         profile_url = f"https://twitter.com/{username}"
         pinned_sokusuu = None
         pinned_url = None
