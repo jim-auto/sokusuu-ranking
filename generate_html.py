@@ -740,31 +740,55 @@ def summarize_channel_totals(
     }
 
 
-def _channel_summary_rows(summary: dict) -> list[tuple[str, str, int]]:
-    """(channel_key, 表示名, 即数) を即数が多い順で返す。0件は落とす。"""
+def _channel_summary_columns(summary: dict) -> list[tuple[str, str, int]]:
+    """(channel_key, 表示名, 即数) をスト→ネト→箱→その他→謎→内訳なしの順で返す。"""
     totals: dict[str, int] = summary.get("totals") or {}
-    rows: list[tuple[str, str, int]] = []
+    cols: list[tuple[str, str, int]] = []
     for ch in CHANNEL_ORDER:
         n = int(totals.get(ch) or 0)
         if n <= 0:
             continue
         label = CHANNEL_SHORT_LABELS.get(ch, CATEGORY_LABELS.get(ch, ch))
-        rows.append((ch, label, n))
+        cols.append((ch, label, n))
     unalloc = int(totals.get(UNALLOCATED_CHANNEL) or 0)
     if unalloc > 0:
-        rows.append((UNALLOCATED_CHANNEL, UNALLOCATED_LABEL, unalloc))
-    rows.sort(key=lambda item: (-item[2], CHANNEL_ORDER.index(item[0]) if item[0] in CHANNEL_ORDER else 99))
-    return rows
+        cols.append((UNALLOCATED_CHANNEL, UNALLOCATED_LABEL, unalloc))
+    return cols
+
+
+def _channel_inner_label(summary: dict, ch: str) -> str:
+    emo_map = (summary.get("emojis") or {}).get(ch) or {}
+    kw = int((summary.get("keyword_only") or {}).get(ch) or 0)
+    parts: list[str] = []
+    ordered = sorted(emo_map.items(), key=lambda kv: (-int(kv[1]), kv[0]))
+    for emo, cnt in ordered:
+        if int(cnt) > 0:
+            parts.append(f"{emo}{cnt}")
+    if kw > 0:
+        parts.append(f"件数のみ{kw}")
+    return "・".join(parts)
 
 
 def format_channel_summary_markdown(
     records: list[dict],
     count_key: str = "monthly_count",
 ) -> str:
-    """チャネル合計の Markdown。"""
+    """チャネル合計の Markdown（チャネルを列にした横長表）。"""
     summary = summarize_channel_totals(records, count_key=count_key)
     grand = int(summary["grand"] or 0)
     people = int(summary["people"] or 0)
+    cols = _channel_summary_columns(summary)
+    headers = [""] + [label for _ch, label, _n in cols] + ["合計"]
+    align = ["---"] + [":---:" for _ in cols] + [":---:"]
+    counts = ["即数"] + [str(n) for _ch, _label, n in cols] + [str(grand)]
+    ratios = ["構成比"]
+    for _ch, _label, n in cols:
+        ratios.append(f"{100.0 * n / grand:.1f}%" if grand else "-")
+    ratios.append("100%")
+    inners = ["内訳"]
+    for ch, _label, _n in cols:
+        inners.append(_channel_inner_label(summary, ch) or "-")
+    inners.append("")
     lines = [
         "## チャネル合計（5即以上）",
         "",
@@ -772,43 +796,21 @@ def format_channel_summary_markdown(
         "チャネル名だけの人（スト / ネト / 謎）はその即数をそのチャネルへ。"
         "絵文字チャネルに載せない分（北国・相席・某席など）は内訳なし。",
         "",
-        "| チャネル | 即数 | 構成比 |",
-        "|----------|-----:|-------:|",
+        "| " + " | ".join(headers) + " |",
+        "| " + " | ".join(align) + " |",
+        "| " + " | ".join(counts) + " |",
+        "| " + " | ".join(ratios) + " |",
+        "| " + " | ".join(inners) + " |",
+        "",
     ]
-    for ch, label, n in _channel_summary_rows(summary):
-        pct = f"{100.0 * n / grand:.1f}%" if grand else "-"
-        lines.append(f"| {label} | {n} | {pct} |")
-    lines.append(f"| 合計 | {grand} | 100% |")
-    lines.append("")
-
-    emojis: dict[str, dict[str, int]] = summary.get("emojis") or {}
-    keyword_only: dict[str, int] = summary.get("keyword_only") or {}
-    for ch, label, n in _channel_summary_rows(summary):
-        if ch == UNALLOCATED_CHANNEL:
-            continue
-        emo_map = emojis.get(ch) or {}
-        kw = int(keyword_only.get(ch) or 0)
-        if not emo_map:
-            continue
-        lines.append(f"### {label}（{n}）")
-        lines.append("")
-        lines.append("| 内訳 | 即数 |")
-        lines.append("|------|-----:|")
-        ordered = sorted(emo_map.items(), key=lambda kv: (-int(kv[1]), kv[0]))
-        for emo, cnt in ordered:
-            if cnt > 0:
-                lines.append(f"| {emo} | {cnt} |")
-        if kw > 0:
-            lines.append(f"| 件数のみ | {kw} |")
-        lines.append("")
-    return "\n".join(lines).rstrip() + "\n"
+    return "\n".join(lines)
 
 
 def build_channel_summary_html(
     records: list[dict],
     count_key: str = "monthly_count",
 ) -> str:
-    """月別タブ用のチャネル合計 HTML。"""
+    """月別タブ用のチャネル合計 HTML（チャネルを列にした横長表）。"""
     summary = summarize_channel_totals(records, count_key=count_key)
     grand = int(summary["grand"] or 0)
     people = int(summary["people"] or 0)
@@ -817,66 +819,36 @@ def build_channel_summary_html(
         "チャネル名だけの人はその即数をそのチャネルへ。"
         "絵文字チャネルに載せない分は内訳なし。"
     )
-    rows_html = ""
-    for ch, label, n in _channel_summary_rows(summary):
+    cols = _channel_summary_columns(summary)
+    head = "<th></th>"
+    count_cells = "<th>即数</th>"
+    ratio_cells = "<th>構成比</th>"
+    inner_cells = "<th>内訳</th>"
+    for ch, label, n in cols:
         badge_class = "none" if ch == UNALLOCATED_CHANNEL else ch
+        head += f'<th><span class="badge badge-cat-{badge_class}">{label}</span></th>'
         pct = f"{100.0 * n / grand:.1f}%" if grand else "-"
-        rows_html += (
-            f'<tr><td><span class="badge badge-cat-{badge_class}">{label}</span></td>'
-            f'<td class="sokusuu">{n}</td><td>{pct}</td></tr>'
-        )
-    rows_html += (
-        f'<tr><td>合計</td><td class="sokusuu">{grand}</td><td>100%</td></tr>'
-    )
-
-    detail_html = ""
-    emojis: dict[str, dict[str, int]] = summary.get("emojis") or {}
-    keyword_only: dict[str, int] = summary.get("keyword_only") or {}
-    detail_rows = ""
-    for ch, label, n in _channel_summary_rows(summary):
-        if ch == UNALLOCATED_CHANNEL:
-            continue
-        emo_map = emojis.get(ch) or {}
-        kw = int(keyword_only.get(ch) or 0)
-        if not emo_map:
-            continue
-        badge_class = ch
-        ordered = sorted(emo_map.items(), key=lambda kv: (-int(kv[1]), kv[0]))
-        first = True
-        items: list[tuple[str, int]] = [(emo, cnt) for emo, cnt in ordered if cnt > 0]
-        if kw > 0:
-            items.append(("件数のみ", kw))
-        span = len(items)
-        for inner, cnt in items:
-            ch_cell = ""
-            if first:
-                ch_cell = (
-                    f'<td rowspan="{span}"><span class="badge badge-cat-{badge_class}">'
-                    f"{label}（{n}）</span></td>"
-                )
-                first = False
-            detail_rows += (
-                f"<tr>{ch_cell}<td>{inner}</td>"
-                f'<td class="sokusuu">{cnt}</td></tr>'
-            )
-    if detail_rows:
-        detail_html = (
-            '<table><thead><tr><th>チャネル</th><th>内訳</th><th>即数</th>'
-            "</tr></thead><tbody>"
-            + detail_rows
-            + "</tbody></table>"
-        )
-
+        inner = _channel_inner_label(summary, ch) or "-"
+        count_cells += f'<td class="sokusuu">{n}</td>'
+        ratio_cells += f"<td>{pct}</td>"
+        inner_cells += f'<td class="channel-inner">{inner}</td>'
+    head += "<th>合計</th>"
+    count_cells += f'<td class="sokusuu">{grand}</td>'
+    ratio_cells += "<td>100%</td>"
+    inner_cells += "<td></td>"
     return (
         '<div class="channel-summary">'
         '<p class="channel-summary-title">チャネル合計（5即以上）</p>'
         f'<p class="channel-summary-note">{note}</p>'
-        "<table><thead><tr><th>チャネル</th><th>即数</th><th>構成比</th>"
-        "</tr></thead><tbody>"
-        + rows_html
-        + "</tbody></table>"
-        + detail_html
-        + "</div>"
+        "<table><thead><tr>"
+        + head
+        + "</tr></thead><tbody><tr>"
+        + count_cells
+        + "</tr><tr>"
+        + ratio_cells
+        + "</tr><tr>"
+        + inner_cells
+        + "</tr></tbody></table></div>"
     )
 
 
@@ -1742,8 +1714,15 @@ def generate_html(records: list[dict]) -> str:
         .badge-cat-other {{ background: #3a2f1a; color: #fbbf24; }}
         .badge-cat-unknown {{ background: #2a2a2a; color: #9ca3af; }}
         .badge-cat-none {{ background: #2a2a2a; color: #666; }}
-        .channel-summary {{ margin-bottom: 24px; }}
-        .channel-summary table {{ margin-bottom: 16px; }}
+        .channel-summary {{ margin-bottom: 24px; overflow-x: auto; }}
+        .channel-summary table {{ margin-bottom: 0; min-width: 760px; }}
+        .channel-summary th,
+        .channel-summary td {{ text-align: center; vertical-align: top; }}
+        .channel-summary .channel-inner {{
+            font-size: 0.82em;
+            color: #ccc;
+            white-space: nowrap;
+        }}
         .channel-summary-title {{
             color: #fff;
             font-weight: 600;
