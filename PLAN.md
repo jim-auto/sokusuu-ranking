@@ -184,8 +184,8 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 
 成果物:
 
-- `docs/results_2026_08.md` … 8月ランキング + 根拠URL
-- `docs/index.html` … 月別タブ既定 `202608`
+- `docs/results_2026_08.md` … 8月ランキング + 根拠URL + チャネル合計
+- `docs/index.html` … 月別タブ既定 `202608`（チャネル合計表あり）
 
 補足:
 

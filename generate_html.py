@@ -668,6 +668,218 @@ def format_channel_text(record: dict, sep: str = "、") -> str:
     return sep.join(label for _, label in format_channel_parts(record))
 
 
+UNALLOCATED_CHANNEL = "unallocated"
+UNALLOCATED_LABEL = "内訳なし"
+
+
+def _emoji_merge_key(emo: str) -> str:
+    return (emo or "").replace("\ufe0f", "")
+
+
+def summarize_channel_totals(
+    records: list[dict],
+    count_key: str = "monthly_count",
+) -> dict:
+    """掲載レコードの即数をチャネル内訳で合算する。
+
+    - 件数付き内訳がある分だけそのチャネルへ
+    - チャネル名だけで件数がない人（スト / ネト / 謎）は、その人の即数をそのチャネルへ
+    - 残り（北国・相席・某席など絵文字チャネルに載せない分）は内訳なし
+    """
+    chan_tot = {c: 0 for c in CHANNEL_ORDER}
+    chan_tot[UNALLOCATED_CHANNEL] = 0
+    emoji_tot: dict[str, dict[str, int]] = {c: {} for c in CHANNEL_ORDER}
+    keyword_only = {c: 0 for c in CHANNEL_ORDER}
+
+    for r in records:
+        n = int(r.get(count_key) or 0)
+        if n <= 0:
+            continue
+        bd = get_channel_breakdown(r)
+        assigned = 0
+        unlabeled: list[str] = []
+        for ch, _label in format_channel_parts(r):
+            data = bd.get(ch) or {}
+            total = int(data.get("total") or 0)
+            emojis = data.get("emojis") or {}
+            if total > 0:
+                chan_tot[ch] = chan_tot.get(ch, 0) + total
+                assigned += total
+                if emojis:
+                    emo_sum = 0
+                    for emo, cnt in emojis.items():
+                        cnt_i = int(cnt)
+                        if cnt_i <= 0:
+                            continue
+                        key = _emoji_merge_key(emo)
+                        bucket = emoji_tot.setdefault(ch, {})
+                        bucket[key] = bucket.get(key, 0) + cnt_i
+                        emo_sum += cnt_i
+                    extra = total - emo_sum
+                    if extra > 0:
+                        keyword_only[ch] = keyword_only.get(ch, 0) + extra
+                else:
+                    keyword_only[ch] = keyword_only.get(ch, 0) + total
+            elif ch:
+                unlabeled.append(ch)
+        rest = n - assigned
+        if rest > 0:
+            if len(unlabeled) == 1 and assigned == 0:
+                ch = unlabeled[0]
+                chan_tot[ch] = chan_tot.get(ch, 0) + rest
+                keyword_only[ch] = keyword_only.get(ch, 0) + rest
+            else:
+                chan_tot[UNALLOCATED_CHANNEL] += rest
+
+    return {
+        "people": len(records),
+        "grand": sum(int(r.get(count_key) or 0) for r in records),
+        "totals": chan_tot,
+        "emojis": emoji_tot,
+        "keyword_only": keyword_only,
+    }
+
+
+def _channel_summary_rows(summary: dict) -> list[tuple[str, str, int]]:
+    """(channel_key, 表示名, 即数) を即数が多い順で返す。0件は落とす。"""
+    totals: dict[str, int] = summary.get("totals") or {}
+    rows: list[tuple[str, str, int]] = []
+    for ch in CHANNEL_ORDER:
+        n = int(totals.get(ch) or 0)
+        if n <= 0:
+            continue
+        label = CHANNEL_SHORT_LABELS.get(ch, CATEGORY_LABELS.get(ch, ch))
+        rows.append((ch, label, n))
+    unalloc = int(totals.get(UNALLOCATED_CHANNEL) or 0)
+    if unalloc > 0:
+        rows.append((UNALLOCATED_CHANNEL, UNALLOCATED_LABEL, unalloc))
+    rows.sort(key=lambda item: (-item[2], CHANNEL_ORDER.index(item[0]) if item[0] in CHANNEL_ORDER else 99))
+    return rows
+
+
+def format_channel_summary_markdown(
+    records: list[dict],
+    count_key: str = "monthly_count",
+) -> str:
+    """チャネル合計の Markdown。"""
+    summary = summarize_channel_totals(records, count_key=count_key)
+    grand = int(summary["grand"] or 0)
+    people = int(summary["people"] or 0)
+    lines = [
+        "## チャネル合計（5即以上）",
+        "",
+        f"掲載{people}人・計{grand}即。総括の件数付き内訳を合算。"
+        "チャネル名だけの人（スト / ネト / 謎）はその即数をそのチャネルへ。"
+        "絵文字チャネルに載せない分（北国・相席・某席など）は内訳なし。",
+        "",
+        "| チャネル | 即数 | 構成比 |",
+        "|----------|-----:|-------:|",
+    ]
+    for ch, label, n in _channel_summary_rows(summary):
+        pct = f"{100.0 * n / grand:.1f}%" if grand else "-"
+        lines.append(f"| {label} | {n} | {pct} |")
+    lines.append(f"| 合計 | {grand} | 100% |")
+    lines.append("")
+
+    emojis: dict[str, dict[str, int]] = summary.get("emojis") or {}
+    keyword_only: dict[str, int] = summary.get("keyword_only") or {}
+    for ch, label, n in _channel_summary_rows(summary):
+        if ch == UNALLOCATED_CHANNEL:
+            continue
+        emo_map = emojis.get(ch) or {}
+        kw = int(keyword_only.get(ch) or 0)
+        if not emo_map:
+            continue
+        lines.append(f"### {label}（{n}）")
+        lines.append("")
+        lines.append("| 内訳 | 即数 |")
+        lines.append("|------|-----:|")
+        ordered = sorted(emo_map.items(), key=lambda kv: (-int(kv[1]), kv[0]))
+        for emo, cnt in ordered:
+            if cnt > 0:
+                lines.append(f"| {emo} | {cnt} |")
+        if kw > 0:
+            lines.append(f"| 件数のみ | {kw} |")
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def build_channel_summary_html(
+    records: list[dict],
+    count_key: str = "monthly_count",
+) -> str:
+    """月別タブ用のチャネル合計 HTML。"""
+    summary = summarize_channel_totals(records, count_key=count_key)
+    grand = int(summary["grand"] or 0)
+    people = int(summary["people"] or 0)
+    note = (
+        f"掲載{people}人・計{grand}即。総括の件数付き内訳を合算。"
+        "チャネル名だけの人はその即数をそのチャネルへ。"
+        "絵文字チャネルに載せない分は内訳なし。"
+    )
+    rows_html = ""
+    for ch, label, n in _channel_summary_rows(summary):
+        badge_class = "none" if ch == UNALLOCATED_CHANNEL else ch
+        pct = f"{100.0 * n / grand:.1f}%" if grand else "-"
+        rows_html += (
+            f'<tr><td><span class="badge badge-cat-{badge_class}">{label}</span></td>'
+            f'<td class="sokusuu">{n}</td><td>{pct}</td></tr>'
+        )
+    rows_html += (
+        f'<tr><td>合計</td><td class="sokusuu">{grand}</td><td>100%</td></tr>'
+    )
+
+    detail_html = ""
+    emojis: dict[str, dict[str, int]] = summary.get("emojis") or {}
+    keyword_only: dict[str, int] = summary.get("keyword_only") or {}
+    detail_rows = ""
+    for ch, label, n in _channel_summary_rows(summary):
+        if ch == UNALLOCATED_CHANNEL:
+            continue
+        emo_map = emojis.get(ch) or {}
+        kw = int(keyword_only.get(ch) or 0)
+        if not emo_map:
+            continue
+        badge_class = ch
+        ordered = sorted(emo_map.items(), key=lambda kv: (-int(kv[1]), kv[0]))
+        first = True
+        items: list[tuple[str, int]] = [(emo, cnt) for emo, cnt in ordered if cnt > 0]
+        if kw > 0:
+            items.append(("件数のみ", kw))
+        span = len(items)
+        for inner, cnt in items:
+            ch_cell = ""
+            if first:
+                ch_cell = (
+                    f'<td rowspan="{span}"><span class="badge badge-cat-{badge_class}">'
+                    f"{label}（{n}）</span></td>"
+                )
+                first = False
+            detail_rows += (
+                f"<tr>{ch_cell}<td>{inner}</td>"
+                f'<td class="sokusuu">{cnt}</td></tr>'
+            )
+    if detail_rows:
+        detail_html = (
+            '<table><thead><tr><th>チャネル</th><th>内訳</th><th>即数</th>'
+            "</tr></thead><tbody>"
+            + detail_rows
+            + "</tbody></table>"
+        )
+
+    return (
+        '<div class="channel-summary">'
+        '<p class="channel-summary-title">チャネル合計（5即以上）</p>'
+        f'<p class="channel-summary-note">{note}</p>'
+        "<table><thead><tr><th>チャネル</th><th>即数</th><th>構成比</th>"
+        "</tr></thead><tbody>"
+        + rows_html
+        + "</tbody></table>"
+        + detail_html
+        + "</div>"
+    )
+
+
 def build_channel_badges_html(record: dict) -> str:
     badges = ""
     for channel, label in format_channel_parts(record):
@@ -1287,7 +1499,8 @@ def generate_html(records: list[dict]) -> str:
         display = "block" if is_default_month else "none"
         monthly_divs += (
             '<div id="monthly-' + month_id + '" style="display:' + display + '">'
-            '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>'
+            + build_channel_summary_html(ranked_data, count_key="monthly_count")
+            + '<table><thead><tr><th>#</th><th>アカウント</th><th>表示名</th><th>即数</th>'
             + CHANNEL_COL_TH
             + '<th title="各しきい値以上を何ヶ月連続（当月終点）">'
             "連続</th></tr></thead><tbody>"
@@ -1529,6 +1742,19 @@ def generate_html(records: list[dict]) -> str:
         .badge-cat-other {{ background: #3a2f1a; color: #fbbf24; }}
         .badge-cat-unknown {{ background: #2a2a2a; color: #9ca3af; }}
         .badge-cat-none {{ background: #2a2a2a; color: #666; }}
+        .channel-summary {{ margin-bottom: 24px; }}
+        .channel-summary table {{ margin-bottom: 16px; }}
+        .channel-summary-title {{
+            color: #fff;
+            font-weight: 600;
+            margin: 0 0 8px;
+        }}
+        .channel-summary-note {{
+            color: #888;
+            font-size: 0.85em;
+            margin: 0 0 12px;
+            line-height: 1.5;
+        }}
         .alt-badge {{
             display: block;
             font-size: 0.75em;
