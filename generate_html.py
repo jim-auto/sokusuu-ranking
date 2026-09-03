@@ -82,6 +82,7 @@ DUPLICATE_ACCOUNT_CANONICALS = {
     "zegen_a": "ChuChubanana_",
     "Feitan_sub": "Tinder_god_2",
     "pika_sublol": "pika_pua",
+    "2BWwC9xP3Vw1MUO": "n_umakuro",
 }
 
 CATEGORY_LABELS = {
