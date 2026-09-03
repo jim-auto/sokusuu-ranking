@@ -670,10 +670,132 @@ def format_channel_text(record: dict, sep: str = "、") -> str:
 
 UNALLOCATED_CHANNEL = "unallocated"
 UNALLOCATED_LABEL = "内訳なし"
+PASS_CHANNEL = "pass"
+AISEKI_CHANNEL = "aiseki"
+NIGHTPOOL_CHANNEL = "nightpool"
+SUMMARY_COLUMN_ORDER = [
+    "street",
+    "online",
+    "club",
+    PASS_CHANNEL,
+    AISEKI_CHANNEL,
+    NIGHTPOOL_CHANNEL,
+    "other",
+    "unknown",
+    UNALLOCATED_CHANNEL,
+]
+SUMMARY_COLUMN_LABELS = {
+    **CHANNEL_SHORT_LABELS,
+    PASS_CHANNEL: "パス",
+    AISEKI_CHANNEL: "相席",
+    NIGHTPOOL_CHANNEL: "ナイトプール",
+    UNALLOCATED_CHANNEL: UNALLOCATED_LABEL,
+}
+SUMMARY_BADGE_CLASS = {
+    PASS_CHANNEL: "other",
+    AISEKI_CHANNEL: "other",
+    NIGHTPOOL_CHANNEL: "other",
+    UNALLOCATED_CHANNEL: "none",
+}
+PASS_EXTRA_LABELS = {"パス", "代打", "アテンド"}
+AISEKI_EXTRA_LABELS = {"相席"}
+NIGHTPOOL_EXTRA_LABELS = {"ナイトプール"}
+NAMED_EXTRA_PATTERNS: list[tuple[str, str]] = [
+    ("パス", r"パス(?!ワード|抜き)\s*[×xｘ*]?\s*(\d+)"),
+    ("パス", r"ﾊﾟｽ\s*(\d+)"),
+    ("代打", r"代打\s*[×xｘ*]?\s*(\d+)"),
+    ("アテンド", r"アテンド\s*[×xｘ*]?\s*(\d+)"),
+    ("相席", r"相席\s*[×xｘ*]?\s*(\d+)"),
+    ("相席", r"(\d+)\s*節\s*👫"),
+    ("相席", r"🪑\s*[×xｘ*]?\s*(\d+)"),
+    ("ナイトプール", r"ナイトプール\s*[×xｘ*]?\s*(\d+)"),
+    ("ナイトプール", r"🌉\s*🏊\s*[×xｘ*]?\s*(\d+)"),
+    ("紹介", r"紹介\s*[×xｘ*]?\s*(\d+)"),
+    ("合コン", r"合コン\s*[×xｘ*]?\s*(\d+)"),
+    ("北国", r"北国\s*[×xｘ*]?\s*(\d+)"),
+    ("代〇木", r"代[〇○]木\s*[×xｘ*]?\s*(\d+)"),
+    ("某席", r"某席\s*[×xｘ*]?\s*(\d+)"),
+    ("某ラジ", r"某ラジ\s*[×xｘ*]?\s*(\d+)"),
+    ("某J", r"某J\s*[×xｘ*]?\s*(\d+)"),
+    ("某app", r"某\s*[Aa]pp\s*[×xｘ*]?\s*(\d+)"),
+    ("麻布", r"麻布\s*[×xｘ*]?\s*(\d+)"),
+    ("M田", r"M田\s*[×xｘ*]?\s*(\d+)"),
+]
+EXTRA_EMOJI_RE = re.compile(
+    r"(🐼|🎑|🏝️|🍑|🛳️|🎆|🏮|❄️|🍻|🤝|🪾|💯|🈴🦊|🌉🏊)\s*[×xｘ*]?\s*(\d+)"
+)
+# 総括本文が短い人向け。ランキングバッジは変えない。
+SUMMARY_EXTRA_OVERRIDES: dict[str, dict[str, int]] = {
+    "omamco_pua2": {"ナイトプール": 4, "❄️": 4, "パス": 2, "🍻": 1},
+    "anus_asterisk": {"ナイトプール": 3},
+    "yutopua0807": {"相席": 3},
+    "e6_bk61": {"パス": 2, "🐼": 5, "🛳️": 2, "🎆": 1, "🏮": 1, "🈴🦊": 1},
+    "bookmaker_2015": {"🎑": 6},
+    "puro_nanpa": {"相席": 3},
+    "knt17760": {"北国": 5, "代〇木": 1},
+    "SIYK_Hage": {"紹介": 1, "合コン": 1},
+    "rei_app_pua": {"🛳️": 1, "🪾": 1, "🤝": 1},
+    "torajiro_pua": {"紹介": 2},
+    "afRdYt8p5C75089": {"某席": 4, "某ラジ": 3, "某J": 1},
+    "kimu__himitsu2": {"麻布": 1},
+    "motebody_pua": {"🈴🦊": 1},
+    "SFgzKAHifDvjfVu": {"M田": 1},
+    "makoto__pua": {"パス": 1, "📮": 1},
+    "nonjin_ntst": {"某app": 1},
+    "Niko_PUA": {"🏝️": 2, "🍑": 2},
+}
 
 
 def _emoji_merge_key(emo: str) -> str:
     return (emo or "").replace("\ufe0f", "")
+
+
+def parse_named_extras(text: str) -> dict[str, int]:
+    """総括本文からパス/相席/ナイトプール等の件数を拾う。"""
+    found: dict[str, int] = {}
+    if not text:
+        return found
+    for label, pat in NAMED_EXTRA_PATTERNS:
+        best = 0
+        for m in re.finditer(pat, text):
+            try:
+                best = max(best, int(m.group(1)))
+            except (TypeError, ValueError):
+                continue
+        if best > 0:
+            found[label] = max(int(found.get(label) or 0), best)
+    for m in EXTRA_EMOJI_RE.finditer(text):
+        emo, raw = m.group(1), m.group(2)
+        try:
+            cnt = int(raw)
+        except (TypeError, ValueError):
+            continue
+        if cnt <= 0:
+            continue
+        if emo.replace(" ", "") == "🌉🏊":
+            found["ナイトプール"] = max(int(found.get("ナイトプール") or 0), cnt)
+        else:
+            found[emo] = max(int(found.get(emo) or 0), cnt)
+    if int(found.get("パス") or 0) == 0:
+        path_hits = len(re.findall(r"パス(?!ワード|抜き)", text))
+        if path_hits:
+            found["パス"] = path_hits
+    return found
+
+
+def extras_for_record(record: dict) -> dict[str, int]:
+    username = str(record.get("username") or "")
+    if username in SUMMARY_EXTRA_OVERRIDES:
+        return dict(SUMMARY_EXTRA_OVERRIDES[username])
+    parsed = parse_named_extras(channel_evidence_text(record))
+    named = record.get("named_extras")
+    if isinstance(named, dict):
+        for key, val in named.items():
+            try:
+                parsed[str(key)] = max(int(parsed.get(key) or 0), int(val))
+            except (TypeError, ValueError):
+                continue
+    return parsed
 
 
 def summarize_channel_totals(
@@ -682,90 +804,156 @@ def summarize_channel_totals(
 ) -> dict:
     """掲載レコードの即数をチャネル内訳で合算する。
 
-    - 件数付き内訳がある分だけそのチャネルへ
-    - チャネル名だけで件数がない人（スト / ネト / 謎）は、その人の即数をそのチャネルへ
-    - 残り（北国・相席・某席など絵文字チャネルに載せない分）は内訳なし
+    - 件数付きの絵文字内訳はスト/ネト/箱へ
+    - パス・相席・ナイトプール等の非絵文字内訳も合算する
+    - チャネル名だけの人（スト / ネト / 謎）はその即数をそのチャネルへ
     """
-    chan_tot = {c: 0 for c in CHANNEL_ORDER}
-    chan_tot[UNALLOCATED_CHANNEL] = 0
-    emoji_tot: dict[str, dict[str, int]] = {c: {} for c in CHANNEL_ORDER}
-    keyword_only = {c: 0 for c in CHANNEL_ORDER}
+    chan_tot = {c: 0 for c in SUMMARY_COLUMN_ORDER}
+    emoji_tot: dict[str, dict[str, int]] = {c: {} for c in SUMMARY_COLUMN_ORDER}
+
+    def _add_inner(ch: str, label: str, cnt: int) -> None:
+        if cnt <= 0:
+            return
+        bucket = emoji_tot.setdefault(ch, {})
+        bucket[label] = bucket.get(label, 0) + cnt
 
     for r in records:
         n = int(r.get(count_key) or 0)
         if n <= 0:
             continue
         bd = get_channel_breakdown(r)
-        assigned = 0
+        buckets = {c: 0 for c in SUMMARY_COLUMN_ORDER}
         unlabeled: list[str] = []
         for ch, _label in format_channel_parts(r):
+            if ch not in {"street", "online", "club", "unknown"}:
+                continue
             data = bd.get(ch) or {}
             total = int(data.get("total") or 0)
             emojis = data.get("emojis") or {}
             if total > 0:
-                chan_tot[ch] = chan_tot.get(ch, 0) + total
-                assigned += total
+                buckets[ch] += total
                 if emojis:
                     emo_sum = 0
                     for emo, cnt in emojis.items():
                         cnt_i = int(cnt)
                         if cnt_i <= 0:
                             continue
-                        key = _emoji_merge_key(emo)
-                        bucket = emoji_tot.setdefault(ch, {})
-                        bucket[key] = bucket.get(key, 0) + cnt_i
+                        _add_inner(ch, _emoji_merge_key(emo), cnt_i)
                         emo_sum += cnt_i
                     extra = total - emo_sum
                     if extra > 0:
-                        keyword_only[ch] = keyword_only.get(ch, 0) + extra
+                        _add_inner(ch, "件数のみ", extra)
                 else:
-                    keyword_only[ch] = keyword_only.get(ch, 0) + total
+                    _add_inner(ch, "件数のみ", total)
             elif ch:
                 unlabeled.append(ch)
-        rest = n - assigned
-        if rest > 0:
-            if len(unlabeled) == 1 and assigned == 0:
-                ch = unlabeled[0]
-                chan_tot[ch] = chan_tot.get(ch, 0) + rest
-                keyword_only[ch] = keyword_only.get(ch, 0) + rest
+
+        extras = extras_for_record(r)
+        app_n = int(extras.pop("某app") or 0) if extras.get("某app") else 0
+
+        pass_parts = {
+            lab: int(extras.pop(lab) or 0)
+            for lab in list(extras)
+            if lab in PASS_EXTRA_LABELS
+        }
+        aiseki_n = sum(
+            int(extras.pop(lab) or 0)
+            for lab in list(extras)
+            if lab in AISEKI_EXTRA_LABELS
+        )
+        pool_n = sum(
+            int(extras.pop(lab) or 0)
+            for lab in list(extras)
+            if lab in NIGHTPOOL_EXTRA_LABELS
+        )
+        pass_lump = int(pass_parts.get("パス") or 0)
+        pass_parts_sum = int(pass_parts.get("代打") or 0) + int(pass_parts.get("アテンド") or 0)
+        pass_n = max(pass_lump, pass_parts_sum) if pass_lump and pass_parts_sum else pass_lump + pass_parts_sum
+        buckets[PASS_CHANNEL] += pass_n
+        if pass_n:
+            if pass_lump >= pass_n:
+                _add_inner(PASS_CHANNEL, "パス", pass_n)
             else:
-                chan_tot[UNALLOCATED_CHANNEL] += rest
+                for lab, cnt in pass_parts.items():
+                    if lab != "パス" and cnt > 0:
+                        _add_inner(PASS_CHANNEL, lab, cnt)
+        buckets[AISEKI_CHANNEL] += aiseki_n
+        if aiseki_n:
+            _add_inner(AISEKI_CHANNEL, "相席", aiseki_n)
+        buckets[NIGHTPOOL_CHANNEL] += pool_n
+        if pool_n:
+            _add_inner(NIGHTPOOL_CHANNEL, "ナイトプール", pool_n)
+        other_n = 0
+        for lab, cnt in extras.items():
+            cnt_i = int(cnt or 0)
+            if cnt_i <= 0:
+                continue
+            other_n += cnt_i
+            _add_inner("other", lab, cnt_i)
+        buckets["other"] += other_n
+        if app_n > 0:
+            gap = n - sum(buckets.values())
+            add = min(app_n, gap) if gap > 0 else 0
+            if add > 0:
+                buckets["online"] += add
+                _add_inner("online", "某app", add)
+
+        used = sum(buckets.values())
+        rest = n - used
+        if rest > 0:
+            if used == 0 and len(unlabeled) == 1:
+                ch = unlabeled[0]
+                buckets[ch] += rest
+                _add_inner(ch, "件数のみ", rest)
+            elif used == 0 and unlabeled == []:
+                # format_channel_parts が other のみ等
+                parts = [ch for ch, _ in format_channel_parts(r)]
+                if parts == ["other"]:
+                    buckets["other"] += rest
+                    _add_inner("other", "件数のみ", rest)
+                else:
+                    buckets[UNALLOCATED_CHANNEL] += rest
+            else:
+                buckets[UNALLOCATED_CHANNEL] += rest
+        elif rest < 0:
+            # 内訳の足し過ぎは内訳なしを削らずコアを優先したままにする
+            pass
+
+        for ch, cnt in buckets.items():
+            chan_tot[ch] = chan_tot.get(ch, 0) + int(cnt)
 
     return {
         "people": len(records),
         "grand": sum(int(r.get(count_key) or 0) for r in records),
         "totals": chan_tot,
         "emojis": emoji_tot,
-        "keyword_only": keyword_only,
+        "keyword_only": {},
     }
 
 
 def _channel_summary_columns(summary: dict) -> list[tuple[str, str, int]]:
-    """(channel_key, 表示名, 即数) をスト→ネト→箱→その他→謎→内訳なしの順で返す。"""
+    """(channel_key, 表示名, 即数) を固定順で返す。0件は落とす。"""
     totals: dict[str, int] = summary.get("totals") or {}
     cols: list[tuple[str, str, int]] = []
-    for ch in CHANNEL_ORDER:
+    for ch in SUMMARY_COLUMN_ORDER:
         n = int(totals.get(ch) or 0)
         if n <= 0:
             continue
-        label = CHANNEL_SHORT_LABELS.get(ch, CATEGORY_LABELS.get(ch, ch))
+        label = SUMMARY_COLUMN_LABELS.get(ch, ch)
         cols.append((ch, label, n))
-    unalloc = int(totals.get(UNALLOCATED_CHANNEL) or 0)
-    if unalloc > 0:
-        cols.append((UNALLOCATED_CHANNEL, UNALLOCATED_LABEL, unalloc))
     return cols
 
 
 def _channel_inner_label(summary: dict, ch: str) -> str:
     emo_map = (summary.get("emojis") or {}).get(ch) or {}
-    kw = int((summary.get("keyword_only") or {}).get(ch) or 0)
     parts: list[str] = []
-    ordered = sorted(emo_map.items(), key=lambda kv: (-int(kv[1]), kv[0]))
+    ordered = sorted(
+        emo_map.items(),
+        key=lambda kv: (kv[0] == "件数のみ", -int(kv[1]), kv[0]),
+    )
     for emo, cnt in ordered:
         if int(cnt) > 0:
             parts.append(f"{emo}{cnt}")
-    if kw > 0:
-        parts.append(f"件数のみ{kw}")
     return "・".join(parts)
 
 
@@ -792,9 +980,8 @@ def format_channel_summary_markdown(
     lines = [
         "## チャネル合計（5即以上）",
         "",
-        f"掲載{people}人・計{grand}即。総括の件数付き内訳を合算。"
-        "チャネル名だけの人（スト / ネト / 謎）はその即数をそのチャネルへ。"
-        "絵文字チャネルに載せない分（北国・相席・某席など）は内訳なし。",
+        f"掲載{people}人・計{grand}即。絵文字内訳に加え、パス・相席・ナイトプール等も合算。"
+        "チャネル名だけの人（スト / ネト / 謎）はその即数をそのチャネルへ。",
         "",
         "| " + " | ".join(headers) + " |",
         "| " + " | ".join(align) + " |",
@@ -815,9 +1002,8 @@ def build_channel_summary_html(
     grand = int(summary["grand"] or 0)
     people = int(summary["people"] or 0)
     note = (
-        f"掲載{people}人・計{grand}即。総括の件数付き内訳を合算。"
+        f"掲載{people}人・計{grand}即。絵文字内訳に加え、パス・相席・ナイトプール等も合算。"
         "チャネル名だけの人はその即数をそのチャネルへ。"
-        "絵文字チャネルに載せない分は内訳なし。"
     )
     cols = _channel_summary_columns(summary)
     head = "<th></th>"
@@ -825,7 +1011,7 @@ def build_channel_summary_html(
     ratio_cells = "<th>構成比</th>"
     inner_cells = "<th>内訳</th>"
     for ch, label, n in cols:
-        badge_class = "none" if ch == UNALLOCATED_CHANNEL else ch
+        badge_class = SUMMARY_BADGE_CLASS.get(ch, ch)
         head += f'<th><span class="badge badge-cat-{badge_class}">{label}</span></th>'
         pct = f"{100.0 * n / grand:.1f}%" if grand else "-"
         inner = _channel_inner_label(summary, ch) or "-"
@@ -1715,7 +1901,7 @@ def generate_html(records: list[dict]) -> str:
         .badge-cat-unknown {{ background: #2a2a2a; color: #9ca3af; }}
         .badge-cat-none {{ background: #2a2a2a; color: #666; }}
         .channel-summary {{ margin-bottom: 24px; overflow-x: auto; }}
-        .channel-summary table {{ margin-bottom: 0; min-width: 760px; }}
+        .channel-summary table {{ margin-bottom: 0; min-width: 980px; }}
         .channel-summary th,
         .channel-summary td {{ text-align: center; vertical-align: top; }}
         .channel-summary .channel-inner {{
