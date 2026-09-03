@@ -102,7 +102,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 37 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2）、その他（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
 | 38 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
 | 39 | @2R2pN1EQLmB6k03 | くらぶでぃ | 7 | 箱（⬛2・🟦1）、スト（2）、ネト（2） | [link](https://x.com/2R2pN1EQLmB6k03/status/2094077306306523246) | - |
-| 40 | @Jgmpdt23 | アナルファッキン高橋|S-photo | 7 | 謎 | [link](https://x.com/Jgmpdt23/status/2094450004400451756) | - |
+| 40 | @Jgmpdt23 | アナルファッキン高橋｜S-photo | 7 | 謎 | [link](https://x.com/Jgmpdt23/status/2094450004400451756) | - |
 | 41 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
 | 42 | @nonjin_ntst | ノンジン | 7 | ネト（🍎5・🔥1） | [link](https://x.com/nonjin_ntst/status/2094444964419940783) | - |
 | 43 | @rupo_candy | るぽ | 7 | 箱（🦾4）、スト（🦁1）、ネト（🍎1） | [link](https://x.com/rupo_candy/status/2094765551566610700) | - |
