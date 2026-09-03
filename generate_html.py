@@ -72,6 +72,14 @@ MIN_CAREER_TOTAL = 10
 MIN_MONTHLY_BEST = 11
 MIN_YEARLY_BEST = 31
 
+# 直前の公開ランキング更新時点。HTMLを何度再生成しても比較元が
+# 今回の値で上書きされないよう、公開更新時にこの値を更新する。
+PREVIOUS_STATS = {
+    "updated": "2026-05-25 19:20",
+    "average": 278,
+    "median": 182,
+}
+
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
 DUPLICATE_ACCOUNT_CANONICALS = {
@@ -119,6 +127,21 @@ def load_data(filepath: str) -> list[dict]:
         return []
     with open(filepath, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_previous_stats() -> dict[str, str | int]:
+    """直前の公開ランキング更新時点の統計を返す。"""
+    return PREVIOUS_STATS.copy()
+
+
+def stat_change_html(current: int, previous: dict[str, str | int], key: str) -> str:
+    old = previous.get(key)
+    updated = previous.get("updated", "")
+    if not isinstance(old, int):
+        return ""
+    delta = current - old
+    sign = "+" if delta > 0 else ""
+    return f'<div class="stat-change">前回集計時点比 {sign}{delta:,}</div>'
 
 
 def split_csv(value: str) -> list[str]:
@@ -292,6 +315,7 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
 def generate_html(records: list[dict]) -> str:
     """ランキングHTMLを生成する"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    previous_stats = load_previous_stats()
 
     # カテゴリ別テーブルを生成
     tab_buttons = ""
@@ -739,6 +763,11 @@ def generate_html(records: list[dict]) -> str:
             color: #888;
             margin-top: 5px;
         }}
+        .stat-change {{
+            color: #4ade80;
+            font-size: 0.72em;
+            margin-top: 6px;
+        }}
         .tabs {{
             display: flex;
             gap: 8px;
@@ -865,10 +894,12 @@ def generate_html(records: list[dict]) -> str:
         <div class="stat-card">
             <div class="number">{avg_sokusuu:,}</div>
             <div class="label">平均即数</div>
+            {stat_change_html(avg_sokusuu, previous_stats, "average")}
         </div>
         <div class="stat-card">
             <div class="number">{median_sokusuu:,}</div>
             <div class="label">中央値</div>
+            {stat_change_html(median_sokusuu, previous_stats, "median")}
         </div>
     </div>
 
