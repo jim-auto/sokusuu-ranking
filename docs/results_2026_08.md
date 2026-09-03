@@ -49,6 +49,7 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@kukuru_nanpa` は 9/2「8月16即でフィニュッシュ」。途中の「今月14即しかしてない」は使わない。チャネル根拠なし → 謎
 - `@pua_sorato` は 9/1「8月即数メモ 8月中24即」。内訳なし。東京ストナン会なのでスト。7月総括なし
 - `@n_umakuro` は旧 `@2BWwC9xP3Vw1MUO`（凍結）。8/30「8月18そ」。🔥スはネト、🐙ス等はスト、相席は箱。7月11即のため 10即2ヶ月
+- `@saitoPUA` は 8/31「8月は14即」。チャネル根拠なし → 謎。7月総括なし
 - 9/2 バックフィル: `@afRdYt8p5C75089` 19 / `@mic_pua` 14 / `@Tt2tb` 15 / `@yomaru_street` 12 / `@dick_duck_swing` 8 / `@tsutsumi_ye4pe` 7 / `@ot_aza` 10 / `@rupo_candy` 7 / `@entpxxxxxx` 8 / `@kannen170` 15 / `@ZqtfwZBx9490665` 14 / `@yutopua0807` 7 / `@shouri_ikb` 6 / `@ohta_desu02` 5 / `@e6_bk61` 14
 - `@afRdYt8p5C75089` は「8月19即➕1NH」。NHは含めず19。某席・某ラジ等は絵文字チャネルなしのため内訳に含めていない
 - `@2R2pN1EQLmB6k03` の根拠は 8/30「８月 7卽 【⬛️2、🟦1、M🚶2、📱2】」。8/28「今月7🚀」は途中報告なので使わない。表示名は現行の「くらぶでぃ」
@@ -84,32 +85,33 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 | 20 | @e6_bk61 | KURO🐈‍⬛ | 14 | その他（12）、スト（🐶1・🦉1） | [link](https://x.com/e6_bk61/status/2094434303740629112) | - |
 | 21 | @mic_pua | 『トーク刺しのまいく🎤』 | 14 | 謎 | [link](https://x.com/mic_pua/status/2094623886520524951) | 10即8ヶ月 |
 | 22 | @misamisa_mo | 弥海砂 | 14 | ネト（🍐9・🔥2・🪩1）、その他（1） | [link](https://x.com/misamisa_mo/status/2094393901805351342) | 10即2ヶ月 |
-| 23 | @ZqtfwZBx9490665 | まんじゅきっち | 14 | ネト（🍐12・🍎1・🔥1） | [link](https://x.com/ZqtfwZBx9490665/status/2094581766443114747) | - |
-| 24 | @socool55555 | 味噌どガス | 13 | ネト | [link](https://x.com/socool55555/status/2094954003646075067) | 10即4ヶ月 |
-| 25 | @homura_tin | ほむら🔥 | 12 | ネト（🔥6・🍐2）、その他（4） | [link](https://x.com/homura_tin/status/2094377753223323737) | - |
-| 26 | @yomaru_street | (よまる) | 12 | スト（🐶4・🦁1・🦐1）、箱（🦾4）、その他（2） | [link](https://x.com/yomaru_street/status/2094504152651190726) | 10即2ヶ月 / 5即8ヶ月 |
-| 27 | @rei_app_pua | れい@kk廻遊_後編 | 11 | スト（🦉8）、その他（3） | [link](https://x.com/rei_street_pua/status/2094407473168032210) | 5即6ヶ月 |
-| 28 | @chiroru_pua | チロル@帝都の雌猫 | 10 | スト | [link](https://x.com/chiroru_pua/status/2094032248794415185) | 5即8ヶ月 |
-| 29 | @kimu__himitsu2 | 夜神月 | 10 | スト（🐶8・🦁1）、その他（1） | [link](https://x.com/kimu__himitsu2/status/2094356874426737031) | 10即5ヶ月 |
-| 30 | @Niko_PUA | ニコ | 10 | スト（🐶3・🏪1・🦁1）、その他（4）、箱（🧚1） | [link](https://x.com/Niko_PUA/status/2094444223588336109) | 5即2ヶ月 |
-| 31 | @ot_aza | ヤシャ | 10 | 箱（🦾7・🧚1）、スト（🐶2） | [link](https://x.com/ot_aza/status/2094761554596282833) | - |
-| 32 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネト（6）、スト（2）、その他（1） | [link](https://x.com/motebody_pua/status/2094411381374378491) | 5即8ヶ月 |
-| 33 | @dick_duck_swing | 狩るー@スカナン一家のマルチーズ(⭕️🩸の🧀🐮) | 8 | スト（🐶5）、その他（3） | [link](https://x.com/dick_duck_swing/status/2094622607106859411) | 5即3ヶ月 |
-| 34 | @entpxxxxxx | もらく（日本周遊中） | 8 | ネト（🔥3）、スト（2） | [link](https://x.com/entpxxxxxx/status/2094782700393754926) | - |
-| 35 | @PUAINOKI | フランク | 8 | ネト（🍐5）、その他（3） | [link](https://x.com/PUAINOKI/status/2094260541808414813) | 5即8ヶ月 |
-| 36 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2）、その他（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
-| 37 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
-| 38 | @2R2pN1EQLmB6k03 | くらぶでぃ | 7 | 箱（⬛2・🟦1）、スト（2）、ネト（2） | [link](https://x.com/2R2pN1EQLmB6k03/status/2094077306306523246) | - |
-| 39 | @Jgmpdt23 | アナルファッキン高橋|S-photo | 7 | 謎 | [link](https://x.com/Jgmpdt23/status/2094450004400451756) | - |
-| 40 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
-| 41 | @nonjin_ntst | ノンジン | 7 | ネト（🍎5・🔥1） | [link](https://x.com/nonjin_ntst/status/2094444964419940783) | - |
-| 42 | @rupo_candy | るぽ | 7 | 箱（🦾4）、スト（🦁1）、ネト（🍎1） | [link](https://x.com/rupo_candy/status/2094765551566610700) | - |
-| 43 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（🔥3）、スト（1）、箱（🟦1） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
-| 44 | @tsutsumi_ye4pe | よしあき@wing長期 | 7 | スト（🐶7） | [link](https://x.com/tsutsumi_ye4pe/status/2094472878695883043) | 5即3ヶ月 |
-| 45 | @yutopua0807 | ゆうと | 7 | ネト（🔥4） | [link](https://x.com/yutopua0807/status/2094454475641733288) | - |
-| 46 | @anus_asterisk | がまぐっちー🐸@味噌の別格 | 6 | ネト（3）、その他（3） | [link](https://x.com/anus_asterisk/status/2094403938263196005) | - |
-| 47 | @roku6in_palis | ろくすっぽ仏@🍪一門 | 6 | ネト（🔥3）、スト（2）、箱（🟦1） | [link](https://x.com/roku6in_palis/status/2093660010949849598) | 5即2ヶ月 |
-| 48 | @shouri_ikb | こあ太郎@🦉の天才 | 6 | スト（🦉5）、その他（1） | [link](https://x.com/shouri_ikb/status/2094457181311762438) | - |
-| 49 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1）、その他（1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
-| 50 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（5） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
-| 51 | @ohta_desu02 | 太田 | 5 | スト（5） | [link](https://x.com/ohta_desu02/status/2094031502099308645) | - |
+| 23 | @saitoPUA | 才人懲役PUA | 14 | 謎 | [link](https://x.com/saitoPUA/status/2094544022769692886) | - |
+| 24 | @ZqtfwZBx9490665 | まんじゅきっち | 14 | ネト（🍐12・🍎1・🔥1） | [link](https://x.com/ZqtfwZBx9490665/status/2094581766443114747) | - |
+| 25 | @socool55555 | 味噌どガス | 13 | ネト | [link](https://x.com/socool55555/status/2094954003646075067) | 10即4ヶ月 |
+| 26 | @homura_tin | ほむら🔥 | 12 | ネト（🔥6・🍐2）、その他（4） | [link](https://x.com/homura_tin/status/2094377753223323737) | - |
+| 27 | @yomaru_street | (よまる) | 12 | スト（🐶4・🦁1・🦐1）、箱（🦾4）、その他（2） | [link](https://x.com/yomaru_street/status/2094504152651190726) | 10即2ヶ月 / 5即8ヶ月 |
+| 28 | @rei_app_pua | れい@kk廻遊_後編 | 11 | スト（🦉8）、その他（3） | [link](https://x.com/rei_street_pua/status/2094407473168032210) | 5即6ヶ月 |
+| 29 | @chiroru_pua | チロル@帝都の雌猫 | 10 | スト | [link](https://x.com/chiroru_pua/status/2094032248794415185) | 5即8ヶ月 |
+| 30 | @kimu__himitsu2 | 夜神月 | 10 | スト（🐶8・🦁1）、その他（1） | [link](https://x.com/kimu__himitsu2/status/2094356874426737031) | 10即5ヶ月 |
+| 31 | @Niko_PUA | ニコ | 10 | スト（🐶3・🏪1・🦁1）、その他（4）、箱（🧚1） | [link](https://x.com/Niko_PUA/status/2094444223588336109) | 5即2ヶ月 |
+| 32 | @ot_aza | ヤシャ | 10 | 箱（🦾7・🧚1）、スト（🐶2） | [link](https://x.com/ot_aza/status/2094761554596282833) | - |
+| 33 | @motebody_pua | エース@体刺し一門関東代表 | 9 | ネト（6）、スト（2）、その他（1） | [link](https://x.com/motebody_pua/status/2094411381374378491) | 5即8ヶ月 |
+| 34 | @dick_duck_swing | 狩るー@スカナン一家のマルチーズ(⭕️🩸の🧀🐮) | 8 | スト（🐶5）、その他（3） | [link](https://x.com/dick_duck_swing/status/2094622607106859411) | 5即3ヶ月 |
+| 35 | @entpxxxxxx | もらく（日本周遊中） | 8 | ネト（🔥3）、スト（2） | [link](https://x.com/entpxxxxxx/status/2094782700393754926) | - |
+| 36 | @PUAINOKI | フランク | 8 | ネト（🍐5）、その他（3） | [link](https://x.com/PUAINOKI/status/2094260541808414813) | 5即8ヶ月 |
+| 37 | @torajiro_pua | 虎次郎 | 8 | スト（4）、ネト（2）、その他（2） | [link](https://x.com/torajiro_pua/status/2094218053085229382) | - |
+| 38 | @Y2xyH | とびお@病弱一門 | 8 | 箱（🟦5・⬛️2・🦾1） | [link](https://x.com/Y2xyH/status/2094395161367425455) | - |
+| 39 | @2R2pN1EQLmB6k03 | くらぶでぃ | 7 | 箱（⬛2・🟦1）、スト（2）、ネト（2） | [link](https://x.com/2R2pN1EQLmB6k03/status/2094077306306523246) | - |
+| 40 | @Jgmpdt23 | アナルファッキン高橋|S-photo | 7 | 謎 | [link](https://x.com/Jgmpdt23/status/2094450004400451756) | - |
+| 41 | @midori_nanpa | みどり | 7 | スト（6）、その他（1） | [link](https://x.com/midori_nanpa/status/2094200000712790080) | - |
+| 42 | @nonjin_ntst | ノンジン | 7 | ネト（🍎5・🔥1） | [link](https://x.com/nonjin_ntst/status/2094444964419940783) | - |
+| 43 | @rupo_candy | るぽ | 7 | 箱（🦾4）、スト（🦁1）、ネト（🍎1） | [link](https://x.com/rupo_candy/status/2094765551566610700) | - |
+| 44 | @SIYK_Hage | 性欲ハゲ@利他の精神 | 7 | ネト（🔥3）、スト（1）、箱（🟦1） | [link](https://x.com/SIYK_Hage/status/2094440960646357189) | - |
+| 45 | @tsutsumi_ye4pe | よしあき@wing長期 | 7 | スト（🐶7） | [link](https://x.com/tsutsumi_ye4pe/status/2094472878695883043) | 5即3ヶ月 |
+| 46 | @yutopua0807 | ゆうと | 7 | ネト（🔥4） | [link](https://x.com/yutopua0807/status/2094454475641733288) | - |
+| 47 | @anus_asterisk | がまぐっちー🐸@味噌の別格 | 6 | ネト（3）、その他（3） | [link](https://x.com/anus_asterisk/status/2094403938263196005) | - |
+| 48 | @roku6in_palis | ろくすっぽ仏@🍪一門 | 6 | ネト（🔥3）、スト（2）、箱（🟦1） | [link](https://x.com/roku6in_palis/status/2093660010949849598) | 5即2ヶ月 |
+| 49 | @shouri_ikb | こあ太郎@🦉の天才 | 6 | スト（🦉5）、その他（1） | [link](https://x.com/shouri_ikb/status/2094457181311762438) | - |
+| 50 | @147asdf764 | ノア | 5 | スト（🦉2）、ネト（🍎1・🔥1）、その他（1） | [link](https://x.com/147asdf764/status/2094405594988060790) | 5即2ヶ月 |
+| 51 | @daigakusei_pua | きの山@MBH3月師範 | 5 | スト（5） | [link](https://x.com/daigakusei_pua/status/2092975948211880417) | - |
+| 52 | @ohta_desu02 | 太田 | 5 | スト（5） | [link](https://x.com/ohta_desu02/status/2094031502099308645) | - |

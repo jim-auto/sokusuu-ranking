@@ -157,6 +157,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@kukuru_nanpa` | 非掲載 → **16** | 9/2「8月16即でフィニュッシュ」。途中の14即ツイは不採用。チャネル根拠なし → 謎 |
 | `@pua_sorato` | なし → **24** | 9/1「8月即数メモ 8月中24即」。内訳なし。スト |
 | `@n_umakuro` | なし → **18** | 旧 `@2BWwC9xP3Vw1MUO`。8/30「8月18そ」。スト11・ネト🔥5🍐1・箱1。7月11即のため 10即2ヶ月 |
+| `@saitoPUA` | なし → **14** | 8/31「8月は14即」。チャネル根拠なし → 謎 |
 | `@mic_pua` | なし → **14** | 9/1「【8月総括】14即」。チャネル根拠なし → 謎 |
 | `@Tt2tb` | なし → **15** | 8/31「8がつ まとめ 15そく」 |
 | `@yomaru_street` | なし → **12** | 8/31「8月総括 計12即」 |
@@ -188,7 +189,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 
 補足:
 
-- 8月は 2026-08-31（月末日）に初回収集。2026-09-02 に総括検索と7月5+欠落の再走査で 5即以上 29→43。人手追加で 51（`@e6_bk61` / `@roku6in_palis` / `@anus_asterisk` / `@nonjin_ntst` / `@Jgmpdt23` / `@kukuru_nanpa` / `@pua_sorato` / `@n_umakuro`）
+- 8月は 2026-08-31（月末日）に初回収集。2026-09-02 に総括検索と7月5+欠落の再走査で 5即以上 29→43。人手追加で 52（`@e6_bk61` / `@roku6in_palis` / `@anus_asterisk` / `@nonjin_ntst` / `@Jgmpdt23` / `@kukuru_nanpa` / `@pua_sorato` / `@n_umakuro` / `@saitoPUA`）
 - `@tora_maru005` / `@Lattie_pua` / `@17go_pua` は8月総括なし。`@River_p823` は途中「7即目」のみ
 
 ### 7月収集 (2026-08-01)
