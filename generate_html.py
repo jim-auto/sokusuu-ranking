@@ -17,16 +17,41 @@ import re
 from datetime import datetime
 
 
+MIN_LOCAL_AVATAR_BYTES = 1000
+
+
 def resolve_avatar_url(username: str, stored: str = "") -> str:
     safe = re.sub(r"[^A-Za-z0-9_]", "_", username or "")
     local = os.path.join("docs", "avatars", f"{safe}.jpg")
-    if safe and os.path.exists(local) and os.path.getsize(local) > 0:
+    if safe and os.path.exists(local) and os.path.getsize(local) >= MIN_LOCAL_AVATAR_BYTES:
         return f"avatars/{safe}.jpg"
-    if stored and "default_profile" not in stored:
+    stored = stored or ""
+    if stored.startswith("http") and "default_profile" not in stored:
         return stored
     if safe:
-        return f"https://unavatar.io/x/{safe}"
+        return (
+            f"https://ui-avatars.com/api/?name={safe}&background=333&color=fff&size=128"
+        )
     return stored or ""
+
+
+def avatar_img_html(username: str, stored: str = "") -> str:
+    avatar_url = resolve_avatar_url(username, stored)
+    if not avatar_url:
+        return '<div class="avatar avatar-placeholder"></div>'
+    safe = re.sub(r"[^A-Za-z0-9_]", "_", username or "")
+    placeholder = (
+        f"https://ui-avatars.com/api/?name={safe}&background=333&color=fff&size=128"
+        if safe
+        else ""
+    )
+    onerror = ""
+    if placeholder and avatar_url != placeholder:
+        onerror = f' onerror="this.onerror=null;this.src=\'{placeholder}\';"'
+    return (
+        f'<img class="avatar" src="{avatar_url}" alt="" '
+        f'referrerpolicy="no-referrer"{onerror}>'
+    )
 
 
 def env_flag(name: str, default: bool = True) -> bool:
@@ -230,8 +255,7 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
         if alt:
             alt_html = f'<span class="alt-badge">= {alt}</span>'
 
-        avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
-        avatar_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+        avatar_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
 
         cat_html = ""
         if show_category:
@@ -314,8 +338,7 @@ def generate_html(records: list[dict]) -> str:
             continue
         rank += 1
         medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(rank, "")
-        avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
-        av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+        av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
         followers_rows += f"""
             <tr>
                 <td class="rank">{medal}{rank}</td>
@@ -363,8 +386,7 @@ def generate_html(records: list[dict]) -> str:
         monthly_rows = ""
         for i, r in enumerate(monthly_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             achieved_m = r.get("achieved_date")
             date_str = f'<span style="color:#888">{achieved_m}</span>' if achieved_m else '<span style="color:#444">-</span>'
             monthly_rows += f"""
@@ -413,8 +435,7 @@ def generate_html(records: list[dict]) -> str:
         yearly_rows = ""
         for i, r in enumerate(yearly, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             achieved = r.get("achieved_year")
             year_str = f'<span style="color:#888">{achieved}年</span>' if achieved else '<span style="color:#444">-</span>'
             yearly_rows += f"""
@@ -482,8 +503,7 @@ def generate_html(records: list[dict]) -> str:
         y_rows = ""
         for i, r in enumerate(y_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             y_rows += '<tr>'
             y_rows += '<td class="rank">' + medal + str(i) + '</td>'
             y_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
@@ -551,8 +571,7 @@ def generate_html(records: list[dict]) -> str:
         m_rows = ""
         for i, r in enumerate(m_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = resolve_avatar_url(r.get("username", ""), r.get("profile_image_url", ""))
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             m_rows += '<tr>'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
             m_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
@@ -672,6 +691,7 @@ def generate_html(records: list[dict]) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
     <title>即数ランキング</title>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
