@@ -43,6 +43,7 @@ SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
 SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
+MIN_CAREER_TOTAL = 10
 MIN_MONTHLY_BEST = 6
 MIN_YEARLY_BEST = 6
 
@@ -916,7 +917,7 @@ def main():
     if not records:
         return
     records = collapse_duplicate_accounts(records)
-    records = [r for r in records if int(r.get("sokusuu") or 0) > 0]
+    records = [r for r in records if int(r.get("sokusuu") or 0) >= MIN_CAREER_TOTAL]
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     html = generate_html(records)
