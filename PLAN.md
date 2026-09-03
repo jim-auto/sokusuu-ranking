@@ -178,7 +178,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | 2 | `pua_sorato` | 24 |
 | 3 | `kuroiwa_45` | 23 |
 | 4 | `sub_chilll` | 23 |
-| 5 | `knt17760` | 20 |
+| 5 | `makoto__pua` | 21 |
 
 成果物:
 
