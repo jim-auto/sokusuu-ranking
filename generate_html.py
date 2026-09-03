@@ -13,7 +13,45 @@ index.html を docs/ に生成する。
 
 import json
 import os
+import re
 from datetime import datetime
+
+
+MIN_LOCAL_AVATAR_BYTES = 1000
+
+
+def resolve_avatar_url(username: str, stored: str = "") -> str:
+    safe = re.sub(r"[^A-Za-z0-9_]", "_", username or "")
+    local = os.path.join("docs", "avatars", f"{safe}.jpg")
+    if safe and os.path.exists(local) and os.path.getsize(local) >= MIN_LOCAL_AVATAR_BYTES:
+        return f"avatars/{safe}.jpg"
+    stored = stored or ""
+    if stored.startswith("http") and "default_profile" not in stored:
+        return stored
+    if safe:
+        return (
+            f"https://ui-avatars.com/api/?name={safe}&background=333&color=fff&size=128"
+        )
+    return stored or ""
+
+
+def avatar_img_html(username: str, stored: str = "") -> str:
+    avatar_url = resolve_avatar_url(username, stored)
+    if not avatar_url:
+        return '<div class="avatar avatar-placeholder"></div>'
+    safe = re.sub(r"[^A-Za-z0-9_]", "_", username or "")
+    placeholder = (
+        f"https://ui-avatars.com/api/?name={safe}&background=333&color=fff&size=128"
+        if safe
+        else ""
+    )
+    onerror = ""
+    if placeholder and avatar_url != placeholder:
+        onerror = f' onerror="this.onerror=null;this.src=\'{placeholder}\';"'
+    return (
+        f'<img class="avatar" src="{avatar_url}" alt="" '
+        f'referrerpolicy="no-referrer"{onerror}>'
+    )
 
 
 def env_flag(name: str, default: bool = True) -> bool:
@@ -30,6 +68,9 @@ SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
 SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
+MIN_CAREER_TOTAL = 10
+MIN_MONTHLY_BEST = 11
+MIN_YEARLY_BEST = 31
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -38,6 +79,10 @@ DUPLICATE_ACCOUNT_CANONICALS = {
     "sub_chilll": "pua_chilll",
     "gureran_m3": "gureran_m",
     "inpsub": "ryepua",
+    "zegen_a": "ChuChubanana_",
+    "Feitan_sub": "Tinder_god_2",
+    "pika_sublol": "pika_pua",
+    "2BWwC9xP3Vw1MUO": "n_umakuro",
 }
 
 CATEGORY_LABELS = {
@@ -101,24 +146,6 @@ def get_period_evidence_url(record: dict) -> str:
     return ""
 
 
-def is_profile_derived_record(record: dict) -> bool:
-    if record.get("source_type") == "profile_derived":
-        return True
-    match_source = record.get("match_source", "")
-    if isinstance(match_source, str) and match_source.startswith("profile_"):
-        return True
-    return bool(record.get("needs_review"))
-
-
-def get_profile_source_label(record: dict) -> str:
-    source_field = record.get("profile_source_field", "")
-    return {
-        "bio": "bio",
-        "location": "location",
-        "display_name": "display_name",
-    }.get(source_field, "profile")
-
-
 def build_period_value_html(record: dict, count_key: str) -> str:
     evidence_html = ""
     evidence_url = get_period_evidence_url(record)
@@ -129,17 +156,8 @@ def build_period_value_html(record: dict, count_key: str) -> str:
             + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>'
         )
 
-    review_html = ""
-    if is_profile_derived_record(record):
-        source_label = get_profile_source_label(record)
-        review_html = (
-            ' <span class="badge badge-review" title="プロフィール由来の推定値'
-            + f" ({source_label})"
-            + '。公開前に要確認">要確認</span>'
-        )
-
     approximate_suffix = "+" if record.get("approximate") else ""
-    return f"{record[count_key]:,}{approximate_suffix}{evidence_html}{review_html}"
+    return f"{record[count_key]:,}{approximate_suffix}{evidence_html}"
 
 
 def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
@@ -183,6 +201,34 @@ def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
     )
 
 
+def canonical_username(username: str) -> str:
+    return DUPLICATE_ACCOUNT_CANONICALS.get(username, username)
+
+
+def collapse_period_records(
+    records: list[dict],
+    count_key: str,
+    profiles: dict[str, dict] | None = None,
+) -> list[dict]:
+    merged: dict[str, dict] = {}
+    profiles = profiles or {}
+    for raw in records:
+        rec = dict(raw)
+        username = canonical_username(rec.get("username") or "")
+        rec["username"] = username
+        profile = profiles.get(username)
+        if profile:
+            rec["display_name"] = profile.get("display_name") or rec.get("display_name", "")
+            if profile.get("profile_image_url") and not rec.get("profile_image_url"):
+                rec["profile_image_url"] = profile["profile_image_url"]
+        existing = merged.get(username)
+        if existing is None or rec.get(count_key, 0) > existing.get(count_key, 0):
+            merged[username] = rec
+        elif rec.get(count_key, 0) == existing.get(count_key, 0) and get_period_evidence_url(rec) and not get_period_evidence_url(existing):
+            merged[username] = rec
+    return sorted(merged.values(), key=lambda r: r.get(count_key, 0), reverse=True)
+
+
 def filter_by_category(records: list[dict], category: str) -> list[dict]:
     """カテゴリでフィルタする。'all' なら全件返す。"""
     if category == "all":
@@ -210,8 +256,7 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
         if alt:
             alt_html = f'<span class="alt-badge">= {alt}</span>'
 
-        avatar_url = r.get("profile_image_url", "")
-        avatar_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+        avatar_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
 
         cat_html = ""
         if show_category:
@@ -294,8 +339,7 @@ def generate_html(records: list[dict]) -> str:
             continue
         rank += 1
         medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(rank, "")
-        avatar_url = r.get("profile_image_url", "")
-        av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+        av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
         followers_rows += f"""
             <tr>
                 <td class="rank">{medal}{rank}</td>
@@ -332,14 +376,18 @@ def generate_html(records: list[dict]) -> str:
 
     # 月間ランキング
     monthly_file = "data/monthly_ranking.json"
+    profiles = {r["username"]: r for r in records}
     if SHOW_PERIOD_TABS and os.path.exists(monthly_file):
         with open(monthly_file, "r", encoding="utf-8") as f:
             monthly_data = json.load(f)
+        monthly_data = collapse_period_records(monthly_data, "monthly_best", profiles)
+        monthly_data = [
+            r for r in monthly_data if r.get("monthly_best", 0) >= MIN_MONTHLY_BEST
+        ]
         monthly_rows = ""
         for i, r in enumerate(monthly_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             achieved_m = r.get("achieved_date")
             date_str = f'<span style="color:#888">{achieved_m}</span>' if achieved_m else '<span style="color:#444">-</span>'
             monthly_rows += f"""
@@ -381,11 +429,14 @@ def generate_html(records: list[dict]) -> str:
     if SHOW_PERIOD_TABS and os.path.exists(yearly_file):
         with open(yearly_file, "r", encoding="utf-8") as f:
             yearly = json.load(f)
+        yearly = collapse_period_records(yearly, "yearly_best", profiles)
+        yearly = [
+            r for r in yearly if int(r.get("yearly_best") or 0) >= MIN_YEARLY_BEST
+        ]
         yearly_rows = ""
         for i, r in enumerate(yearly, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = f'<img class="avatar" src="{avatar_url}" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             achieved = r.get("achieved_year")
             year_str = f'<span style="color:#888">{achieved}年</span>' if achieved else '<span style="color:#444">-</span>'
             yearly_rows += f"""
@@ -453,8 +504,7 @@ def generate_html(records: list[dict]) -> str:
         y_rows = ""
         for i, r in enumerate(y_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             y_rows += '<tr>'
             y_rows += '<td class="rank">' + medal + str(i) + '</td>'
             y_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
@@ -522,8 +572,7 @@ def generate_html(records: list[dict]) -> str:
         m_rows = ""
         for i, r in enumerate(m_data, 1):
             medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
-            avatar_url = r.get("profile_image_url", "")
-            av_html = '<img class="avatar" src="' + avatar_url + '" alt="">' if avatar_url else '<div class="avatar avatar-placeholder"></div>'
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             m_rows += '<tr>'
             m_rows += '<td class="rank">' + medal + str(i) + '</td>'
             m_rows += '<td class="user-cell">' + av_html + '<div class="user-info"><a href="https://twitter.com/' + r['username'] + '" target="_blank" rel="noopener">@' + r['username'] + '</a></div></td>'
@@ -643,6 +692,7 @@ def generate_html(records: list[dict]) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
     <title>即数ランキング</title>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -763,7 +813,6 @@ def generate_html(records: list[dict]) -> str:
         }}
         .badge-profile {{ background: #1a3a2a; color: #4ade80; }}
         .badge-pinned {{ background: #3a2a1a; color: #fbbf24; }}
-        .badge-review {{ background: #3a1f1f; color: #fca5a5; }}
         .badge-cat-street {{ background: #1a2a3a; color: #60a5fa; }}
         .badge-cat-club {{ background: #2a1a3a; color: #c084fc; }}
         .badge-cat-online {{ background: #1a3a3a; color: #2dd4bf; }}
@@ -889,6 +938,7 @@ def main():
     if not records:
         return
     records = collapse_duplicate_accounts(records)
+    records = [r for r in records if int(r.get("sokusuu") or 0) >= MIN_CAREER_TOTAL]
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     html = generate_html(records)
