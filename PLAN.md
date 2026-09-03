@@ -155,6 +155,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | `@nonjin_ntst` | なし → **7** | 8/31「新規7節」（🔥1・🍎5・某app1）。キセヌク×2は含めず |
 | `@Jgmpdt23` | なし → **7** | 8/31「8月7足か」。チャネル根拠なし → 謎 |
 | `@kukuru_nanpa` | 非掲載 → **16** | 9/2「8月16即でフィニュッシュ」。途中の14即ツイは不採用。チャネル根拠なし → 謎 |
+| `@pua_sorato` | なし → **24** | 9/1「8月即数メモ 8月中24即」。内訳なし。スト |
 | `@mic_pua` | なし → **14** | 9/1「【8月総括】14即」。チャネル根拠なし → 謎 |
 | `@Tt2tb` | なし → **15** | 8/31「8がつ まとめ 15そく」 |
 | `@yomaru_street` | なし → **12** | 8/31「8月総括 計12即」 |
@@ -174,9 +175,9 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 | rank | username | count |
 | ---: | --- | ---: |
 | 1 | `kent_o_o` | 48 |
-| 2 | `kuroiwa_45` | 23 |
-| 3 | `sub_chilll` | 23 |
-| 4 | `makoto__pua` | 21 |
+| 2 | `pua_sorato` | 24 |
+| 3 | `kuroiwa_45` | 23 |
+| 4 | `sub_chilll` | 23 |
 | 5 | `knt17760` | 20 |
 
 成果物:
@@ -186,7 +187,7 @@ python monthly_collect.py --mode monthly --year 2026 --month 8 --global-search -
 
 補足:
 
-- 8月は 2026-08-31（月末日）に初回収集。2026-09-02 に総括検索と7月5+欠落の再走査で 5即以上 29→43。人手追加で 49（`@e6_bk61` / `@roku6in_palis` / `@anus_asterisk` / `@nonjin_ntst` / `@Jgmpdt23` / `@kukuru_nanpa`）
+- 8月は 2026-08-31（月末日）に初回収集。2026-09-02 に総括検索と7月5+欠落の再走査で 5即以上 29→43。人手追加で 50（`@e6_bk61` / `@roku6in_palis` / `@anus_asterisk` / `@nonjin_ntst` / `@Jgmpdt23` / `@kukuru_nanpa` / `@pua_sorato`）
 - `@tora_maru005` / `@Lattie_pua` / `@17go_pua` は8月総括なし。`@River_p823` は途中「7即目」のみ
 
 ### 7月収集 (2026-08-01)
