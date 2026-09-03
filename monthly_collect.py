@@ -928,6 +928,10 @@ def extract_yearly_count(text, year, strict=False):
         return None
     if re.search(r"(?:応援して(?:ます|る)|頑張ろう|目指していこう)", cleaned):
         return None
+    if re.search(r"上半期", cleaned) and not re.search(
+        r"(?:年総括|年間|今年|本年)", cleaned
+    ):
+        return None
 
     month_count_matches = list(
         re.finditer(
@@ -993,6 +997,16 @@ def extract_yearly_count(text, year, strict=False):
         for match in re.finditer(pattern, cleaned, re.IGNORECASE):
             window = cleaned[max(0, match.start() - 16) : min(len(cleaned), match.end() + 16)]
             if year_month_pattern.search(window) and not annual_context_pattern.search(window):
+                continue
+            if re.search(r"\d+\s*(?:即|そ|get|g\b)目(?!標)", window):
+                continue
+            if re.search(
+                r"(?:します|したい|目標|予定)", window
+            ) and not re.search(r"(?:結果|実績|総括|計)", window):
+                continue
+            if re.search(
+                r"(?:1[0-2]|[1-9])月(?:総括|まとめ|計)", window
+            ) and not re.search(r"(?:年総括|年間|今年|本年)", window):
                 continue
             value = int(match.group(1))
             if 0 < value <= 2000:
