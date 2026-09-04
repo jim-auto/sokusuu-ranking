@@ -242,6 +242,7 @@ def collapse_period_records(
         profile = profiles.get(username)
         if profile:
             rec["display_name"] = profile.get("display_name") or rec.get("display_name", "")
+            rec["categories"] = profile.get("categories") or rec.get("categories", "")
             if profile.get("profile_image_url") and not rec.get("profile_image_url"):
                 rec["profile_image_url"] = profile["profile_image_url"]
         existing = merged.get(username)
@@ -257,6 +258,15 @@ def filter_by_category(records: list[dict], category: str) -> list[dict]:
     if category == "all":
         return records
     return [r for r in records if category in (r.get("categories") or "")]
+
+
+def build_category_badges_html(categories: str) -> str:
+    if not categories:
+        return '<span class="badge badge-cat-none">未分類</span>'
+    return "".join(
+        f'<span class="badge badge-cat-{category}">{CATEGORY_LABELS.get(category, category)}</span> '
+        for category in categories.split(", ")
+    )
 
 
 def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
@@ -414,6 +424,7 @@ def generate_html(records: list[dict]) -> str:
             av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             achieved_m = r.get("achieved_date")
             date_str = f'<span style="color:#888">{achieved_m}</span>' if achieved_m else '<span style="color:#444">-</span>'
+            category_html = build_category_badges_html(r.get("categories", ""))
             monthly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
@@ -426,6 +437,7 @@ def generate_html(records: list[dict]) -> str:
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{build_period_value_html(r, 'monthly_best')}</td>
                 <td>{date_str}</td>
+                <td>{category_html}</td>
             </tr>"""
 
         monthly_active = active_class("monthly")
@@ -440,6 +452,7 @@ def generate_html(records: list[dict]) -> str:
                     <th>表示名</th>
                     <th>月間最多</th>
                     <th>達成時期</th>
+                    <th>カテゴリ</th>
                 </tr>
             </thead>
             <tbody>{monthly_rows}
@@ -463,6 +476,7 @@ def generate_html(records: list[dict]) -> str:
             av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
             achieved = r.get("achieved_year")
             year_str = f'<span style="color:#888">{achieved}年</span>' if achieved else '<span style="color:#444">-</span>'
+            category_html = build_category_badges_html(r.get("categories", ""))
             yearly_rows += f"""
             <tr>
                 <td class="rank">{medal}{i}</td>
@@ -475,6 +489,7 @@ def generate_html(records: list[dict]) -> str:
                 <td class="display-name">{r.get('display_name', '')}</td>
                 <td class="sokusuu">{build_period_value_html(r, 'yearly_best')}</td>
                 <td>{year_str}</td>
+                <td>{category_html}</td>
             </tr>"""
 
         yearly_active = active_class("yearly")
@@ -489,6 +504,7 @@ def generate_html(records: list[dict]) -> str:
                     <th>表示名</th>
                     <th>年間最多</th>
                     <th>達成年</th>
+                    <th>カテゴリ</th>
                 </tr>
             </thead>
             <tbody>{yearly_rows}
