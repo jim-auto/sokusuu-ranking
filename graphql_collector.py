@@ -49,7 +49,7 @@ MANUAL_CATEGORIES: dict[str, list[str]] = {
 }
 
 # 年度・期間実績しかなく、歴代総合には載せないアカウント
-EXCLUDED_FROM_CAREER = {"kimu__himitsu2"}
+EXCLUDED_FROM_CAREER = {"kimu__himitsu2", "tot1899tds"}
 
 
 def apply_manual_categories(username: str, cats: list[str]) -> list[str]:
