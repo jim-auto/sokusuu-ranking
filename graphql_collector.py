@@ -40,6 +40,7 @@ LOCKED_TOTALS: dict[str, int] = {
     "saitoPUA": 200,  # プロフィール「200即⬆️」
     "homura_tin": 100,  # プロフィール「経験人数三桁」
     "shouri_ikb": 600,  # 最新の累計即数
+    "enukun_pua": 400,  # プロフィール「400即」
 }
 
 MANUAL_APPROXIMATE = {"Jgmpdt23", "saitoPUA", "homura_tin"}
@@ -59,6 +60,7 @@ MANUAL_CATEGORY_OVERRIDES: dict[str, list[str]] = {
     "Tinder_god_2": ["online"],
     "River_p823": ["club"],
     "yutty_pua": ["street"],
+    "enukun_pua": ["club"],
 }
 
 # 年度・期間実績しかなく、歴代総合には載せないアカウント
