@@ -39,6 +39,7 @@ LOCKED_TOTALS: dict[str, int] = {
     "Jgmpdt23": 200,  # プロフィール「200↑」
     "saitoPUA": 200,  # プロフィール「200即⬆️」
     "homura_tin": 100,  # プロフィール「経験人数三桁」
+    "shouri_ikb": 600,  # 最新の累計即数
 }
 
 MANUAL_APPROXIMATE = {"Jgmpdt23", "saitoPUA", "homura_tin"}
