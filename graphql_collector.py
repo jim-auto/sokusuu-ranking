@@ -42,6 +42,9 @@ MANUAL_CATEGORIES: dict[str, list[str]] = {
     "kent_o_o": ["club"],
 }
 
+# 年度・期間実績しかなく、歴代総合には載せないアカウント
+EXCLUDED_FROM_CAREER = {"kimu__himitsu2"}
+
 
 def apply_manual_categories(username: str, cats: list[str]) -> list[str]:
     extra = MANUAL_CATEGORIES.get(username, [])
@@ -403,6 +406,8 @@ class TwitterGraphQL:
 
 def collect_one(api: TwitterGraphQL, username: str) -> Optional[SokusuuRecord]:
     """1ユーザーの即数を収集"""
+    if username in EXCLUDED_FROM_CAREER:
+        return None
     # 手動精査済みの固定値（自動抽出より優先）。
     # NRTq5ihqEpYCy0N: 場所欄「234足(スト167)(Mスト112)」は通算234と解釈（内訳は重複あり）。
     if username in LOCKED_TOTALS:
