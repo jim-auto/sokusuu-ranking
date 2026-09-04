@@ -36,7 +36,12 @@ LOCKED_TOTALS: dict[str, int] = {
     "yutty_pua": 300,  # 経験人数300人↑。note累計1000部超えは即数ではない
     "_springfox_": 65,  # 現プロフィールの「オフライン65即」
     "motebody_pua": 264,  # 場所欄の内訳合計（ス26 + ネ218 + その他40）
+    "Jgmpdt23": 200,  # プロフィール「200↑」
+    "saitoPUA": 200,  # プロフィール「200即⬆️」
+    "homura_tin": 100,  # プロフィール「経験人数三桁」
 }
+
+MANUAL_APPROXIMATE = {"Jgmpdt23", "saitoPUA", "homura_tin"}
 
 # 手動精査済みの追加カテゴリ（プロフに表記がなくても付与。リフレッシュで消えない）
 MANUAL_CATEGORIES: dict[str, list[str]] = {
@@ -160,7 +165,7 @@ def is_approximate(text: str, value: int) -> bool:
         return False
     return bool(
         re.search(
-            rf"{value}\s*(?:即|節|get)?\s*(?:[↑+＋~～〜]|over|以上|くらい|ぐらい|ほど|弱|強)",
+            rf"{value}\s*(?:即|節|get)?\s*(?:[↑⬆+＋~～〜]|over|以上|くらい|ぐらい|ほど|弱|強)",
             text,
             re.IGNORECASE,
         )
@@ -430,7 +435,7 @@ def collect_one(api: TwitterGraphQL, username: str) -> Optional[SokusuuRecord]:
             bio=bio,
             categories=cats_str,
             profile_image_url=user["profile_image_url"],
-            approximate=is_approximate(bio, LOCKED_TOTALS[username]),
+            approximate=is_approximate(bio, LOCKED_TOTALS[username]) or username in MANUAL_APPROXIMATE,
         )
     user = api.get_user(username)
     if not user:
@@ -489,7 +494,7 @@ def collect_one(api: TwitterGraphQL, username: str) -> Optional[SokusuuRecord]:
         bio=bio,
         categories=cats_str,
         profile_image_url=profile_image_url,
-        approximate=is_approximate(approx_text, sokusuu),
+        approximate=is_approximate(approx_text, sokusuu) or username in MANUAL_APPROXIMATE,
     )
 
 
