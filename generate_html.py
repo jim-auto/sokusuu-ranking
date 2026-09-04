@@ -275,12 +275,6 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
     for i, r in enumerate(records, 1):
         medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
 
-        source_badge = (
-            '<span class="badge badge-profile">プロフィール</span>'
-            if r["source"] == "profile"
-            else '<span class="badge badge-pinned">固定ツイート</span>'
-        )
-
         followers = r.get("followers_count", 0)
         followers_str = f"{followers:,}" if followers else "-"
 
@@ -315,7 +309,6 @@ def build_ranking_rows(records: list[dict], show_category: bool = False) -> str:
                 </td>
                 <td class="display-name">{r['display_name']}</td>
                 <td class="sokusuu">{r['sokusuu']:,}{"+" if r.get("approximate") else ""}{' <a href="' + r['evidence_url'] + '" target="_blank" rel="noopener" style="font-size:0.7em;color:#888;text-decoration:none" title="証拠">🔗</a>' if r.get('evidence_url') else ''}</td>
-                <td>{source_badge}</td>
                 {cat_html}
                 <td class="followers">{followers_str}</td>
             </tr>"""
@@ -352,7 +345,6 @@ def generate_html(records: list[dict]) -> str:
                     <th>アカウント</th>
                     <th>表示名</th>
                     <th>即数</th>
-                    <th>ソース</th>
                     {cat_header}
                     <th>フォロワー</th>
                 </tr>
