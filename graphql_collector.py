@@ -49,11 +49,22 @@ MANUAL_CATEGORIES: dict[str, list[str]] = {
     "kent_o_o": ["club"],
 }
 
+MANUAL_CATEGORY_OVERRIDES: dict[str, list[str]] = {
+    "greed_pua": ["online"],
+    "magic_kaito7": ["street", "club", "online"],
+    "omamco_pua2": ["street", "club", "online"],
+    "PUAINOKI": ["street", "online"],
+    "kuroiwa_45": ["street", "club", "online"],
+    "atannon_nampa": ["street", "club"],
+}
+
 # 年度・期間実績しかなく、歴代総合には載せないアカウント
 EXCLUDED_FROM_CAREER = {"kimu__himitsu2", "tot1899tds"}
 
 
 def apply_manual_categories(username: str, cats: list[str]) -> list[str]:
+    if username in MANUAL_CATEGORY_OVERRIDES:
+        return MANUAL_CATEGORY_OVERRIDES[username]
     extra = MANUAL_CATEGORIES.get(username, [])
     return cats + [c for c in extra if c not in cats]
 
