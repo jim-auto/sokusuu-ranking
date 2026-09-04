@@ -56,6 +56,9 @@ MANUAL_CATEGORY_OVERRIDES: dict[str, list[str]] = {
     "PUAINOKI": ["street", "online"],
     "kuroiwa_45": ["street", "club", "online"],
     "atannon_nampa": ["street", "club"],
+    "Tinder_god_2": ["online"],
+    "River_p823": ["club"],
+    "yutty_pua": ["street"],
 }
 
 # 年度・期間実績しかなく、歴代総合には載せないアカウント
