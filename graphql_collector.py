@@ -156,7 +156,7 @@ def is_approximate(text: str, value: int) -> bool:
         return False
     return bool(
         re.search(
-            rf"{value}\s*(?:即|節)?\s*(?:[↑+＋~～〜]|over|以上|くらい|ぐらい|ほど|弱|強)",
+            rf"{value}\s*(?:即|節|get)?\s*(?:[↑+＋~～〜]|over|以上|くらい|ぐらい|ほど|弱|強)",
             text,
             re.IGNORECASE,
         )
