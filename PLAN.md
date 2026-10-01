@@ -1,16 +1,18 @@
 # 即数ランキング PLAN
 
-最終更新: 2026-08-31
+最終更新: 2026-10-01
 
 ## 直近の目的
 
-2026年8月の月間ランキングを収集し、`docs/index.html` に反映してドラフト PR を出す。
+2026年9月の月間ランキングを収集し、`docs/index.html` に反映してドラフト PR を出す。
 
-（前提: 1〜7月 + 上半期は `feature/monthly-2026-07` / PR #2 で整備済み）
+（前提: 1〜8月は `feature/monthly-2026-08` / PR #7 で整備済み）
 
-1. 8月を `--global-search --prefetch-only` で収集
-2. 誤検出を人手修正（内訳合算の取りこぼし）＋既知総括の人手URL
-3. 月別タブ既定を 2026-08 にして HTML / 結果 MD 再生成 → ドラフト PR
+1. 9月を `--global-search --prefetch-only` で収集（2026-10-01。報告窓 9/20〜10/15 の途中）
+2. 明らかな誤検出だけ人手修正（内訳と合計の取り違え、目標文）
+3. 月別タブ既定を 2026-09 にして HTML / 結果 MD 再生成 → ドラフト PR
+
+10/2 以降に出る総括は未収録。このドラフトは初回スナップショットで、バックフィル前提。
 
 ## 2026 月次・年間 収集サマリ
 
@@ -42,6 +44,7 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2026-06 | `monthly_2026_06.json` | 23 | `@tora_maru005` 51 |
 | 2026-07 | `monthly_2026_07.json` | 26（5即以上21） | `@kent_o_o` 50 |
 | 2026-08 | `monthly_2026_08.json` | 22（5即以上14） | `@bookmaker_2015` 19 |
+| 2026-09 | `monthly_2026_09.json` | 16（5即以上11） | `@saitoPUA` 20 |
 | 2026 上半期 | `yearly_2026.json` | 82（1〜6月合算） | `@tora_maru005` 125 |
 
 ### 上半期ランキング（月次合算）
@@ -116,6 +119,27 @@ HTML 再生成:
 # 既定の初期表示は総合 (DEFAULT_TAB=all)。月別を開きたいときだけ DEFAULT_TAB を変える
 SHOW_PERIOD_TABS=1 SHOW_PERIOD_DETAIL_TABS=1 DEFAULT_TAB=all DEFAULT_MONTH=202607 python generate_html.py
 ```
+
+### 9月収集 (2026-10-01)
+
+```bash
+python monthly_collect.py --mode monthly --year 2026 --month 9 --global-search --prefetch-only --checkpoint-every 10
+# -> data/monthly_2026_09.json（生 17件 → 誤検出除外後 16件、5即以上 11件）
+```
+
+人手修正:
+
+| account | 抽出 → 修正 | 理由 |
+| --- | --- | --- |
+| `@taku__pua` | 100 → 除外 | 「100即達成するまで」は目標。上京後21即は累計 |
+| `@saitoPUA` | 10 → **20** | 🔥10即は内訳。本文は「計20即」「9月→20即」 |
+| `@chiroru_pua` | 6 → **8** | 「スト6節 / ネト2節」の合算 |
+| `@sub_chilll` | 8 → **5** | 見出しは「9月総括 5節」。絵文字行の合算は使わない |
+
+未収録が多い。8月は初回14件からバックフィルで50件超になった。9月も 10/2 以降の総括を追記する。
+
+- `docs/results_2026_09.md` … 9月ランキング + 根拠URL + チャネル合計
+- `docs/index.html` … 月別タブ既定 `202609`
 
 ### 8月収集 (2026-08-31)
 
