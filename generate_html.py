@@ -33,9 +33,10 @@ SHOW_PERIOD_DETAIL_TABS = env_flag("SHOW_PERIOD_DETAIL_TABS", default=False)
 DEFAULT_TAB = os.getenv("DEFAULT_TAB", "all").strip() or "all"
 DEFAULT_MONTH = os.getenv("DEFAULT_MONTH", "").strip()
 
-# 年別 / 月別を一時的に戻す場合でも、この年は出さない。
+# 年別は 2025 がまだ薄いので、詳細タブを戻しても出さない。
+# 月別ドラフト（2026年1月以降）はこのブランチの掲載対象なので隠さない。
 HIDDEN_YEARLY_YEARS = {2025}
-HIDDEN_MONTHLY_YEARS = {2026}
+HIDDEN_MONTHLY_YEARS: set[int] = set()
 
 # Public ranking should not double-count obvious sub/alt accounts that
 # represent the same person and total.
@@ -78,6 +79,7 @@ EMOJI_TO_CHANNEL: dict[str, str] = {
     "🗼": "online",
     "🍛": "online",
     "🪩": "online",
+    "📱": "online",  # 電話・アプリ即。箱内訳の 📱N はネト
     "🦾": "club",
     "🧚": "club",
     "📦": "club",
@@ -793,6 +795,17 @@ def parse_named_extras(text: str) -> dict[str, int]:
 
 
 def extras_for_record(record: dict) -> dict[str, int]:
+    # 月ごとの内訳が username 固定の 8月補正と違うときは named_extras を優先する
+    named = record.get("named_extras")
+    if isinstance(named, dict) and named:
+        parsed: dict[str, int] = {}
+        for key, val in named.items():
+            try:
+                parsed[str(key)] = max(int(parsed.get(str(key)) or 0), int(val))
+            except (TypeError, ValueError):
+                continue
+        if parsed:
+            return parsed
     username = str(record.get("username") or "")
     if username in SUMMARY_EXTRA_OVERRIDES:
         return dict(SUMMARY_EXTRA_OVERRIDES[username])
