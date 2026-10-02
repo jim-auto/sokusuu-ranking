@@ -79,6 +79,7 @@ EMOJI_TO_CHANNEL: dict[str, str] = {
     "🗼": "online",
     "🍛": "online",
     "🪩": "online",
+    "📱": "online",  # 電話・アプリ即。箱内訳の 📱N はネト
     "🦾": "club",
     "🧚": "club",
     "📦": "club",
@@ -794,6 +795,17 @@ def parse_named_extras(text: str) -> dict[str, int]:
 
 
 def extras_for_record(record: dict) -> dict[str, int]:
+    # 月ごとの内訳が username 固定の 8月補正と違うときは named_extras を優先する
+    named = record.get("named_extras")
+    if isinstance(named, dict) and named:
+        parsed: dict[str, int] = {}
+        for key, val in named.items():
+            try:
+                parsed[str(key)] = max(int(parsed.get(str(key)) or 0), int(val))
+            except (TypeError, ValueError):
+                continue
+        if parsed:
+            return parsed
     username = str(record.get("username") or "")
     if username in SUMMARY_EXTRA_OVERRIDES:
         return dict(SUMMARY_EXTRA_OVERRIDES[username])
