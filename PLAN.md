@@ -44,7 +44,7 @@ python monthly_collect.py --mode yearly --year 2026 --global-search --prefetch-o
 | 2026-06 | `monthly_2026_06.json` | 23 | `@tora_maru005` 51 |
 | 2026-07 | `monthly_2026_07.json` | 26（5即以上21） | `@kent_o_o` 50 |
 | 2026-08 | `monthly_2026_08.json` | 22（5即以上14） | `@bookmaker_2015` 19 |
-| 2026-09 | `monthly_2026_09.json` | 22（5即以上17） | `@saitoPUA` 20 |
+| 2026-09 | `monthly_2026_09.json` | 23（5即以上18） | `@saitoPUA` 20 |
 | 2026 上半期 | `yearly_2026.json` | 82（1〜6月合算） | `@tora_maru005` 125 |
 
 ### 上半期ランキング（月次合算）
@@ -148,8 +148,9 @@ prefetch は `sokusuu_accounts.json` の 393件だけを batch Search する。8
 | `@ZqtfwZBx9490665` | 10 | 「🍐10即」 |
 | `@yutopua0807` | 9 | 「合計9即」。8月の相席3補正は使わない |
 | `@chinkawa2525` | 8 | 「8節」。🧙‍♀️/🔥は辞めた話なのでチャネルは謎 |
+| `@socool55555` | 9 | 10/2「計9即」。鍵垢ではない。本文に「9月」はない |
 
-`@pussy_pua` の「節数6くらい」は確定値ではないので未掲載。`@kent_o_o`（健人）、`@tora_maru005`（とらまる）、`@socool55555`（味噌どガス）は鍵垢で、公開検索では9月総括を拾えない。公開アカウントの追加総括は 10/15 まで足す。
+`@pussy_pua` の「節数6くらい」は確定値ではないので未掲載。`@kent_o_o`（健人）と `@tora_maru005`（とらまる）は鍵垢で、公開検索では9月総括を拾えない。`@socool55555` は公開アカウントで、10/2「計9即」を掲載。公開アカウントの追加総括は 10/15 まで足す。
 
 
 - `docs/results_2026_09.md` … 9月ランキング + 根拠URL + チャネル合計
