@@ -76,6 +76,7 @@ EMOJI_TO_CHANNEL: dict[str, str] = {
     "🍐": "online",
     "🍎": "online",
     "🔥": "online",
+    "🥥": "online",  # CoCome 系アプリ
     "🗼": "online",
     "🍛": "online",
     "🪩": "online",
@@ -110,7 +111,7 @@ CHANNEL_COL_TH = (
 #
 # 界隈の絵文字チャネル（総括の内訳でよく使う）:
 #   street: 🐶 ライオン 🦉 店舗連れ 🏪 / 🦐(エビス) / GT系 / Ⓜ(M)
-#   online: 🍎(タップル) 🗼 🍛(ペアーズ) 🔥(with等) 🍐 東カレ系 / 🪩(ミラーボール=ネト)
+#   online: 🍎(タップル) 🗼 🍛(ペアーズ) 🔥(with等) 🍐 東カレ系 / 🪩(ミラーボール=ネト) / 🥥(CoCome)
 #   club:   🦾 🧚 📦 / 会場色 🟦⬛️⬜ 等
 STREET_HINTS = re.compile(
     r"(?<![イアウ])スト(?:ナン|即|準|コンビ|×|ｘ|x|\d|[\s　/／・・(（脚]|$)|"
@@ -369,6 +370,10 @@ def parse_channel_breakdown(text: str) -> dict[str, dict]:
             continue
         qty_raw = m.group(2) or m.group(3) or m.group(4)
         if qty_raw:
+            # 🦾1出撃 は出撃回数。即数にしない
+            if raw[m.end() : m.end() + 2].startswith("出撃"):
+                consumed.append((m.start(), m.end()))
+                continue
             qty = int(qty_raw)
             _add_group([m.group(1)], qty, m.start(), m.end(), explicit=True)
             continue
@@ -795,17 +800,17 @@ def parse_named_extras(text: str) -> dict[str, int]:
 
 
 def extras_for_record(record: dict) -> dict[str, int]:
-    # 月ごとの内訳が username 固定の 8月補正と違うときは named_extras を優先する
-    named = record.get("named_extras")
-    if isinstance(named, dict) and named:
+    # 月ごとの内訳が username 固定の補正と違うときは named_extras を優先する。
+    # キーがある空辞書は「この月は補正なし」（8月の相席3等を翌月へ持ち越さない）。
+    if "named_extras" in record and isinstance(record.get("named_extras"), dict):
+        named = record["named_extras"]
         parsed: dict[str, int] = {}
         for key, val in named.items():
             try:
                 parsed[str(key)] = max(int(parsed.get(str(key)) or 0), int(val))
             except (TypeError, ValueError):
                 continue
-        if parsed:
-            return parsed
+        return parsed
     username = str(record.get("username") or "")
     if username in SUMMARY_EXTRA_OVERRIDES:
         return dict(SUMMARY_EXTRA_OVERRIDES[username])
