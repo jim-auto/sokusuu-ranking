@@ -13,6 +13,14 @@ on:
         required: true
         default: '10'
         type: string
+      mode:
+        description: 'Collection mode'
+        required: true
+        default: 'public'
+        type: choice
+        options:
+          - public
+          - authenticated
 
 jobs:
   collect:
@@ -32,26 +40,27 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Prepare cookie file from secret
+      - name: Run public (cookie-free) collection
+        if: inputs.mode == 'public'
+        run: |
+          python public_monthly_collect.py --year ${{ inputs.year }} --month ${{ inputs.month }}
+
+      - name: Prepare cookie and run authenticated collection
+        if: inputs.mode == 'authenticated'
         env:
           TWITTER_COOKIES_JSON: ${{ secrets.TWITTER_COOKIES_JSON }}
         run: |
           mkdir -p data
           if [ -n "$TWITTER_COOKIES_JSON" ]; then
             echo "$TWITTER_COOKIES_JSON" > data/.twitter_cookies.json
-            echo "Cookie file created from secret."
-          else
-            echo "Warning: TWITTER_COOKIES_JSON secret not set. Collection may fail."
           fi
-
-      - name: Run monthly collection
-        run: |
           python monthly_collect.py --mode monthly --year ${{ inputs.year }} --month ${{ inputs.month }}
 
-      - name: Force add data file (ignore gitignore for this file)
+      - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/public_monthly_${{ inputs.year }}_${{ inputs.month }}.json || true
           git add -f data/monthly_${{ inputs.year }}_${{ inputs.month }}.json || true
-          git commit -m "data: add monthly ranking for ${{ inputs.year }}-${{ inputs.month }} [ci skip]" || echo "No changes to commit"
-          git push || echo "Push failed or nothing to push"
+          git commit -m "data: monthly ranking ${{ inputs.year }}-${{ inputs.month }} (${{ inputs.mode }}) [ci skip]" || echo "No changes"
+          git push || echo "Nothing to push"
