@@ -67,10 +67,14 @@
 ## 2026年10月月別ランキング（ドラフト）
 
 - ターゲット: `data/monthly_2026_10.json`
-- 収集コマンド例: `python monthly_collect.py --mode monthly --year 2026 --month 10`
-- 現状: データ収集・精査前。本PRは構造準備用のドラフト。
+- ローカル収集: `python monthly_collect.py --mode monthly --year 2026 --month 10`
+- **クラウド収集**: GitHub Actions workflow `.github/workflows/collect-monthly.yml` を使用
+  - Repo Settings > Secrets に `TWITTER_COOKIES_JSON` （cookies の JSON 配列）を設定
+  - Actions タブから workflow を手動実行（year=2026, month=10）
+  - 結果の data ファイルをコミット・プッシュ
+- 現状: データ収集・精査前。本PRは構造準備＋クラウド対応用のドラフト。
 - 次のステップ:
-  1. ローカルで monthly_collect.py を実行してデータ生成
+  1. クラウド or ローカルで収集実行
   2. 精査・重複除外・証拠確認
   3. 必要なら generate_html.py でプレビュー生成（SHOW_PERIOD_TABS=1 など）
   4. public に反映するか判断
