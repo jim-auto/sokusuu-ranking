@@ -1,0 +1,57 @@
+name: Collect Monthly Ranking
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Year (e.g. 2026)'
+        required: true
+        default: '2026'
+        type: string
+      month:
+        description: 'Month (1-12)'
+        required: true
+        default: '10'
+        type: string
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Prepare cookie file from secret
+        env:
+          TWITTER_COOKIES_JSON: ${{ secrets.TWITTER_COOKIES_JSON }}
+        run: |
+          mkdir -p data
+          if [ -n "$TWITTER_COOKIES_JSON" ]; then
+            echo "$TWITTER_COOKIES_JSON" > data/.twitter_cookies.json
+            echo "Cookie file created from secret."
+          else
+            echo "Warning: TWITTER_COOKIES_JSON secret not set. Collection may fail."
+          fi
+
+      - name: Run monthly collection
+        run: |
+          python monthly_collect.py --mode monthly --year ${{ inputs.year }} --month ${{ inputs.month }}
+
+      - name: Force add data file (ignore gitignore for this file)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/monthly_${{ inputs.year }}_${{ inputs.month }}.json || true
+          git commit -m "data: add monthly ranking for ${{ inputs.year }}-${{ inputs.month }} [ci skip]" || echo "No changes to commit"
+          git push || echo "Push failed or nothing to push"
