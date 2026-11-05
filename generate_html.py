@@ -62,6 +62,7 @@ def env_flag(name: str, default: bool = True) -> bool:
 
 
 INPUT_JSON = "data/sokusuu_accounts.json"
+EXCLUDE_JSON = "data/exclude_accounts.json"  # 掲載しないアカウント（任意）
 OUTPUT_DIR = "docs"
 OUTPUT_HTML = os.path.join(OUTPUT_DIR, "index.html")
 SHOW_PERIOD_TABS = env_flag("SHOW_PERIOD_TABS", default=True)
@@ -180,7 +181,9 @@ def build_period_value_html(record: dict, count_key: str) -> str:
         )
 
     approximate_suffix = "+" if record.get("approximate") else ""
-    return f"{record[count_key]:,}{approximate_suffix}{evidence_html}"
+    note = record.get("count_note")
+    note_html = f' <span style="font-size:0.7em;color:#888">（{note}）</span>' if note else ""
+    return f"{record[count_key]:,}{approximate_suffix}{note_html}{evidence_html}"
 
 
 def collapse_duplicate_accounts(records: list[dict]) -> list[dict]:
@@ -500,6 +503,51 @@ def generate_html(records: list[dict]) -> str:
                 </tr>
             </thead>
             <tbody>{yearly_rows}
+            </tbody>
+        </table>
+    </div>
+"""
+
+    # ハロウィン期間ランキング
+    if SHOW_PERIOD_TABS and os.path.exists("data/weekly_2026-10-30_2026-10-31.json"):
+        with open("data/weekly_2026-10-30_2026-10-31.json", "r", encoding="utf-8") as f:
+            halloween_data = json.load(f)
+        halloween_data = [r for r in halloween_data if int(r.get("weekly_count") or 0) >= 2]
+        halloween_rows = ""
+        for i, r in enumerate(halloween_data, 1):
+            medal = {1: "🥇 ", 2: "🥈 ", 3: "🥉 "}.get(i, "")
+            av_html = avatar_img_html(r.get("username", ""), r.get("profile_image_url", ""))
+            category_html = build_category_badges_html(r.get("categories", ""))
+            halloween_rows += f"""
+            <tr>
+                <td class="rank">{medal}{i}</td>
+                <td class="user-cell">
+                    {av_html}
+                    <div class="user-info">
+                        <a href="https://twitter.com/{r['username']}" target="_blank" rel="noopener">@{r['username']}</a>
+                    </div>
+                </td>
+                <td class="display-name">{r.get('display_name', '')}</td>
+                <td class="sokusuu">{build_period_value_html(r, 'weekly_count')}</td>
+                <td>{category_html}</td>
+            </tr>"""
+
+        halloween_active = active_class("halloween")
+        tab_buttons += f'        <div class="tab{halloween_active}" onclick="switchTab(\'halloween\')">ハロウィン 10/30-10/31 ({len(halloween_data)})</div>\n'
+        tab_contents += f"""
+    <div id="tab-halloween" class="tab-content{halloween_active}">
+        <p style="color:#888;font-size:0.85em;margin:0 0 10px">2026年10月30日(金)〜10月31日(土)の即報告を積み上げ集計</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>アカウント</th>
+                    <th>表示名</th>
+                    <th>即数</th>
+                    <th>カテゴリ</th>
+                </tr>
+            </thead>
+            <tbody>{halloween_rows}
             </tbody>
         </table>
     </div>
@@ -978,6 +1026,10 @@ def main():
         return
     records = collapse_duplicate_accounts(records)
     records = [r for r in records if int(r.get("sokusuu") or 0) >= MIN_CAREER_TOTAL]
+    if os.path.exists(EXCLUDE_JSON):
+        with open(EXCLUDE_JSON, encoding="utf-8") as f:
+            excluded = {u.lower() for u in json.load(f)}
+        records = [r for r in records if r["username"].lower() not in excluded]
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     html = generate_html(records)

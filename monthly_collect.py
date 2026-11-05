@@ -1728,7 +1728,7 @@ async def browse_user_tweets(context, username, scrolls=4, return_meta=False):
 
     async def capture(response):
         nonlocal response_count
-        if "UserTweets" not in response.url:
+        if "UserTweets" not in response.url and "UserOriginals" not in response.url:
             return
         try:
             body = await response.json()
