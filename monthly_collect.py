@@ -78,6 +78,55 @@ TWEET_FEATURES = json.dumps(
         "responsive_web_enhance_cards_enabled": False,
     }
 )
+USER_ORIGINALS_FEATURES = json.dumps(
+    {
+        "rweb_video_screen_enabled": False,
+        "rweb_cashtags_enabled": True,
+        "profile_label_improvements_pcf_label_in_post_enabled": True,
+        "responsive_web_profile_redirect_enabled": True,
+        "rweb_tipjar_consumption_enabled": False,
+        "verified_phone_label_enabled": False,
+        "creator_subscriptions_tweet_preview_api_enabled": True,
+        "responsive_web_graphql_timeline_navigation_enabled": True,
+        "premium_content_api_read_enabled": False,
+        "communities_web_enable_tweet_community_results_fetch": True,
+        "c9s_tweet_anatomy_moderator_badge_enabled": True,
+        "responsive_web_grok_analyze_button_fetch_trends_enabled": False,
+        "responsive_web_grok_analyze_post_followups_enabled": True,
+        "rweb_cashtags_composer_attachment_enabled": True,
+        "responsive_web_jetfuel_frame": True,
+        "rweb_sports_post_context_enabled": True,
+        "x_elections_post_context_enabled": True,
+        "responsive_web_grok_share_attachment_enabled": True,
+        "responsive_web_grok_annotations_enabled": True,
+        "articles_preview_enabled": True,
+        "responsive_web_edit_tweet_api_enabled": True,
+        "rweb_conversational_replies_downvote_enabled": False,
+        "graphql_is_translatable_rweb_tweet_is_translatable_enabled": True,
+        "view_counts_everywhere_api_enabled": True,
+        "longform_notetweets_consumption_enabled": True,
+        "responsive_web_twitter_article_tweet_consumption_enabled": True,
+        "content_disclosure_indicator_enabled": True,
+        "content_disclosure_ai_generated_indicator_enabled": True,
+        "responsive_web_grok_show_grok_translated_post": True,
+        "responsive_web_grok_analysis_button_from_backend": True,
+        "post_ctas_fetch_enabled": False,
+        "freedom_of_speech_not_reach_fetch_enabled": True,
+        "standardized_nudges_misinfo": True,
+        "tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled": True,
+        "longform_notetweets_rich_text_read_enabled": True,
+        "longform_notetweets_inline_media_enabled": False,
+        "responsive_web_nested_quote_preview_enabled": True,
+        "responsive_web_grok_image_annotation_enabled": True,
+        "responsive_web_grok_imagine_annotation_enabled": True,
+        "responsive_web_made_on_x_label_enabled": False,
+        "responsive_web_grok_community_note_auto_translation_is_enabled": True,
+        "responsive_web_enhance_cards_enabled": False,
+    }
+)
+USER_ORIGINALS_FIELD_TOGGLES = json.dumps(
+    {"withPayments": False, "withArticlePlainText": False}
+)
 
 OUTPUT_JSON = "data/sokusuu_accounts.json"
 MONTHLY_RANKING_JSON = "data/monthly_ranking.json"
@@ -545,6 +594,15 @@ def parse_tweet_items(entries):
                 }
             )
 
+    def append_entry(entry):
+        if not isinstance(entry, dict):
+            return
+        inner = entry.get("entry")
+        if isinstance(inner, dict):
+            append_entry(inner)
+            return
+        append_tweet(entry.get("content", {}))
+
     for entry in entries:
         content = entry.get("content", {})
 
@@ -553,7 +611,7 @@ def parse_tweet_items(entries):
 
         item_content = content.get("itemContent", {})
         if item_content:
-            append_tweet(item_content)
+            append_entry({"content": item_content})
 
         for item in content.get("items", []):
             nested = item.get("item", {}).get("itemContent", {})
@@ -561,6 +619,13 @@ def parse_tweet_items(entries):
                 append_tweet(nested)
 
     return tweets, bottom_cursor
+
+
+def parse_instruction_tweets(instruction):
+    entries = instruction.get("entries", [])
+    if not entries and instruction.get("entry"):
+        entries = [instruction]
+    return parse_tweet_items(entries)
 
 
 def get_user_tweets(sessions, session_idx, user_id, count=40, max_pages=4):
@@ -584,26 +649,23 @@ def get_user_tweets(sessions, session_idx, user_id, count=40, max_pages=4):
         resp = api_get(
             sessions,
             session_idx,
-            "https://x.com/i/api/graphql/E3opETHurmVJflFsUBVuUQ/UserTweets",
-            {"variables": json.dumps(variables), "features": TWEET_FEATURES},
+            "https://x.com/i/api/graphql/0L_XictlTdXhxJyxhMDxQA/UserOriginalsTimeline",
+            {
+                "variables": json.dumps(variables),
+                "features": USER_ORIGINALS_FEATURES,
+                "fieldToggles": USER_ORIGINALS_FIELD_TOGGLES,
+            },
         )
         if not resp or resp.status_code != 200:
             break
 
         data = resp.json()
-        instructions = (
-            data.get("data", {})
-            .get("user", {})
-            .get("result", {})
-            .get("timeline_v2", {})
-            .get("timeline", {})
-            .get("instructions", [])
-        )
+        instructions = extract_timeline_instructions(data)
 
         page_tweets = []
         next_cursor = None
         for inst in instructions:
-            tweets, bottom_cursor = parse_tweet_items(inst.get("entries", []))
+            tweets, bottom_cursor = parse_instruction_tweets(inst)
             page_tweets.extend(tweets)
             if bottom_cursor:
                 next_cursor = bottom_cursor
@@ -623,20 +685,20 @@ def get_user_tweets(sessions, session_idx, user_id, count=40, max_pages=4):
     return all_tweets
 
 
+def extract_timeline_instructions(body):
+    result = body.get("data", {}).get("user", {}).get("result", {}) or {}
+    timeline = result.get("timeline") or result.get("timeline_v2") or {}
+    timeline = timeline.get("timeline", {}) if isinstance(timeline, dict) else {}
+    return timeline.get("instructions", []) if isinstance(timeline, dict) else []
+
+
 def extract_user_tweets_from_body(body):
-    instructions = (
-        body.get("data", {})
-        .get("user", {})
-        .get("result", {})
-        .get("timeline_v2", {})
-        .get("timeline", {})
-        .get("instructions", [])
-    )
+    instructions = extract_timeline_instructions(body)
 
     captured = []
     seen_ids = set()
     for inst in instructions:
-        tweets, _ = parse_tweet_items(inst.get("entries", []))
+        tweets, _ = parse_instruction_tweets(inst)
         for tweet in tweets:
             if tweet["id"] in seen_ids:
                 continue
@@ -745,8 +807,10 @@ def extract_monthly_count(text, year, month, strict=False):
         if any(re.search(pattern, cleaned) for pattern in exclude_patterns):
             return None
 
-    count_unit = r"(?:即|get|g\b|そ\b)"
-    has_multi_month_series = len(re.findall(r"\d{1,2}\s*月(?!間)", cleaned)) >= 2
+    count_unit = r"(?:即|get|g\b|そ\b|節(?!\s*目))"
+    has_multi_month_series = (
+        len(re.findall(rf"\d{{1,2}}\s*月(?!間)[^\n。]{{0,25}}?\d+\s*{count_unit}", cleaned)) >= 2
+    )
     component_sum = None
 
     if strict and has_report_keyword and not has_multi_month_series:
@@ -867,7 +931,7 @@ def extract_monthly_count(text, year, month, strict=False):
             + count_unit
         )
     if has_explicit_month or has_report_keyword:
-        patterns.append(r"(\d+)\s*即\s*(?:でした|です|達成|着地)")
+        patterns.append(r"(\d+)\s*(?:即|節)\s*(?:でした|です|達成|着地)")
 
     for pattern in patterns:
         match = re.search(pattern, cleaned, re.IGNORECASE)
@@ -1614,7 +1678,7 @@ async def search_query_tweets(context, query, scrolls=3, return_meta=False):
             .get("instructions", [])
         )
         for inst in instructions:
-            tweets, _ = parse_tweet_items(inst.get("entries", []))
+            tweets, _ = parse_instruction_tweets(inst)
             for tweet in tweets:
                 if tweet["id"] in seen_ids:
                     continue
@@ -1664,7 +1728,7 @@ async def browse_user_tweets(context, username, scrolls=4, return_meta=False):
 
     async def capture(response):
         nonlocal response_count
-        if "UserTweets" not in response.url:
+        if "UserTweets" not in response.url and "UserOriginals" not in response.url:
             return
         try:
             body = await response.json()
@@ -2329,6 +2393,11 @@ async def main_async():
         action="store_true",
         help="Playwright をブラウザ表示ありで起動する（Search が headless で弱い時用）",
     )
+    parser.add_argument(
+        "--api-only",
+        action="store_true",
+        help="Playwright を使わず API のタイムライン取得だけで収集する",
+    )
     args = parser.parse_args()
     validate_args(args)
 
@@ -2359,7 +2428,11 @@ async def main_async():
     if args.limit > 0:
         targets = targets[: args.limit]
     sessions = create_sessions()
-    playwright_cookie_sets = load_playwright_cookie_sets()
+    if args.api_only and not sessions:
+        raise SystemExit("--api-only には Cookie が必要です")
+    if args.api_only and args.global_search:
+        raise SystemExit("--api-only と --global-search は併用できません")
+    playwright_cookie_sets = [] if args.api_only else load_playwright_cookie_sets()
     session_idx = [0]
     processed_usernames = set()
     results = []
@@ -2602,7 +2675,7 @@ async def main_async():
                     if hit:
                         match_source = "timeline"
 
-            if not hit:
+            if not hit and not args.api_only:
                 hit = await browse_user_period(
                     playwright_contexts,
                     playwright_context_idx,
@@ -2614,7 +2687,7 @@ async def main_async():
                 if hit:
                     match_source = "timeline_browser"
 
-            if not hit and args.search_fallback:
+            if not hit and args.search_fallback and not args.api_only:
                 hit = await search_user_period(
                     playwright_contexts,
                     playwright_context_idx,
