@@ -40,43 +40,45 @@ PR 確認用スナップショット。根拠はリンクのみ（ツイート�
 - `@taka_DTnmp` の「2/1即」、`@A2164236139810` の「3/1即」は5即未満なので未掲載
 - `@sub_chilll` は「10月 22,3即」なので下限の22で計上。チャネルは「ストと箱半々くらい」なのでスト11・箱11で集計
 - `@River_p823` は 🟦3・🟥2・🦌1 が箱、SGT3 がスト
+- `@2bOjmUr` は11/5の「←10月31即」（月間ランキング告知への引用）。内訳なしの自己申告なのでチャネルは謎。「10/31に1即」の可能性もあり本人確認待ち
 
 ## チャネル合計（5即以上）
 
-掲載23人・計220即。絵文字内訳に加え、パス・相席・ナイトプール等も合算。チャネル名だけの人（スト / ネト / 謎）はその即数をそのチャネルへ。
+掲載24人・計251即。絵文字内訳に加え、パス・相席・ナイトプール等も合算。チャネル名だけの人（スト / ネト / 謎）はその即数をそのチャネルへ。
 
 |  | スト | ネト | 箱 | パス | その他 | 謎 | 内訳なし | 合計 |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 即数 | 129 | 28 | 36 | 4 | 2 | 5 | 16 | 220 |
-| 構成比 | 58.6% | 12.7% | 16.4% | 1.8% | 0.9% | 2.3% | 7.3% | 100% |
-| 内訳 | 🐶35・🦁15・🦉6・SGT3・件数のみ70 | 🔥7・🍐5・📱4・⭐1・🥥1・🪩1・件数のみ9 | 📦26・🦾4・🟦3・🟥2・🦌1 | パス4 | 🈴🦊2 | 件数のみ5 | - |  |
+| 即数 | 129 | 28 | 36 | 4 | 2 | 36 | 16 | 251 |
+| 構成比 | 51.4% | 11.2% | 14.3% | 1.6% | 0.8% | 14.3% | 6.4% | 100% |
+| 内訳 | 🐶35・🦁15・🦉6・SGT3・件数のみ70 | 🔥7・🍐5・📱4・⭐1・🥥1・🪩1・件数のみ9 | 📦26・🦾4・🟦3・🟥2・🦌1 | パス4 | 🈴🦊2 | 件数のみ36 | - |  |
 
 ## 2026年10月（5即以上）
 
 | # | account | 表示名 | 即数 | チャネル（即数が多い順） | 根拠 | 連続 |
 |---|---------|--------|-----:|----------|------|------|
-| 1 | @sub_chilll | あつ代表 | 22 | スト（11）、箱（📦11） | [link](https://x.com/sub_chilll/status/2118029156185448713) | 5即3ヶ月 |
-| 2 | @itomakoto_pua | 伊藤誠@前垢🧊 | 20 | スト（20） | [link](https://x.com/itomakoto_pua/status/2116672217924964697) | - |
-| 3 | @ururunpua | うるるん | 16 | スト（🦁11）、その他（4）、箱（🦾1） | [link](https://x.com/ururunpua/status/2117049501064331768) | - |
-| 4 | @bookmaker_2015 | とも@🐙遠征9/18-20 | 14 | スト（🐶11・🦉2・🦁1） | [link](https://x.com/bookmaker_2015/status/2116502986205929971) | 5即10ヶ月 |
-| 5 | @kimu__himitsu2 | 夜神月(旧ナンパ版デスドル)@東京ストナン会 | 14 | スト（🐶11・🦁2）、ネト（⭐️1） | [link](https://x.com/kimu__himitsu2/status/2116510959535857979) | - |
-| 6 | @inichang10 | 亡霊 | 13（🎃のみ） | スト（13） | [link](https://x.com/inichang10/status/2116592105569354180) | - |
-| 7 | @yohaku_x | 余白マリオ | 12（🎃のみ） | スト（🐶12） | [link](https://x.com/yohaku_x/status/2116657241042587998) | - |
-| 8 | @PUAINOKI | フランク | 9 | ネト（🍐5）、その他（2） | [link](https://x.com/PUAINOKI/status/2117096417240174744) | 5即10ヶ月 |
-| 9 | @River_p823 | フェニックス🪽＠🍚セクシーコマンドー部🍚 | 9 | 箱（🟦3・🟥2・🦌1）、スト（SGT3） | [link](https://x.com/River_p823/status/2117248853565227027) | 5即2ヶ月 |
-| 10 | @anus_asterisk | がまぐっちー🐸@味噌の別格 | 9 | ネト（📱4）、箱（📦2）、その他（2）、スト（1） | [link](https://x.com/anus_asterisk/status/2117170763690324335) | - |
-| 11 | @chiroru_pua | チロル | 8 | スト（7）、ネト（1） | [link](https://x.com/chiroru_pua/status/2116585142261354648) | 5即10ヶ月 |
-| 12 | @SFgzKAHifDvjfVu | Ren | 8 | スト、ネト | [link](https://x.com/SFgzKAHifDvjfVu/status/2116561261462999456) | 5即9ヶ月 |
-| 13 | @kimura_pua | きむら | 8 | ネト（🔥5）、箱（🦾3） | [link](https://x.com/kimura_pua/status/2116756942710546800) | 5即2ヶ月 |
-| 14 | @afRdYt8p5C75089 | ヨシムラ@ノンアル | 7（🎃のみ） | 箱（📦7） | [link](https://x.com/afRdYt8p5C75089/status/2117206900089774283) | - |
-| 15 | @10monjipua | 十文字@MBH臨時相談役 | 7 | スト（7） | [link](https://x.com/10monjipua/status/2116786243694641311) | - |
-| 16 | @ZqtfwZBx9490665 | まんじゅきっち | 7 | ネト（🔥2・🥥1・🪩1） | [link](https://x.com/ZqtfwZBx9490665/status/2116547145855852658) | 5即3ヶ月 |
-| 17 | @taku__pua | たく@東京ストナン会 | 6 | スト（6） | [link](https://x.com/taku__pua/status/2116763181393891598) | - |
-| 18 | @siofkn_pua | SIOFKN シオフキン🧂@SSB | 6（🎃のみ） | 箱（📦6） | [link](https://x.com/siofkn_pua/status/2117211798906745236) | - |
-| 19 | @motebody_pua | エース@体刺し一門関東代表 | 5 | ネト（3）、スト（🐶1） | [link](https://x.com/motebody_pua/status/2116737433098133681) | 5即10ヶ月 |
-| 20 | @cavakan_1207 | 鯖缶@wing長期🪽＆るる講習&アツスト | 5 | スト | [link](https://x.com/cavakan_1207/status/2116564088054821020) | - |
-| 21 | @MSKsecond | MSK | 5 | スト（🦉4・🦁1） | [link](https://x.com/MSKsecond/status/2116190244488061093) | - |
-| 22 | @KEI_KEI_ikogi | TAKA | 5 | 謎 | [link](https://x.com/KEI_KEI_ikogi/status/2117167655149035913) | - |
-| 23 | @oskeeeer_pua | 雄華@雄華軍団団長 | 5 | ネト（5） | [link](https://x.com/oskeeeer_pua/status/2116854594731131187) | - |
+| 1 | @2bOjmUr | ぽめ　海外放浪ニート | 31 | 謎 | [link](https://x.com/2bOjmUr/status/2118198943276573099) | - |
+| 2 | @sub_chilll | あつ代表 | 22 | スト（11）、箱（📦11） | [link](https://x.com/sub_chilll/status/2118029156185448713) | 5即3ヶ月 |
+| 3 | @itomakoto_pua | 伊藤誠@前垢🧊 | 20 | スト（20） | [link](https://x.com/itomakoto_pua/status/2116672217924964697) | - |
+| 4 | @ururunpua | うるるん | 16 | スト（🦁11）、その他（4）、箱（🦾1） | [link](https://x.com/ururunpua/status/2117049501064331768) | - |
+| 5 | @bookmaker_2015 | とも@🐙遠征9/18-20 | 14 | スト（🐶11・🦉2・🦁1） | [link](https://x.com/bookmaker_2015/status/2116502986205929971) | 5即10ヶ月 |
+| 6 | @kimu__himitsu2 | 夜神月(旧ナンパ版デスドル)@東京ストナン会 | 14 | スト（🐶11・🦁2）、ネト（⭐️1） | [link](https://x.com/kimu__himitsu2/status/2116510959535857979) | - |
+| 7 | @inichang10 | 亡霊 | 13（🎃のみ） | スト（13） | [link](https://x.com/inichang10/status/2116592105569354180) | - |
+| 8 | @yohaku_x | 余白マリオ | 12（🎃のみ） | スト（🐶12） | [link](https://x.com/yohaku_x/status/2116657241042587998) | - |
+| 9 | @PUAINOKI | フランク | 9 | ネト（🍐5）、その他（2） | [link](https://x.com/PUAINOKI/status/2117096417240174744) | 5即10ヶ月 |
+| 10 | @River_p823 | フェニックス🪽＠🍚セクシーコマンドー部🍚 | 9 | 箱（🟦3・🟥2・🦌1）、スト（SGT3） | [link](https://x.com/River_p823/status/2117248853565227027) | 5即2ヶ月 |
+| 11 | @anus_asterisk | がまぐっちー🐸@味噌の別格 | 9 | ネト（📱4）、箱（📦2）、その他（2）、スト（1） | [link](https://x.com/anus_asterisk/status/2117170763690324335) | - |
+| 12 | @chiroru_pua | チロル | 8 | スト（7）、ネト（1） | [link](https://x.com/chiroru_pua/status/2116585142261354648) | 5即10ヶ月 |
+| 13 | @SFgzKAHifDvjfVu | Ren | 8 | スト、ネト | [link](https://x.com/SFgzKAHifDvjfVu/status/2116561261462999456) | 5即9ヶ月 |
+| 14 | @kimura_pua | きむら | 8 | ネト（🔥5）、箱（🦾3） | [link](https://x.com/kimura_pua/status/2116756942710546800) | 5即2ヶ月 |
+| 15 | @afRdYt8p5C75089 | ヨシムラ@ノンアル | 7（🎃のみ） | 箱（📦7） | [link](https://x.com/afRdYt8p5C75089/status/2117206900089774283) | - |
+| 16 | @10monjipua | 十文字@MBH臨時相談役 | 7 | スト（7） | [link](https://x.com/10monjipua/status/2116786243694641311) | - |
+| 17 | @ZqtfwZBx9490665 | まんじゅきっち | 7 | ネト（🔥2・🥥1・🪩1） | [link](https://x.com/ZqtfwZBx9490665/status/2116547145855852658) | 5即3ヶ月 |
+| 18 | @taku__pua | たく@東京ストナン会 | 6 | スト（6） | [link](https://x.com/taku__pua/status/2116763181393891598) | - |
+| 19 | @siofkn_pua | SIOFKN シオフキン🧂@SSB | 6（🎃のみ） | 箱（📦6） | [link](https://x.com/siofkn_pua/status/2117211798906745236) | - |
+| 20 | @motebody_pua | エース@体刺し一門関東代表 | 5 | ネト（3）、スト（🐶1） | [link](https://x.com/motebody_pua/status/2116737433098133681) | 5即10ヶ月 |
+| 21 | @cavakan_1207 | 鯖缶@wing長期🪽＆るる講習&アツスト | 5 | スト | [link](https://x.com/cavakan_1207/status/2116564088054821020) | - |
+| 22 | @MSKsecond | MSK | 5 | スト（🦉4・🦁1） | [link](https://x.com/MSKsecond/status/2116190244488061093) | - |
+| 23 | @KEI_KEI_ikogi | TAKA | 5 | 謎 | [link](https://x.com/KEI_KEI_ikogi/status/2117167655149035913) | - |
+| 24 | @oskeeeer_pua | 雄華@雄華軍団団長 | 5 | ネト（5） | [link](https://x.com/oskeeeer_pua/status/2116854594731131187) | - |
 
-生データ 45件 / 5即以上 23件。
+生データ 46件 / 5即以上 24件。
