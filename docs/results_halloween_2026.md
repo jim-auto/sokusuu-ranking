@@ -22,14 +22,15 @@
 | 5 | @siofkn_pua | SIOFKN シオフキン🧂@SSB | 6 | [詳細](./evidence_halloween_2026.md#siofkn_pua) | 積み上げ6（10/31:6（🎩🎩）） |
 | 6 | @kuroiwa_sub | 黒 | 4 | [詳細](./evidence_halloween_2026.md#kuroiwa_sub) | 積み上げ4（10/30:1 + 10/31:3（🎩）） |
 | 7 | @rockpua_sub | リー | 4 | [詳細](./evidence_halloween_2026.md#rockpua_sub) | 積み上げ4（10/31:4） |
-| 8 | @PUAINOKI | フランク | 3 | [詳細](./evidence_halloween_2026.md#puainoki) | 積み上げ3（10/31:3（🍐即・上田パス即・こあパス即）） |
-| 9 | @itomakoto_pua | 伊藤誠@前垢🧊 | 3 | [詳細](./evidence_halloween_2026.md#itomakoto_pua) | 積み上げ3（10/30夜:2 + 10/31:1（本人明記の前夜+当日3）） |
-| 10 | @nanpasei | ヤリっくま@味噌代表 | 3 | [詳細](./evidence_halloween_2026.md#nanpasei) | 積み上げ3（10/30夜〜10/31:3） |
-| 11 | @daretodemosex | ぴえんまる＠技能実習生顔一門 | 2 | [詳細](./evidence_halloween_2026.md#daretodemosex) | 積み上げ2（10/31:2） |
-| 12 | @mabonasu_pua | マーボ茄子 | 2 | [詳細](./evidence_halloween_2026.md#mabonasu_pua) | 積み上げ2（10/31:2（うち1パス即）） |
-| 13 | @River_p823 | フェニックス🪽＠🍚セクシーコマンドー部🍚 | 2 | [詳細](./evidence_halloween_2026.md#river_p823) | 積み上げ2（10/30夜:1 + 10/31:1） |
+| 8 | @madayaluyo | ドラサム | 3 | [詳細](./evidence_halloween_2026.md#madayaluyo) | 積み上げ3（10/31:3（🎃ハット）） |
+| 9 | @PUAINOKI | フランク | 3 | [詳細](./evidence_halloween_2026.md#puainoki) | 積み上げ3（10/31:3（🍐即・上田パス即・こあパス即）） |
+| 10 | @itomakoto_pua | 伊藤誠@前垢🧊 | 3 | [詳細](./evidence_halloween_2026.md#itomakoto_pua) | 積み上げ3（10/30夜:2 + 10/31:1（本人明記の前夜+当日3）） |
+| 11 | @nanpasei | ヤリっくま@味噌代表 | 3 | [詳細](./evidence_halloween_2026.md#nanpasei) | 積み上げ3（10/30夜〜10/31:3） |
+| 12 | @daretodemosex | ぴえんまる＠技能実習生顔一門 | 2 | [詳細](./evidence_halloween_2026.md#daretodemosex) | 積み上げ2（10/31:2） |
+| 13 | @mabonasu_pua | マーボ茄子 | 2 | [詳細](./evidence_halloween_2026.md#mabonasu_pua) | 積み上げ2（10/31:2（うち1パス即）） |
+| 14 | @River_p823 | フェニックス🪽＠🍚セクシーコマンドー部🍚 | 2 | [詳細](./evidence_halloween_2026.md#river_p823) | 積み上げ2（10/30夜:1 + 10/31:1） |
 
-生データ 32件 / 2即以上 13件。
+生データ 33件 / 2即以上 14件。
 
 ## 根拠ツイート
 
